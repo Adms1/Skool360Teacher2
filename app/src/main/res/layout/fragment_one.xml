@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="0.48"
+            android:background="@drawable/calendar_line"
+            android:gravity="left|center_vertical"
+            android:paddingBottom="2dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/total_student_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="0.32"
+            android:background="@android:color/transparent"
+            android:gravity="left|center_vertical"
+            android:paddingBottom="5dp"
+
+            android:paddingTop="5dp"
+            android:text="@string/totalstudent"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.04"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/present_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_weight="1"
+            android:text="@string/present"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/absent_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_weight="1"
+            android:text="@string/absent"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/leave_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_weight="1"
+            android:text="@string/leave"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/txtNoRecords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Records Found..."
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+    <include layout="@layout/header_row" />
+    <LinearLayout
+        android:id="@+id/student_list_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/student_list"
+            android:layout_width="match_parent"
+            android:layout_height="462dp"
+            android:scrollbars="none">
+
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>

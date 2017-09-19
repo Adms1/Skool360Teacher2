@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/profile_pic_holder" />
+
+        <TextView
+            android:id="@+id/student_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="0.8"
+            android:text="@string/student_name"
+            android:textAlignment="textStart"
+            android:textColor="@color/black" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/present_chk"
+                style="@style/Material.Drawable.CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="0.23"
+                android:tag="1"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/absent_chk"
+                style="@style/Material.Drawable.CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="0.07"
+                android:tag="0"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/leave_chk"
+                style="@style/Material.Drawable.CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="0.07"
+                android:tag="-1"
+                android:textAlignment="center" />
+        </RadioGroup>
+    </LinearLayout>
+</LinearLayout>
