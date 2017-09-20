@@ -1,6 +1,7 @@
 package com.anandniketan.skool360teacher.Utility;
 
 import com.anandniketan.skool360teacher.Models.LoginModel;
+import com.anandniketan.skool360teacher.Models.UserProfileModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,9 @@ public class AppConfiguration {
 
     public static String GetStaffLogin = "StaffLogin";
     public static String GetStaffAttendence = "StaffAttendence";
-    public static String GetInsertAttendance ="InsertAttendance";
-    public static ArrayList<LoginModel.ClassDetail> rows = new ArrayList<LoginModel.ClassDetail>();
+    public static String GetInsertAttendance = "InsertAttendance";
+    public static String GetStaffProfile = "StaffProfile";
+
+
+    public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();
 }

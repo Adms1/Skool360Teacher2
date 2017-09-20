@@ -181,6 +181,11 @@ public class DashBoardActivity extends FragmentActivity {
     public void displayView(int position) {
         switch (position) {
             case 0:
+                fragment = new HomeFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
+            case 1:
                 fragment = new AttendanceFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);

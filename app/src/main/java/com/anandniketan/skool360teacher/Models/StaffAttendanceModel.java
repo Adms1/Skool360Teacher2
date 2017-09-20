@@ -99,7 +99,7 @@ public class StaffAttendanceModel {
             this.studentList = studentList;
         }
 
-        public class StudentDetails {
+        public  class StudentDetails {
             private String StudentID;
             private String StudentName;
             private String StudentImage;
@@ -160,6 +160,6 @@ public class StaffAttendanceModel {
             }
         }
 
-
     }
+
 }

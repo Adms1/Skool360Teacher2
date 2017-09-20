@@ -45,11 +45,11 @@ public class AttendanceFragment extends Fragment {
         return rootView;
 
     }
+
     public void init() {
 //Initializing the tablayout
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
         setupViewPager(viewPager);
-
 
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabLayout);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -62,14 +62,12 @@ public class AttendanceFragment extends Fragment {
 
         Pager adapter = new Pager(getActivity().getSupportFragmentManager());
         LayoutInflater inflator = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
         for (int i = 0; i < AppConfiguration.rows.size(); i++) {
-            Log.d("size",""+AppConfiguration.rows.size());
+            Log.d("size", "" + AppConfiguration.rows.size());
             OneFragment fView = new OneFragment();
             View view = fView.getView();
 
-            adapter.addFrag(fView, String.valueOf(AppConfiguration.rows.get(i).getClasses()));
+            adapter.addFrag(fView, String.valueOf(AppConfiguration.rows.get(i).getClasses() + "-" + AppConfiguration.rows.get(i).getStandard()));
         }
 
         viewPager.setAdapter(adapter);

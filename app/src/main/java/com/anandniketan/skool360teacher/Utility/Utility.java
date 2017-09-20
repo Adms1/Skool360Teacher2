@@ -60,7 +60,7 @@ public class Utility {
     public static String getTodaysDate() {
         final Calendar calendar = Calendar.getInstance();
         int yy = calendar.get(Calendar.YEAR);
-        int mm = calendar.get(Calendar.MONTH) + 1;
+        int mm = calendar.get(Calendar.MONTH)+1;
         int dd = calendar.get(Calendar.DAY_OF_MONTH);
 
 

@@ -1,14 +1,12 @@
 package com.anandniketan.skool360teacher.Fragment;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +18,14 @@ import android.widget.TextView;
 import com.anandniketan.skool360teacher.Adapter.AttendanceAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetStaffAttendanceAsyncTask;
 import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
+import com.anandniketan.skool360teacher.Models.UserProfileModel;
 import com.anandniketan.skool360teacher.R;
+import com.anandniketan.skool360teacher.Utility.AppConfiguration;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
     private DatePickerDialog datePickerDialog;
     DatePickerDialog.OnDateChangedListener startDate_Listener, Receive_Listener;
     int Year, Month, Day;
+    Calendar calendar;
     int mYear, mMonth, mDay;
     private TextView total_student_txt, present_txt, absent_txt, leave_txt, txtNoRecords;
     private LinearLayout student_list_linear;
@@ -50,7 +52,9 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
     private ArrayList<StaffAttendanceModel> staffattendanceModels = new ArrayList<>();
     AttendanceAdapter attendanceAdapter = null;
     List<String> listDataHeader;
+    List<StaffAttendanceModel.AttendanceDetails.StudentDetails> Rowchild;
     HashMap<String, ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>> listDataChild;
+    String stdid, clsid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,10 +65,17 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
         init();
         setListner();
         setGetstaffAttendanceDetail();
+
         return rootView;
     }
 
     public void init() {
+
+        calendar = Calendar.getInstance();
+        Year = calendar.get(Calendar.YEAR);
+        Month = calendar.get(Calendar.MONTH);
+        Day = calendar.get(Calendar.DAY_OF_MONTH);
+
         start_date = (Button) rootView.findViewById(R.id.start_date);
         total_student_txt = (TextView) rootView.findViewById(R.id.total_student_txt);
         present_txt = (TextView) rootView.findViewById(R.id.present_txt);
@@ -76,6 +87,12 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
         student_list = (ListView) rootView.findViewById(R.id.student_list);
 
         start_date.setText(Utility.getTodaysDate());
+        for (int i = 0; i < AppConfiguration.rows.size(); i++) {
+            stdid = AppConfiguration.rows.get(i).getStandardID();
+            clsid = AppConfiguration.rows.get(i).getClassID();
+        }
+
+
     }
 
     public void setListner() {
@@ -85,12 +102,16 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
             @Override
             public void onClick(View v) {
                 datePickerDialog = DatePickerDialog.newInstance(OneFragment.this, Year, Month, Day);
-                datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(false);
-                datePickerDialog.setAccentColor(Color.parseColor("#009688"));
-                datePickerDialog.setTitle("Select Date From DatePickerDialog");
-                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
 
+                datePickerDialog.setThemeDark(false);
+
+                datePickerDialog.showYearPickerFirst(false);
+
+                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+
+                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+
+                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
     }
@@ -114,6 +135,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
         if (mMonth < 10) {
             m = "0" + m;
         }
+
         start_date.setText(d + "/" + m + "/" + y);
 
     }
@@ -132,8 +154,8 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
                         params.put("AttDate", start_date.getText().toString());
-                        params.put("StdID", Utility.getPref(mContext, "StandardID"));
-                        params.put("ClsID", Utility.getPref(mContext, "ClassID"));
+                        params.put("StdID", stdid);
+                        params.put("ClsID", clsid);
 
                         getstaffAttendanceAsyncTask = new GetStaffAttendanceAsyncTask(params);
                         staffattendanceModels = getstaffAttendanceAsyncTask.execute().get();
@@ -171,17 +193,23 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
         leave_txt.setText(Html.fromHtml("Leave :" + "<font color='#ff9623'>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotalLeave()));
 
         listDataHeader = new ArrayList<String>();
+        Rowchild = new ArrayList<>();
+
         listDataChild = new HashMap<String, ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>>();
 
-        for(int i = 0;i < staffattendanceModels.get(0).getAttendanceList().size();i++){
+        for (int i = 0; i < staffattendanceModels.get(0).getAttendanceList().size(); i++) {
             listDataHeader.add(staffattendanceModels.get(0).getAttendanceList().get(i).getClassID());
-            ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails> rows = new ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>();;
-            for(int j = 0;j < staffattendanceModels.get(0).getAttendanceList().get(i).getStudentList().size();j++){
+            ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails> rows = new ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>();
+
+            for (int j = 0; j < staffattendanceModels.get(0).getAttendanceList().get(i).getStudentList().size(); j++) {
 
                 rows.add(staffattendanceModels.get(0).getAttendanceList().get(i).getStudentList().get(j));
-
+                Log.d("rows", "" + rows.size());
+                Rowchild.add(rows.get(j));
+                Log.d("Rowchild", "" + Rowchild.size());
             }
             listDataChild.put(listDataHeader.get(i), rows);
+            Log.d("listtDataChild", "" + listDataChild.size());
         }
 
 

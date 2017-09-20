@@ -32,7 +32,7 @@
                 android:background="@drawable/edit_line"
                 android:drawableLeft="@drawable/user"
                 android:hint="@string/UserName"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/editTextcolor"
                 android:textColorHint="@color/editTextcolor"
                 android:textSize="14dp" />
@@ -41,17 +41,18 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/TextLabel">
+            android:theme="@style/TextLabel"
+            android:layout_marginTop="10dp">
 
             <EditText
                 android:id="@+id/Password_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/edit_line"
                 android:drawableLeft="@drawable/password"
                 android:hint="@string/Password"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="@color/editTextcolor"
                 android:textColorHint="@color/editTextcolor"
                 android:textSize="14dp" />
@@ -68,11 +69,11 @@
         android:layout_marginLeft="26dp"
         android:layout_marginStart="26dp"
         android:button="@drawable/checkbox_selector"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="Remember Credentials"
         android:textAlignment="center"
         android:textColor="@color/editTextcolor"
-        android:textSize="12dp"
+        android:textSize="13dp"
         android:textStyle="bold" />
 
 

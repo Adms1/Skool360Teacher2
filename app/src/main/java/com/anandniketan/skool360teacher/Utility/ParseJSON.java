@@ -6,6 +6,7 @@ import android.util.Log;
 import com.anandniketan.skool360teacher.Models.InsertAttendanceModel;
 import com.anandniketan.skool360teacher.Models.LoginModel;
 import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
+import com.anandniketan.skool360teacher.Models.UserProfileModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +56,58 @@ public class ParseJSON {
                     loginModel.setGetGetclassDetailsArrayList(dataArrayList);
 
                     result.add(loginModel);
+                }
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ArrayList<UserProfileModel> parseUserProfileJson(String responseString) {
+        ArrayList<UserProfileModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            UserProfileModel userProfileModel = null;
+
+            if (data_load_basket.toString().equals("True")) {
+
+
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                for (int a = 0; a < jsonMainNode.length(); a++) {
+                    userProfileModel = new UserProfileModel();
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
+                    userProfileModel.setStaffID(jsonChildNode.getString("StaffID"));
+                    userProfileModel.setEmp_Name(jsonChildNode.getString("Emp_Name"));
+                    userProfileModel.setEmp_Code(jsonChildNode.getString("Emp_Code"));
+                    userProfileModel.setDepratment(jsonChildNode.getString("Depratment"));
+                    userProfileModel.setDesignation(jsonChildNode.getString("Designation"));
+                    userProfileModel.setEmailID(jsonChildNode.getString("EmailID"));
+                    userProfileModel.setMobile(jsonChildNode.getString("Mobile"));
+                    userProfileModel.setImage(jsonChildNode.getString("Image"));
+
+                    UserProfileModel.ClassDetail data = null;
+                    ArrayList<UserProfileModel.ClassDetail> dataArrayList = new ArrayList<>();
+                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("ClassDetail");
+                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
+                        data = userProfileModel.new ClassDetail();
+                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
+                        data.setClassID(jsonChildNode1.getString("ClassID"));
+                        data.setStandardID(jsonChildNode1.getString("StandardID"));
+                        data.setStandard(jsonChildNode1.getString("Standard"));
+                        data.setClasses(jsonChildNode1.getString("Class"));
+                        dataArrayList.add(data);
+                    }
+                    userProfileModel.setGetclassDetailsArrayList(dataArrayList);
+
+                    result.add(userProfileModel);
                 }
             } else {
                 //invalid login

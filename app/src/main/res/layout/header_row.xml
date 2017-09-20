@@ -36,7 +36,6 @@
             android:layout_width="49dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-
             android:gravity="center"
             android:padding="5dp"
             android:text="L"

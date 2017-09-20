@@ -26,7 +26,8 @@
             android:layout_weight="0.48"
             android:background="@drawable/calendar_line"
             android:gravity="left|center_vertical"
-            android:paddingBottom="2dp"
+            android:paddingBottom="1dp"
+            android:layout_marginBottom="3dp"
             android:paddingLeft="30dp"
             android:paddingTop="5dp"
             android:textColor="@color/black" />
@@ -108,7 +109,7 @@
         <ListView
             android:id="@+id/student_list"
             android:layout_width="match_parent"
-            android:layout_height="462dp"
+            android:layout_height="match_parent"
             android:scrollbars="none">
 
         </ListView>

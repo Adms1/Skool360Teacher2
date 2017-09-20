@@ -6,6 +6,7 @@ import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,12 +42,14 @@ public class AttendanceAdapter extends BaseAdapter {
     private TextView student_name_txt;
     private TextView present_chk, absent_chk, leave_chk;
     ImageLoader imageLoader;
+    private List<StaffAttendanceModel.AttendanceDetails.StudentDetails> _rowchild;
     private ArrayList<StaffAttendanceModel> staffattendaceModel = new ArrayList<>();
 
     // Constructor
     public AttendanceAdapter(Context c, ArrayList<StaffAttendanceModel> staffattendaceModel) {
         mContext = c;
         this.staffattendaceModel = staffattendaceModel;
+
     }
 
 
@@ -66,8 +70,6 @@ public class AttendanceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.list_row_student_attendance, null);
@@ -76,7 +78,6 @@ public class AttendanceAdapter extends BaseAdapter {
             present_chk = (RadioButton) convertView.findViewById(R.id.present_chk);
             absent_chk = (RadioButton) convertView.findViewById(R.id.absent_chk);
             leave_chk = (RadioButton) convertView.findViewById(R.id.leave_chk);
-
 
             imageLoader = ImageLoader.getInstance();
             DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -94,10 +95,12 @@ public class AttendanceAdapter extends BaseAdapter {
                     .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
                     .build();
             imageLoader.init(config.createDefault(mContext));
-            imageLoader.displayImage(staffattendaceModel.get(position).getAttendanceList().get(position).getStudentList().get(position).getStudentImage(), profile_image);
-            student_name_txt.setText(staffattendaceModel.get(position).getAttendanceList().get(position).getStudentList().get(position).getStudentName());
 
 
+            for (int i = 0; i < staffattendaceModel.get(position).getAttendanceList().get(position).getStudentList().size(); i++) {
+                imageLoader.displayImage(staffattendaceModel.get(position).getAttendanceList().get(position).getStudentList().get(i).getStudentImage(), profile_image);
+                student_name_txt.setText(staffattendaceModel.get(position).getAttendanceList().get(position).getStudentList().get(i).getStudentName());
+            }
         }
         return convertView;
     }
