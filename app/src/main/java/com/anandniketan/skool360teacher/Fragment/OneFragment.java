@@ -209,7 +209,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                 Log.d("Rowchild", "" + Rowchild.size());
             }
             listDataChild.put(listDataHeader.get(i), rows);
-            Log.d("listtDataChild", "" + listDataChild.size());
+//            Log.d("listtDataChild", "" + listDataChild.size());
         }
 
 
