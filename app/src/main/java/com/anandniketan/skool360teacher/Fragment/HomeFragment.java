@@ -10,10 +10,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -24,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
+import com.anandniketan.skool360teacher.Activities.MyBounceInterpolator;
 import com.anandniketan.skool360teacher.Adapter.ImageAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetStaffProfileAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.LoginAsyncTask;
@@ -32,7 +36,7 @@ import com.anandniketan.skool360teacher.Models.UserProfileModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.AppConfiguration;
 import com.anandniketan.skool360teacher.Utility.Utility;
-import com.anandniketan.skool360teacher.databinding.FragmentHomeBinding;
+
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -49,7 +53,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding bindinghome;
     private View rootView;
     private Button btnMenu, btn_notification, menu_linear;
     private GridView grid_view;
@@ -79,7 +82,7 @@ public class HomeFragment extends Fragment {
         initViews();
         setListners();
         if (Utility.isNetworkConnected(mContext)) {
-        getUserProfile();
+            getUserProfile();
         } else {
             Utility.ping(mContext, "Network not available");
 
@@ -92,7 +95,7 @@ public class HomeFragment extends Fragment {
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         grid_view = (GridView) rootView.findViewById(R.id.grid_view);
         grid_view.setAdapter(new ImageAdapter(mContext));
-        grid_view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.bounce));
+//        grid_view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.bounce));
         student_name_txt = (TextView) rootView.findViewById(R.id.student_name_txt);
         student_classname_txt = (TextView) rootView.findViewById(R.id.student_classname_txt);
         header = (LinearLayout) rootView.findViewById(R.id.header);
@@ -114,6 +117,16 @@ public class HomeFragment extends Fragment {
                 .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
                 .build();
         imageLoader.init(config.createDefault(mContext));
+
+        final Animation myAnim = AnimationUtils.loadAnimation(mContext, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+
+        grid_view.startAnimation(myAnim);
+
+
     }
 
     //change Megha 04-09-2017
@@ -140,50 +153,59 @@ public class HomeFragment extends Fragment {
         menu_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (flag == false) {
-                    header.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
-                    flag = true;
-                }else{
-                    header.setLayoutParams(new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
-                }
+//                LinearLayoutCompat.LayoutParams params = (LinearLayoutCompat.LayoutParams) header.getLayoutParams();
+//// Changes the height and width to the specified *pixels*
+//
+//                if (flag == false) {
+//                    params.height = 100;
+//                    params.width = 100;
+//                    header.setLayoutParams(params);
+//                    flag = true;
+//                } else {
+//                    params.height = 50;
+//                    params.width = 100;
+//                    header.setLayoutParams(params);
+//                    flag = false;
+//                }
             }
         });
     }
 
     public void getUserProfile() {
 
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage("Please wait...");
-            progressDialog.show();
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("StaffID", Utility.getPref(mContext, "StaffID"));
-                        getStaffProfileAsyncTask = new GetStaffProfileAsyncTask(params);
-                        userProfileModels = getStaffProfileAsyncTask.execute().get();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                                if (userProfileModels.size() > 0) {
-                                    fillData();
-                                }
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    HashMap<String, String> params = new HashMap<String, String>();
+                    params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+                    getStaffProfileAsyncTask = new GetStaffProfileAsyncTask(params);
+                    userProfileModels = getStaffProfileAsyncTask.execute().get();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                            if (userProfileModels.size() > 0) {
+                                fillData();
                             }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }).start();
+            }
+        }).start();
 
     }
 
     public void fillData() {
+        AppConfiguration.rows.clear();
         if (userProfileModels.get(0).getImage().equalsIgnoreCase("")) {
             imageLoader.displayImage(String.valueOf(R.drawable.profile_pic_holder), profile_image);
         } else {
@@ -195,8 +217,7 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < userProfileModels.get(0).getGetclassDetailsArrayList().size(); i++) {
             AppConfiguration.rows.add(userProfileModels.get(0).getGetclassDetailsArrayList().get(i));
         }
-
-
     }
+
 }
 

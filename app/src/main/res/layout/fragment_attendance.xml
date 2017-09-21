@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:paddingTop="5dp">
@@ -18,7 +18,7 @@
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
             android:background="@drawable/menu_btn_blue" />
 
         <TextView
@@ -53,20 +53,25 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/orange"
             android:minHeight="?attr/actionBarSize"
-           app:tabSelectedTextColor="@color/editTextcolor"
             app:tabIndicatorColor="@color/editTextcolor"
-            app:tabTextColor="@color/editTextcolor"
             app:tabIndicatorHeight="5dp"
-            />
+            app:tabMaxWidth="0dp"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/editTextcolor"
+            app:tabTextColor="@color/editTextcolor" />
          
+
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="3dp"
+            android:scrollbars="vertical" />
     </LinearLayout>
 
 

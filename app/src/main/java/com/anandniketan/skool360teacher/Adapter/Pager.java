@@ -3,6 +3,9 @@ package com.anandniketan.skool360teacher.Adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
+
+import com.anandniketan.skool360teacher.Utility.AppConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,8 @@ import java.util.List;
 public class Pager extends FragmentStatePagerAdapter {
     //integer to count number of tabs
     private final List<Fragment> mFragmentList;
+    private final List<String> getmFragmentstdid;
+    private final List<String> getmFragmentclsid;
     private final List<String> mFragmentTitleList;
 
     //Constructor to the class
@@ -21,6 +26,8 @@ public class Pager extends FragmentStatePagerAdapter {
         super(fm);
         mFragmentList = new ArrayList<>();
         mFragmentTitleList = new ArrayList<>();
+        getmFragmentstdid = new ArrayList<>();
+        getmFragmentclsid = new ArrayList<>();
     }
 
     public Fragment getItem(int position) {
@@ -34,15 +41,20 @@ public class Pager extends FragmentStatePagerAdapter {
         return mFragmentList.size();
     }
 
-    public void addFrag(Fragment fragment, String title) {
+    public void addFrag(Fragment fragment, String title, String studentid, String classid) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
+        getmFragmentstdid.add(studentid);
+        getmFragmentclsid.add(classid);
+
+        Log.d("studentid", String.valueOf(getmFragmentstdid.add(studentid)));
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
     }
+
 
 }
 

@@ -44,4 +44,7 @@ public class AppConfiguration {
 
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();
+    public static String stdid;
+    public static String clsid;
+
 }

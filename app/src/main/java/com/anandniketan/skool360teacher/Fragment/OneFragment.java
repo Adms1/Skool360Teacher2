@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
     List<String> listDataHeader;
     List<StaffAttendanceModel.AttendanceDetails.StudentDetails> Rowchild;
     HashMap<String, ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>> listDataChild;
-    String stdid, clsid;
+    private ImageView insert_attendance_img;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,14 +86,9 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
 
         student_list_linear = (LinearLayout) rootView.findViewById(R.id.student_list_linear);
         student_list = (ListView) rootView.findViewById(R.id.student_list);
-
+        insert_attendance_img = (ImageView) rootView.findViewById(R.id.insert_attendance_img);
         start_date.setText(Utility.getTodaysDate());
-        for (int i = 0; i < AppConfiguration.rows.size(); i++) {
-            stdid = AppConfiguration.rows.get(i).getStandardID();
-            clsid = AppConfiguration.rows.get(i).getClassID();
-        }
-
-
+        setUserVisibleHint(false);
     }
 
     public void setListner() {
@@ -102,16 +98,17 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
             @Override
             public void onClick(View v) {
                 datePickerDialog = DatePickerDialog.newInstance(OneFragment.this, Year, Month, Day);
-
                 datePickerDialog.setThemeDark(false);
-
                 datePickerDialog.showYearPickerFirst(false);
-
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-
                 datePickerDialog.setTitle("Select Date From DatePickerDialog");
-
                 datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
+            }
+        });
+        insert_attendance_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InsertAttendance();
             }
         });
     }
@@ -154,8 +151,8 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
                         params.put("AttDate", start_date.getText().toString());
-                        params.put("StdID", stdid);
-                        params.put("ClsID", clsid);
+                        params.put("StdID","8");//AppConfiguration.stdid
+                        params.put("ClsID",  "28");//AppConfiguration.clsid
 
                         getstaffAttendanceAsyncTask = new GetStaffAttendanceAsyncTask(params);
                         staffattendanceModels = getstaffAttendanceAsyncTask.execute().get();
@@ -169,9 +166,11 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                                     attendanceAdapter = new AttendanceAdapter(getActivity(), staffattendanceModels);
                                     student_list.setAdapter(attendanceAdapter);
                                     student_list.deferNotifyDataSetChanged();
+                                    insert_attendance_img.setVisibility(View.VISIBLE);
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecords.setVisibility(View.VISIBLE);
+                                    insert_attendance_img.setVisibility(View.GONE);
                                 }
                             }
                         });
@@ -212,6 +211,79 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
 //            Log.d("listtDataChild", "" + listDataChild.size());
         }
 
+
+    }
+
+    public void InsertAttendance() {
+        final ArrayList<String> id = new ArrayList<>();
+        final ArrayList<String> status = new ArrayList<>();
+        final ArrayList<String> studid = new ArrayList<>();
+
+        ArrayList<StaffAttendanceModel> array = attendanceAdapter.getData();
+        ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails> StudentArray = array.get(0).getAttendanceList().get(0).getStudentList();
+        for (int i = 0; i < StudentArray.size(); i++) {
+            id.add(StudentArray.get(i).getAttendanceID());
+            status.add(StudentArray.get(i).getAttendenceStatus());
+            studid.add(StudentArray.get(i).getStudentID());
+
+            Log.d("AttendanceID", id.toString());
+            Log.d("statusID", status.toString());
+            Log.d("studID", studid.toString());
+
+//            if (Utility.isNetworkConnected(mContext)) {
+//                progressDialog = new ProgressDialog(mContext);
+//                progressDialog.setMessage("Please Wait...");
+//                progressDialog.setCancelable(false);
+//                progressDialog.show();
+//
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            HashMap<String, String> params = new HashMap<String, String>();
+//                            params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+//                            params.put("StandardID","");
+//                            params.put("ClassID", "");
+//                            params.put("Date", start_date.getText().toString());
+//                            params.put("Comment", "test");
+//                            params.put("AttendacneStatus", String.valueOf(status));
+//                            params.put("CurrantDate", Utility.getTodaysDate());
+//                            params.put("StudentID",String.valueOf(studid));
+//                            params.put("AttendanceID", String.valueOf(id));
+//
+//
+//                            getstaffAttendanceAsyncTask = new GetStaffAttendanceAsyncTask(params);
+//                            staffattendanceModels = getstaffAttendanceAsyncTask.execute().get();
+//                            getActivity().runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    progressDialog.dismiss();
+//                                    if (staffattendanceModels.size() > 0) {
+//                                        txtNoRecords.setVisibility(View.GONE);
+//                                        prepareList();
+//                                        attendanceAdapter = new AttendanceAdapter(getActivity(), staffattendanceModels);
+//                                        student_list.setAdapter(attendanceAdapter);
+//                                        student_list.deferNotifyDataSetChanged();
+//                                        insert_attendance_img.setVisibility(View.VISIBLE);
+//                                    } else {
+//                                        progressDialog.dismiss();
+//                                        txtNoRecords.setVisibility(View.VISIBLE);
+//                                        insert_attendance_img.setVisibility(View.GONE);
+//                                    }
+//                                }
+//                            });
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }).start();
+//
+//            } else {
+//                Utility.ping(mContext, "Network not available");
+//            }
+//
+
+        }
 
     }
 

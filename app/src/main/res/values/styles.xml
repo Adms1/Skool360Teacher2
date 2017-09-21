@@ -20,4 +20,10 @@
         <item name="colorControlNormal">@color/editTextcolor</item>
         <item name="colorControlActivated">@color/editTextcolor</item>
     </style>
+
+    <style name="CheckBoxTheme" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">#d3d3d3</item>
+        <item name="colorControlActivated">#a4c639</item>
+    </style>
+
 </resources>

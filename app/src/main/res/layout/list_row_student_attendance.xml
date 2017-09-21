@@ -28,55 +28,94 @@
             android:layout_gravity="center|center_horizontal"
             android:layout_marginLeft="1dp"
             android:layout_marginTop="1dp"
-            android:layout_weight="4.70"
+            android:layout_weight="4.80"
             android:padding="5dp"
             android:text="@string/student_name"
+            android:textSize="15dp"
             android:textAlignment="textStart"
             android:textColor="@color/black" />
 
-        <RadioGroup
+        <CheckBox
+            android:id="@+id/present_chk"
+            style="@style/Material.Drawable.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:padding="5dp"
+            android:textAlignment="center" />
 
-            <RadioButton
-                android:id="@+id/present_chk"
-                style="@style/Material.Drawable.CheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|center_horizontal"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="1dp"
-                android:layout_weight="1"
-                android:tag="1"
-                android:padding="5dp"
-                android:textAlignment="center" />
+        <CheckBox
+            android:id="@+id/absent_chk"
+            style="@style/Material.Drawable.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:tag="0"
+            android:padding="5dp"
+            android:textAlignment="center"/>
 
-            <RadioButton
-                android:id="@+id/absent_chk"
-                style="@style/Material.Drawable.CheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|center_horizontal"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="1dp"
-                android:layout_weight="1"
-                android:tag="0"
-                android:padding="5dp"
-                android:textAlignment="center" />
+        <CheckBox
+            android:id="@+id/leave_chk"
+            style="@style/Material.Drawable.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:tag="-1"
+            android:padding="5dp"
+            android:textAlignment="center" />
 
-            <RadioButton
-                android:id="@+id/leave_chk"
-                style="@style/Material.Drawable.CheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|center_horizontal"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="1dp"
-                android:layout_weight="1"
-                android:tag="-1"
-                android:padding="5dp"
-                android:textAlignment="center" />
-        </RadioGroup>
+
+
+        <!--<RadioGroup-->
+            <!--android:id="@+id/attendancechk"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<RadioButton-->
+                <!--android:id="@+id/present_chk"-->
+                <!--style="@style/Material.Drawable.CheckBox"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="center|center_horizontal"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginTop="1dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:tag="1"-->
+                <!--android:padding="5dp"-->
+                <!--android:textAlignment="center" />-->
+
+            <!--<RadioButton-->
+                <!--android:id="@+id/absent_chk"-->
+                <!--style="@style/Material.Drawable.CheckBox"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="center|center_horizontal"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginTop="1dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:tag="0"-->
+                <!--android:padding="5dp"-->
+                <!--android:textAlignment="center" />-->
+
+            <!--<RadioButton-->
+                <!--android:id="@+id/leave_chk"-->
+                <!--style="@style/Material.Drawable.CheckBox"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="center|center_horizontal"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginTop="1dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:tag="-1"-->
+                <!--android:padding="5dp"-->
+                <!--android:textAlignment="center" />-->
+        <!--</RadioGroup>-->
     </LinearLayout>
 </LinearLayout>

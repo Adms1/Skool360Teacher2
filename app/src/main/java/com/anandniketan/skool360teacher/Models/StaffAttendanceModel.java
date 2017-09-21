@@ -99,13 +99,17 @@ public class StaffAttendanceModel {
             this.studentList = studentList;
         }
 
-        public  class StudentDetails {
+        public class StudentDetails {
             private String StudentID;
             private String StudentName;
             private String StudentImage;
             private String AttendanceID;
             private String AttendenceStatus;
             private String Comment;
+            private boolean selected;
+            private boolean absent_selected;
+            private boolean leave_Selected;
+
 
             public StudentDetails() {
             }
@@ -157,6 +161,31 @@ public class StaffAttendanceModel {
 
             public void setComment(String comment) {
                 Comment = comment;
+            }
+
+            public boolean isSelected() {
+                return selected;
+            }
+
+            public void setSelected(boolean selected) {
+                this.selected = selected;
+            }
+
+
+            public boolean isAbsent_selected() {
+                return absent_selected;
+            }
+
+            public void setAbsent_selected(boolean absent_selected) {
+                this.absent_selected = absent_selected;
+            }
+
+            public boolean isLeave_Selected() {
+                return leave_Selected;
+            }
+
+            public void setLeave_Selected(boolean leave_Selected) {
+                this.leave_Selected = leave_Selected;
             }
         }
 

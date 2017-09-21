@@ -33,6 +33,7 @@
                 android:drawableLeft="@drawable/user"
                 android:hint="@string/UserName"
                 android:padding="10dp"
+                android:maxLines="1"
                 android:textColor="@color/editTextcolor"
                 android:textColorHint="@color/editTextcolor"
                 android:textSize="14dp" />
@@ -52,6 +53,7 @@
                 android:background="@drawable/edit_line"
                 android:drawableLeft="@drawable/password"
                 android:hint="@string/Password"
+                android:maxLines="1"
                 android:padding="10dp"
                 android:textColor="@color/editTextcolor"
                 android:textColorHint="@color/editTextcolor"
