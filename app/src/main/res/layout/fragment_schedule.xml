@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnBackAttendance"
+                android:id="@+id/btnBackSchedule"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentBottom="true"
@@ -77,49 +77,10 @@
             android:layout_toLeftOf="@+id/btnMenu"
             android:layout_toStartOf="@+id/btnMenu"
             android:gravity=""
-            android:text="ATTENDANCE"
+            android:text="SCHEDULE"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-
-        <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="65dp"-->
-        <!--android:background="@drawable/hedar_1">-->
-
-        <!--<Button-->
-        <!--android:id="@+id/btnMenu"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_marginTop="1dp"-->
-        <!--android:background="@drawable/menu_btn_blue" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="25dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="2dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:text="ATTENDANCE"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:textSize="16sp"-->
-        <!--android:textStyle="bold" />-->
-
-        <!--<Button-->
-        <!--android:id="@+id/btnBackAttendance"-->
-        <!--android:layout_width="15dp"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_marginBottom="5dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:background="@drawable/back_btn" />-->
-
-        <!--</RelativeLayout>-->
 
         <LinearLayout
             android:id="@+id/main_layout"
@@ -128,12 +89,13 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
+                android:id="@+id/tabLayout_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
                 android:background="@color/orange"
                 android:minHeight="?attr/actionBarSize"
+                app:tabGravity="fill"
                 app:tabIndicatorColor="@color/editTextcolor"
                 app:tabIndicatorHeight="5dp"
                 app:tabMaxWidth="0dp"

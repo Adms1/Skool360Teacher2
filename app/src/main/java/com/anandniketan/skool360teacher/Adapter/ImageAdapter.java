@@ -27,7 +27,7 @@ public class ImageAdapter extends BaseAdapter {
     };
 
     public String[] mThumbNames = {"Schedule", "Subjects", "Timetable", "Attendence", "LessonPlan", "HomeWork",
-            "Test/Syllabus", "Marks", "Ptm"};
+            "Test/Syllabus", "Marks", "PTM"};
 
     // Constructor
     public ImageAdapter(Context c) {

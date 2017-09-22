@@ -1,11 +1,9 @@
 package com.anandniketan.skool360teacher.Utility;
 
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
 import com.anandniketan.skool360teacher.Models.InsertAttendanceModel;
 import com.anandniketan.skool360teacher.Models.LoginModel;
 import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
+import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.Models.UserProfileModel;
 
 import org.json.JSONArray;
@@ -204,5 +202,40 @@ public class ParseJSON {
         }
 
         return result;
+    }
+
+    public static ArrayList<TeacherTodayScheduleModel> parseTeacherTodayscheduleJson(String responseString) {
+        ArrayList<TeacherTodayScheduleModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            TeacherTodayScheduleModel teacherTodayScheduleModel = null;
+
+            if (data_load_basket.toString().equals("True")) {
+
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                for (int a = 0; a < jsonMainNode.length(); a++) {
+                    teacherTodayScheduleModel = new TeacherTodayScheduleModel();
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
+                    teacherTodayScheduleModel.setLecture(jsonChildNode.getString("StaffID"));
+                    teacherTodayScheduleModel.setStandard(jsonChildNode.getString("Emp_Name"));
+                    teacherTodayScheduleModel.setClassname(jsonChildNode.getString("Emp_Code"));
+                    teacherTodayScheduleModel.setSubject(jsonChildNode.getString("DeviceId"));
+                    teacherTodayScheduleModel.setTiming(jsonChildNode.getString("DesignationID"));
+
+                    result.add(teacherTodayScheduleModel);
+                }
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
     }
 }

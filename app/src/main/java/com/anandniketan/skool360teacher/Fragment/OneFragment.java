@@ -19,9 +19,7 @@ import android.widget.TextView;
 import com.anandniketan.skool360teacher.Adapter.AttendanceAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetStaffAttendanceAsyncTask;
 import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
-import com.anandniketan.skool360teacher.Models.UserProfileModel;
 import com.anandniketan.skool360teacher.R;
-import com.anandniketan.skool360teacher.Utility.AppConfiguration;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -56,6 +54,8 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
     List<StaffAttendanceModel.AttendanceDetails.StudentDetails> Rowchild;
     HashMap<String, ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>> listDataChild;
     private ImageView insert_attendance_img;
+    private LinearLayout header_linear;
+//    Recycler_adapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,6 +77,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
         Month = calendar.get(Calendar.MONTH);
         Day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        header_linear = (LinearLayout) rootView.findViewById(R.id.header_linear);
         start_date = (Button) rootView.findViewById(R.id.start_date);
         total_student_txt = (TextView) rootView.findViewById(R.id.total_student_txt);
         present_txt = (TextView) rootView.findViewById(R.id.present_txt);
@@ -151,8 +152,8 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
                         params.put("AttDate", start_date.getText().toString());
-                        params.put("StdID","8");//AppConfiguration.stdid
-                        params.put("ClsID",  "28");//AppConfiguration.clsid
+                        params.put("StdID", "8");//AppConfiguration.stdid
+                        params.put("ClsID", "28");//AppConfiguration.clsid
 
                         getstaffAttendanceAsyncTask = new GetStaffAttendanceAsyncTask(params);
                         staffattendanceModels = getstaffAttendanceAsyncTask.execute().get();
@@ -163,6 +164,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                                 if (staffattendanceModels.size() > 0) {
                                     txtNoRecords.setVisibility(View.GONE);
                                     prepareList();
+
                                     attendanceAdapter = new AttendanceAdapter(getActivity(), staffattendanceModels);
                                     student_list.setAdapter(attendanceAdapter);
                                     student_list.deferNotifyDataSetChanged();
@@ -171,6 +173,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                                     progressDialog.dismiss();
                                     txtNoRecords.setVisibility(View.VISIBLE);
                                     insert_attendance_img.setVisibility(View.GONE);
+                                    header_linear.setVisibility(View.GONE);
                                 }
                             }
                         });
@@ -186,29 +189,16 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
     }
 
     public void prepareList() {
-        total_student_txt.setText(Html.fromHtml("Total Student : " + "<font color='#1B88C8'>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotal()));
-        present_txt.setText(Html.fromHtml("Present :" + "<font color='#a4c639'>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotalPresent()));
-        absent_txt.setText(Html.fromHtml("Absent :" + "<font color='#ff0000'>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotalAbsent()));
-        leave_txt.setText(Html.fromHtml("Leave :" + "<font color='#ff9623'>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotalLeave()));
+        total_student_txt.setText(Html.fromHtml("Total Student : " + "<font color='#1B88C8'>" + "<b>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotal() + "</b>"));
+        present_txt.setText(Html.fromHtml("Present : " + "<font color='#a4c639'>" + "<b>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotalPresent() + "</b>"));
+        absent_txt.setText(Html.fromHtml("Absent : " + "<font color='#ff0000'>" + "<b>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotalAbsent() + "</b>"));
+        leave_txt.setText(Html.fromHtml("Leave : " + "<font color='#ff9623'>" + "<b>" + staffattendanceModels.get(0).getAttendanceList().get(0).getTotalLeave() + "</b>"));
 
-        listDataHeader = new ArrayList<String>();
-        Rowchild = new ArrayList<>();
 
-        listDataChild = new HashMap<String, ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>>();
-
-        for (int i = 0; i < staffattendanceModels.get(0).getAttendanceList().size(); i++) {
-            listDataHeader.add(staffattendanceModels.get(0).getAttendanceList().get(i).getClassID());
-            ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails> rows = new ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>();
-
-            for (int j = 0; j < staffattendanceModels.get(0).getAttendanceList().get(i).getStudentList().size(); j++) {
-
-                rows.add(staffattendanceModels.get(0).getAttendanceList().get(i).getStudentList().get(j));
-                Log.d("rows", "" + rows.size());
-                Rowchild.add(rows.get(j));
-                Log.d("Rowchild", "" + Rowchild.size());
-            }
-            listDataChild.put(listDataHeader.get(i), rows);
-//            Log.d("listtDataChild", "" + listDataChild.size());
+        if (!staffattendanceModels.get(0).getAttendanceList().get(0).getStudentList().get(0).getAttendenceStatus().equalsIgnoreCase("-2")) {
+            insert_attendance_img.setBackgroundResource(R.drawable.update_1);
+        } else {
+            insert_attendance_img.setBackgroundResource(R.drawable.submit);
         }
 
 

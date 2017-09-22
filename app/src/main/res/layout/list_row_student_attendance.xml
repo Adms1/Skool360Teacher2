@@ -13,9 +13,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="3dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="3dp"
             android:layout_weight=".3"
@@ -28,12 +29,12 @@
             android:layout_gravity="center|center_horizontal"
             android:layout_marginLeft="1dp"
             android:layout_marginTop="1dp"
-            android:layout_weight="4.80"
+            android:layout_weight="4.69"
             android:padding="5dp"
             android:text="@string/student_name"
-            android:textSize="15dp"
             android:textAlignment="textStart"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="15dp" />
 
         <CheckBox
             android:id="@+id/present_chk"
@@ -43,6 +44,7 @@
             android:layout_gravity="center|center_horizontal"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="1dp"
+            android:button="@drawable/custom_checkbox"
             android:padding="5dp"
             android:textAlignment="center" />
 
@@ -54,9 +56,10 @@
             android:layout_gravity="center|center_horizontal"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="1dp"
-            android:tag="0"
+            android:button="@drawable/absent_custom_checkbox"
             android:padding="5dp"
-            android:textAlignment="center"/>
+            android:tag="0"
+            android:textAlignment="center" />
 
         <CheckBox
             android:id="@+id/leave_chk"
@@ -66,56 +69,59 @@
             android:layout_gravity="center|center_horizontal"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="1dp"
-            android:tag="-1"
+            android:button="@drawable/leave_custome_checkbox"
             android:padding="5dp"
+            android:tag="-1"
             android:textAlignment="center" />
 
 
-
         <!--<RadioGroup-->
-            <!--android:id="@+id/attendancechk"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="horizontal">-->
+        <!--android:id="@+id/attendancechk"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal">-->
 
-            <!--<RadioButton-->
-                <!--android:id="@+id/present_chk"-->
-                <!--style="@style/Material.Drawable.CheckBox"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_gravity="center|center_horizontal"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginTop="1dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:tag="1"-->
-                <!--android:padding="5dp"-->
-                <!--android:textAlignment="center" />-->
+        <!--<RadioButton-->
+        <!--android:id="@+id/present_chk"-->
+        <!--style="@style/Material.Drawable.CheckBox"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center|center_horizontal"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="1dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:button="@drawable/custom_checkbox"-->
+        <!--android:padding="5dp"-->
+        <!--android:tag="1"-->
+        <!--android:textAlignment="center" />-->
 
-            <!--<RadioButton-->
-                <!--android:id="@+id/absent_chk"-->
-                <!--style="@style/Material.Drawable.CheckBox"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_gravity="center|center_horizontal"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginTop="1dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:tag="0"-->
-                <!--android:padding="5dp"-->
-                <!--android:textAlignment="center" />-->
+        <!--<RadioButton-->
+        <!--android:id="@+id/absent_chk"-->
+        <!--style="@style/Material.Drawable.CheckBox"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center|center_horizontal"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="1dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:padding="5dp"-->
+        <!--android:tag="0"-->
+        <!--android:button="@drawable/absent_custom_checkbox"-->
+        <!--android:textAlignment="center" />-->
 
-            <!--<RadioButton-->
-                <!--android:id="@+id/leave_chk"-->
-                <!--style="@style/Material.Drawable.CheckBox"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_gravity="center|center_horizontal"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginTop="1dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:tag="-1"-->
-                <!--android:padding="5dp"-->
-                <!--android:textAlignment="center" />-->
+        <!--<RadioButton-->
+        <!--android:id="@+id/leave_chk"-->
+        <!--style="@style/Material.Drawable.CheckBox"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center|center_horizontal"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginTop="1dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:padding="5dp"-->
+        <!--android:tag="-1"-->
+        <!--android:button="@drawable/leave_custome_checkbox"-->
+        <!--android:textAlignment="center" />-->
         <!--</RadioGroup>-->
     </LinearLayout>
 </LinearLayout>

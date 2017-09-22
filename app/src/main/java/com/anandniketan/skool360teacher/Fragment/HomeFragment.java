@@ -141,7 +141,13 @@ public class HomeFragment extends Fragment {
         grid_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 3) {
+                if (position == 0) {
+                    fragment = new ScheduleFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+                } else if (position == 3) {
                     fragment = new AttendanceFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()

@@ -46,8 +46,6 @@ public class Pager extends FragmentStatePagerAdapter {
         mFragmentTitleList.add(title);
         getmFragmentstdid.add(studentid);
         getmFragmentclsid.add(classid);
-
-        Log.d("studentid", String.valueOf(getmFragmentstdid.add(studentid)));
     }
 
     @Override

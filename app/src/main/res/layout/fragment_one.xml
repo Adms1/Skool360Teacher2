@@ -24,7 +24,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
-            android:layout_weight="0.48"
+            android:layout_weight="0.30"
             android:background="@drawable/calendar_line"
             android:gravity="left|center_vertical"
             android:paddingBottom="1dp"
@@ -43,10 +43,10 @@
             android:background="@android:color/transparent"
             android:gravity="left|center_vertical"
             android:paddingBottom="5dp"
-
             android:paddingTop="5dp"
             android:text="@string/totalstudent"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16dp" />
     </LinearLayout>
 
 
@@ -64,28 +64,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical"
-            android:layout_weight="0.92"
-            android:text="@string/present"
             android:layout_marginLeft="9dp"
-            android:textColor="@color/black" />
+            android:layout_weight="0.99"
+            android:text="@string/present"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/absent_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical"
+            android:layout_marginLeft="7dp"
             android:layout_weight="1"
             android:text="@string/absent"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/leave_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical"
+            android:layout_marginLeft="7dp"
             android:layout_weight="1"
             android:text="@string/leave"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16dp" />
     </LinearLayout>
 
 
@@ -100,7 +105,13 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
-    <include layout="@layout/header_row" />
+    <LinearLayout
+        android:id="@+id/header_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/header_row" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/student_list_linear"
@@ -108,15 +119,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/student_list"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="?attr/actionBarSize"-->
+        <!--android:paddingBottom="80dp"-->
+        <!--android:scrollbars="none"></android.support.v7.widget.RecyclerView>-->
+
         <ListView
             android:id="@+id/student_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="?attr/actionBarSize"
             android:paddingBottom="80dp"
-            android:scrollbars="none">
+            android:scrollbars="none" />
 
-        </ListView>
     </LinearLayout>
 
     <LinearLayout
@@ -127,11 +145,10 @@
 
         <ImageView
             android:id="@+id/insert_attendance_img"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/submit"
             android:layout_marginLeft="165dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

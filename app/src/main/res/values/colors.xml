@@ -15,4 +15,5 @@
     <color name="absent_header">#ff0000</color>
     <color name="gray">#d3d3d3</color>
     <color name="design_change_d2">#003d71</color>
+    <color name="scheduleheadertextcolor">#1791d8</color>
 </resources>
