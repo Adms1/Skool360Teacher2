@@ -41,7 +41,10 @@ public class AppConfiguration {
     public static String GetStaffAttendence = "StaffAttendence";
     public static String GetInsertAttendance = "InsertAttendance";
     public static String GetStaffProfile = "StaffProfile";
-    public static String GetTeacherTodaySchedule = "TeacherTodayScheduleModel";
+    public static String GetTeacherTodaySchedule = "TeacherTodaySchedule";
+    public static String GetTeacherAssignedSubject = "TeacherAssignedSubject";
+    public static String GetTeacherGetAssignStudentSubject = "TeacherGetAssignStudentSubject";
+    public static String GetTeacherGetTimetable = "TeacherGetTimetable";
 
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();

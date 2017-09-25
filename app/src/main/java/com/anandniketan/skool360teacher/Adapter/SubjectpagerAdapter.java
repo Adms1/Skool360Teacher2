@@ -5,21 +5,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.anandniketan.skool360teacher.Fragment.LessonplanscheduleFragment;
+import com.anandniketan.skool360teacher.Fragment.My_subjectFragment;
+import com.anandniketan.skool360teacher.Fragment.StudentAssignesubject;
 import com.anandniketan.skool360teacher.Fragment.TodayscheduleFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by admsandroid on 9/22/2017.
+ * Created by admsandroid on 9/25/2017.
  */
 
-public class SchedulepagerAdapter extends FragmentStatePagerAdapter {
+public class SubjectpagerAdapter extends FragmentStatePagerAdapter {
     //integer to count number of tabs
     int tabCount;
 
     //Constructor to the class
-    public SchedulepagerAdapter(FragmentManager fm, int tabCount) {
+    public SubjectpagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
 //Initializing tab count
         this.tabCount = tabCount;
@@ -31,10 +30,10 @@ public class SchedulepagerAdapter extends FragmentStatePagerAdapter {
 //Returning the current tabs
         switch (position) {
             case 0:
-                TodayscheduleFragment tab1 = new TodayscheduleFragment();
+                My_subjectFragment tab1 = new My_subjectFragment();
                 return tab1;
             case 1:
-                LessonplanscheduleFragment tab2 = new LessonplanscheduleFragment();
+                StudentAssignesubject tab2 = new StudentAssignesubject();
                 return tab2;
             default:
                 return null;
@@ -47,5 +46,6 @@ public class SchedulepagerAdapter extends FragmentStatePagerAdapter {
         return tabCount;
     }
 }
+
 
 

@@ -3,6 +3,9 @@ package com.anandniketan.skool360teacher.Utility;
 import com.anandniketan.skool360teacher.Models.InsertAttendanceModel;
 import com.anandniketan.skool360teacher.Models.LoginModel;
 import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
+import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
+import com.anandniketan.skool360teacher.Models.TeacherGetAssignStudentSubjectmModel;
+import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
 import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.Models.UserProfileModel;
 
@@ -26,8 +29,6 @@ public class ParseJSON {
             LoginModel loginModel = null;
 
             if (data_load_basket.toString().equals("True")) {
-
-
                 JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
                 for (int a = 0; a < jsonMainNode.length(); a++) {
                     loginModel = new LoginModel();
@@ -218,11 +219,11 @@ public class ParseJSON {
                 for (int a = 0; a < jsonMainNode.length(); a++) {
                     teacherTodayScheduleModel = new TeacherTodayScheduleModel();
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
-                    teacherTodayScheduleModel.setLecture(jsonChildNode.getString("StaffID"));
-                    teacherTodayScheduleModel.setStandard(jsonChildNode.getString("Emp_Name"));
-                    teacherTodayScheduleModel.setClassname(jsonChildNode.getString("Emp_Code"));
-                    teacherTodayScheduleModel.setSubject(jsonChildNode.getString("DeviceId"));
-                    teacherTodayScheduleModel.setTiming(jsonChildNode.getString("DesignationID"));
+                    teacherTodayScheduleModel.setLecture(jsonChildNode.getString("Lecture"));
+                    teacherTodayScheduleModel.setStandard(jsonChildNode.getString("Standard"));
+                    teacherTodayScheduleModel.setClassname(jsonChildNode.getString("classname"));
+                    teacherTodayScheduleModel.setSubject(jsonChildNode.getString("Subject"));
+                    teacherTodayScheduleModel.setTiming(jsonChildNode.getString("Timing"));
 
                     result.add(teacherTodayScheduleModel);
                 }
@@ -238,4 +239,129 @@ public class ParseJSON {
         return result;
 
     }
+
+    public static ArrayList<TeacherAssignedSubjectModel> parseTeacherAssignedSubjectJson(String responseString) {
+        ArrayList<TeacherAssignedSubjectModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            TeacherAssignedSubjectModel teacherAssignedSubjectModel = null;
+
+            if (data_load_basket.toString().equals("True")) {
+
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                for (int a = 0; a < jsonMainNode.length(); a++) {
+                    teacherAssignedSubjectModel = new TeacherAssignedSubjectModel();
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
+                    teacherAssignedSubjectModel.setSubject(jsonChildNode.getString("Subject"));
+                    teacherAssignedSubjectModel.setStandard(jsonChildNode.getString("Standard"));
+                    teacherAssignedSubjectModel.setClassname(jsonChildNode.getString("classname"));
+
+                    result.add(teacherAssignedSubjectModel);
+                }
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
+    public static ArrayList<TeacherGetAssignStudentSubjectmModel> parseStudentAssignedSubjectJson(String responseString) {
+        ArrayList<TeacherGetAssignStudentSubjectmModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            TeacherGetAssignStudentSubjectmModel teacherGetAssignStudentSubjectmModel = null;
+
+            if (data_load_basket.toString().equals("True")) {
+
+
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                for (int a = 0; a < jsonMainNode.length(); a++) {
+                    teacherGetAssignStudentSubjectmModel = new TeacherGetAssignStudentSubjectmModel();
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
+                    teacherGetAssignStudentSubjectmModel.setStudentID(jsonChildNode.getString("StudentID"));
+                    teacherGetAssignStudentSubjectmModel.setStudentName(jsonChildNode.getString("StudentName"));
+
+                    TeacherGetAssignStudentSubjectmModel.StudentSubject data = null;
+                    ArrayList<TeacherGetAssignStudentSubjectmModel.StudentSubject> dataArrayList = new ArrayList<>();
+                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("StudentSubject");
+                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
+                        data = teacherGetAssignStudentSubjectmModel.new StudentSubject();
+                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
+                        data.setSubject(jsonChildNode1.getString("Subject"));
+                        data.setSubjectID(jsonChildNode1.getString("SubjectID"));
+                        data.setCheckedStatus(jsonChildNode1.getString("CheckedStatus"));
+                        dataArrayList.add(data);
+                    }
+                    teacherGetAssignStudentSubjectmModel.setDataStudentSubjectArray(dataArrayList);
+
+                    result.add(teacherGetAssignStudentSubjectmModel);
+                }
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    public static ArrayList<TeacherGetTimetableModel> parseTeachertTimetableJson(String responseString) {
+        ArrayList<TeacherGetTimetableModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            TeacherGetTimetableModel teacherGetTimetableModel = new TeacherGetTimetableModel();
+
+            if (data_load_basket.toString().equals("True")) {
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                TeacherGetTimetableModel.TimeTable timetable = null;
+                ArrayList<TeacherGetTimetableModel.TimeTable> timetables = new ArrayList<>();
+                for (int i = 0; i < jsonMainNode.length(); i++) {
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                    timetable = teacherGetTimetableModel.new TimeTable();
+                    timetable.setDay(jsonChildNode.getString("Day"));
+
+                    JSONArray jsonMainNode1 = jsonChildNode.optJSONArray("Data");
+                    TeacherGetTimetableModel.TimeTable.TimeTableData timetableData = null;
+                    ArrayList< TeacherGetTimetableModel.TimeTable.TimeTableData> timetablesData = new ArrayList<>();
+                    for (int j = 0; j < jsonMainNode1.length(); j++) {
+                        JSONObject jsonChildNode1 = jsonMainNode1.getJSONObject(j);
+                        timetableData = timetable.new TimeTableData();
+                        timetableData.setLecture(jsonChildNode1.getString("Lecture"));
+                        timetableData.setSubject(jsonChildNode1.getString("Subject"));
+                        timetableData.setStandardClass(jsonChildNode1.getString("StandardClass"));
+                        timetableData.setProxyStatus(jsonChildNode1.getString("ProxyStatus"));
+
+                        timetablesData.add(timetableData);
+                    }
+                    timetable.setGetTimeTableData(timetablesData);
+                    timetables.add(timetable);
+                }
+                teacherGetTimetableModel.setGetTimeTable(timetables);
+                result.add(teacherGetTimetableModel);
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 }

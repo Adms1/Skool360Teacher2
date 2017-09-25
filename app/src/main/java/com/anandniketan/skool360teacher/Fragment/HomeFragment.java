@@ -147,6 +147,20 @@ public class HomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
+                } else if (position == 1) {
+                    fragment = new SubjectFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+
+                } else if (position == 2) {
+                    fragment = new TimeTableFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+
                 } else if (position == 3) {
                     fragment = new AttendanceFragment();
                     fragmentManager = getFragmentManager();

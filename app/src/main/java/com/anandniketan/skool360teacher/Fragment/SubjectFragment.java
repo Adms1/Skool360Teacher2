@@ -6,40 +6,35 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
-import com.anandniketan.skool360teacher.Adapter.Pager;
 import com.anandniketan.skool360teacher.Adapter.SchedulepagerAdapter;
+import com.anandniketan.skool360teacher.Adapter.SubjectpagerAdapter;
 import com.anandniketan.skool360teacher.R;
-import com.anandniketan.skool360teacher.Utility.AppConfiguration;
 
-import java.util.ArrayList;
 
-public class ScheduleFragment extends Fragment {
+public class SubjectFragment extends Fragment {
     private View rootView;
-    private Button btnMenu, btnBackSchedule;
+    private Button btnMenu, btnBackSubject;
 
-    private TabLayout tabLayout_schedule;
+    private TabLayout tabLayout_subject;
     private ViewPager viewPager;
     private Context mContext;
 
 
-    public ScheduleFragment() {
+    public SubjectFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
+        rootView = inflater.inflate(R.layout.fragment_subject, container, false);
         mContext = getActivity();
         init();
         setListner();
@@ -51,18 +46,18 @@ public class ScheduleFragment extends Fragment {
 //Initializing the tablayout
 
         btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
-        btnBackSchedule = (Button) rootView.findViewById(R.id.btnBackSchedule);
+        btnBackSubject = (Button) rootView.findViewById(R.id.btnBackSubject);
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
 
 
-        tabLayout_schedule = (TabLayout) rootView.findViewById(R.id.tabLayout_schedule);
-        tabLayout_schedule.addTab(tabLayout_schedule.newTab().setText("Today Schedule"),true);
-        tabLayout_schedule.addTab(tabLayout_schedule.newTab().setText(Html.fromHtml("Lesson Plan \n Schedule")));
-        tabLayout_schedule.setTabMode(TabLayout.MODE_FIXED);
-        tabLayout_schedule.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout_subject = (TabLayout) rootView.findViewById(R.id.tabLayout_subject);
+        tabLayout_subject.addTab(tabLayout_subject.newTab().setText("My Subject"),true);
+        tabLayout_subject.addTab(tabLayout_subject.newTab().setText("Student Assigned Subject"));
+        tabLayout_subject.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout_subject.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        SchedulepagerAdapter adapter = new SchedulepagerAdapter(getFragmentManager(), tabLayout_schedule.getTabCount());
+        SubjectpagerAdapter adapter = new SubjectpagerAdapter(getFragmentManager(), tabLayout_subject.getTabCount());
 //Adding adapter to pager
         viewPager.setAdapter(adapter);
 //        tabLayout_schedule.setupWithViewPager(viewPager);
@@ -75,7 +70,7 @@ public class ScheduleFragment extends Fragment {
                 DashBoardActivity.onLeft();
             }
         });
-        btnBackSchedule.setOnClickListener(new View.OnClickListener() {
+        btnBackSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment fragment = new HomeFragment();
@@ -87,8 +82,8 @@ public class ScheduleFragment extends Fragment {
         });
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(
-                tabLayout_schedule));
-        tabLayout_schedule.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                tabLayout_subject));
+        tabLayout_subject.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());

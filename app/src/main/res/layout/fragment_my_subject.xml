@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/todayschedule_header" />
+        <include layout="@layout/my_subject_header" />
     </LinearLayout>
 
     <LinearLayout
@@ -34,13 +34,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:layout_margin="1dp">
 
         <ListView
-            android:id="@+id/schedule_list"
+            android:id="@+id/subject_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="80dp"
+            android:paddingBottom="0dp"
             android:scrollbars="none" />
     </LinearLayout>
 </LinearLayout>

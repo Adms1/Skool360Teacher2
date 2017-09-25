@@ -23,6 +23,8 @@ import android.widget.RelativeLayout;
 import com.anandniketan.skool360teacher.Adapter.MenuoptionItemAdapter;
 import com.anandniketan.skool360teacher.Fragment.AttendanceFragment;
 import com.anandniketan.skool360teacher.Fragment.HomeFragment;
+import com.anandniketan.skool360teacher.Fragment.SubjectFragment;
+import com.anandniketan.skool360teacher.Fragment.TimeTableFragment;
 import com.anandniketan.skool360teacher.Models.MenuoptionItemModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
@@ -187,6 +189,16 @@ public class DashBoardActivity extends FragmentActivity {
                 break;
             case 1:
                 fragment = new AttendanceFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
+            case 2:
+                fragment = new SubjectFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
+            case 3:
+                fragment = new TimeTableFragment();
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
