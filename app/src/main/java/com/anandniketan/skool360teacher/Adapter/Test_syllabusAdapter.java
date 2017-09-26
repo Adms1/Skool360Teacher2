@@ -2,6 +2,7 @@ package com.anandniketan.skool360teacher.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SearchRecentSuggestionsProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
@@ -141,9 +142,11 @@ public class Test_syllabusAdapter extends BaseAdapter {
 
                             }
                         });
+                        String Datestr = test_syllabusModels.get(position).getTestDate();
+                        String[] spiltdate = Datestr.split("//T");
 
                         edit_test_txt.setText(Html.fromHtml("<b>Test :</b>" + test_syllabusModels.get(position).getTestName()));
-                        edit_test_date_txt.setText(Html.fromHtml("<b>Test Date :</b>" + test_syllabusModels.get(position).getTestDate()));
+                        edit_test_date_txt.setText(Html.fromHtml("<b>Test Date :</b>" + spiltdate[0]));
                         edit_test_grade_txt.setText(Html.fromHtml("<b>Grade :</b>" + test_syllabusModels.get(position).getStandardClass()));
                         edit_test_subject_txt.setText(Html.fromHtml("<b>Subject :</b>" + test_syllabusModels.get(position).getSubject()));
 
