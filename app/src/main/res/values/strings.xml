@@ -19,7 +19,10 @@
     <string name="standard">Standard</string>
     <string name="classes">Class</string>
     <string name="subject">Subject</string>
-
+    <string name="srno">Sr No.</string>
+    <string name="testname">Test Name</string>
+    <string name="grade">Grade</string>
+    <string name="edit">Edit</string>
 
 
     <string-array name="menuoption1">

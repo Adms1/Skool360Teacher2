@@ -219,6 +219,8 @@ public class AttendanceAdapter extends BaseAdapter {
                     case -1:
                         viewHolder.leave_chk.setChecked(true);
                         break;
+                    case -2:
+                        viewHolder.present_chk.setChecked(true);
                     default:
                 }
             } catch (Exception e) {

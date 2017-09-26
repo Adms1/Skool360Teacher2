@@ -11,7 +11,9 @@
         android:orientation="horizontal"
         android:paddingBottom="1dp"
         android:visibility="visible"
-        android:weightSum="5">
+        android:weightSum="5"
+        android:padding="5dp"
+        android:background="@drawable/list_line">
 
         <TextView
             android:id="@+id/lecture_txt"
@@ -19,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:text="@string/lecture"
+            android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
             android:textSize="16dp"
             android:textAlignment="center"/>
@@ -29,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.24"
             android:text="@string/timing"
+            android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
             android:textSize="16dp"
             android:textAlignment="center"/>
@@ -39,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.22"
             android:text="@string/standard"
+            android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
             android:textSize="16dp"
             android:textAlignment="center"/>
@@ -49,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.84"
             android:text="@string/classes"
+            android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
             android:textSize="16dp"
             android:textAlignment="center"/>
@@ -59,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/subject"
+            android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
             android:textSize="16dp"
             android:layout_marginRight="4dp"

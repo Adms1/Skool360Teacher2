@@ -106,6 +106,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                 datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
+
         insert_attendance_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,7 +136,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
         }
 
         start_date.setText(d + "/" + m + "/" + y);
-
+        setGetstaffAttendanceDetail();
     }
 
     public void setGetstaffAttendanceDetail() {

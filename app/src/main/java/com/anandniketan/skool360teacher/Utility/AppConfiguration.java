@@ -45,6 +45,7 @@ public class AppConfiguration {
     public static String GetTeacherAssignedSubject = "TeacherAssignedSubject";
     public static String GetTeacherGetAssignStudentSubject = "TeacherGetAssignStudentSubject";
     public static String GetTeacherGetTimetable = "TeacherGetTimetable";
+    public static String GetTeacherGetTestSyllabus="TeacherGetTestSyllabus";
 
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();

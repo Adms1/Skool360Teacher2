@@ -112,7 +112,7 @@ public class StudentAssignesubject extends Fragment {
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecords.setVisibility(View.VISIBLE);
-                                    header_linear.setVisibility(View.GONE);
+//                                    header_linear.setVisibility(View.GONE);
                                 }
                             }
                         });

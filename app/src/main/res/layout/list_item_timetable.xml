@@ -7,7 +7,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
-        android:background="@drawable/list_line">
+        android:background="@drawable/list_line"
+        android:layout_margin="5dp">
 
         <TextView
             android:id="@+id/txtLecture"
@@ -19,7 +20,8 @@
             android:layout_toLeftOf="@+id/txtSubject"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="3dp"
+            android:textAlignment="center"
             android:text="Lecture "
             android:textColor="@color/black"
             android:textSize="13dp" />
@@ -33,8 +35,9 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="3dp"
             android:text="Subject"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="13dip" />
 
@@ -48,8 +51,9 @@
             android:layout_toRightOf="@+id/txtSubject"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="3dp"
             android:text="Class"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="13dip" />
     </LinearLayout>

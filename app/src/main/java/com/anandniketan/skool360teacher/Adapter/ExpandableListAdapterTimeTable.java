@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
 import com.anandniketan.skool360teacher.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,40 +49,42 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        LayoutInflater infalInflater = null;
-        if (convertView == null) {
-            infalInflater = (LayoutInflater) this._context
+        LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (childPosition > 0) {
+
+            TeacherGetTimetableModel.TimeTable.TimeTableData currentchild = getChild(groupPosition, childPosition - 1);
             convertView = infalInflater.inflate(R.layout.list_item_timetable, null);
-        }
 
             TextView txtLecture, txtSubject, txtclass;
-
             txtLecture = (TextView) convertView.findViewById(R.id.txtLecture);
             txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
             txtclass = (TextView) convertView.findViewById(R.id.txtClass);
 
-            txtLecture.setText(getChild(groupPosition, childPosition).getLecture());
+            txtLecture.setText(currentchild.getLecture());
 
-            if (!getChild(groupPosition, childPosition).getSubject().equalsIgnoreCase("")) {
-                txtSubject.setText(getChild(groupPosition, childPosition).getSubject());
+            if (!currentchild.getSubject().equalsIgnoreCase("")) {
+                txtSubject.setText(currentchild.getSubject());
             } else {
                 txtSubject.setText("-");
             }
-            if (!getChild(groupPosition, childPosition).getStandardClass().equalsIgnoreCase("")) {
-                txtclass.setText(getChild(groupPosition, childPosition).getStandardClass());
+            if (!currentchild.getStandardClass().equalsIgnoreCase("")) {
+                txtclass.setText(currentchild.getStandardClass());
             } else {
                 txtclass.setText("-");
             }
+        }
+        else {
+            convertView = infalInflater.inflate(R.layout.timetable_header, null);
+        }
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
         return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                .size();
+                .size() + 1;
     }
-
 
     @Override
     public Object getGroup(int groupPosition) {
@@ -112,9 +116,9 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
         lblListHeader.setText(headerTitle);
 
         if (isExpanded) {
-            lblListHeader.setTextColor(R.color.present_header);
+            lblListHeader.setTextColor(_context.getResources().getColor(R.color.present_header));
         } else {
-            lblListHeader.setTextColor(R.color.orange);
+            lblListHeader.setTextColor(_context.getResources().getColor(R.color.orange));
         }
 
 
