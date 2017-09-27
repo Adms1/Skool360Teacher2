@@ -96,9 +96,9 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
         String[] headerTitle = getGroup(groupPosition).toString().split("\\|");
-        String headerTitle1 = headerTitle[0];
-        String headerTitle2 = headerTitle[1];
-        String headerTitle3 = headerTitle[2];
+//        String headerTitle1 = headerTitle[0];
+//        String headerTitle2 = headerTitle[1];
+//        String headerTitle3 = headerTitle[2];
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -111,9 +111,9 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
         percentage_txt = (TextView) convertView.findViewById(R.id.percentage_txt);
         view_txt = (TextView) convertView.findViewById(R.id.view_txt);
 
-        Student_name_txt.setText(headerTitle1);
-        gr_no_txt.setText(headerTitle2);
-        percentage_txt.setText(headerTitle3);
+//        Student_name_txt.setText(headerTitle1);
+//        gr_no_txt.setText(headerTitle2);
+//        percentage_txt.setText(headerTitle3);
 
         if (isExpanded) {
             view_txt.setTextColor(_context.getResources().getColor(R.color.present_header));
