@@ -1,14 +1,12 @@
 package com.anandniketan.skool360teacher.Adapter;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.Context;
-import android.content.SearchRecentSuggestionsProvider;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
 import com.anandniketan.skool360teacher.R;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
-import junit.framework.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +37,7 @@ import java.util.Date;
 public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialog.OnDateSetListener {
     private Context mContext;
     private ArrayList<Test_SyllabusModel> test_syllabusModels = new ArrayList<>();
-//    AlertDialog alertDialogAndroid = null;
+    AlertDialog alertDialogAndroid = null;
     private DatePickerDialog datePickerDialog;
     int Year, Month, Day;
     Calendar calendar;
@@ -52,14 +45,15 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
     Button close_btn, Edit_btn;
     TextView edit_test_txt, edit_test_date_txt, edit_test_grade_txt, edit_test_subject_txt;
     LinearLayout llListData;
+    FragmentManager activity;
 
     // Constructor
-    public Test_syllabusAdapter(Context c, ArrayList<Test_SyllabusModel> test_syllabusModels) {
+    public Test_syllabusAdapter(Context c, FragmentManager activity, ArrayList<Test_SyllabusModel> test_syllabusModels) {
         mContext = c;
         this.test_syllabusModels = test_syllabusModels;
+        this.activity = activity;
 
     }
-
 
     private class ViewHolder {
         TextView srno_txt, test_name_txt, grade_txt, subject_txt;
@@ -98,7 +92,8 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
             viewHolder.subject_txt = (TextView) convertView.findViewById(R.id.subject_txt);
 
             try {
-//                viewHolder.srno_txt.setText(test_syllabusModels.get(position).getPosition());
+                String sr = String.valueOf(position + 1);
+                viewHolder.srno_txt.setText(sr);
                 viewHolder.test_name_txt.setText(test_syllabusModels.get(position).getTestName());
                 viewHolder.grade_txt.setText(test_syllabusModels.get(position).getStandardClass());
                 viewHolder.subject_txt.setText(test_syllabusModels.get(position).getSubject());
@@ -108,24 +103,22 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                     public void onClick(View view) {
                         LayoutInflater lInflater = (LayoutInflater) mContext
                                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        View layout = lInflater.inflate(R.layout.list_edit_row, null);
+                        final View layout = lInflater.inflate(R.layout.list_edit_row, null);
 
-                        final Dialog alertDialogBuilderUserInput = new Dialog(mContext);
-                        alertDialogBuilderUserInput.requestWindowFeature(Window.DECOR_CAPTION_SHADE_AUTO);
-                        alertDialogBuilderUserInput.setCancelable(false);
-                        alertDialogBuilderUserInput.setContentView(layout);
+                        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(mContext);
+                        alertDialogBuilderUserInput.setView(layout);
 
-//                        alertDialogAndroid = alertDialogBuilderUserInput.create();
+                        alertDialogAndroid = alertDialogBuilderUserInput.create();
+                        alertDialogAndroid.setCancelable(false);
+                        alertDialogAndroid.show();
+                        Window window = alertDialogAndroid.getWindow();
+                        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1200);
+                        WindowManager.LayoutParams wlp = window.getAttributes();
 
-                        alertDialogBuilderUserInput.show();
-//                        Window window = alertDialogAndroid.getWindow();
-//                        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                        WindowManager.LayoutParams wlp = window.getAttributes();
-//
-//                        wlp.gravity = Gravity.CENTER_HORIZONTAL;
-//                        wlp.flags = WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG;
-//                        window.setAttributes(wlp);
-//                        alertDialogAndroid.show();
+                        wlp.gravity = Gravity.CENTER_HORIZONTAL;
+                        wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+                        window.setAttributes(wlp);
+                        alertDialogAndroid.show();
 
 
                         close_btn = (Button) layout.findViewById(R.id.close_btn);
@@ -144,7 +137,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                         close_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                alertDialogBuilderUserInput.dismiss();
+                                alertDialogAndroid.dismiss();
                             }
                         });
                         Edit_btn.setOnClickListener(new View.OnClickListener() {
@@ -159,9 +152,9 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                                 datePickerDialog = DatePickerDialog.newInstance(Test_syllabusAdapter.this, Year, Month, Day);
                                 datePickerDialog.setThemeDark(false);
                                 datePickerDialog.showYearPickerFirst(false);
-                                datePickerDialog.setAccentColor(Color.parseColor("#009688"));
+                                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
                                 datePickerDialog.setTitle("Select Date From DatePickerDialog");
-//                                datePickerDialog.show(Test_syllabusAdapter.this.ViewHolder, "DatePickerDialog");
+                                datePickerDialog.show(activity, "DatePickerDialog");
                             }
                         });
 

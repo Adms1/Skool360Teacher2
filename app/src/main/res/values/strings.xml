@@ -23,7 +23,10 @@
     <string name="testname">Test Name</string>
     <string name="grade">Grade</string>
     <string name="edit">Edit</string>
-
+    <string name="grno">GRNO</string>
+    <string name="percentage">(%)</string>
+    <string name="Marks">Marks</string>
+    <string name="view"><u>View</u></string>
 
     <string-array name="menuoption1">
         <item>Home</item>

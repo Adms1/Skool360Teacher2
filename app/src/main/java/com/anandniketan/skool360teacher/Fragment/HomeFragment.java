@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -174,6 +175,13 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
 
+                }else if (position == 7) {
+                    fragment = new MarksFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+
                 }
             }
         });
@@ -245,6 +253,5 @@ public class HomeFragment extends Fragment {
             AppConfiguration.rows.add(userProfileModels.get(0).getGetclassDetailsArrayList().get(i));
         }
     }
-
 }
 

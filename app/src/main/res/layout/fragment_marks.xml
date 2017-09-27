@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnBackTest"
+                android:id="@+id/btnBackMarks"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentBottom="true"
@@ -73,13 +73,13 @@
             android:layout_alignTop="@+id/header"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="11dp"
-            android:text="Test/Syllabus"
+            android:text="Marks"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtNoRecordstest"
+            android:id="@+id/txtNoRecordsMarks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
@@ -91,23 +91,74 @@
             android:visibility="gone" />
 
         <LinearLayout
-            android:id="@+id/test_header"
+            android:id="@+id/class_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@+id/header"
-            android:layout_margin="0dp">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-            <include layout="@layout/list_test_header" />
+            <Spinner
+                android:id="@+id/class_spinner"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_alignEnd="@+id/textView3"
+                android:layout_alignRight="@+id/textView3"
+                android:layout_below="@+id/header"
+                android:layout_margin="20dp"
+                android:background="@drawable/edit_text"></Spinner>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignEnd="@+id/textView3"
+                android:layout_alignRight="@+id/textView3"
+                android:layout_below="@+id/header"
+                android:layout_margin="20dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/search_icon" />
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/test_syllabus_list"
+        <LinearLayout
+            android:id="@+id/search_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_below="@+id/test_header" />
+            android:layout_below="@+id/class_linear"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/search_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:background="@drawable/calendar_line"
+                android:layout_margin="20dp"
+                android:padding="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Marks_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_linear"
+            android:layout_margin="0dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <include layout="@layout/marks_header" />
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/lvExpMarks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/Marks_header"
+            android:childDivider="@android:color/transparent"
+            android:divider="@android:color/white"
+            android:dividerHeight="5dp"
+            android:groupIndicator="@null"
+            android:scrollbars="none" />
+
     </RelativeLayout>
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,8 +38,8 @@ public class TestsyllabusFragment extends Fragment {
     private int lastExpandedPosition = -1;
     private ListView test_syllabus_list;
     Test_syllabusAdapter test_syllabusAdapter = null;
-
-
+    private LinearLayout test_header;
+    FragmentManager fragmentManager;
 
     public TestsyllabusFragment() {
     }
@@ -60,7 +61,7 @@ public class TestsyllabusFragment extends Fragment {
         txtNoRecordstest = (TextView) rootView.findViewById(R.id.txtNoRecordstest);
         btnBackTest = (Button) rootView.findViewById(R.id.btnBackTest);
         test_syllabus_list = (ListView) rootView.findViewById(R.id.test_syllabus_list);
-
+        test_header = (LinearLayout) rootView.findViewById(R.id.test_header);
         getTestSyllabusData();
     }
 
@@ -76,7 +77,7 @@ public class TestsyllabusFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new HomeFragment();
-                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(0, 0)
                         .replace(R.id.frame_container, fragment).commit();
@@ -105,11 +106,12 @@ public class TestsyllabusFragment extends Fragment {
                                 progressDialog.dismiss();
                                 if (test_syllabusModels.size() > 0) {
                                     txtNoRecordstest.setVisibility(View.GONE);
-                                    test_syllabusAdapter = new Test_syllabusAdapter(getActivity(), test_syllabusModels);
+                                    test_syllabusAdapter = new Test_syllabusAdapter(getActivity(),getActivity().getFragmentManager(),test_syllabusModels);
                                     test_syllabus_list.setAdapter(test_syllabusAdapter);
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordstest.setVisibility(View.VISIBLE);
+                                    test_header.setVisibility(View.GONE);
                                 }
                             }
                         });

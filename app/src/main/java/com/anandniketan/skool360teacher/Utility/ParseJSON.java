@@ -5,6 +5,7 @@ import com.anandniketan.skool360teacher.Models.LoginModel;
 import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetAssignStudentSubjectmModel;
+import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
 import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
@@ -394,7 +395,6 @@ public class ParseJSON {
                         data = test_syllabusModel.new TestSyllabus();
                         JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
                         data.setSyllabus(jsonChildNode1.getString("Syllabus"));
-
                         dataArrayList.add(data);
                     }
                     test_syllabusModel.setGetSyllabusData(dataArrayList);
@@ -403,6 +403,66 @@ public class ParseJSON {
                 }
             } else {
                 //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ArrayList<TeacherGetTestMarksModel> parseTeacherGetTestMarksJson(String responseString) {
+        ArrayList<TeacherGetTestMarksModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            TeacherGetTestMarksModel teacherGetTestMarksModel = new TeacherGetTestMarksModel();
+
+            if (data_load_basket.toString().equals("True")) {
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                TeacherGetTestMarksModel.studentDetail studentDetail = null;
+                ArrayList<TeacherGetTestMarksModel.studentDetail> studentDetails = new ArrayList<>();
+                for (int i = 0; i < jsonMainNode.length(); i++) {
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                    studentDetail = teacherGetTestMarksModel.new studentDetail();
+                    studentDetail.setTestName(jsonChildNode.getString("TestName"));
+                    studentDetail.setStandardClass(jsonChildNode.getString("StandardClass"));
+
+                    JSONArray jsonMainchildArray = jsonChildNode.optJSONArray("StudentData");
+                    TeacherGetTestMarksModel.studentDetail.TestDetail testDetail = null;
+                    ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail> testDetails = new ArrayList<>();
+                    for (int j = 0; j < jsonMainchildArray.length(); j++) {
+                        JSONObject jsonMainchildObject = jsonMainchildArray.getJSONObject(j);
+                        testDetail = studentDetail.new TestDetail();
+                        testDetail.setStudentName(jsonMainchildObject.getString("StudentName"));
+                        testDetail.setStudentID(jsonMainchildObject.getString("StudentID"));
+                        testDetail.setGRNO(jsonMainchildObject.getString("GRNO"));
+                        testDetail.setTotalMarks(jsonMainchildObject.getString("TotalMarks"));
+                        testDetail.setTotalGainedMarks(jsonMainchildObject.getString("TotalGainedMarks"));
+                        testDetail.setPercentage(jsonMainchildObject.getString("Percentage"));
+
+                        JSONArray jsonchildArray = jsonMainchildObject.optJSONArray("SubjectMarks");
+                        TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks subjectMarks = null;
+                        ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks> subjectMarkses = new ArrayList<>();
+                        for (int k = 0; k < jsonchildArray.length(); k++) {
+                            JSONObject jsonchildObject = jsonchildArray.getJSONObject(k);
+                            subjectMarks = testDetail.new subjectMarks();
+                            subjectMarks.setSubject(jsonchildObject.getString("Subject"));
+                            subjectMarks.setMarks(jsonchildObject.getString("Marks"));
+
+                            subjectMarkses.add(subjectMarks);
+                        }
+                        testDetail.setGetsubjectMarks(subjectMarkses);
+                        testDetails.add(testDetail);
+                    }
+                    studentDetail.setGettestDetail(testDetails);
+                    studentDetails.add(studentDetail);
+                }
+                teacherGetTestMarksModel.setGetstudentDetail(studentDetails);
+                result.add(teacherGetTestMarksModel);
             }
         } catch (JSONException e) {
             e.printStackTrace();
