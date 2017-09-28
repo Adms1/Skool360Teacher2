@@ -101,7 +101,7 @@
 
             <Spinner
                 android:id="@+id/class_spinner"
-                android:layout_width="180dp"
+                android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_alignEnd="@+id/textView3"
                 android:layout_alignRight="@+id/textView3"

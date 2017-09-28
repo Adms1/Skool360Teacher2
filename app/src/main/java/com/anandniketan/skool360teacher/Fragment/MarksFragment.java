@@ -217,9 +217,9 @@ public class MarksFragment extends Fragment {
         ArrayList<String> row = new ArrayList<String>();
 
         for (int z = 0; z < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); z++) {
-            row.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(z).getStandardClass() + "-->" + teacherGetTestMarksModels.get(0).getGetstudentDetail().get(z).getTestName());
+            row.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(z).getStandardClass() + " -> " + teacherGetTestMarksModels.get(0).getGetstudentDetail().get(z).getTestName());
         }
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, row);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         class_spinner.setAdapter(adapterYear);
     }
 }
