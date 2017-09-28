@@ -57,32 +57,13 @@ public class TestsyllabusFragment extends Fragment {
     }
 
     public void initViews() {
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         txtNoRecordstest = (TextView) rootView.findViewById(R.id.txtNoRecordstest);
-        btnBackTest = (Button) rootView.findViewById(R.id.btnBackTest);
         test_syllabus_list = (ListView) rootView.findViewById(R.id.test_syllabus_list);
         test_header = (LinearLayout) rootView.findViewById(R.id.test_header);
         getTestSyllabusData();
     }
 
     public void setListners() {
-        btnMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DashBoardActivity.onLeft();
-            }
-        });
-
-        btnBackTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new HomeFragment();
-                fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(0, 0)
-                        .replace(R.id.frame_container, fragment).commit();
-            }
-        });
     }
 
     public void getTestSyllabusData() {

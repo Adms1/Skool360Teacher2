@@ -19,17 +19,18 @@
         <Button
             android:id="@+id/start_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
             android:layout_weight="0.10"
             android:background="@drawable/calendar_line"
-            android:gravity="left|center_vertical"
+            android:gravity="center|center_vertical"
             android:paddingBottom="1dp"
-            android:paddingLeft="30dp"
+            android:paddingLeft="5dp"
             android:paddingTop="5dp"
+            android:textSize="14dp"
             android:textColor="@color/gray" />
 
         <TextView

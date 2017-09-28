@@ -87,7 +87,7 @@
                     android:layout_alignTop="@+id/profile_image"
                     android:layout_marginLeft="140dp"
                     android:layout_marginTop="15dp"
-                    android:text="Adit Shah"
+                    android:text=""
                     android:textColor="@color/editTextcolor"
                     android:textSize="17dp"
                     android:textStyle="bold" />

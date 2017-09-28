@@ -6,5 +6,6 @@ package com.anandniketan.skool360teacher.Models;
 
 public class InsertAttendanceModel {
 
+    
 
 }

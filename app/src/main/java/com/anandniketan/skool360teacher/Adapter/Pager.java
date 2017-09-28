@@ -41,11 +41,9 @@ public class Pager extends FragmentStatePagerAdapter {
         return mFragmentList.size();
     }
 
-    public void addFrag(Fragment fragment, String title, String studentid, String classid) {
+    public void addFrag(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
-        getmFragmentstdid.add(studentid);
-        getmFragmentclsid.add(classid);
     }
 
     @Override

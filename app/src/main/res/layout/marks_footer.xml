@@ -11,21 +11,21 @@
         android:layout_margin="5dp">
 
         <TextView
-            android:id="@+id/txtSubject_header"
+            android:id="@+id/txttotal_footer"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="0.71"
+            android:layout_weight="0.00"
             android:gravity="left"
             android:padding="3dp"
-            android:text="Subject"
-            android:textColor="@color/orange"
+            android:text="Total :"
+            android:textColor="@color/present_header"
             android:textSize="13dip" />
 
         <TextView
-            android:id="@+id/txtMarks_header"
+            android:id="@+id/txtgain_footer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/txtSubject"
@@ -36,7 +36,7 @@
             android:gravity="left"
             android:padding="3dp"
             android:text="Marks"
-            android:textColor="@color/orange"
+            android:textColor="@color/present_header"
             android:textSize="13dip" />
     </LinearLayout>
 </RelativeLayout>

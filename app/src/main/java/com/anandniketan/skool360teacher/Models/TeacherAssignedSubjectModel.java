@@ -11,6 +11,9 @@ public class TeacherAssignedSubjectModel {
     private String Standard;
     private String classname;
     private String Subject;
+    private String StandardID;
+    private String ClassID;
+    private String SubjectID;
 
     public String getStandard() {
         return Standard;
@@ -34,5 +37,29 @@ public class TeacherAssignedSubjectModel {
 
     public void setSubject(String subject) {
         Subject = subject;
+    }
+
+    public String getStandardID() {
+        return StandardID;
+    }
+
+    public void setStandardID(String standardID) {
+        StandardID = standardID;
+    }
+
+    public String getClassID() {
+        return ClassID;
+    }
+
+    public void setClassID(String classID) {
+        ClassID = classID;
+    }
+
+    public String getSubjectID() {
+        return SubjectID;
+    }
+
+    public void setSubjectID(String subjectID) {
+        SubjectID = subjectID;
     }
 }

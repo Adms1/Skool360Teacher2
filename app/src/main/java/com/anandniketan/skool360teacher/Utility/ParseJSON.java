@@ -6,7 +6,9 @@ import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetAssignStudentSubjectmModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
+import com.anandniketan.skool360teacher.Models.TeacherGetTestNameModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
+import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
 import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
 import com.anandniketan.skool360teacher.Models.UserProfileModel;
@@ -259,6 +261,11 @@ public class ParseJSON {
                     teacherAssignedSubjectModel.setSubject(jsonChildNode.getString("Subject"));
                     teacherAssignedSubjectModel.setStandard(jsonChildNode.getString("Standard"));
                     teacherAssignedSubjectModel.setClassname(jsonChildNode.getString("classname"));
+                    teacherAssignedSubjectModel.setSubjectID(jsonChildNode.getString("SubjectID"));
+                    teacherAssignedSubjectModel.setClassID(jsonChildNode.getString("ClassID"));
+                    teacherAssignedSubjectModel.setStandardID(jsonChildNode.getString("StandardID"));
+
+
 
                     result.add(teacherAssignedSubjectModel);
                 }
@@ -386,7 +393,10 @@ public class ParseJSON {
                     test_syllabusModel.setTestDate(jsonChildNode.getString("TestDate"));
                     test_syllabusModel.setSubject(jsonChildNode.getString("Subject"));
                     test_syllabusModel.setStandardClass(jsonChildNode.getString("StandardClass"));
-
+                    test_syllabusModel.setTestID(jsonChildNode.getString("TestID"));
+                    test_syllabusModel.setTSMasterID(jsonChildNode.getString("TSMasterID"));
+                    test_syllabusModel.setSectionID(jsonChildNode.getString("SectionID"));
+                    test_syllabusModel.setSubjectID(jsonChildNode.getString("SubjectID"));
 
                     Test_SyllabusModel.TestSyllabus data = null;
                     ArrayList<Test_SyllabusModel.TestSyllabus> dataArrayList = new ArrayList<>();
@@ -463,6 +473,56 @@ public class ParseJSON {
                 }
                 teacherGetTestMarksModel.setGetstudentDetail(studentDetails);
                 result.add(teacherGetTestMarksModel);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    public static ArrayList<TeacherInsertTestDetailModel> parseTeacherInsertTestDetailJson(String responseString) {
+        ArrayList<TeacherInsertTestDetailModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+
+            if (data_load_basket.toString().equals("True")) {
+
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+            } else {
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    public static ArrayList<TeacherGetTestNameModel> parseTeacherGetTestNameJson(String responseString) {
+        ArrayList<TeacherGetTestNameModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            TeacherGetTestNameModel teacherGetTestNameModel = null;
+
+            if (data_load_basket.toString().equals("True")) {
+
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                for (int a = 0; a < jsonMainNode.length(); a++) {
+                    teacherGetTestNameModel = new TeacherGetTestNameModel();
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
+                    teacherGetTestNameModel.setTestID(jsonChildNode.getString("TestID"));
+                    teacherGetTestNameModel.setTestName(jsonChildNode.getString("TestName"));
+
+                    result.add(teacherGetTestNameModel);
+                }
+            } else {
+                //invalid login
             }
         } catch (JSONException e) {
             e.printStackTrace();

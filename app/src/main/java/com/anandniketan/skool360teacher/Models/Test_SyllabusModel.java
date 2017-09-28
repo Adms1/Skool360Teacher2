@@ -19,6 +19,9 @@ public class Test_SyllabusModel {
     private String Subject;
     private String TestDate;
     private String TestID;
+    private String TSMasterID;
+    private String SubjectID;
+    private String SectionID;
     private ArrayList<TestSyllabus> getSyllabusData;
 
 
@@ -68,6 +71,30 @@ public class Test_SyllabusModel {
 
     public void setTestID(String testID) {
         TestID = testID;
+    }
+
+    public String getTSMasterID() {
+        return TSMasterID;
+    }
+
+    public void setTSMasterID(String TSMasterID) {
+        this.TSMasterID = TSMasterID;
+    }
+
+    public String getSubjectID() {
+        return SubjectID;
+    }
+
+    public void setSubjectID(String subjectID) {
+        SubjectID = subjectID;
+    }
+
+    public String getSectionID() {
+        return SectionID;
+    }
+
+    public void setSectionID(String sectionID) {
+        SectionID = sectionID;
     }
 
     public ArrayList<TestSyllabus> getGetSyllabusData() {

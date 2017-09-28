@@ -2,6 +2,7 @@ package com.anandniketan.skool360teacher.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,11 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
             txtMarks.setText(currentchild.getMarks());
 
 
-        } else {
+        }
+//        else if (childPosition== -1) {
+//            convertView = infalInflater.inflate(R.layout.marks_footer, null);
+//        }
+        else {
             convertView = infalInflater.inflate(R.layout.list_item_marks_header, null);
             TextView txtSubject_header, txtMarks_header;
             txtSubject_header = (TextView) convertView.findViewById(R.id.txtSubject_header);
@@ -96,9 +101,10 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
         String[] headerTitle = getGroup(groupPosition).toString().split("\\|");
-//        String headerTitle1 = headerTitle[0];
-//        String headerTitle2 = headerTitle[1];
-//        String headerTitle3 = headerTitle[2];
+
+        String headerTitle1 = headerTitle[0];
+        String headerTitle2 = headerTitle[1];
+        String headerTitle3 = headerTitle[2];
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -106,14 +112,14 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_group_marks, null);
         }
         TextView Student_name_txt, gr_no_txt, percentage_txt, view_txt;
-        Student_name_txt = (TextView) convertView.findViewById(R.id.student_name_txt);
+        Student_name_txt = (TextView) convertView.findViewById(R.id.Student_name_txt);
         gr_no_txt = (TextView) convertView.findViewById(R.id.gr_no_txt);
         percentage_txt = (TextView) convertView.findViewById(R.id.percentage_txt);
         view_txt = (TextView) convertView.findViewById(R.id.view_txt);
 
-//        Student_name_txt.setText(headerTitle1);
-//        gr_no_txt.setText(headerTitle2);
-//        percentage_txt.setText(headerTitle3);
+        Student_name_txt.setText(headerTitle1);
+        gr_no_txt.setText(headerTitle2);
+        percentage_txt.setText(headerTitle3);
 
         if (isExpanded) {
             view_txt.setTextColor(_context.getResources().getColor(R.color.present_header));

@@ -7,13 +7,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
 import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterMarks;
@@ -39,7 +46,10 @@ public class MarksFragment extends Fragment {
     private TeacherGetTestMarksAsyncTask getTestMarksAsyncTask = null;
     private ArrayList<TeacherGetTestMarksModel> teacherGetTestMarksModels = new ArrayList<>();
     private int lastExpandedPosition = -1;
-    private LinearLayout Marks_header;
+    private LinearLayout Marks_header, class_linear, search_linear;
+    private Spinner class_spinner;
+    private ImageView search_img;
+    private EditText search_edt;
 
     ExpandableListAdapterMarks listAdapterMarks;
     ExpandableListView lvExpMarks;
@@ -68,6 +78,11 @@ public class MarksFragment extends Fragment {
         btnBackMarks = (Button) rootView.findViewById(R.id.btnBackMarks);
         lvExpMarks = (ExpandableListView) rootView.findViewById(R.id.lvExpMarks);
         Marks_header = (LinearLayout) rootView.findViewById(R.id.Marks_header);
+        class_linear = (LinearLayout) rootView.findViewById(R.id.class_linear);
+        search_linear = (LinearLayout) rootView.findViewById(R.id.search_linear);
+        class_spinner = (Spinner) rootView.findViewById(R.id.class_spinner);
+        search_img = (ImageView) rootView.findViewById(R.id.search_img);
+        search_edt = (EditText) rootView.findViewById(R.id.search_edt);
 
         getTimeTableData();
     }
@@ -101,6 +116,21 @@ public class MarksFragment extends Fragment {
                 lastExpandedPosition = groupPosition;
             }
         });
+        class_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(adapterView.getContext(),
+                        "On Item Select : \n" + adapterView.getItemAtPosition(i).toString(),
+                        Toast.LENGTH_LONG).show();
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     public void getTimeTableData() {
@@ -124,6 +154,7 @@ public class MarksFragment extends Fragment {
                                 progressDialog.dismiss();
                                 if (teacherGetTestMarksModels.size() > 0) {
                                     txtNoRecordsMarks.setVisibility(View.GONE);
+                                    fillspinner();
                                     prepaareList();
                                     listAdapterMarks = new ExpandableListAdapterMarks(getActivity(), listDataHeader, listDataChild);
                                     lvExpMarks.setAdapter(listAdapterMarks);
@@ -148,29 +179,47 @@ public class MarksFragment extends Fragment {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>>();
 
-        for (int k = 0; k < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); k++) {
-            for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(k).getGettestDetail().size(); i++) {
-                Marks marksdemo = new Marks();
-                marksdemo.studentname = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(i).getStudentName().toString();
-                marksdemo.grno = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(i).getGRNO().toString();
-                marksdemo.percentage = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(i).getPercentage().toString();
+        for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
+            if (teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size() > 0) {
+                Marks_header.setVisibility(View.VISIBLE);
+                search_img.setVisibility(View.VISIBLE);
+                search_linear.setVisibility(View.VISIBLE);
+                for (int j = 0; j < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size(); j++) {
+                    Marks marksdemo = new Marks();
+                    marksdemo.studentname = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName();
+                    marksdemo.grno = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGRNO();
+                    marksdemo.percentage = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getPercentage();
+                    listDataHeader.add(marksdemo.studentname.toString() + "|" + marksdemo.grno.toString() + "|" + marksdemo.percentage);
+                    ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks> rows = new ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>();
+                    for (int k = 0; k < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().size(); k++) {
 
-                listDataHeader.add(marksdemo.studentname.toString() + "|" + marksdemo.grno.toString() + "|" + marksdemo.percentage.toString());
+                        rows.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().get(k));
 
-                ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks> rows = new ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>();
-                for (int j = 0; j < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(i).getGetsubjectMarks().size(); j++) {
-
-                    rows.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(i).getGetsubjectMarks().get(j));
-
+                    }
+                    listDataChild.put(listDataHeader.get(j), rows);
                 }
-                listDataChild.put(listDataHeader.get(i), rows);
+            } else {
+                Marks_header.setVisibility(View.GONE);
+                search_img.setVisibility(View.GONE);
+                search_linear.setVisibility(View.GONE);
             }
         }
     }
+
 
     public class Marks {
         private String studentname;
         private String grno;
         private String percentage;
+    }
+
+    public void fillspinner() {
+        ArrayList<String> row = new ArrayList<String>();
+
+        for (int z = 0; z < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); z++) {
+            row.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(z).getStandardClass() + "-->" + teacherGetTestMarksModels.get(0).getGetstudentDetail().get(z).getTestName());
+        }
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_dropdown_item, row);
+        class_spinner.setAdapter(adapterYear);
     }
 }

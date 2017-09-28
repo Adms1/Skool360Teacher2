@@ -89,12 +89,12 @@ public class AttendanceFragment extends Fragment {
         LayoutInflater inflator = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (int i = 0; i < AppConfiguration.rows.size(); i++) {
             Log.d("size", "" + AppConfiguration.rows.size());
-            OneFragment fView = new OneFragment();
+
+            OneFragment fView = new OneFragment(i, AppConfiguration.rows.get(i).getClassID(), AppConfiguration.rows.get(i).getStandardID());
             View view = fView.getView();
 //            AppConfiguration.stdid = AppConfiguration.rows.get(0).getStandardID();
 //            AppConfiguration.clsid = AppConfiguration.rows.get(0).getClassID();
-            adapter.addFrag(fView, String.valueOf(AppConfiguration.rows.get(i).getStandard() + "-" + AppConfiguration.rows.get(i).getClasses()),
-                    String.valueOf(AppConfiguration.rows.get(i).getStandardID()), String.valueOf(AppConfiguration.rows.get(i).getClassID()));
+            adapter.addFrag(fView, String.valueOf(AppConfiguration.rows.get(i).getStandard() + "-" + AppConfiguration.rows.get(i).getClasses()));
 
         }
         viewPager.setAdapter(adapter);

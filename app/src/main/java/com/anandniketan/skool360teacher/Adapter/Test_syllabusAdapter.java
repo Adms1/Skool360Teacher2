@@ -2,17 +2,20 @@ package com.anandniketan.skool360teacher.Adapter;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +23,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
+import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
+import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
 import com.anandniketan.skool360teacher.R;
+import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.text.ParseException;
@@ -29,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by admsandroid on 9/26/2017.
@@ -46,6 +55,11 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
     TextView edit_test_txt, edit_test_date_txt, edit_test_grade_txt, edit_test_subject_txt;
     LinearLayout llListData;
     FragmentManager activity;
+    private ProgressDialog progressDialog = null;
+    private TeacherInsertTestDetailAsyncTask teacherInsertTestDetailAsyncTask = null;
+    private ArrayList<TeacherInsertTestDetailModel> insertTest = new ArrayList<>();
+    private ArrayList<String> text = new ArrayList<String>();
+    EditText syllbus_edt;
 
     // Constructor
     public Test_syllabusAdapter(Context c, FragmentManager activity, ArrayList<Test_SyllabusModel> test_syllabusModels) {
@@ -144,6 +158,48 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                             @Override
                             public void onClick(View view) {
 
+                                Log.d("text",""+text);
+//                                if (Utility.isNetworkConnected(mContext)) {
+////                                    progressDialog = new ProgressDialog(mContext);
+////                                    progressDialog.setMessage("Please Wait...");
+////                                    progressDialog.setCancelable(false);
+////                                    progressDialog.show();
+//
+//                                    new Thread(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            try {
+//                                                HashMap<String, String> params = new HashMap<String, String>();
+//                                                params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+//                                                params.put("TSMasterID", test_syllabusModels.get(position).getTSMasterID());
+//                                                params.put("TestID", test_syllabusModels.get(position).getTestID());
+//                                                params.put("TestDate", edit_test_date_txt.getText().toString());
+//                                                params.put("SubjectID", test_syllabusModels.get(position).getSubjectID());
+//                                                params.put("SectionID", test_syllabusModels.get(position).getSectionID());
+//                                                params.put("Arydetail", "test|&test|&test");
+//
+//                                                teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
+//                                                insertTest = teacherInsertTestDetailAsyncTask.execute().get();
+//                                                Test_syllabusAdapter.this.runOnUiThread(new Runnable() {
+//                                                    @Override
+//                                                    public void run() {
+//                                                        Utility.ping(mContext, "Update Test");
+////                                                        progressDialog.dismiss();
+////                                                        if (insertTest.size() > 0) {
+////                                                            Utility.ping(mContext, "Update Test");
+////                                                        } else {
+//////                                                            progressDialog.dismiss();
+////                                                        }
+//                                                    }
+//                                                });
+//                                            } catch (Exception e) {
+//                                                e.printStackTrace();
+//                                            }
+//                                        }
+//                                    }).start();
+//                                } else {
+//                                    Utility.ping(mContext, "Network not available");
+//                                }
                             }
                         });
                         edit_test_date_txt.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +215,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                         });
 
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                        SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat output = new SimpleDateFormat("dd-MM-yyyy");
                         Date d = null;
                         try {
                             d = sdf.parse(test_syllabusModels.get(position).getTestDate());
@@ -173,7 +229,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                         edit_test_grade_txt.setText(Html.fromHtml("<b>Grade :</b>" + test_syllabusModels.get(position).getStandardClass()));
                         edit_test_subject_txt.setText(Html.fromHtml("<b>Subject :</b>" + test_syllabusModels.get(position).getSubject()));
 
-                        EditText syllbus_edt;
+
                         if (llListData.getChildCount() > 0) {
                             llListData.removeAllViews();
                         }
@@ -182,12 +238,20 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                                 View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_edittext, null);
                                 syllbus_edt = (EditText) convertView.findViewById(R.id.syllabus_txt);
 
-
                                 if (i < test_syllabusModels.get(position).getGetSyllabusData().size()) {
                                     syllbus_edt.setText(test_syllabusModels.get(position).getGetSyllabusData().get(i).getSyllabus());
+
                                 } else {
                                     syllbus_edt.setText(" ");
                                 }
+
+//                                test_syllabusModels.get(position).getGetSyllabusData().get(i).setSyllabus(syllbus_edt.getText().toString());
+                                syllbus_edt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                    @Override
+                                    public void onFocusChange(View view, boolean b) {
+//                                        text.add();
+                                    }
+                                });
                                 llListData.addView(convertView);
                             }
                         } catch (NullPointerException e) {
@@ -197,6 +261,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
                     }
                 });
             } catch (Exception e) {
@@ -204,6 +269,9 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
             }
         }
         return convertView;
+    }
+
+    private void runOnUiThread(Runnable runnable) {
     }
 
     @Override
@@ -229,6 +297,9 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
         edit_test_date_txt.setText(d + "/" + m + "/" + y);
     }
 
+    public ArrayList<Test_SyllabusModel> getInsertTest() {
+        return test_syllabusModels;
+    }
 }
 
 

@@ -1,5 +1,6 @@
 package com.anandniketan.skool360teacher.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -35,6 +36,17 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
         // Required empty public constructor
     }
 
+    int position;
+    String classId, standardId;
+
+    @SuppressLint("ValidFragment")
+    public OneFragment(int i, String classId, String StandardId) {
+        this.position = i;
+        this.classId = classId;
+        this.standardId = StandardId;
+
+    }
+
     private Context mContext;
     private View rootView;
     private ProgressDialog progressDialog = null;
@@ -62,7 +74,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_one, container, false);
         mContext = getActivity();
-
+        Log.d("Current Position ", "Position = " + position + " user id  : " + classId + "standard id :" + standardId);
         init();
         setListner();
         setGetstaffAttendanceDetail();
@@ -153,8 +165,8 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
                         params.put("AttDate", start_date.getText().toString());
-                        params.put("StdID", "8");//AppConfiguration.stdid
-                        params.put("ClsID", "28");//AppConfiguration.clsid
+                        params.put("StdID", standardId);//AppConfiguration.stdid
+                        params.put("ClsID", classId);//AppConfiguration.clsid
 
                         getstaffAttendanceAsyncTask = new GetStaffAttendanceAsyncTask(params);
                         staffattendanceModels = getstaffAttendanceAsyncTask.execute().get();

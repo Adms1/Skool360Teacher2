@@ -47,6 +47,9 @@ public class AppConfiguration {
     public static String GetTeacherGetTimetable = "TeacherGetTimetable";
     public static String GetTeacherGetTestSyllabus = "TeacherGetTestSyllabus";
     public static String GetTeacherGetTestMarks = "TeacherGetTestMarks";
+    public static String GetTeacherInsertTestDetail = "TeacherInsertTestDetail";
+    public static String GetTeacherGetTestNameGradeWise="TeacherGetTestNameGradeWise";
+
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();
     public static String stdid;
