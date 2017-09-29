@@ -77,7 +77,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     private String standardId;
     AddTest addTest = new AddTest();
     private int selectedPosition = -1;
-
+    private ArrayList<String> text = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -212,13 +212,24 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String txtstr = "";
+                text = new ArrayList<String>();
+                for (int i = 0; i < llListData.getChildCount(); i++) {
 
+                    View mView = llListData.getChildAt(i);
+                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
+                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
+                        txtstr = txtstr + myEditText.getText().toString() + "|&";
+                    }
+                }
+                text.add(txtstr);
+                Log.d("join", "" + text.toString());
                 if (Utility.isNetworkConnected(mContext)) {
 //                                    progressDialog = new ProgressDialog(mContext);
 //                                    progressDialog.setMessage("Please Wait...");
 //                                    progressDialog.setCancelable(false);
 //                                    progressDialog.show();
-
+                    final String finalTxtstr = txtstr;
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -230,7 +241,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                                 params.put("TestDate", add_test_date_txt.getText().toString());
                                 params.put("SubjectID", "");
                                 params.put("SectionID", "");
-                                params.put("Arydetail", "");
+                                params.put("Arydetail", finalTxtstr);
 
                                 teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
                                 insertTest = teacherInsertTestDetailAsyncTask.execute().get();
@@ -264,15 +275,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             for (int i = 0; i < 10; i++) {
                 View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_edittext, null);
                 syllbus_edt = (EditText) convertView.findViewById(R.id.syllabus_txt);
-
-//                if (i < test_syllabusModels.get(position).getGetSyllabusData().size()) {
-//                    syllbus_edt.setText(test_syllabusModels.get(position).getGetSyllabusData().get(i).getSyllabus());
-//
-//                } else {
-//                    syllbus_edt.setText(" ");
-//                }
-
-//                                test_syllabusModels.get(position).getGetSyllabusData().get(i).setSyllabus(syllbus_edt.getText().toString());
 
                 llListData.addView(convertView);
             }
@@ -439,7 +441,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
 
                     checkBox.setText(arrayList.get(i));
 //                textView.setText(arrayList.get(i));
-                 
+
                         checkBox.setChecked(true);
 
                     checkBox.setOnClickListener(onStateChangedListener(checkBox, i));
