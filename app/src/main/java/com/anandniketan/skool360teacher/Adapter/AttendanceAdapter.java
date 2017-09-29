@@ -94,11 +94,9 @@ public class AttendanceAdapter extends BaseAdapter {
             viewHolder.present_chk = (CheckBox) convertView.findViewById(R.id.present_chk);
             viewHolder.absent_chk = (CheckBox) convertView.findViewById(R.id.absent_chk);
             viewHolder.leave_chk = (CheckBox) convertView.findViewById(R.id.leave_chk);
-//            viewHolder.attendancechk = (RadioGroup) convertView.findViewById(R.id.attendancechk);
+
             imageLoader = ImageLoader.getInstance();
-//        } else {
-//            viewHolder = (ViewHolder) convertView.getTag();
-//        }
+
             try {
 
                 DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -119,48 +117,9 @@ public class AttendanceAdapter extends BaseAdapter {
                 imageLoader.displayImage(staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getStudentImage(), viewHolder.profile_image);
                 viewHolder.student_name_txt.setText(staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getStudentName().trim());
 
-//                viewHolder.attendancechk.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-//                        if (radioGroup.getCheckedRadioButtonId() == R.id.present_chk) {
-//                            staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("1");
-//                        } else if (radioGroup.getCheckedRadioButtonId() == R.id.absent_chk) {
-//                            staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("0");
-//                        } else if (radioGroup.getId() == R.id.leave_chk) {
-//                            staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("-1");
-//                        } else {
-//                            staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("-2");
-//                        }
-//                    }
-//
-//                if (staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getAttendenceStatus().equalsIgnoreCase("-2")) {
-//                    viewHolder.present_chk.setChecked(true);
-//                    Log.d("if", "Megha");
-//                } else {
-//                    viewHolder.present_chk.setChecked(false);
-//                }
-//                if (staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getAttendenceStatus().equalsIgnoreCase("-1")) {
-//                    viewHolder.leave_chk.setChecked(true);
-//                } else {
-//                    viewHolder.leave_chk.setChecked(false);
-//                }
-//                if (staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getAttendenceStatus().equalsIgnoreCase("1")) {
-//                    viewHolder.present_chk.setChecked(true);
-//                } else {
-//                    viewHolder.present_chk.setChecked(false);
-//                }
-//                if (staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getAttendenceStatus().equalsIgnoreCase("0")) {
-//                    viewHolder.absent_chk.setChecked(true);
-//                } else {
-//                    viewHolder.absent_chk.setChecked(false);
-//                }
-
-
                 viewHolder.present_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                        int getPosition = (int) compoundButton.getTag();
-//                        staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(getPosition).setSelected(compoundButton.isChecked());
                         if (b == true) {
                             staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("1");
                             viewHolder.absent_chk.setChecked(false);
@@ -172,8 +131,6 @@ public class AttendanceAdapter extends BaseAdapter {
                 viewHolder.absent_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                        int getPosition = (int) compoundButton.getTag();
-//                        staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(getPosition).setAbsent_selected(compoundButton.isChecked());
                         if (b == true) {
                             staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("0");
                             viewHolder.present_chk.setChecked(false);
@@ -184,8 +141,7 @@ public class AttendanceAdapter extends BaseAdapter {
                 viewHolder.leave_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                        int getPosition = (int) compoundButton.getTag();
-//                        staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(getPosition).setLeave_Selected(compoundButton.isChecked());
+
                         if (b == true) {
                             staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("-1");
                             viewHolder.absent_chk.setChecked(false);
@@ -193,17 +149,6 @@ public class AttendanceAdapter extends BaseAdapter {
                         }
                     }
                 });
-//                convertView.setTag(R.id.present_chk, viewHolder.present_chk);
-//                convertView.setTag(R.id.absent_chk, viewHolder.absent_chk);
-//                convertView.setTag(R.id.leave_chk, viewHolder.leave_chk);
-
-//                viewHolder.present_chk.setTag(position);
-//                viewHolder.present_chk.setChecked(true);
-//                viewHolder.absent_chk.setTag(position);
-//                viewHolder.absent_chk.setChecked(staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).isAbsent_selected());
-//                viewHolder.leave_chk.setTag(position);
-//                viewHolder.leave_chk.setChecked(staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).isLeave_Selected());
-
 
                 viewHolder.absent_chk.setChecked(false);
                 viewHolder.present_chk.setChecked(false);

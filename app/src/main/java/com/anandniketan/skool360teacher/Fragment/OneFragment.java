@@ -67,7 +67,6 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
     HashMap<String, ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>> listDataChild;
     private ImageView insert_attendance_img;
     private LinearLayout header_linear;
-//    Recycler_adapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,9 +100,15 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
         student_list = (ListView) rootView.findViewById(R.id.student_list);
         insert_attendance_img = (ImageView) rootView.findViewById(R.id.insert_attendance_img);
         start_date.setText(Utility.getTodaysDate());
-        setUserVisibleHint(false);
+        setUserVisibleHint(true);
     }
-
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser){
+//            setGetstaffAttendanceDetail();
+//        }
+//        // execute your data loading logic.
+//    }
     public void setListner() {
         start_date.setOnClickListener(new View.OnClickListener()
 
@@ -233,58 +238,58 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
             Log.d("statusID", status.toString());
             Log.d("studID", studid.toString());
 
-//            if (Utility.isNetworkConnected(mContext)) {
-//                progressDialog = new ProgressDialog(mContext);
-//                progressDialog.setMessage("Please Wait...");
-//                progressDialog.setCancelable(false);
-//                progressDialog.show();
-//
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            HashMap<String, String> params = new HashMap<String, String>();
-//                            params.put("StaffID", Utility.getPref(mContext, "StaffID"));
-//                            params.put("StandardID","");
-//                            params.put("ClassID", "");
-//                            params.put("Date", start_date.getText().toString());
-//                            params.put("Comment", "test");
-//                            params.put("AttendacneStatus", String.valueOf(status));
-//                            params.put("CurrantDate", Utility.getTodaysDate());
-//                            params.put("StudentID",String.valueOf(studid));
-//                            params.put("AttendanceID", String.valueOf(id));
-//
-//
-//                            getstaffAttendanceAsyncTask = new GetStaffAttendanceAsyncTask(params);
-//                            staffattendanceModels = getstaffAttendanceAsyncTask.execute().get();
-//                            getActivity().runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    progressDialog.dismiss();
-//                                    if (staffattendanceModels.size() > 0) {
-//                                        txtNoRecords.setVisibility(View.GONE);
-//                                        prepareList();
-//                                        attendanceAdapter = new AttendanceAdapter(getActivity(), staffattendanceModels);
-//                                        student_list.setAdapter(attendanceAdapter);
-//                                        student_list.deferNotifyDataSetChanged();
-//                                        insert_attendance_img.setVisibility(View.VISIBLE);
-//                                    } else {
-//                                        progressDialog.dismiss();
-//                                        txtNoRecords.setVisibility(View.VISIBLE);
-//                                        insert_attendance_img.setVisibility(View.GONE);
-//                                    }
-//                                }
-//                            });
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }).start();
-//
-//            } else {
-//                Utility.ping(mContext, "Network not available");
-//            }
-//
+            if (Utility.isNetworkConnected(mContext)) {
+                progressDialog = new ProgressDialog(mContext);
+                progressDialog.setMessage("Please Wait...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            HashMap<String, String> params = new HashMap<String, String>();
+                            params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+                            params.put("StandardID",standardId);
+                            params.put("ClassID", classId);
+                            params.put("Date", start_date.getText().toString());
+                            params.put("Comment", "test");
+                            params.put("AttendacneStatus", String.valueOf(status));
+                            params.put("CurrantDate", Utility.getTodaysDate());
+                            params.put("StudentID",String.valueOf(studid));
+                            params.put("AttendanceID", String.valueOf(id));
+
+
+                            getstaffAttendanceAsyncTask = new GetStaffAttendanceAsyncTask(params);
+                            staffattendanceModels = getstaffAttendanceAsyncTask.execute().get();
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressDialog.dismiss();
+                                    if (staffattendanceModels.size() > 0) {
+                                        txtNoRecords.setVisibility(View.GONE);
+                                        prepareList();
+                                        attendanceAdapter = new AttendanceAdapter(getActivity(), staffattendanceModels);
+                                        student_list.setAdapter(attendanceAdapter);
+                                        student_list.deferNotifyDataSetChanged();
+                                        insert_attendance_img.setVisibility(View.VISIBLE);
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecords.setVisibility(View.VISIBLE);
+                                        insert_attendance_img.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+            } else {
+                Utility.ping(mContext, "Network not available");
+            }
+
 
         }
 

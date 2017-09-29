@@ -60,7 +60,6 @@ public class TestMainFragment extends Fragment {
         TestMainAdapter adapter = new TestMainAdapter(getFragmentManager(), tabLayout_test_main.getTabCount());
 //Adding adapter to pager
         viewPager.setAdapter(adapter);
-//        tabLayout_schedule.setupWithViewPager(viewPager);
     }
 
     public void setListner() {

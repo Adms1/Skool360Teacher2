@@ -15,17 +15,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.Adapter.MysubjectAdapetr;
 import com.anandniketan.skool360teacher.Adapter.Test_syllabusAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherAssignedSubjectAsyncTask;
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestNameGradeWiseAsyncTask;
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
 import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
+import com.anandniketan.skool360teacher.Models.TeacherGetTestNameModel;
+import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -56,6 +63,20 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     private ProgressDialog progressDialog = null;
     private GetTeacherAssignedSubjectAsyncTask getTeacherAssignedSubjectAsyncTask = null;
     private ArrayList<TeacherAssignedSubjectModel> teacherAssignedSubjectModels = new ArrayList<>();
+    private AlertDialog alertDialogAndroid = null;
+    private Button close_btn, add_btn;
+    private TextView add_test_txt, add_test_date_txt, add_test_grade_txt, add_test_subject_txt;
+    private LinearLayout llListData;
+    private EditText syllbus_edt;
+    private CheckBox checkBox;
+    private TeacherInsertTestDetailAsyncTask teacherInsertTestDetailAsyncTask = null;
+    private ArrayList<TeacherInsertTestDetailModel> insertTest = new ArrayList<>();
+    private LinearLayout checkbox_linear, main_linear_add;
+    private TeacherGetTestNameGradeWiseAsyncTask teacherGetTestNameGradeWiseAsyncTask = null;
+    private ArrayList<TeacherGetTestNameModel> teacherGetTestNameModels = new ArrayList<>();
+    private String standardId;
+    AddTest addTest = new AddTest();
+    private int selectedPosition = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,16 +96,27 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         Day = calendar.get(Calendar.DAY_OF_MONTH);
 
         standard_subject_spinner = (Spinner) rootView.findViewById(R.id.standard_subject_spinner);
-        test_section_spinner = (Spinner) rootView.findViewById(R.id.test_section_spinner);
+//        test_section_spinner = (Spinner) rootView.findViewById(R.id.test_section_spinner);
         test_spinner = (Spinner) rootView.findViewById(R.id.test_spinner);
         test_date = (Button) rootView.findViewById(R.id.test_date);
         Add_btn = (Button) rootView.findViewById(R.id.Add_btn);
         txtNoRecords = (TextView) rootView.findViewById(R.id.txtNoRecordstest);
-        setUserVisibleHint(false);
+        checkbox_linear = (LinearLayout) rootView.findViewById(R.id.checkbox_linear);
+        main_linear_add = (LinearLayout) rootView.findViewById(R.id.main_linear_add);
+        setUserVisibleHint(true);
         test_date.setText(Utility.getTodaysDate());
-        setTodayschedule();
-        fillsubjectspinner();
 
+
+    }
+
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setTodayschedule();
+            fillsubjectspinner();
+//            getTestName();
+        }
+        // execute your data loading logic.
     }
 
     public void setListner() {
@@ -102,17 +134,44 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         Add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                addTest.TestDate = test_date.getText().toString();
+                Dialog();
 
             }
         });
 
+        standard_subject_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                teacherAssignedSubjectModels.get(0).setStandardsubject((String) adapterView.getItemAtPosition(i).toString());
+                standardsubjectsectionspinner();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        test_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                addTest.testName = adapterView.getItemAtPosition(i).toString();
+                addTest.AddTestID = teacherGetTestNameModels.get(i).getTestID();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
-    public void Dialog(){
+    public void Dialog() {
         LayoutInflater lInflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View layout = lInflater.inflate(R.layout.list_edit_row, null);
+        final View layout = lInflater.inflate(R.layout.list_add_row, null);
 
         AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(mContext);
         alertDialogBuilderUserInput.setView(layout);
@@ -131,17 +190,18 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
 
 
         close_btn = (Button) layout.findViewById(R.id.close_btn);
-        Edit_btn = (Button) layout.findViewById(R.id.Edit_btn);
-        edit_test_txt = (TextView) layout.findViewById(R.id.edit_test_txt);
-        edit_test_date_txt = (TextView) layout.findViewById(R.id.edit_test_date_txt);
-        edit_test_grade_txt = (TextView) layout.findViewById(R.id.edit_test_grade_txt);
-        edit_test_subject_txt = (TextView) layout.findViewById(R.id.edit_test_subject_txt);
+        add_btn = (Button) layout.findViewById(R.id.add_btn);
+        add_test_txt = (TextView) layout.findViewById(R.id.add_test_txt);
+        add_test_date_txt = (TextView) layout.findViewById(R.id.add_test_date_txt);
+        add_test_grade_txt = (TextView) layout.findViewById(R.id.add_test_grade_txt);
+        add_test_subject_txt = (TextView) layout.findViewById(R.id.add_test_subject_txt);
         llListData = (LinearLayout) layout.findViewById(R.id.llListData);
 
-        calendar = Calendar.getInstance();
-        Year = calendar.get(Calendar.YEAR);
-        Month = calendar.get(Calendar.MONTH);
-        Day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        add_test_txt.setText(addTest.testName);
+        add_test_date_txt.setText(addTest.TestDate);
+        add_test_grade_txt.setText(addTest.standard + " - " + addTest.classname);
+        add_test_subject_txt.setText(addTest.SubjectName);
 
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,81 +209,53 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                 alertDialogAndroid.dismiss();
             }
         });
-        Edit_btn.setOnClickListener(new View.OnClickListener() {
+        add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Log.d("text",""+text);
-//                                if (Utility.isNetworkConnected(mContext)) {
-////                                    progressDialog = new ProgressDialog(mContext);
-////                                    progressDialog.setMessage("Please Wait...");
-////                                    progressDialog.setCancelable(false);
-////                                    progressDialog.show();
-//
-//                                    new Thread(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            try {
-//                                                HashMap<String, String> params = new HashMap<String, String>();
-//                                                params.put("StaffID", Utility.getPref(mContext, "StaffID"));
-//                                                params.put("TSMasterID", test_syllabusModels.get(position).getTSMasterID());
-//                                                params.put("TestID", test_syllabusModels.get(position).getTestID());
-//                                                params.put("TestDate", edit_test_date_txt.getText().toString());
-//                                                params.put("SubjectID", test_syllabusModels.get(position).getSubjectID());
-//                                                params.put("SectionID", test_syllabusModels.get(position).getSectionID());
-//                                                params.put("Arydetail", "test|&test|&test");
-//
-//                                                teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
-//                                                insertTest = teacherInsertTestDetailAsyncTask.execute().get();
-//                                                Test_syllabusAdapter.this.runOnUiThread(new Runnable() {
-//                                                    @Override
-//                                                    public void run() {
-//                                                        Utility.ping(mContext, "Update Test");
-////                                                        progressDialog.dismiss();
-////                                                        if (insertTest.size() > 0) {
-////                                                            Utility.ping(mContext, "Update Test");
-////                                                        } else {
-//////                                                            progressDialog.dismiss();
-////                                                        }
-//                                                    }
-//                                                });
-//                                            } catch (Exception e) {
-//                                                e.printStackTrace();
-//                                            }
-//                                        }
-//                                    }).start();
-//                                } else {
-//                                    Utility.ping(mContext, "Network not available");
-//                                }
+                if (Utility.isNetworkConnected(mContext)) {
+//                                    progressDialog = new ProgressDialog(mContext);
+//                                    progressDialog.setMessage("Please Wait...");
+//                                    progressDialog.setCancelable(false);
+//                                    progressDialog.show();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                HashMap<String, String> params = new HashMap<String, String>();
+                                params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+                                params.put("TSMasterID", "0");
+                                params.put("TestID", addTest.AddTestID);
+                                params.put("TestDate", add_test_date_txt.getText().toString());
+                                params.put("SubjectID", "");
+                                params.put("SectionID", "");
+                                params.put("Arydetail", "");
+
+                                teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
+                                insertTest = teacherInsertTestDetailAsyncTask.execute().get();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Utility.ping(mContext, "Update Test");
+//                                                        progressDialog.dismiss();
+//                                                        if (insertTest.size() > 0) {
+//                                                            Utility.ping(mContext, "Update Test");
+//                                                        } else {
+////                                                            progressDialog.dismiss();
+//                                                        }
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                } else {
+                    Utility.ping(mContext, "Network not available");
+                }
             }
         });
-        edit_test_date_txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                datePickerDialog = DatePickerDialog.newInstance(Test_syllabusAdapter.this, Year, Month, Day);
-                datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(false);
-                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-                datePickerDialog.setTitle("Select Date From DatePickerDialog");
-                datePickerDialog.show(activity, "DatePickerDialog");
-            }
-        });
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        SimpleDateFormat output = new SimpleDateFormat("dd-MM-yyyy");
-        Date d = null;
-        try {
-            d = sdf.parse(test_syllabusModels.get(position).getTestDate());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String formattedTime = output.format(d);
-
-        edit_test_txt.setText(Html.fromHtml("<b>Test :</b>" + test_syllabusModels.get(position).getTestName()));
-        edit_test_date_txt.setText(formattedTime);
-        edit_test_grade_txt.setText(Html.fromHtml("<b>Grade :</b>" + test_syllabusModels.get(position).getStandardClass()));
-        edit_test_subject_txt.setText(Html.fromHtml("<b>Subject :</b>" + test_syllabusModels.get(position).getSubject()));
-
 
         if (llListData.getChildCount() > 0) {
             llListData.removeAllViews();
@@ -233,20 +265,15 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                 View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_edittext, null);
                 syllbus_edt = (EditText) convertView.findViewById(R.id.syllabus_txt);
 
-                if (i < test_syllabusModels.get(position).getGetSyllabusData().size()) {
-                    syllbus_edt.setText(test_syllabusModels.get(position).getGetSyllabusData().get(i).getSyllabus());
-
-                } else {
-                    syllbus_edt.setText(" ");
-                }
+//                if (i < test_syllabusModels.get(position).getGetSyllabusData().size()) {
+//                    syllbus_edt.setText(test_syllabusModels.get(position).getGetSyllabusData().get(i).getSyllabus());
+//
+//                } else {
+//                    syllbus_edt.setText(" ");
+//                }
 
 //                                test_syllabusModels.get(position).getGetSyllabusData().get(i).setSyllabus(syllbus_edt.getText().toString());
-                syllbus_edt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    @Override
-                    public void onFocusChange(View view, boolean b) {
-//                                        text.add();
-                    }
-                });
+
                 llListData.addView(convertView);
             }
         } catch (NullPointerException e) {
@@ -257,12 +284,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             e.printStackTrace();
         }
 
-    }
-});
-        } catch (Exception e) {
-        e.printStackTrace();
-        }
-        }
     }
 
 
@@ -288,9 +309,12 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                                 progressDialog.dismiss();
                                 if (teacherAssignedSubjectModels.size() > 0) {
                                     txtNoRecords.setVisibility(View.GONE);
+                                    main_linear_add.setVisibility(View.VISIBLE);
+
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecords.setVisibility(View.VISIBLE);
+                                    main_linear_add.setVisibility(View.GONE);
                                 }
                             }
                         });
@@ -329,6 +353,51 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         test_date.setText(d + "/" + m + "/" + y);
     }
 
+    public void getTestName() {
+        if (Utility.isNetworkConnected(mContext)) {
+//            progressDialog = new ProgressDialog(mContext);
+//            progressDialog.setMessage("Please Wait...");
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("StandardID", standardId);
+
+                        teacherGetTestNameGradeWiseAsyncTask = new TeacherGetTestNameGradeWiseAsyncTask(params);
+                        teacherGetTestNameModels = teacherGetTestNameGradeWiseAsyncTask.execute().get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+//                                progressDialog.dismiss();
+                                if (teacherGetTestNameModels.size() > 0) {
+                                    txtNoRecords.setVisibility(View.GONE);
+                                    fillTestSpinner();
+                                } else {
+//                                    progressDialog.dismiss();
+                                    ArrayList<String> str = new ArrayList<String>();
+                                    str.add("-Please Select-");
+                                    ArrayAdapter<String> adaptertest = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, str);
+                                    test_spinner.setAdapter(adaptertest);
+
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        } else {
+            Utility.ping(mContext, "Network not available");
+        }
+    }
+
+
     public void fillsubjectspinner() {
         ArrayList<String> row = new ArrayList<String>();
 
@@ -337,6 +406,102 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         standard_subject_spinner.setAdapter(adapterYear);
+
     }
 
+    public void standardsubjectsectionspinner() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        String getsubjectstandardstr = teacherAssignedSubjectModels.get(0).getStandardsubject();
+
+        if (!getsubjectstandardstr.equalsIgnoreCase("")) {
+            main_linear_add.setVisibility(View.VISIBLE);
+            String[] str = getsubjectstandardstr.split("\\->");
+            addTest.SubjectName = str[1].trim();
+            addTest.standard = str[0].trim();
+            for (int i = 0; i < teacherAssignedSubjectModels.size(); i++) {
+                if (str[0].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getStandard()) && str[1].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getSubject())) {
+                    arrayList.add(teacherAssignedSubjectModels.get(i).getClassname());
+                    Log.d("arrayList", "" + arrayList);
+                }
+                if (str[0].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getStandard())) {
+                    standardId = teacherAssignedSubjectModels.get(i).getStandardID();
+                    Log.d("IDDDD", standardId);
+                }
+            }
+            getTestName();
+            if (checkbox_linear.getChildCount() > 0) {
+                checkbox_linear.removeAllViews();
+            }
+            try {
+                for (int i = 0; i < arrayList.size(); i++) {
+                    View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_checkbox, null);
+                    checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
+
+                    checkBox.setText(arrayList.get(i));
+//                textView.setText(arrayList.get(i));
+                 
+                        checkBox.setChecked(true);
+
+                    checkBox.setOnClickListener(onStateChangedListener(checkBox, i));
+                    checkbox_linear.addView(convertView);
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        } else {
+            txtNoRecords.setVisibility(View.VISIBLE);
+            main_linear_add.setVisibility(View.GONE);
+        }
+    }
+
+    public void fillTestSpinner() {
+        ArrayList<String> rowtest = new ArrayList<String>();
+
+        for (int k = 0; k < teacherGetTestNameModels.size(); k++) {
+            rowtest.add(teacherGetTestNameModels.get(k).getTestName()+teacherGetTestNameModels.get(k).getTestID());
+
+        }
+
+        ArrayAdapter<String> adaptertest = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, rowtest);
+        test_spinner.setAdapter(adaptertest);
+    }
+
+
+    public class AddTest {
+
+        private String AddTestID;
+        private String TestDate;
+        private String SubjectID;
+        private String SectionID;
+        private String SubjectName;
+        private String testName;
+        private String standard;
+        private String classname;
+
+    }
+
+    private View.OnClickListener onStateChangedListener(final CheckBox checkBox, final int position) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox.isChecked()) {
+                    checkBox.setChecked(true);
+                    selectedPosition = position;
+                    addTest.classname = checkBox.getText().toString();
+                } else {
+                    selectedPosition = -1;
+                    checkBox.setChecked(false);
+
+                }
+
+
+            }
+        };
+    }
 }

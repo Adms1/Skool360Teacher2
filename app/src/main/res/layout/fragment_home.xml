@@ -6,6 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical"
     android:paddingTop="5dp">
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -15,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -24,7 +25,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="40dp"
             android:background="@color/orange"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"></RelativeLayout>
 
         <ImageView
             android:id="@+id/logo"
@@ -188,7 +189,7 @@
                 android:layout_weight="2.8"
                 android:text="Notification board"
                 android:textColor="@color/editTextcolor"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textStyle="bold" />
 
             <Button
@@ -206,5 +207,4 @@
         </LinearLayout>
 
     </RelativeLayout>
-    </LinearLayout>
-<!--</android.support.constraint.ConstraintLayout>-->
+</LinearLayout><!--</android.support.constraint.ConstraintLayout>-->

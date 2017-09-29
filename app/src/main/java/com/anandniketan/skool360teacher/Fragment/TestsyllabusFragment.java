@@ -2,14 +2,22 @@ package com.anandniketan.skool360teacher.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,17 +25,24 @@ import android.widget.TextView;
 import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
 import com.anandniketan.skool360teacher.Adapter.Test_syllabusAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
+import com.anandniketan.skool360teacher.CallBack;
 import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class TestsyllabusFragment extends Fragment {
+public class TestsyllabusFragment extends Fragment implements CallBack {
     private View rootView;
     private Button btnMenu, btnBackTest;
     private TextView txtNoRecordstest;
@@ -40,6 +55,16 @@ public class TestsyllabusFragment extends Fragment {
     Test_syllabusAdapter test_syllabusAdapter = null;
     private LinearLayout test_header;
     FragmentManager fragmentManager;
+    AlertDialog alertDialogAndroid = null;
+    private DatePickerDialog datePickerDialog;
+    int Year, Month, Day;
+    Calendar calendar;
+    int mYear, mMonth, mDay;
+    Button close_btn, Edit_btn;
+    TextView edit_test_txt, edit_test_date_txt, edit_test_grade_txt, edit_test_subject_txt;
+    LinearLayout llListData;
+    private ArrayList<String> text = new ArrayList<>();
+    EditText syllbus_edt;
 
     public TestsyllabusFragment() {
     }
@@ -52,7 +77,6 @@ public class TestsyllabusFragment extends Fragment {
 
         initViews();
         setListners();
-
         return rootView;
     }
 
@@ -61,10 +85,19 @@ public class TestsyllabusFragment extends Fragment {
         test_syllabus_list = (ListView) rootView.findViewById(R.id.test_syllabus_list);
         test_header = (LinearLayout) rootView.findViewById(R.id.test_header);
         getTestSyllabusData();
+//        setUserVisibleHint(true);
     }
 
     public void setListners() {
     }
+
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+//            getTestSyllabusData();
+//        }
+//        // execute your data loading logic.
+//    }
 
     public void getTestSyllabusData() {
         if (Utility.isNetworkConnected(mContext)) {
@@ -87,7 +120,7 @@ public class TestsyllabusFragment extends Fragment {
                                 progressDialog.dismiss();
                                 if (test_syllabusModels.size() > 0) {
                                     txtNoRecordstest.setVisibility(View.GONE);
-                                    test_syllabusAdapter = new Test_syllabusAdapter(getActivity(),getActivity().getFragmentManager(),test_syllabusModels);
+                                    test_syllabusAdapter = new Test_syllabusAdapter(getActivity(), getActivity().getFragmentManager(), test_syllabusModels);
                                     test_syllabus_list.setAdapter(test_syllabusAdapter);
                                 } else {
                                     progressDialog.dismiss();
@@ -106,3 +139,4 @@ public class TestsyllabusFragment extends Fragment {
         }
     }
 }
+

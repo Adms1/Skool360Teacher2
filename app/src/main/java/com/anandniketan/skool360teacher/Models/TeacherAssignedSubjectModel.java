@@ -6,7 +6,8 @@ package com.anandniketan.skool360teacher.Models;
 
 public class TeacherAssignedSubjectModel {
 
-    public TeacherAssignedSubjectModel(){}
+    public TeacherAssignedSubjectModel() {
+    }
 
     private String Standard;
     private String classname;
@@ -14,6 +15,7 @@ public class TeacherAssignedSubjectModel {
     private String StandardID;
     private String ClassID;
     private String SubjectID;
+    private String standardsubject;
 
     public String getStandard() {
         return Standard;
@@ -61,5 +63,13 @@ public class TeacherAssignedSubjectModel {
 
     public void setSubjectID(String subjectID) {
         SubjectID = subjectID;
+    }
+
+    public String getStandardsubject() {
+        return standardsubject;
+    }
+
+    public void setStandardsubject(String standardsubject) {
+        this.standardsubject = standardsubject;
     }
 }

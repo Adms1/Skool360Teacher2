@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
     private Button btnMenu, btn_notification, menu_linear;
     private GridView grid_view;
     private ImageView logo;
-    private LinearLayout header;
+    private RelativeLayout header;
     private Context mContext;
     private Fragment fragment = null;
     private FragmentManager fragmentManager = null;
@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
 //        grid_view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.bounce));
         student_name_txt = (TextView) rootView.findViewById(R.id.student_name_txt);
         student_classname_txt = (TextView) rootView.findViewById(R.id.student_classname_txt);
-        header = (LinearLayout) rootView.findViewById(R.id.header);
+        header = (RelativeLayout) rootView.findViewById(R.id.header);
 
         profile_image = (CircleImageView) rootView.findViewById(R.id.profile_image);
         imageLoader = ImageLoader.getInstance();
@@ -188,7 +188,7 @@ public class HomeFragment extends Fragment {
         menu_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                LinearLayoutCompat.LayoutParams params = (LinearLayoutCompat.LayoutParams) header.getLayoutParams();
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) header.getLayoutParams();
 //// Changes the height and width to the specified *pixels*
 //
 //                if (flag == false) {
