@@ -2,7 +2,6 @@ package com.anandniketan.skool360teacher.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,8 +23,6 @@ import android.widget.Toast;
 
 import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
 import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterMarks;
-import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterTimeTable;
-import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherGetTimetableAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestMarksAsyncTask;
 import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
@@ -55,8 +52,7 @@ public class MarksFragment extends Fragment {
     ExpandableListView lvExpMarks;
     List<String> listDataHeader;
     HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>> listDataChild;
-
-
+    String spinnerSelectedValue,value;
     public MarksFragment() {
     }
 
@@ -84,7 +80,7 @@ public class MarksFragment extends Fragment {
         search_img = (ImageView) rootView.findViewById(R.id.search_img);
         search_edt = (EditText) rootView.findViewById(R.id.search_edt);
 
-        getTimeTableData();
+        getMarksData();
     }
 
     public void setListners() {
@@ -118,11 +114,20 @@ public class MarksFragment extends Fragment {
         });
         class_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int j, long l) {
                 Toast.makeText(adapterView.getContext(),
-                        "On Item Select : \n" + adapterView.getItemAtPosition(i).toString(),
+                        "On Item Select : \n" + adapterView.getItemAtPosition(j).toString(),
                         Toast.LENGTH_LONG).show();
+                spinnerSelectedValue = adapterView.getItemAtPosition(j).toString();
+                Log.d("spinner", spinnerSelectedValue);
+                for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
+                   value = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getStandardClass() + " -> "
+                            + teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getTestName();
 
+
+                }
+//                    lvExpMarks.setAdapter(listAdapterMarks);
+//                    listAdapterMarks.notifyDataSetChanged();
 
             }
 
@@ -133,7 +138,7 @@ public class MarksFragment extends Fragment {
         });
     }
 
-    public void getTimeTableData() {
+    public void getMarksData() {
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
@@ -192,20 +197,20 @@ public class MarksFragment extends Fragment {
                     listDataHeader.add(marksdemo.studentname.toString() + "|" + marksdemo.grno.toString() + "|" + marksdemo.percentage);
                     ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks> rows = new ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>();
                     for (int k = 0; k < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().size(); k++) {
-
                         rows.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().get(k));
-
                     }
+                    Log.d("row",rows.toString());
                     listDataChild.put(listDataHeader.get(j), rows);
+                    Log.d("listDataChild",""+listDataChild.size());
                 }
             } else {
                 Marks_header.setVisibility(View.GONE);
                 search_img.setVisibility(View.GONE);
                 search_linear.setVisibility(View.GONE);
             }
+
         }
     }
-
 
     public class Marks {
         private String studentname;

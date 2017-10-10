@@ -8,7 +8,7 @@
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
         android:background="@drawable/list_line"
-        android:layout_margin="5dp">
+        android:layout_margin="2dp">
 
         <TextView
             android:id="@+id/txtSubject"
@@ -17,11 +17,11 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="0.31"
+            android:layout_weight="0.21"
             android:gravity="left"
-            android:padding="3dp"
+            android:padding="2dp"
             android:text="Subject"
-
+            android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="13dip" />
 
@@ -35,8 +35,9 @@
             android:layout_toRightOf="@+id/txtSubject"
             android:layout_weight="0.58"
             android:gravity="left"
-            android:padding="3dp"
+            android:padding="2dp"
             android:text="Marks"
+            android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="13dip" />
     </LinearLayout>

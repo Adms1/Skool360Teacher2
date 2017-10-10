@@ -8,19 +8,20 @@
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
         android:background="@drawable/list_line"
-        android:layout_margin="5dp">
+        android:layout_margin="2dp">
 
         <TextView
             android:id="@+id/txttotal_footer"
-            android:layout_width="110dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="0.00"
+            android:layout_weight="0.41"
             android:gravity="left"
-            android:padding="3dp"
-            android:text="Total :"
+            android:padding="2dp"
+            android:text="Total"
+            android:textAlignment="textStart"
             android:textColor="@color/present_header"
             android:textSize="13dip" />
 
@@ -37,6 +38,6 @@
             android:padding="3dp"
             android:text="Marks"
             android:textColor="@color/present_header"
-            android:textSize="13dip" />
+            android:textSize="14dp" />
     </LinearLayout>
 </RelativeLayout>

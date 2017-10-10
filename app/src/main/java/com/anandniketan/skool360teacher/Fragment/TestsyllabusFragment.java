@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -85,7 +86,7 @@ public class TestsyllabusFragment extends Fragment implements CallBack {
         test_syllabus_list = (ListView) rootView.findViewById(R.id.test_syllabus_list);
         test_header = (LinearLayout) rootView.findViewById(R.id.test_header);
         getTestSyllabusData();
-//        setUserVisibleHint(true);
+
     }
 
     public void setListners() {
@@ -122,6 +123,7 @@ public class TestsyllabusFragment extends Fragment implements CallBack {
                                     txtNoRecordstest.setVisibility(View.GONE);
                                     test_syllabusAdapter = new Test_syllabusAdapter(getActivity(), getActivity().getFragmentManager(), test_syllabusModels);
                                     test_syllabus_list.setAdapter(test_syllabusAdapter);
+                                    test_syllabus_list.deferNotifyDataSetChanged();
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordstest.setVisibility(View.VISIBLE);

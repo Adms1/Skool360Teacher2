@@ -25,7 +25,7 @@ public class TestMainFragment extends Fragment {
     private TabLayout tabLayout_test_main;
     private ViewPager viewPager;
     private Context mContext;
-
+    TestMainAdapter adapter;
 
     public TestMainFragment() {
         // Required empty public constructor
@@ -57,9 +57,10 @@ public class TestMainFragment extends Fragment {
         tabLayout_test_main.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        TestMainAdapter adapter = new TestMainAdapter(getFragmentManager(), tabLayout_test_main.getTabCount());
+      adapter = new TestMainAdapter(getFragmentManager(), tabLayout_test_main.getTabCount());
 //Adding adapter to pager
         viewPager.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
     }
 
     public void setListner() {
@@ -95,8 +96,8 @@ public class TestMainFragment extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
+
     }
 }

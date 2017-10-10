@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,22 +24,19 @@ import android.widget.TextView;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
 import com.anandniketan.skool360teacher.CallBack;
-import com.anandniketan.skool360teacher.Fragment.TestMainFragment;
-import com.anandniketan.skool360teacher.Fragment.TestsyllabusFragment;
 import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.net.InterfaceAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
 
 /**
  * Created by admsandroid on 9/26/2017.
@@ -63,8 +59,11 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
     private TeacherInsertTestDetailAsyncTask teacherInsertTestDetailAsyncTask = null;
     private ArrayList<TeacherInsertTestDetailModel> insertTest = new ArrayList<>();
     private ArrayList<String> text = new ArrayList<>();
+    private TeacherGetTestSyllabusAsyncTask teacherGetTestSyllabusAsyncTask = null;
     EditText syllbus_edt;
     private CallBack mCallBack;
+    Test_SyllabusModel.TestSyllabus model;
+    Test_syllabusAdapter test_syllabusAdapter;
 
     // Constructor
     public Test_syllabusAdapter(Context c, FragmentManager activity, ArrayList<Test_SyllabusModel> test_syllabusModels) {
@@ -113,7 +112,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
             try {
                 String sr = String.valueOf(position + 1);
                 viewHolder.srno_txt.setText(sr);
-                viewHolder.test_name_txt.setText(Html.fromHtml(test_syllabusModels.get(position).getTestName()+"\n" ));
+                viewHolder.test_name_txt.setText(test_syllabusModels.get(position).getTestName().trim());
                 viewHolder.grade_txt.setText(test_syllabusModels.get(position).getStandardClass());
                 viewHolder.subject_txt.setText(test_syllabusModels.get(position).getSubject());
 
@@ -157,6 +156,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                             @Override
                             public void onClick(View view) {
                                 alertDialogAndroid.dismiss();
+                                getTestSyllabusData();
                             }
                         });
 
@@ -175,6 +175,8 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                                 }
                                 text.add(txtstr);
                                 Log.d("join", "" + text.toString());
+
+
                                 if (Utility.isNetworkConnected(mContext)) {
 //                                    progressDialog = new ProgressDialog(mContext);
 //                                    progressDialog.setMessage("Please Wait...");
@@ -204,6 +206,9 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                                                         if (insertTest.size() > 0) {
                                                             progressDialog.dismiss();
                                                             Utility.ping(mContext, "Update Test");
+                                                            model = test_syllabusModels.get(position).getGetSyllabusData().get(position);
+                                                            model.setSyllabus(String.valueOf(text));
+                                                            test_syllabusModels.get(position).getGetSyllabusData().set(position, model);
 
                                                         } else {
 //                                                            progressDialog.dismiss();
@@ -242,10 +247,10 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                         }
                         String formattedTime = output.format(d);
 
-                        edit_test_txt.setText(Html.fromHtml("<b>Test :</b>" + test_syllabusModels.get(position).getTestName()));
+                        edit_test_txt.setText(Html.fromHtml(test_syllabusModels.get(position).getTestName()));
                         edit_test_date_txt.setText(formattedTime);
-                        edit_test_grade_txt.setText(Html.fromHtml("<b>Grade :</b>" + test_syllabusModels.get(position).getStandardClass()));
-                        edit_test_subject_txt.setText(Html.fromHtml("<b>Subject :</b>" + test_syllabusModels.get(position).getSubject()));
+                        edit_test_grade_txt.setText(Html.fromHtml(test_syllabusModels.get(position).getStandardClass()));
+                        edit_test_subject_txt.setText(Html.fromHtml(test_syllabusModels.get(position).getSubject()));
 
 
                         if (llListData.getChildCount() > 0) {
@@ -307,6 +312,42 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
         edit_test_date_txt.setText(d + "/" + m + "/" + y);
     }
 
+    public void getTestSyllabusData() {
+        if (Utility.isNetworkConnected(mContext)) {
+//            progressDialog = new ProgressDialog(mContext);
+//            progressDialog.setMessage("Please Wait...");
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+                        teacherGetTestSyllabusAsyncTask = new TeacherGetTestSyllabusAsyncTask(params);
+                        test_syllabusModels = teacherGetTestSyllabusAsyncTask.execute().get();
+                        Test_syllabusAdapter.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (test_syllabusModels.size() > 0) {
+
+                                } else {
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Utility.ping(mContext, "Network not available");
+        }
+
+    }
 }
 
 

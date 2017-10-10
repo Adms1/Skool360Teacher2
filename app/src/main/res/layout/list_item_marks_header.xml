@@ -8,19 +8,20 @@
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
         android:background="@drawable/list_line"
-        android:layout_margin="5dp">
+        android:layout_margin="2dp">
 
         <TextView
             android:id="@+id/txtSubject_header"
-            android:layout_width="110dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="0.71"
+            android:layout_weight="0.41"
             android:gravity="left"
-            android:padding="3dp"
+            android:padding="2dp"
             android:text="Subject"
+            android:textAlignment="textStart"
             android:textColor="@color/orange"
             android:textSize="13dip" />
 
@@ -32,9 +33,10 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/txtSubject"
             android:layout_toRightOf="@+id/txtSubject"
-            android:layout_weight="1"
+            android:layout_weight="1.04"
             android:gravity="left"
-            android:padding="3dp"
+            android:padding="2dp"
+            android:textAlignment="textStart"
             android:text="Marks"
             android:textColor="@color/orange"
             android:textSize="13dip" />

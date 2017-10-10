@@ -109,8 +109,7 @@
                 android:layout_margin="20dp"
                 android:forceHasOverlappingRendering="false"
                 android:dropDownVerticalOffset="35dp"
-
-                android:background="@drawable/edit_text" />
+                android:background="@drawable/dropdown_button_1" />
 
             <ImageView
                 android:id="@+id/search_img"

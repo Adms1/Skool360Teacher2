@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class AddTestFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -78,6 +79,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     AddTest addTest = new AddTest();
     private int selectedPosition = -1;
     private ArrayList<String> text = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -144,9 +146,11 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                teacherAssignedSubjectModels.get(0).setStandardsubject((String) adapterView.getItemAtPosition(i).toString());
-                standardsubjectsectionspinner();
+                if (teacherAssignedSubjectModels.size() > 0) {
+                    teacherAssignedSubjectModels.get(0).setStandardsubject((String) adapterView.getItemAtPosition(i).toString());
+                    standardsubjectsectionspinner();
 
+                }
             }
 
             @Override
@@ -157,8 +161,10 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         test_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                addTest.testName = adapterView.getItemAtPosition(i).toString();
-                addTest.AddTestID = teacherGetTestNameModels.get(i).getTestID();
+                if (teacherGetTestNameModels.size() > 0) {
+                    addTest.testName = adapterView.getItemAtPosition(i).toString();
+                    addTest.AddTestID = teacherGetTestNameModels.get(i).getTestID();
+                }
             }
 
             @Override
@@ -239,8 +245,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                                 params.put("TSMasterID", "0");
                                 params.put("TestID", addTest.AddTestID);
                                 params.put("TestDate", add_test_date_txt.getText().toString());
-                                params.put("SubjectID", "");
-                                params.put("SectionID", "");
+                                params.put("SubjectID", addTest.SubjectID);
+                                params.put("SectionID", addTest.SectionID);
                                 params.put("Arydetail", finalTxtstr);
 
                                 teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
@@ -406,6 +412,11 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         for (int z = 0; z < teacherAssignedSubjectModels.size(); z++) {
             row.add(teacherAssignedSubjectModels.get(z).getStandard() + " -> " + teacherAssignedSubjectModels.get(z).getSubject());
         }
+
+//        HashSet<String> duplicates = new HashSet<String>();
+//        duplicates.add(String.valueOf(row));
+//        row.clear();
+//        row.addAll(duplicates);
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         standard_subject_spinner.setAdapter(adapterYear);
 
@@ -423,6 +434,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             for (int i = 0; i < teacherAssignedSubjectModels.size(); i++) {
                 if (str[0].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getStandard()) && str[1].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getSubject())) {
                     arrayList.add(teacherAssignedSubjectModels.get(i).getClassname());
+                    addTest.SubjectID = teacherAssignedSubjectModels.get(i).getSubjectID();
+                    addTest.SectionID = teacherAssignedSubjectModels.get(i).getClassID();
                     Log.d("arrayList", "" + arrayList);
                 }
                 if (str[0].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getStandard())) {
@@ -442,8 +455,9 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                     checkBox.setText(arrayList.get(i));
 //                textView.setText(arrayList.get(i));
 
+                    if (i == 0) {
                         checkBox.setChecked(true);
-
+                    }
                     checkBox.setOnClickListener(onStateChangedListener(checkBox, i));
                     checkbox_linear.addView(convertView);
                 }
@@ -466,10 +480,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         ArrayList<String> rowtest = new ArrayList<String>();
 
         for (int k = 0; k < teacherGetTestNameModels.size(); k++) {
-            rowtest.add(teacherGetTestNameModels.get(k).getTestName()+teacherGetTestNameModels.get(k).getTestID());
-
+            rowtest.add(teacherGetTestNameModels.get(k).getTestName() + teacherGetTestNameModels.get(k).getTestID());
         }
-
         ArrayAdapter<String> adaptertest = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, rowtest);
         test_spinner.setAdapter(adaptertest);
     }

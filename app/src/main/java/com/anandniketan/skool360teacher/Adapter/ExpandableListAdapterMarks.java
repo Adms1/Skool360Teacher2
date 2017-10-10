@@ -1,8 +1,7 @@
 package com.anandniketan.skool360teacher.Adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
-import android.util.Log;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,7 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
         LayoutInflater infalInflater = (LayoutInflater) this._context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (childPosition > 0) {
+        if (childPosition > 0 && childPosition < getChildrenCount(groupPosition) - 1) {
 
             TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks currentchild = getChild(groupPosition, childPosition - 1);
             convertView = infalInflater.inflate(R.layout.list_item_marks, null);
@@ -62,12 +61,13 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
             txtSubject.setText(currentchild.getSubject());
             txtMarks.setText(currentchild.getMarks());
 
+        } else if (childPosition == getChildrenCount(groupPosition) - 1) {
+            convertView = infalInflater.inflate(R.layout.marks_footer, null);
+            TextView txttotal_footer, txtgain_footer;
+            txttotal_footer = (TextView) convertView.findViewById(R.id.txttotal_footer);
+            txtgain_footer = (TextView) convertView.findViewById(R.id.txtgain_footer);
 
-        }
-//        else if (childPosition== -1) {
-//            convertView = infalInflater.inflate(R.layout.marks_footer, null);
-//        }
-        else {
+        } else {
             convertView = infalInflater.inflate(R.layout.list_item_marks_header, null);
             TextView txtSubject_header, txtMarks_header;
             txtSubject_header = (TextView) convertView.findViewById(R.id.txtSubject_header);
@@ -78,8 +78,7 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                .size() + 1;
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition)).size() + 2;
     }
 
     @Override
