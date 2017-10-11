@@ -482,6 +482,7 @@ public class ParseJSON {
 
         return result;
     }
+
     public static ArrayList<TeacherInsertTestDetailModel> parseTeacherInsertTestDetailJson(String responseString) {
         ArrayList<TeacherInsertTestDetailModel> result = new ArrayList<>();
 

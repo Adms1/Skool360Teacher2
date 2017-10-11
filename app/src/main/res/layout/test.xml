@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/srno_txt"
+            android:layout_width="42dp"
+            android:layout_height="31dp"
+            android:layout_weight=".3"
+            android:padding="5dp"
+            android:text="@string/srno"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/test_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="4.69"
+            android:padding="5dp"
+            android:text="@string/student_name"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/grade_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:padding="5dp"
+            android:text="@string/grade"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/subject_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:padding="5dp"
+            android:text="@string/grade"
+            android:textAlignment="center" />
+
+
+        <ImageView
+            android:id="@+id/edit_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:src="@drawable/edit_pen"
+            android:padding="5dp"
+            android:text="@string/grade"
+            android:textAlignment="center" />
+    </LinearLayout>
+</LinearLayout>

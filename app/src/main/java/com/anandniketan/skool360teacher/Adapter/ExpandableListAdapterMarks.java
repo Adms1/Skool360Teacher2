@@ -67,6 +67,8 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
             txttotal_footer = (TextView) convertView.findViewById(R.id.txttotal_footer);
             txtgain_footer = (TextView) convertView.findViewById(R.id.txtgain_footer);
 
+//            txtgain_footer.setText(Html.fromHtml("0/0"));
+
         } else {
             convertView = infalInflater.inflate(R.layout.list_item_marks_header, null);
             TextView txtSubject_header, txtMarks_header;
@@ -118,7 +120,7 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
 
         Student_name_txt.setText(headerTitle1);
         gr_no_txt.setText(headerTitle2);
-        percentage_txt.setText(headerTitle3);
+        percentage_txt.setText(headerTitle3+"%");
 
         if (isExpanded) {
             view_txt.setTextColor(_context.getResources().getColor(R.color.present_header));

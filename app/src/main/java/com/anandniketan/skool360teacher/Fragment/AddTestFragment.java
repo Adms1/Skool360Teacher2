@@ -116,7 +116,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         if (isVisibleToUser) {
             setTodayschedule();
             fillsubjectspinner();
-//            getTestName();
         }
         // execute your data loading logic.
     }

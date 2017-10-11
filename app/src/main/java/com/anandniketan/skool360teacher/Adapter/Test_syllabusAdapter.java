@@ -133,7 +133,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                         window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1200);
                         WindowManager.LayoutParams wlp = window.getAttributes();
 
-                        wlp.gravity = Gravity.CENTER_HORIZONTAL;
+                        wlp.gravity = Gravity.CENTER;
                         wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
                         window.setAttributes(wlp);
                         alertDialogAndroid.show();
@@ -205,7 +205,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                                                         mCallBack.getTestSyllabusData();
                                                         if (insertTest.size() > 0) {
                                                             progressDialog.dismiss();
-                                                            Utility.ping(mContext, "Update Test");
+                                                            Utility.ping(mContext, "Add Test");
                                                             model = test_syllabusModels.get(position).getGetSyllabusData().get(position);
                                                             model.setSyllabus(String.valueOf(text));
                                                             test_syllabusModels.get(position).getGetSyllabusData().set(position, model);

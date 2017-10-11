@@ -96,6 +96,7 @@ public class StudentAssignesubject extends Fragment {
                     try {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+                        params.put("ClassID","");
 
                         getTeacherGetAssignStudentSubjectAsyncTask = new GetTeacherGetAssignStudentSubjectAsyncTask(params);
                         teacherGetAssignStudentSubjectmModels = getTeacherGetAssignStudentSubjectAsyncTask.execute().get();

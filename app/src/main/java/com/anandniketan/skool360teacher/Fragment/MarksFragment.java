@@ -19,13 +19,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
 import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterMarks;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestMarksAsyncTask;
 import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
-import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 
@@ -47,12 +45,14 @@ public class MarksFragment extends Fragment {
     private Spinner class_spinner;
     private ImageView search_img;
     private EditText search_edt;
+    boolean searchflag = false;
 
     ExpandableListAdapterMarks listAdapterMarks;
     ExpandableListView lvExpMarks;
     List<String> listDataHeader;
     HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>> listDataChild;
-    String spinnerSelectedValue,value;
+    String spinnerSelectedValue, value;
+
     public MarksFragment() {
     }
 
@@ -115,25 +115,47 @@ public class MarksFragment extends Fragment {
         class_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int j, long l) {
-                Toast.makeText(adapterView.getContext(),
-                        "On Item Select : \n" + adapterView.getItemAtPosition(j).toString(),
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(adapterView.getContext(),
+//                        "On Item Select : \n" + adapterView.getItemAtPosition(j).toString(),
+//                        Toast.LENGTH_LONG).show();
                 spinnerSelectedValue = adapterView.getItemAtPosition(j).toString();
                 Log.d("spinner", spinnerSelectedValue);
                 for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
-                   value = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getStandardClass() + " -> "
+                    value = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getStandardClass() + " -> "
                             + teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getTestName();
-
-
                 }
-//                    lvExpMarks.setAdapter(listAdapterMarks);
-//                    listAdapterMarks.notifyDataSetChanged();
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
+        search_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (searchflag == false) {
+                    search_linear.setVisibility(View.VISIBLE);
+                    searchflag = true;
+                } else {
+                    search_linear.setVisibility(View.GONE);
+                    searchflag = false;
+                }
+            }
+        });
+        search_edt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> temprray = new ArrayList<>();
+                for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
+                    for(int j=0;j<teacherGetTestMarksModels.get(i).getGetstudentDetail().get(i).getGettestDetail().size();j++)
+                    if(teacherGetTestMarksModels.get(i).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName().equalsIgnoreCase(search_edt.getText().toString())){
+                        temprray.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName());
+                    }
+                }
+//                listAdapterMarks = new ExpandableListAdapterMarks(this, temprray);
+//                lvExpMarks.setAdapter(listAdapterMarks);
+//                listAdapterMarks.notifyDataSetChanged();
             }
         });
     }
@@ -183,12 +205,13 @@ public class MarksFragment extends Fragment {
     public void prepaareList() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>>();
-
+        Marks_header.setVisibility(View.VISIBLE);
+        search_img.setVisibility(View.VISIBLE);
+//        search_linear.setVisibility(View.VISIBLE);
         for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
             if (teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size() > 0) {
-                Marks_header.setVisibility(View.VISIBLE);
-                search_img.setVisibility(View.VISIBLE);
-                search_linear.setVisibility(View.VISIBLE);
+//                Marks_header.setVisibility(View.VISIBLE);
+
                 for (int j = 0; j < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size(); j++) {
                     Marks marksdemo = new Marks();
                     marksdemo.studentname = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName();
@@ -199,14 +222,14 @@ public class MarksFragment extends Fragment {
                     for (int k = 0; k < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().size(); k++) {
                         rows.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().get(k));
                     }
-                    Log.d("row",rows.toString());
+                    Log.d("row", rows.toString());
                     listDataChild.put(listDataHeader.get(j), rows);
-                    Log.d("listDataChild",""+listDataChild.size());
+                    Log.d("listDataChild", "" + listDataChild.size());
                 }
             } else {
-                Marks_header.setVisibility(View.GONE);
-                search_img.setVisibility(View.GONE);
-                search_linear.setVisibility(View.GONE);
+//                Marks_header.setVisibility(View.GONE);
+//                search_img.setVisibility(View.GONE);
+//                search_linear.setVisibility(View.GONE);
             }
 
         }
