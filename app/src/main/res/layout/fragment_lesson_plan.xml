@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingTop="5dp">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="0dp"
+        android:background="@color/editTextcolor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="40dp"
+            android:background="@color/linear_color"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnBacktest_lessonplan"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/back_btn" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/header"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:layout_toStartOf="@+id/linearLayout2"
+            android:layout_weight="1"
+            android:paddingBottom="32dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/skool_360" />
+
+        <Button
+            android:id="@+id/btnMenu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/menu_btn_blue"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/header"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="11dp"
+            android:text="Lesson Plan"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtNoRecordslessonplan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/class_linear"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="No Records Found..."
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/class_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <Spinner
+                android:id="@+id/class_spinner"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_alignEnd="@+id/textView3"
+                android:layout_alignRight="@+id/textView3"
+                android:layout_below="@+id/header"
+                android:layout_margin="20dp"
+                android:paddingLeft="5dp"
+                android:background="@drawable/dropdown_button"
+                android:dropDownVerticalOffset="35dp"
+                android:forceHasOverlappingRendering="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/header_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/class_linear">
+
+            <include layout="@layout/lessonplan_header" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lesson_plan_list_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:layout_below="@+id/header_linear">
+
+            <ListView
+                android:id="@+id/lesson_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

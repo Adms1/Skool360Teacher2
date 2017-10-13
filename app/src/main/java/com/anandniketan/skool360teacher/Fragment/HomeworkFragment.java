@@ -12,21 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterHomeWork;
-import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterLessonPlan;
-import com.anandniketan.skool360teacher.Adapter.TodayscheduleAdapter;
-import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherLessonPlanScheduleAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherLessonPlanScheduledHomeworkAsyncTask;
-import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherTodayScheduleAsyncTask;
 import com.anandniketan.skool360teacher.Models.HomeworkModel;
-import com.anandniketan.skool360teacher.Models.LessonPlanModel;
-import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -36,11 +30,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class LessonplanscheduleFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+
+public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private View rootView;
-    private Button btnMenu, btnFilterlessonplan, btnBacktest_lessonplan;
+    private Button btnMenu, btnFilterHomework, btnBacktest_homework;
     private static TextView fromDate, toDate;
-    private TextView txtNoRecordslesson;
+    private TextView txtNoRecordshomework;
     private static String dateFinal;
     private Context mContext;
     private ProgressDialog progressDialog = null;
@@ -50,23 +45,23 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
     int Year, Month, Day;
     Calendar calendar;
     int mYear, mMonth, mDay;
-    ExpandableListView lvExplessonplan;
-    ExpandableListAdapterLessonPlan listAdapter;
+    ExpandableListView lvExpHomework;
+    ExpandableListAdapterHomeWork listAdapter;
     List<String> listDataHeader;
-    HashMap<String, ArrayList<LessonPlanModel.LessonplanData>> listDataChild;
-    private GetTeacherLessonPlanScheduleAsyncTask getTeacherLessonPlanScheduleAsyncTask = null;
-    private ArrayList<LessonPlanModel> lessonPlanModels = new ArrayList<>();
+    HashMap<String, ArrayList<HomeworkModel.HomeworkData>> listDataChild;
+    private GetTeacherLessonPlanScheduledHomeworkAsyncTask getTecherHomeworkAsyncTask = null;
+    private ArrayList<HomeworkModel> homeWorkModels = new ArrayList<>();
     private RelativeLayout date_rel;
-    private LinearLayout lesson_plan_header;
+    private LinearLayout homework_header;
 
 
-    public LessonplanscheduleFragment() {
+    public HomeworkFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_lessonplanschedule, container, false);
+        rootView = inflater.inflate(R.layout.fragment_homework, container, false);
         mContext = getActivity();
 
         initViews();
@@ -78,11 +73,12 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
     public void initViews() {
         fromDate = (TextView) rootView.findViewById(R.id.fromDate);
         toDate = (TextView) rootView.findViewById(R.id.toDate);
-        btnFilterlessonplan = (Button) rootView.findViewById(R.id.btnFilterlessonplan);
-        txtNoRecordslesson = (TextView) rootView.findViewById(R.id.txtNoRecordslesson);
-        lvExplessonplan = (ExpandableListView) rootView.findViewById(R.id.lvExplessonplan);
+        btnFilterHomework = (Button) rootView.findViewById(R.id.btnFilterHomework);
+        txtNoRecordshomework = (TextView) rootView.findViewById(R.id.txtNoRecordshomework);
+        btnBacktest_homework = (Button) rootView.findViewById(R.id.btnBacktest_homework);
+        lvExpHomework = (ExpandableListView) rootView.findViewById(R.id.lvExpHomework);
         date_rel = (RelativeLayout) rootView.findViewById(R.id.date_rel);
-        lesson_plan_header = (LinearLayout) rootView.findViewById(R.id.lesson_plan_header);
+        homework_header = (LinearLayout) rootView.findViewById(R.id.homework_header);
 
         calendar = Calendar.getInstance();
         Year = calendar.get(Calendar.YEAR);
@@ -104,7 +100,7 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
             @Override
             public void onClick(View v) {
                 isFromDate = true;
-                datePickerDialog = DatePickerDialog.newInstance(LessonplanscheduleFragment.this, Year, Month, Day);
+                datePickerDialog = DatePickerDialog.newInstance(HomeworkFragment.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
@@ -117,7 +113,7 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
             @Override
             public void onClick(View v) {
                 isFromDate = false;
-                datePickerDialog = DatePickerDialog.newInstance(LessonplanscheduleFragment.this, Year, Month, Day);
+                datePickerDialog = DatePickerDialog.newInstance(HomeworkFragment.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
@@ -126,7 +122,7 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
             }
         });
 
-        btnFilterlessonplan.setOnClickListener(new View.OnClickListener() {
+        btnFilterHomework.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!fromDate.getText().toString().equalsIgnoreCase("")) {
@@ -142,13 +138,24 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
                 }
             }
         });
-        lvExplessonplan.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+        btnBacktest_homework.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new HomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(0, 0)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+        });
+        lvExpHomework.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
             public void onGroupExpand(int groupPosition) {
                 if (lastExpandedPosition != -1
                         && groupPosition != lastExpandedPosition) {
-                    lvExplessonplan.collapseGroup(lastExpandedPosition);
+                    lvExpHomework.collapseGroup(lastExpandedPosition);
                 }
                 lastExpandedPosition = groupPosition;
             }
@@ -196,27 +203,27 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));//
                         params.put("FromDate", fromDate);
                         params.put("ToDate", toDate);
-                        lessonPlanModels.clear();
-                        getTeacherLessonPlanScheduleAsyncTask = new GetTeacherLessonPlanScheduleAsyncTask(params);
-                        lessonPlanModels = getTeacherLessonPlanScheduleAsyncTask.execute().get();
+                        homeWorkModels.clear();
+                        getTecherHomeworkAsyncTask = new GetTeacherLessonPlanScheduledHomeworkAsyncTask(params);
+                        homeWorkModels = getTecherHomeworkAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (lessonPlanModels.size() > 0) {
-                                    txtNoRecordslesson.setVisibility(View.GONE);
+                                if (homeWorkModels.size() > 0) {
+                                    txtNoRecordshomework.setVisibility(View.GONE);
                                     date_rel.setVisibility(View.VISIBLE);
-                                    lesson_plan_header.setVisibility(View.VISIBLE);
-                                    lvExplessonplan.setVisibility(View.VISIBLE);
+                                    homework_header.setVisibility(View.VISIBLE);
+                                    lvExpHomework.setVisibility(View.VISIBLE);
                                     progressDialog.dismiss();
                                     prepaareList();
-                                    listAdapter = new ExpandableListAdapterLessonPlan(getActivity(), listDataHeader, listDataChild);
-                                    lvExplessonplan.setAdapter(listAdapter);
+                                    listAdapter = new ExpandableListAdapterHomeWork(getActivity(), listDataHeader, listDataChild);
+                                    lvExpHomework.setAdapter(listAdapter);
                                 } else {
                                     progressDialog.dismiss();
-                                    txtNoRecordslesson.setVisibility(View.VISIBLE);
-                                    lesson_plan_header.setVisibility(View.GONE);
-                                    lvExplessonplan.setVisibility(View.GONE);
+                                    txtNoRecordshomework.setVisibility(View.VISIBLE);
+                                    homework_header.setVisibility(View.GONE);
+                                    lvExpHomework.setVisibility(View.GONE);
                                 }
                             }
                         });
@@ -232,20 +239,20 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
 
     public void prepaareList() {
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<LessonPlanModel.LessonplanData>>();
+        listDataChild = new HashMap<String, ArrayList<HomeworkModel.HomeworkData>>();
 
-        for (int j = 0; j < lessonPlanModels.get(0).getGethomeworkdata().size(); j++) {
-            listDataHeader.add(lessonPlanModels.get(0).getGethomeworkdata().get(j).getDate() + "|"
-                    + lessonPlanModels.get(0).getGethomeworkdata().get(j).getStandard() + "|"
-                    + lessonPlanModels.get(0).getGethomeworkdata().get(j).getClassName() + "|"
-                    + lessonPlanModels.get(0).getGethomeworkdata().get(j).getSubject());
+            for (int j = 0; j < homeWorkModels.get(0).getGethomeworkdata().size(); j++) {
+                listDataHeader.add(homeWorkModels.get(0).getGethomeworkdata().get(j).getDate() + "|"
+                        + homeWorkModels.get(0).getGethomeworkdata().get(j).getStandard() + "|"
+                        + homeWorkModels.get(0).getGethomeworkdata().get(j).getClassName() + "|"
+                        + homeWorkModels.get(0).getGethomeworkdata().get(j).getSubject());
 
-            ArrayList<LessonPlanModel.LessonplanData> rows = new ArrayList<LessonPlanModel.LessonplanData>();
+                ArrayList<HomeworkModel.HomeworkData> rows = new ArrayList<HomeworkModel.HomeworkData>();
 
-            rows.add(lessonPlanModels.get(0).getGethomeworkdata().get(j));
+                    rows.add(homeWorkModels.get(0).getGethomeworkdata().get(j));
 
-            listDataChild.put(listDataHeader.get(j), rows);
-        }
+                listDataChild.put(listDataHeader.get(j), rows);
+            }
 
 
     }

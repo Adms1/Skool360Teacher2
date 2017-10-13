@@ -182,7 +182,7 @@ public class MarksFragment extends Fragment {
                                 if (teacherGetTestMarksModels.size() > 0) {
                                     txtNoRecordsMarks.setVisibility(View.GONE);
                                     fillspinner();
-                                    prepaareList();
+//                                    prepaareList();
                                     listAdapterMarks = new ExpandableListAdapterMarks(getActivity(), listDataHeader, listDataChild);
                                     lvExpMarks.setAdapter(listAdapterMarks);
                                 } else {
@@ -202,38 +202,38 @@ public class MarksFragment extends Fragment {
         }
     }
 
-    public void prepaareList() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>>();
-        Marks_header.setVisibility(View.VISIBLE);
-        search_img.setVisibility(View.VISIBLE);
-//        search_linear.setVisibility(View.VISIBLE);
-        for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
-            if (teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size() > 0) {
-//                Marks_header.setVisibility(View.VISIBLE);
-
-                for (int j = 0; j < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size(); j++) {
-                    Marks marksdemo = new Marks();
-                    marksdemo.studentname = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName();
-                    marksdemo.grno = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGRNO();
-                    marksdemo.percentage = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getPercentage();
-                    listDataHeader.add(marksdemo.studentname.toString() + "|" + marksdemo.grno.toString() + "|" + marksdemo.percentage);
-                    ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks> rows = new ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>();
-                    for (int k = 0; k < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().size(); k++) {
-                        rows.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().get(k));
-                    }
-                    Log.d("row", rows.toString());
-                    listDataChild.put(listDataHeader.get(j), rows);
-                    Log.d("listDataChild", "" + listDataChild.size());
-                }
-            } else {
-//                Marks_header.setVisibility(View.GONE);
-//                search_img.setVisibility(View.GONE);
-//                search_linear.setVisibility(View.GONE);
-            }
-
-        }
-    }
+//    public void prepaareList() {
+//        listDataHeader = new ArrayList<String>();
+//        listDataChild = new HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>>();
+//        Marks_header.setVisibility(View.VISIBLE);
+//        search_img.setVisibility(View.VISIBLE);
+////        search_linear.setVisibility(View.VISIBLE);
+//        for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
+//            if (teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size() > 0) {
+////                Marks_header.setVisibility(View.VISIBLE);
+//
+//                for (int j = 0; j < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size(); j++) {
+//                    Marks marksdemo = new Marks();
+//                    marksdemo.studentname = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName();
+//                    marksdemo.grno = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGRNO();
+//                    marksdemo.percentage = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getPercentage();
+//                    listDataHeader.add(marksdemo.studentname.toString() + "|" + marksdemo.grno.toString() + "|" + marksdemo.percentage);
+//                    ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks> rows = new ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>();
+//                    for (int k = 0; k < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().size(); k++) {
+//                        rows.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().get(k));
+//                    }
+//                    Log.d("row", rows.toString());
+//                    listDataChild.put(listDataHeader.get(j), rows);
+//                    Log.d("listDataChild", "" + listDataChild.size());
+//                }
+//            } else {
+////                Marks_header.setVisibility(View.GONE);
+////                search_img.setVisibility(View.GONE);
+////                search_linear.setVisibility(View.GONE);
+//            }
+//
+//        }
+//    }
 
     public class Marks {
         private String studentname;

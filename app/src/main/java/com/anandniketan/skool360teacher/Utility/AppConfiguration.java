@@ -35,7 +35,8 @@ public class AppConfiguration {
 
     //Local
     public static String DOMAIN_LOCAL = "";
-    public static String DOMAIN_LIVE = "http://192.168.1.4:8085/MobileApp_Service.asmx/";
+    //    public static String DOMAIN_LIVE = "http://192.168.1.4:8085/MobileApp_Service.asmx/"; //old
+    public static String DOMAIN_LIVE = "http://192.168.1.9:8085/MobileApp_Service.asmx/"; //new
 
     public static String GetStaffLogin = "StaffLogin";
     public static String GetStaffAttendence = "StaffAttendence";
@@ -48,7 +49,10 @@ public class AppConfiguration {
     public static String GetTeacherGetTestSyllabus = "TeacherGetTestSyllabus";
     public static String GetTeacherGetTestMarks = "TeacherGetTestMarks";
     public static String GetTeacherInsertTestDetail = "TeacherInsertTestDetail";
-    public static String GetTeacherGetTestNameGradeWise="TeacherGetTestNameGradeWise";
+    public static String GetTeacherGetTestNameGradeWise = "TeacherGetTestNameGradeWise";
+    public static String GetTeacherLessonPlanScheduledHomework = "TeacherLessonPlanScheduledHomework";
+    public static String GetTeacherLessonPlanSchedule = "TeacherLessonPlanSchedule";
+    public static String GetTeacherLessonPlan = "TeacherLessonPlan";
 
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();

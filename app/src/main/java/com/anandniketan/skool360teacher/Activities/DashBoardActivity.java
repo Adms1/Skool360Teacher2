@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import com.anandniketan.skool360teacher.Adapter.MenuoptionItemAdapter;
 import com.anandniketan.skool360teacher.Fragment.AttendanceFragment;
 import com.anandniketan.skool360teacher.Fragment.HomeFragment;
+import com.anandniketan.skool360teacher.Fragment.HomeworkFragment;
 import com.anandniketan.skool360teacher.Fragment.SubjectFragment;
 import com.anandniketan.skool360teacher.Fragment.TimeTableFragment;
 import com.anandniketan.skool360teacher.Models.MenuoptionItemModel;
@@ -202,6 +203,11 @@ public class DashBoardActivity extends FragmentActivity {
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
+            case 5:
+                fragment = new HomeworkFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
             case 13:
                 Utility.setPref(mContext, "unm", "");
                 Utility.setPref(mContext, "pwd", "");
@@ -224,17 +230,17 @@ public class DashBoardActivity extends FragmentActivity {
                 if (first_time_trans) {
                     first_time_trans = false;
                     fragmentManager.beginTransaction()
-                            .setCustomAnimations(0,0)
+                            .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
 
-                }else {
+                } else {
                     fragmentManager.beginTransaction()
-                            .setCustomAnimations(0,0)
+                            .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
                 }
-            }else {
+            } else {
                 fragmentManager.beginTransaction()
-                        .setCustomAnimations(0,0)
+                        .setCustomAnimations(0, 0)
                         .replace(R.id.frame_container, fragment).commit();
             }
 

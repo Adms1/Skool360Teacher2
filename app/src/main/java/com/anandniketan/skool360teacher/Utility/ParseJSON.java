@@ -1,6 +1,8 @@
 package com.anandniketan.skool360teacher.Utility;
 
+import com.anandniketan.skool360teacher.Models.HomeworkModel;
 import com.anandniketan.skool360teacher.Models.InsertAttendanceModel;
+import com.anandniketan.skool360teacher.Models.LessonPlanModel;
 import com.anandniketan.skool360teacher.Models.LoginModel;
 import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
@@ -9,6 +11,7 @@ import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetTestNameModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
 import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
+import com.anandniketan.skool360teacher.Models.TeacherLessonPlanModel;
 import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
 import com.anandniketan.skool360teacher.Models.UserProfileModel;
@@ -266,7 +269,6 @@ public class ParseJSON {
                     teacherAssignedSubjectModel.setStandardID(jsonChildNode.getString("StandardID"));
 
 
-
                     result.add(teacherAssignedSubjectModel);
                 }
             } else {
@@ -503,6 +505,7 @@ public class ParseJSON {
 
         return result;
     }
+
     public static ArrayList<TeacherGetTestNameModel> parseTeacherGetTestNameJson(String responseString) {
         ArrayList<TeacherGetTestNameModel> result = new ArrayList<>();
 
@@ -522,6 +525,148 @@ public class ParseJSON {
 
                     result.add(teacherGetTestNameModel);
                 }
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ArrayList<HomeworkModel> parseTeacherHomeworkJson(String responseString) {
+        ArrayList<HomeworkModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            HomeworkModel homeworkModel = new HomeworkModel();
+            if (data_load_basket.toString().equals("True")) {
+                homeworkModel.setFromDate(reader.getString("FromDate"));
+                homeworkModel.setToDate(reader.getString("ToDate"));
+
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+
+                HomeworkModel.HomeworkData homeWorkData = null;
+                ArrayList<HomeworkModel.HomeworkData> homeWorkDatas = new ArrayList<>();
+
+                for (int j = 0; j < jsonMainNode.length(); j++) {
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(j);
+                    homeWorkData = homeworkModel.new HomeworkData();
+                    homeWorkData.setDate(jsonChildNode.getString("Date"));
+                    homeWorkData.setStandard(jsonChildNode.getString("Standard"));
+                    homeWorkData.setClassName(jsonChildNode.getString("ClassName"));
+                    homeWorkData.setSubject(jsonChildNode.getString("Subject"));
+                    homeWorkData.setHomeWork(jsonChildNode.getString("HomeWork"));
+                    homeWorkData.setChapterName(jsonChildNode.getString("ChapterName"));
+                    homeWorkData.setObjective(jsonChildNode.getString("Objective"));
+                    homeWorkData.setAssessmentQue(jsonChildNode.getString("AssessmentQue"));
+//                        homeWorkData.setFont(jsonChildNode.getString(""));
+
+                    homeWorkDatas.add(homeWorkData);
+                }
+                homeworkModel.setGethomeworkdata(homeWorkDatas);
+                result.add(homeworkModel);
+
+
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ArrayList<LessonPlanModel> parseTeacherLessonPlanScheduleJson(String responseString) {
+        ArrayList<LessonPlanModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            LessonPlanModel lessonPlanModel = new LessonPlanModel();
+            if (data_load_basket.toString().equals("True")) {
+                lessonPlanModel.setFromDate(reader.getString("FromDate"));
+                lessonPlanModel.setToDate(reader.getString("ToDate"));
+
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+
+                LessonPlanModel.LessonplanData lessonplanData = null;
+                ArrayList<LessonPlanModel.LessonplanData> lessonplanDatas = new ArrayList<>();
+
+                for (int j = 0; j < jsonMainNode.length(); j++) {
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(j);
+                    lessonplanData = lessonPlanModel.new LessonplanData();
+                    lessonplanData.setDate(jsonChildNode.getString("Date"));
+                    lessonplanData.setStandard(jsonChildNode.getString("Standard"));
+                    lessonplanData.setClassName(jsonChildNode.getString("ClassName"));
+                    lessonplanData.setSubject(jsonChildNode.getString("Subject"));
+                    lessonplanData.setHomeWork(jsonChildNode.getString("HomeWork"));
+                    lessonplanData.setChapterName(jsonChildNode.getString("ChapterName"));
+                    lessonplanData.setObjective(jsonChildNode.getString("Objective"));
+                    lessonplanData.setAssessmentQue(jsonChildNode.getString("AssessmentQue"));
+//                        homeWorkData.setFont(jsonChildNode.getString(""));
+
+                    lessonplanDatas.add(lessonplanData);
+                }
+                lessonPlanModel.setGethomeworkdata(lessonplanDatas);
+                result.add(lessonPlanModel);
+
+
+            } else {
+                //invalid login
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static ArrayList<TeacherLessonPlanModel> parseTeacherLessonPlanJson(String responseString) {
+        ArrayList<TeacherLessonPlanModel> result = new ArrayList<>();
+
+        try {
+            JSONObject reader = new JSONObject(responseString);
+            String data_load_basket = reader.getString("Success");
+            TeacherLessonPlanModel teacherLessonPlanModel = new TeacherLessonPlanModel();
+
+            if (data_load_basket.toString().equals("True")) {
+                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
+                TeacherLessonPlanModel.LessonPlan lessonPlan = null;
+                ArrayList<TeacherLessonPlanModel.LessonPlan> lessonPlanArrayList = new ArrayList<>();
+                for (int i = 0; i < jsonMainNode.length(); i++) {
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                    lessonPlan = teacherLessonPlanModel.new LessonPlan();
+                    lessonPlan.setSubject(jsonChildNode.getString("Subject"));
+                    lessonPlan.setStandard(jsonChildNode.getString("Standard"));
+
+                    JSONArray jsonMainNode1 = jsonChildNode.optJSONArray("Data");
+                    TeacherLessonPlanModel.LessonPlan.LessonPlanData lessonPlanData = null;
+                    ArrayList< TeacherLessonPlanModel.LessonPlan.LessonPlanData> lessonPlanDatas = new ArrayList<>();
+                    for (int j = 0; j < jsonMainNode1.length(); j++) {
+                        JSONObject jsonChildNode1 = jsonMainNode1.getJSONObject(j);
+                        lessonPlanData = lessonPlan.new LessonPlanData();
+                        lessonPlanData.setID(jsonChildNode1.getString("ID"));
+                        lessonPlanData.setChapterNo(jsonChildNode1.getString("ChapterNo"));
+                        lessonPlanData.setChapterName(jsonChildNode1.getString("ChapterName"));
+
+
+                        lessonPlanDatas.add(lessonPlanData);
+                    }
+                    lessonPlan.setGetLessonPlanData(lessonPlanDatas);
+                    lessonPlanArrayList.add(lessonPlan);
+                }
+                teacherLessonPlanModel.setGetLessonPlan(lessonPlanArrayList);
+                result.add(teacherLessonPlanModel);
             } else {
                 //invalid login
             }

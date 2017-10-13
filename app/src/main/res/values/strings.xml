@@ -31,6 +31,20 @@
     <string name="standardsubject">Standard-Subject :</string>
     <string name="section">Section :</string>
     <string name="test">Test :</string>
+    <string name="homeworkDate">Date</string>
+    <string name="homeworkStandard">std</string>
+    <string name="homeworkClass">class</string>
+    <string name="homeworkSubject">Subject :</string>
+    <string name="homework">HomeWork :</string>
+    <string name="chaptername">Chapter Name :</string>
+    <string name="objective">Objective :</string>
+    <string name="assessment">AssessmentQue :</string>
+    <string name="plandate">Plan Date</string>
+    <string name="chapterno"> Chapter No.</string>
+    <string name="lessonchaptername">Chapter Name</string>
+    <string name="lessonpdf">PDF</string>
+    <string name="lessonword">WORD</string>
+
 
     <string-array name="menuoption1">
         <item>Home</item>

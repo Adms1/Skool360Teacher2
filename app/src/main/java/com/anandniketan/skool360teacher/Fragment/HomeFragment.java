@@ -168,6 +168,19 @@ public class HomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
+                } else if (position == 4) {
+                    fragment = new LessonPlanFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+                } else if (position == 5) {
+                    fragment = new HomeworkFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+
                 } else if (position == 6) {
                     fragment = new TestMainFragment();
                     fragmentManager = getFragmentManager();
@@ -175,7 +188,7 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
 
-                }else if (position == 7) {
+                } else if (position == 7) {
                     fragment = new MarksFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
