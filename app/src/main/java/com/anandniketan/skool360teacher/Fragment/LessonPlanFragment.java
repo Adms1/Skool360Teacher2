@@ -1,27 +1,40 @@
 package com.anandniketan.skool360teacher.Fragment;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterMarks;
 import com.anandniketan.skool360teacher.Adapter.TeacherLessonPlanAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherLessonPlanAsyncTask;
+import com.anandniketan.skool360teacher.Models.LessonPlanResponse.FinalArrayLesson;
+import com.anandniketan.skool360teacher.Models.LessonPlanResponse.LessonDatum;
+import com.anandniketan.skool360teacher.Models.LessonPlanResponse.MainResponseLesson;
+import com.anandniketan.skool360teacher.Models.NewResponse.FinalArray;
 import com.anandniketan.skool360teacher.Models.TeacherLessonPlanModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,10 +56,10 @@ public class LessonPlanFragment extends Fragment {
     private TextView txtNoRecordslessonplan;
     private Spinner class_spinner;
     private Button btnBacktest_lessonplan;
-    List<String> listDataHeader;
-    ArrayList<ArrayList<TeacherLessonPlanModel.LessonPlan.LessonPlanData>> listDataChild;
+    private ArrayList<LessonDatum> arrayList;
+    MainResponseLesson responseLesson;
 
-    private ArrayList<TeacherLessonPlanModel.LessonPlan.LessonPlanData> arrayList = new ArrayList<>();
+    String spinnerSelectedValue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +93,27 @@ public class LessonPlanFragment extends Fragment {
                         .replace(R.id.frame_container, fragment).commit();
             }
         });
+        class_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerSelectedValue = parent.getItemAtPosition(position).toString();
+                Log.d("spinner", spinnerSelectedValue);
+                String[] array = spinnerSelectedValue.split("->");
+                Log.d("Array", Arrays.toString(array));
+                List<FinalArrayLesson> filterFinalArray = new ArrayList<FinalArrayLesson>();
+                for (FinalArrayLesson arrayObj : responseLesson.getFinalArrayLesson()) {
+                    if (arrayObj.getStandard().equalsIgnoreCase(array[0].trim()) && arrayObj.getSubject().equalsIgnoreCase(array[1].trim())) {
+                        filterFinalArray.add(arrayObj);
+                    }
+                }
+                setExpandableListView(filterFinalArray);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 
@@ -98,22 +132,16 @@ public class LessonPlanFragment extends Fragment {
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
 
                         getTeacherLessonPlanAsyncTask = new GetTeacherLessonPlanAsyncTask(params);
-                        teacherLessonPlanModels = getTeacherLessonPlanAsyncTask.execute().get();
+                        responseLesson = getTeacherLessonPlanAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (teacherLessonPlanModels.size() > 0) {
+                                Log.d("response", "" + responseLesson.getFinalArrayLesson().size());
+                                if (responseLesson.getFinalArrayLesson().size() > 0) {
                                     txtNoRecordslessonplan.setVisibility(View.GONE);
                                     fillspinner();
-                                    for (int i = 0; i < teacherLessonPlanModels.get(0).getGetLessonPlan().size(); i++) {
-                                         for(int j=0;j<teacherLessonPlanModels.get(0).getGetLessonPlan().get(i).getGetLessonPlanData().size();j++){
-                                             arrayList.add(teacherLessonPlanModels.get(0).getGetLessonPlan().get(i).getGetLessonPlanData().get(j));
-                                         }
-                                    }
-                                    teacherLessonPlanAdapter = new TeacherLessonPlanAdapter(getActivity(), arrayList);
-                                    lesson_list.setAdapter(teacherLessonPlanAdapter);
-                                    lesson_list.deferNotifyDataSetChanged();
+
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordslessonplan.setVisibility(View.VISIBLE);
@@ -132,12 +160,26 @@ public class LessonPlanFragment extends Fragment {
         }
     }
 
+    private void setExpandableListView(List<FinalArrayLesson> array) {
+        arrayList = new ArrayList<>();
+        arrayList.clear();
+        for (int i = 0; i < array.size(); i++) {
+            for (int j = 0; j < array.get(i).getData().size(); j++) {
+                arrayList.add(array.get(i).getData().get(j));
+            }
+        }
+        Log.d("arrayList", "" + arrayList.toString());
+        teacherLessonPlanAdapter = new TeacherLessonPlanAdapter(getActivity(), arrayList);
+        lesson_list.setAdapter(teacherLessonPlanAdapter);
+        lesson_list.deferNotifyDataSetChanged();
+    }
+
     public void fillspinner() {
         ArrayList<String> row = new ArrayList<String>();
 
-        for (int z = 0; z < teacherLessonPlanModels.get(0).getGetLessonPlan().size(); z++) {
-            row.add(teacherLessonPlanModels.get(0).getGetLessonPlan().get(z).getStandard() + " -> "
-                    + teacherLessonPlanModels.get(0).getGetLessonPlan().get(z).getSubject());
+        for (int z = 0; z < responseLesson.getFinalArrayLesson().size(); z++) {
+            row.add(responseLesson.getFinalArrayLesson().get(z).getStandard() + " -> "
+                    + responseLesson.getFinalArrayLesson().get(z).getSubject());
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         class_spinner.setAdapter(adapterYear);

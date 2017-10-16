@@ -97,8 +97,7 @@
             android:layout_below="@+id/header"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:visibility="visible"
-            android:weightSum="1">
+            android:visibility="visible">
 
             <Spinner
                 android:id="@+id/class_spinner"
@@ -114,15 +113,12 @@
 
             <ImageView
                 android:id="@+id/search_img"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignEnd="@+id/textView3"
-                android:layout_alignRight="@+id/textView3"
-                android:layout_below="@+id/header"
-                android:layout_margin="20dp"
-                android:layout_marginTop="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="60dp"
                 android:src="@drawable/search_icon"
-                android:visibility="visible"/>
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -131,7 +127,7 @@
             android:layout_height="45dp"
             android:layout_below="@+id/class_linear"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/search_edt"

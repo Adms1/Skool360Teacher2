@@ -164,6 +164,16 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                     addTest.testName = adapterView.getItemAtPosition(i).toString();
                     addTest.AddTestID = teacherGetTestNameModels.get(i).getTestID();
                 }
+                String testvalue;
+                testvalue=adapterView.getItemAtPosition(i).toString();
+                if(testvalue.equalsIgnoreCase("-Please Select-")){
+                    Add_btn.setEnabled(false);
+                    Add_btn.setAlpha((float) 0.5);
+                }else
+                {
+                    Add_btn.setEnabled(true);
+                    Add_btn.setAlpha(1);
+                }
             }
 
             @Override

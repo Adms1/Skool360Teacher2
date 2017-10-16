@@ -10,7 +10,7 @@ public class response {
 //    public void lessonplan response() {
 //        {
 //            "Success":"True",
-//                "FinalArray": [
+//                "FinalArrayLesson": [
 //            {
 //                "Standard":"V",
 //                    "Subject":"Hindi",
@@ -111,7 +111,7 @@ public class response {
     //marks response
 //    public void marks response(){{
 //        "Success": "True",
-//                "FinalArray": [
+//                "FinalArrayLesson": [
 //        {
 //            "TestName": "Unit Test1",
 //                "StandardClass": "VI-A",
@@ -369,4 +369,1692 @@ public class response {
 //        }
 //  ]
 //    }}
+
+//    public void Teacherassignsubject(){
+//        {
+//            "Success": "True",
+//                "FinalArray": [
+//            {
+//                "StudentName": "Aadit Shah",
+//                    "StudentID": 294,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "1"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "1"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "1"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "1"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "1"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "1"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Aanya Bachhawat",
+//                    "StudentID": 295,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Aarya Patel",
+//                    "StudentID": 296,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Aayush Shah",
+//                    "StudentID": 299,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Arya Patel",
+//                    "StudentID": 304,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Bhrithi Gajaria",
+//                    "StudentID": 307,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Deepam Dave",
+//                    "StudentID": 309,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Deepika Sinha",
+//                    "StudentID": 310,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Diya Patel",
+//                    "StudentID": 318,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Hiyaa Gandhi",
+//                    "StudentID": 328,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Khushi Gandhi",
+//                    "StudentID": 340,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Maanank Shah",
+//                    "StudentID": 345,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Manav Kotadia",
+//                    "StudentID": 347,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Manvi Gaur",
+//                    "StudentID": 349,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Nikki Shah",
+//                    "StudentID": 355,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Nish Patel",
+//                    "StudentID": 357,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Nityashree Bardia",
+//                    "StudentID": 361,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Prathita Gadhavi",
+//                    "StudentID": 367,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Heer  Shah",
+//                    "StudentID": 410,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Tamanna  Gogia",
+//                    "StudentID": 1625,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Devam Patel",
+//                    "StudentID": 1941,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Priyanka Devjani",
+//                    "StudentID": 1973,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Aarav Patel",
+//                    "StudentID": 1974,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Tirth Barot",
+//                    "StudentID": 1980,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Bhavya Mehta",
+//                    "StudentID": 1986,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "Samarth Ruparelia",
+//                    "StudentID": 1990,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "DIYA SHAH",
+//                    "StudentID": 2325,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "PUSHPENDRA POPAT",
+//                    "StudentID": 2339,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "SAIKRISHNAN .",
+//                    "StudentID": 2395,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            },
+//            {
+//                "StudentName": "MALHAR PILLAI",
+//                    "StudentID": 2404,
+//                    "StudentSubject": [
+//                {
+//                    "SubjectID": 3,
+//                        "Subject": "Book Club",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 77,
+//                        "Subject": "Computers",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 2,
+//                        "Subject": "English",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 79,
+//                        "Subject": "Gujarati",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 5,
+//                        "Subject": "Hindi",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 1,
+//                        "Subject": "Mathematics",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 69,
+//                        "Subject": "Practical",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 37,
+//                        "Subject": "Sanskrit",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 21,
+//                        "Subject": "Science",
+//                        "CheckedStatus": "0"
+//                },
+//                {
+//                    "SubjectID": 24,
+//                        "Subject": "Social Studies",
+//                        "CheckedStatus": "0"
+//                }
+//      ]
+//            }
+//  ]
+//        }
+//    }
 }

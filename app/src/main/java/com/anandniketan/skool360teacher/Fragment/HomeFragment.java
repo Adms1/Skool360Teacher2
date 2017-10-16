@@ -1,5 +1,6 @@
 package com.anandniketan.skool360teacher.Fragment;
 
+import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
@@ -12,12 +13,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -58,7 +61,7 @@ public class HomeFragment extends Fragment {
     private Button btnMenu, btn_notification, menu_linear;
     private GridView grid_view;
     private ImageView logo;
-    private RelativeLayout header;
+    private LinearLayout header;
     private Context mContext;
     private Fragment fragment = null;
     private FragmentManager fragmentManager = null;
@@ -70,7 +73,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<UserProfileModel> userProfileModels = new ArrayList<>();
     private GetStaffProfileAsyncTask getStaffProfileAsyncTask = null;
     boolean flag = false;
-
+    static int previousHeight;
+    int timeDuration = 500;
 
     public HomeFragment() {
     }
@@ -93,13 +97,13 @@ public class HomeFragment extends Fragment {
 
     public void initViews() {
         menu_linear = (Button) rootView.findViewById(R.id.menu_linear);
-        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
+//        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
         grid_view = (GridView) rootView.findViewById(R.id.grid_view);
         grid_view.setAdapter(new ImageAdapter(mContext));
 //        grid_view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.bounce));
         student_name_txt = (TextView) rootView.findViewById(R.id.student_name_txt);
         student_classname_txt = (TextView) rootView.findViewById(R.id.student_classname_txt);
-        header = (RelativeLayout) rootView.findViewById(R.id.header);
+        header = (LinearLayout) rootView.findViewById(R.id.header);
 
         profile_image = (CircleImageView) rootView.findViewById(R.id.profile_image);
         imageLoader = ImageLoader.getInstance();
@@ -133,12 +137,12 @@ public class HomeFragment extends Fragment {
     //change Megha 04-09-2017
 
     public void setListners() {
-        btnMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DashBoardActivity.onLeft();
-            }
-        });
+//        btnMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DashBoardActivity.onLeft();
+//            }
+//        });
         grid_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -201,22 +205,51 @@ public class HomeFragment extends Fragment {
         menu_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) header.getLayoutParams();
-//// Changes the height and width to the specified *pixels*
-//
-//                if (flag == false) {
-//                    params.height = 100;
-//                    params.width = 100;
-//                    header.setLayoutParams(params);
-//                    flag = true;
-//                } else {
-//                    params.height = 50;
-//                    params.width = 100;
-//                    header.setLayoutParams(params);
-//                    flag = false;
-//                }
+                if (menu_linear.isSelected()) {
+                    menu_linear.setSelected(false);
+                    collapse(header, timeDuration, previousHeight);
+                }else {
+                    menu_linear.setSelected(true);
+                    expand(header, timeDuration-200,450);
+                }
             }
         });
+    }
+    public static void expand(final View v, int duration, int targetHeight) {
+
+        int prevHeight  = v.getHeight();
+
+        v.setVisibility(View.VISIBLE);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
+        previousHeight = prevHeight;
+
+        Log.d("previousHeight",""+previousHeight);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                v.getLayoutParams().height = (int) animation.getAnimatedValue();
+                v.requestLayout();
+            }
+        });
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
+    }
+
+    public static void collapse(final View v, int duration, int targetHeight) {
+        int prevHeight  = v.getHeight();
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                v.getLayoutParams().height = (int) animation.getAnimatedValue();
+                v.requestLayout();
+            }
+        });
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
     }
 
     public void getUserProfile() {

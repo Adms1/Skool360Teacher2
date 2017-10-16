@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.anandniketan.skool360teacher.Models.NewResponse.SubjectMark;
 import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
 import com.anandniketan.skool360teacher.R;
 
@@ -19,23 +20,25 @@ import java.util.List;
  * Created by admsandroid on 9/27/2017.
  */
 
-public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
+public class ExpandableListAdapterMarks  extends BaseExpandableListAdapter {
 
     private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>> _listDataChild;
+    private HashMap<String, List<SubjectMark>> listChildData;
+    private HashMap<String, String> listfooterDate;
 
     public ExpandableListAdapterMarks(Context context, List<String> listDataHeader,
-                                      HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>> listChildData) {
+                                      HashMap<String, List<SubjectMark>> listChildData, HashMap<String, String> listfooterDate) {
         this._context = context;
         this._listDataHeader = listDataHeader;
-        this._listDataChild = listChildData;
+        this.listChildData = listChildData;
+        this.listfooterDate = listfooterDate;
     }
 
     @Override
-    public TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks getChild(int groupPosition, int childPosititon) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+    public com.anandniketan.skool360teacher.Models.NewResponse.SubjectMark getChild(int groupPosition, int childPosititon) {
+        return this.listChildData.get(this._listDataHeader.get(groupPosition))
                 .get(childPosititon);
     }
 
@@ -51,7 +54,7 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (childPosition > 0 && childPosition < getChildrenCount(groupPosition) - 1) {
 
-            TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks currentchild = getChild(groupPosition, childPosition - 1);
+            SubjectMark currentchild = getChild(groupPosition, childPosition - 1);
             convertView = infalInflater.inflate(R.layout.list_item_marks, null);
 
             TextView txtSubject, txtMarks;
@@ -62,25 +65,25 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
             txtMarks.setText(currentchild.getMarks());
 
         } else if (childPosition == getChildrenCount(groupPosition) - 1) {
+
             convertView = infalInflater.inflate(R.layout.marks_footer, null);
             TextView txttotal_footer, txtgain_footer;
             txttotal_footer = (TextView) convertView.findViewById(R.id.txttotal_footer);
             txtgain_footer = (TextView) convertView.findViewById(R.id.txtgain_footer);
-
-//            txtgain_footer.setText(Html.fromHtml("0/0"));
-
+            txtgain_footer.setText(String.valueOf(listfooterDate.get(_listDataHeader.get(groupPosition))));
         } else {
             convertView = infalInflater.inflate(R.layout.list_item_marks_header, null);
             TextView txtSubject_header, txtMarks_header;
             txtSubject_header = (TextView) convertView.findViewById(R.id.txtSubject_header);
             txtMarks_header = (TextView) convertView.findViewById(R.id.txtMarks_header);
+
         }
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition)).size() + 2;
+        return this.listChildData.get(this._listDataHeader.get(groupPosition)).size() + 2;
     }
 
     @Override
@@ -120,7 +123,7 @@ public class ExpandableListAdapterMarks extends BaseExpandableListAdapter {
 
         Student_name_txt.setText(headerTitle1);
         gr_no_txt.setText(headerTitle2);
-        percentage_txt.setText(headerTitle3+"%");
+        percentage_txt.setText(headerTitle3);
 
         if (isExpanded) {
             view_txt.setTextColor(_context.getResources().getColor(R.color.present_header));

@@ -21,9 +21,9 @@
             android:id="@+id/chapter_no_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
+            android:layout_weight="1"
             android:text="@string/chapterno"
-            android:padding="3dp"
+            android:padding="2dp"
             android:textColor="@color/scheduleheadertextcolor"
             android:textSize="14dp"
             android:textAlignment="center"/>

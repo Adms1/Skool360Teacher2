@@ -2,10 +2,13 @@ package com.anandniketan.skool360teacher.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.databinding.adapters.TextViewBindingAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +26,15 @@ import android.widget.TextView;
 import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
 import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterMarks;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestMarksAsyncTask;
+import com.anandniketan.skool360teacher.Models.NewResponse.FinalArray;
+import com.anandniketan.skool360teacher.Models.NewResponse.MainResponse;
+import com.anandniketan.skool360teacher.Models.NewResponse.StudentDatum;
 import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,7 +46,6 @@ public class MarksFragment extends Fragment {
     private Context mContext;
     private ProgressDialog progressDialog = null;
     private TeacherGetTestMarksAsyncTask getTestMarksAsyncTask = null;
-    private ArrayList<TeacherGetTestMarksModel> teacherGetTestMarksModels = new ArrayList<>();
     private int lastExpandedPosition = -1;
     private LinearLayout Marks_header, class_linear, search_linear;
     private Spinner class_spinner;
@@ -49,9 +55,11 @@ public class MarksFragment extends Fragment {
 
     ExpandableListAdapterMarks listAdapterMarks;
     ExpandableListView lvExpMarks;
-    List<String> listDataHeader;
-    HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>> listDataChild;
+    List<String> listDataHeader = new ArrayList<>();
+    HashMap<String, List<com.anandniketan.skool360teacher.Models.NewResponse.SubjectMark>> listDataChild = new HashMap<>();
+    HashMap<String, String> listDatafooter = new HashMap<>();
     String spinnerSelectedValue, value;
+    MainResponse response;
 
     public MarksFragment() {
     }
@@ -115,15 +123,17 @@ public class MarksFragment extends Fragment {
         class_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int j, long l) {
-//                Toast.makeText(adapterView.getContext(),
-//                        "On Item Select : \n" + adapterView.getItemAtPosition(j).toString(),
-//                        Toast.LENGTH_LONG).show();
                 spinnerSelectedValue = adapterView.getItemAtPosition(j).toString();
                 Log.d("spinner", spinnerSelectedValue);
-                for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
-                    value = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getStandardClass() + " -> "
-                            + teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getTestName();
+                String[] array = spinnerSelectedValue.split("->");
+                Log.d("Array", Arrays.toString(array));
+                List<FinalArray> filterFinalArray = new ArrayList<FinalArray>();
+                for (FinalArray arrayObj : response.getFinalArray()) {
+                    if (arrayObj.getStandardClass().equalsIgnoreCase(array[0].trim()) && arrayObj.getTestName().equalsIgnoreCase(array[1].trim())) {
+                        filterFinalArray.add(arrayObj);
+                    }
                 }
+                setExpandableListView(filterFinalArray);
             }
 
             @Override
@@ -143,19 +153,38 @@ public class MarksFragment extends Fragment {
                 }
             }
         });
-        search_edt.setOnClickListener(new View.OnClickListener() {
+        search_edt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                ArrayList<String> temprray = new ArrayList<>();
-                for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
-                    for(int j=0;j<teacherGetTestMarksModels.get(i).getGetstudentDetail().get(i).getGettestDetail().size();j++)
-                    if(teacherGetTestMarksModels.get(i).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName().equalsIgnoreCase(search_edt.getText().toString())){
-                        temprray.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName());
-                    }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    search_edt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.cross, 0);
+                } else {
+                    search_edt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.search_icon, 0);
                 }
-//                listAdapterMarks = new ExpandableListAdapterMarks(this, temprray);
-//                lvExpMarks.setAdapter(listAdapterMarks);
-//                listAdapterMarks.notifyDataSetChanged();
+
+                List<FinalArray> filterFinalArray = new ArrayList<FinalArray>();
+                String[] array = spinnerSelectedValue.split("->");
+                for (FinalArray arrayObj : response.getFinalArray()) {
+                    if (arrayObj.getStandardClass().equalsIgnoreCase(array[0].trim()) && arrayObj.getTestName().equalsIgnoreCase(array[1].trim())) {
+                        for (StudentDatum studentDatum : arrayObj.getStudentData()) {
+                            if (studentDatum.getStudentName().toLowerCase().contains(s.toString().toLowerCase())) {
+                                filterFinalArray.add(arrayObj);
+                            }
+                        }
+                    }
+
+                }
+                setExpandableListView(filterFinalArray);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -174,17 +203,15 @@ public class MarksFragment extends Fragment {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
                         getTestMarksAsyncTask = new TeacherGetTestMarksAsyncTask(params);
-                        teacherGetTestMarksModels = getTestMarksAsyncTask.execute().get();
+                        response = getTestMarksAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (teacherGetTestMarksModels.size() > 0) {
+                                if (response.getFinalArray().size() > 0) {
                                     txtNoRecordsMarks.setVisibility(View.GONE);
                                     fillspinner();
-//                                    prepaareList();
-                                    listAdapterMarks = new ExpandableListAdapterMarks(getActivity(), listDataHeader, listDataChild);
-                                    lvExpMarks.setAdapter(listAdapterMarks);
+//                                    setExpandableListView(response.getFinalArrayLesson());
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsMarks.setVisibility(View.VISIBLE);
@@ -202,50 +229,33 @@ public class MarksFragment extends Fragment {
         }
     }
 
-//    public void prepaareList() {
-//        listDataHeader = new ArrayList<String>();
-//        listDataChild = new HashMap<String, ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>>();
-//        Marks_header.setVisibility(View.VISIBLE);
-//        search_img.setVisibility(View.VISIBLE);
-////        search_linear.setVisibility(View.VISIBLE);
-//        for (int i = 0; i < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); i++) {
-//            if (teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size() > 0) {
-////                Marks_header.setVisibility(View.VISIBLE);
-//
-//                for (int j = 0; j < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().size(); j++) {
-//                    Marks marksdemo = new Marks();
-//                    marksdemo.studentname = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getStudentName();
-//                    marksdemo.grno = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGRNO();
-//                    marksdemo.percentage = teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getPercentage();
-//                    listDataHeader.add(marksdemo.studentname.toString() + "|" + marksdemo.grno.toString() + "|" + marksdemo.percentage);
-//                    ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks> rows = new ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks>();
-//                    for (int k = 0; k < teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().size(); k++) {
-//                        rows.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(i).getGettestDetail().get(j).getGetsubjectMarks().get(k));
-//                    }
-//                    Log.d("row", rows.toString());
-//                    listDataChild.put(listDataHeader.get(j), rows);
-//                    Log.d("listDataChild", "" + listDataChild.size());
-//                }
-//            } else {
-////                Marks_header.setVisibility(View.GONE);
-////                search_img.setVisibility(View.GONE);
-////                search_linear.setVisibility(View.GONE);
-//            }
-//
-//        }
-//    }
-
-    public class Marks {
-        private String studentname;
-        private String grno;
-        private String percentage;
+    private void setExpandableListView(List<FinalArray> array) {
+        listDataHeader = new ArrayList<>();
+        listDataChild.clear();
+        listDatafooter.clear();
+        for (int i = 0; i < array.size(); i++) {
+            if (array.get(i).getStudentData().size() > 0) {
+                Marks_header.setVisibility(View.VISIBLE);
+                search_img.setVisibility(View.VISIBLE);
+                for (int j = 0; j < array.get(i).getStudentData().size(); j++) {
+                    listDataHeader.add(array.get(i).getStudentData().get(j).getStudentName() + "|" + array.get(i).getStudentData().get(j).getGRNO() + "|" + array.get(i).getStudentData().get(j).getPercentage());
+                    listDataChild.put(array.get(i).getStudentData().get(j).getStudentName() + "|" + array.get(i).getStudentData().get(j).getGRNO() + "|" + array.get(i).getStudentData().get(j).getPercentage(), array.get(i).getStudentData().get(j).getSubjectMarks());
+                    listDatafooter.put(array.get(i).getStudentData().get(j).getStudentName() + "|" + array.get(i).getStudentData().get(j).getGRNO() + "|" + array.get(i).getStudentData().get(j).getPercentage(), String.valueOf(array.get(i).getStudentData().get(j).getTotalGainedMarks()) + "/" + String.valueOf(array.get(i).getStudentData().get(j).getTotalMarks()));
+                }
+            } else {
+                Marks_header.setVisibility(View.GONE);
+                search_img.setVisibility(View.GONE);
+            }
+        }
+        listAdapterMarks = new ExpandableListAdapterMarks(getActivity(), listDataHeader, listDataChild, listDatafooter);
+        lvExpMarks.setAdapter(listAdapterMarks);
     }
 
     public void fillspinner() {
         ArrayList<String> row = new ArrayList<String>();
 
-        for (int z = 0; z < teacherGetTestMarksModels.get(0).getGetstudentDetail().size(); z++) {
-            row.add(teacherGetTestMarksModels.get(0).getGetstudentDetail().get(z).getStandardClass() + " -> " + teacherGetTestMarksModels.get(0).getGetstudentDetail().get(z).getTestName());
+        for (int z = 0; z < response.getFinalArray().size(); z++) {
+            row.add(response.getFinalArray().get(z).getStandardClass() + " -> " + response.getFinalArray().get(z).getTestName());
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         class_spinner.setAdapter(adapterYear);
