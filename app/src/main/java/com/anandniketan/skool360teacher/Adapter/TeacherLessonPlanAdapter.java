@@ -103,6 +103,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                         } else {
                             // Sorry
                             Utility.ping(mContext, "notpresent");
+
                             extStorageDirectory = Environment.getDownloadCacheDirectory() + "/" + "Skool 360 Teacher" + "/" + "pdf" +
                                     "/" + currentTime + ".pdf";
                         }
