@@ -24,8 +24,9 @@
             android:text="@string/lecture"
             android:padding="5dp"
             android:textAlignment="center"
+            android:paddingLeft="8dp"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/subject_txt"
@@ -35,9 +36,10 @@
             android:layout_weight="1"
             android:text="@string/subject"
             android:padding="5dp"
+            android:paddingLeft="8dp"
             android:textAlignment="center"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/class_txt"
@@ -46,9 +48,10 @@
             android:layout_weight="1"
             android:text="@string/classes"
             android:padding="5dp"
+            android:paddingLeft="8dp"
             android:textAlignment="center"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="16dp" />
+            android:textSize="14dp" />
 
 
     </LinearLayout>

@@ -22,7 +22,7 @@
             android:padding="5dp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/class_txt"
@@ -33,7 +33,7 @@
             android:padding="5dp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/subject_txt"
@@ -44,7 +44,7 @@
             android:padding="5dp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:textSize="12dp" />
 
     </LinearLayout>
 </LinearLayout>

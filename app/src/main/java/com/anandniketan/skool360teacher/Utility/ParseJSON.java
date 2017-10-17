@@ -564,7 +564,7 @@ public class ParseJSON {
                     homeWorkData.setChapterName(jsonChildNode.getString("ChapterName"));
                     homeWorkData.setObjective(jsonChildNode.getString("Objective"));
                     homeWorkData.setAssessmentQue(jsonChildNode.getString("AssessmentQue"));
-//                        homeWorkData.setFont(jsonChildNode.getString(""));
+                    homeWorkData.setFont(jsonChildNode.getString("Font"));
 
                     homeWorkDatas.add(homeWorkData);
                 }
@@ -611,7 +611,7 @@ public class ParseJSON {
                     lessonplanData.setChapterName(jsonChildNode.getString("ChapterName"));
                     lessonplanData.setObjective(jsonChildNode.getString("Objective"));
                     lessonplanData.setAssessmentQue(jsonChildNode.getString("AssessmentQue"));
-//                        homeWorkData.setFont(jsonChildNode.getString(""));
+                    lessonplanData.setFont(jsonChildNode.getString("Font"));
 
                     lessonplanDatas.add(lessonplanData);
                 }
@@ -651,7 +651,7 @@ public class ParseJSON {
 
                     JSONArray jsonMainNode1 = jsonChildNode.optJSONArray("Data");
                     TeacherLessonPlanModel.LessonPlan.LessonPlanData lessonPlanData = null;
-                    ArrayList< TeacherLessonPlanModel.LessonPlan.LessonPlanData> lessonPlanDatas = new ArrayList<>();
+                    ArrayList<TeacherLessonPlanModel.LessonPlan.LessonPlanData> lessonPlanDatas = new ArrayList<>();
                     for (int j = 0; j < jsonMainNode1.length(); j++) {
                         JSONObject jsonChildNode1 = jsonMainNode1.getJSONObject(j);
                         lessonPlanData = lessonPlan.new LessonPlanData();

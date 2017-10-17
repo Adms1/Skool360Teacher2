@@ -23,7 +23,7 @@
             android:text="@string/lecture"
             android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textAlignment="center"/>
 
         <TextView
@@ -34,7 +34,7 @@
             android:text="@string/timing"
             android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textAlignment="center"/>
 
         <TextView
@@ -45,7 +45,7 @@
             android:text="@string/standard"
             android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textAlignment="center"/>
 
         <TextView
@@ -56,7 +56,7 @@
             android:text="@string/classes"
             android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textAlignment="center"/>
 
         <TextView
@@ -67,7 +67,7 @@
             android:text="@string/subject"
             android:padding="3dp"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:layout_marginRight="4dp"
             android:textAlignment="center"/>
 

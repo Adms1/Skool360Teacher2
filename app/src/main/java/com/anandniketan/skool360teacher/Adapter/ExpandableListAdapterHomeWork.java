@@ -78,43 +78,44 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         assessment_txt = (TextView) convertView.findViewById(R.id.assessment_txt);
 
 
-        subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
-
         FontStyle = "";
         splitFont1 = "";
         splitFont2 = "";
         splitFont3 = "";
-//        FontStyle = childData.get(childPosition).getFont();
+        FontStyle = childData.get(childPosition).getFont();
 
-//        if (!FontStyle.equalsIgnoreCase("-|-|-|-")) {
-//            String[] splitFontStyle = FontStyle.split("\\|");
-//            Log.d("SplitFOnt", splitFontStyle[0]);
-//            splitFont1 = splitFontStyle[0].toString();
-//            splitFont2 = splitFontStyle[1].toString();
-//            splitFont3 = splitFontStyle[2].toString();
-//            splitFont4 = splitFontStyle[3].toString();
-//
-//            SetLanguageHomework(splitFont1);
-//            SetLanguageChapterName(splitFont2);
-//            SetLanguageObjective(splitFont3);
-//            SetLanguageAssessmentQue(splitFont4);
+        if (!FontStyle.equalsIgnoreCase("-|-|-|-")) {
+            String[] splitFontStyle = FontStyle.split("\\|");
+            Log.d("SplitFOnt", splitFontStyle[0]);
+            splitFont1 = splitFontStyle[0].toString();
+            splitFont2 = splitFontStyle[1].toString();
+            splitFont3 = splitFontStyle[2].toString();
+            splitFont4 = splitFontStyle[3].toString();
 
-        homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
-        chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
-        objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
-        assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
+            SetLanguageHomework(splitFont1);
+            SetLanguageChapterName(splitFont2);
+            SetLanguageObjective(splitFont3);
+            SetLanguageAssessmentQue(splitFont4);
+            
+            subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
+            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
+            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
+            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
+            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
 
-//        } else {
-//            typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/arial.ttf");
+        } else {
+//            typeface = Typeface.createFromAsset(_context.getAssets(),"Fonts/arial.ttf");
 //            homework_title_txt.setTypeface(typeface);
 //            lblchaptername.setTypeface(typeface);
 //            lblobjective.setTypeface(typeface);
 //            lblque.setTypeface(typeface);
-//            homework_title_txt.setText(Html.fromHtml(childData.get(childPosition).getHomework()));
-//            lblchaptername.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
-//            lblobjective.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
-//            lblque.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
-//        }
+
+            subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
+            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
+            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
+            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
+            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
+        }
 
 
         return convertView;
@@ -199,205 +200,205 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         return true;
     }
 
-//    public void SetLanguageHomework(String type) {
-//        switch (type) {
-//            case "ArivNdr POMt":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-1":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-2":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-3":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-4":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-4":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-1":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-2":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-3":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Shivaji05":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            case "Shruti":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
-//                homework_title_txt.setTypeface(typeface);
-//                break;
-//            default:
-//        }
-//    }
-//
-//    public void SetLanguageChapterName(String type) {
-//        switch (type) {
-//            case "ArivNdr POMt":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-1":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-2":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-3":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-4":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-4":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-1":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-2":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-3":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Shivaji05":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            case "Shruti":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
-//                lblchaptername.setTypeface(typeface);
-//                break;
-//            default:
-//        }
-//    }
-//
-//    public void SetLanguageObjective(String type) {
-//        switch (type) {
-//            case "ArivNdr POMt":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-1":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-2":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-3":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-4":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-4":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-1":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-2":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-3":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Shivaji05":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            case "Shruti":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
-//                lblobjective.setTypeface(typeface);
-//                break;
-//            default:
-//        }
-//    }
-//
-//    public void SetLanguageAssessmentQue(String type) {
-//        switch (type) {
-//            case "ArivNdr POMt":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-1":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-2":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-3":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Gujrati Saral-4":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-4":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-1":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-2":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Hindi Saral-3":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Shivaji05":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
-//                lblque.setTypeface(typeface);
-//                break;
-//            case "Shruti":
-//                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
-//                lblque.setTypeface(typeface);
-//                break;
-//            default:
-//        }
-//    }
+    public void SetLanguageHomework(String type) {
+        switch (type) {
+            case "ArivNdr POMt":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-1":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-2":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-3":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-4":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-4":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-1":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-2":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-3":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Shivaji05":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            case "Shruti":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                homwork_name_txt.setTypeface(typeface);
+                break;
+            default:
+        }
+    }
+
+    public void SetLanguageChapterName(String type) {
+        switch (type) {
+            case "ArivNdr POMt":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-1":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-2":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-3":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-4":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-4":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-1":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-2":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-3":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Shivaji05":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            case "Shruti":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                chapter_name_txt.setTypeface(typeface);
+                break;
+            default:
+        }
+    }
+
+    public void SetLanguageObjective(String type) {
+        switch (type) {
+            case "ArivNdr POMt":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-1":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-2":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-3":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-4":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-4":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-1":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-2":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-3":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Shivaji05":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                objective_txt.setTypeface(typeface);
+                break;
+            case "Shruti":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                objective_txt.setTypeface(typeface);
+                break;
+            default:
+        }
+    }
+
+    public void SetLanguageAssessmentQue(String type) {
+        switch (type) {
+            case "ArivNdr POMt":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-1":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-2":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-3":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Gujrati Saral-4":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-4":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-1":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-2":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Hindi Saral-3":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Shivaji05":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                assessment_txt.setTypeface(typeface);
+                break;
+            case "Shruti":
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                assessment_txt.setTypeface(typeface);
+                break;
+            default:
+        }
+    }
 }
 
 

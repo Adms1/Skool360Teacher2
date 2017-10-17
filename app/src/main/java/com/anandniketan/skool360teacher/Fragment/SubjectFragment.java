@@ -16,6 +16,7 @@ import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
 import com.anandniketan.skool360teacher.Adapter.SchedulepagerAdapter;
 import com.anandniketan.skool360teacher.Adapter.SubjectpagerAdapter;
 import com.anandniketan.skool360teacher.R;
+import com.anandniketan.skool360teacher.Utility.AppConfiguration;
 
 
 public class SubjectFragment extends Fragment {
@@ -25,7 +26,7 @@ public class SubjectFragment extends Fragment {
     private TabLayout tabLayout_subject;
     private ViewPager viewPager;
     private Context mContext;
-
+    String ClassId;
 
     public SubjectFragment() {
         // Required empty public constructor
@@ -51,11 +52,14 @@ public class SubjectFragment extends Fragment {
 
 
         tabLayout_subject = (TabLayout) rootView.findViewById(R.id.tabLayout_subject);
-        tabLayout_subject.addTab(tabLayout_subject.newTab().setText("My Subject"),true);
+        tabLayout_subject.addTab(tabLayout_subject.newTab().setText("My Subject"), true);
         tabLayout_subject.addTab(tabLayout_subject.newTab().setText("Student Assigned Subject"));
         tabLayout_subject.setTabMode(TabLayout.MODE_FIXED);
         tabLayout_subject.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        for (int i = 0; i < AppConfiguration.rows.size(); i++) {
+            ClassId = AppConfiguration.rows.get(0).getClassID();
+        }
 
         SubjectpagerAdapter adapter = new SubjectpagerAdapter(getFragmentManager(), tabLayout_subject.getTabCount());
 //Adding adapter to pager

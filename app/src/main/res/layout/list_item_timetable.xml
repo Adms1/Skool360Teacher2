@@ -24,7 +24,7 @@
             android:textAlignment="center"
             android:text="Lecture "
             android:textColor="@color/black"
-            android:textSize="13dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/txtSubject"
@@ -39,7 +39,7 @@
             android:text="Subject"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="13dip" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/txtClass"
@@ -55,6 +55,6 @@
             android:text="Class"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="13dip" />
+            android:textSize="12dp" />
     </LinearLayout>
 </RelativeLayout>

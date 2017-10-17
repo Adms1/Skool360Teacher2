@@ -16,6 +16,6 @@
         android:text="Monday"
         android:textAlignment="textStart"
         android:textColor="@color/orange"
-        android:textSize="17dp"/>
+        android:textSize="15dp"/>
 
 </LinearLayout>
