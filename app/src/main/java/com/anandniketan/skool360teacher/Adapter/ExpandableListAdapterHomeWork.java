@@ -71,7 +71,6 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_item_home_work, null);
         }
 
-        subject_title_txt = (TextView) convertView.findViewById(R.id.subject_title_txt);
         homwork_name_txt = (TextView) convertView.findViewById(R.id.homwork_name_txt);
         chapter_name_txt = (TextView) convertView.findViewById(R.id.chapter_name_txt);
         objective_txt = (TextView) convertView.findViewById(R.id.objective_txt);
@@ -96,8 +95,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             SetLanguageChapterName(splitFont2);
             SetLanguageObjective(splitFont3);
             SetLanguageAssessmentQue(splitFont4);
-            
-            subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
+
             homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
             chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
             objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
@@ -110,7 +108,6 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
 //            lblobjective.setTypeface(typeface);
 //            lblque.setTypeface(typeface);
 
-            subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
             homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
             chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
             objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));

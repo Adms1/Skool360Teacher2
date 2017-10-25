@@ -263,7 +263,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Utility.ping(mContext, "Update Test");
+                                        Utility.ping(mContext, "Add Test");
 //                                                        progressDialog.dismiss();
 //                                                        if (insertTest.size() > 0) {
 //                                                            Utility.ping(mContext, "Update Test");

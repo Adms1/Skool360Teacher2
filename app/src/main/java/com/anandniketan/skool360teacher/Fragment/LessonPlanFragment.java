@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,6 +34,7 @@ import com.anandniketan.skool360teacher.Models.TeacherLessonPlanModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -169,7 +171,7 @@ public class LessonPlanFragment extends Fragment {
             }
         }
         Log.d("arrayList", "" + arrayList.toString());
-        teacherLessonPlanAdapter = new TeacherLessonPlanAdapter(getActivity(), arrayList);
+        teacherLessonPlanAdapter = new TeacherLessonPlanAdapter(getActivity(), arrayList,getActivity().getFragmentManager());
         lesson_list.setAdapter(teacherLessonPlanAdapter);
         lesson_list.deferNotifyDataSetChanged();
     }
@@ -184,4 +186,5 @@ public class LessonPlanFragment extends Fragment {
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         class_spinner.setAdapter(adapterYear);
     }
+
 }

@@ -35,13 +35,13 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
     // child data in format of header title, child title
     private HashMap<String, ArrayList<LessonPlanModel.LessonplanData>> _listDataChild;
     String FontStyle, splitFont1, splitFont2, splitFont3, splitFont4;
-    TextView subject_title_txt, homwork_name_txt, chapter_name_txt, objective_txt, assessment_txt;
+    TextView homwork_name_txt, chapter_name_txt, objective_txt, assessment_txt;
     ImageView imgRightSign;
     LinearLayout chapter_linear, objective_linear, que_linear;
     Typeface typeface;
 
     public ExpandableListAdapterLessonPlan(Context context, List<String> listDataHeader,
-                                         HashMap<String, ArrayList<LessonPlanModel.LessonplanData>> listChildData) {
+                                           HashMap<String, ArrayList<LessonPlanModel.LessonplanData>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -71,14 +71,13 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_item_home_work, null);
         }
 
-        subject_title_txt = (TextView) convertView.findViewById(R.id.subject_title_txt);
         homwork_name_txt = (TextView) convertView.findViewById(R.id.homwork_name_txt);
         chapter_name_txt = (TextView) convertView.findViewById(R.id.chapter_name_txt);
         objective_txt = (TextView) convertView.findViewById(R.id.objective_txt);
         assessment_txt = (TextView) convertView.findViewById(R.id.assessment_txt);
 
 
-        subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
+//        subject_title_txt.setText(Html.fromHtml(childData.get(childPosition).getSubject()));
 
         FontStyle = "";
         splitFont1 = "";
@@ -99,14 +98,16 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
             SetLanguageObjective(splitFont3);
             SetLanguageAssessmentQue(splitFont4);
 
-        homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
-        chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
-        objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
-        assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
+
+            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
+            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
+            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
+            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
 
         } else {
 //            typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/arial.ttf");
-
+            String homework = childData.get(childPosition).getHomeWork();
+            Log.d("homework", homework);
             homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
             chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
             objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));

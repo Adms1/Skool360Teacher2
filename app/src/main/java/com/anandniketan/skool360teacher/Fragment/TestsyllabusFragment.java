@@ -85,20 +85,20 @@ public class TestsyllabusFragment extends Fragment implements CallBack {
         txtNoRecordstest = (TextView) rootView.findViewById(R.id.txtNoRecordstest);
         test_syllabus_list = (ListView) rootView.findViewById(R.id.test_syllabus_list);
         test_header = (LinearLayout) rootView.findViewById(R.id.test_header);
-        getTestSyllabusData();
-
+//        getTestSyllabusData();
+        setUserVisibleHint(true);
     }
 
     public void setListners() {
     }
 
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if (isVisibleToUser) {
-//            getTestSyllabusData();
-//        }
-//        // execute your data loading logic.
-//    }
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && rootView != null) {
+            getTestSyllabusData();
+        }
+        // execute your data loading logic.
+    }
 
     public void getTestSyllabusData() {
         if (Utility.isNetworkConnected(mContext)) {

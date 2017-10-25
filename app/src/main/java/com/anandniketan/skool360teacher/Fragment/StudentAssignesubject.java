@@ -81,16 +81,14 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
         setUserVisibleHint(true);
 
     }
-
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && rootView != null) {
             setStandardandClass();
             setTodayschedule();
         }
         // execute your data loading logic.
     }
-
     public void setListner() {
     }
 
@@ -160,7 +158,7 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
                         params.put("ClassID", ClassId);
-
+                        
                         getTeacherGetAssignStudentSubjectAsyncTask = new GetTeacherGetAssignStudentSubjectAsyncTask(params);
                         mainResponseStudentSubject = getTeacherGetAssignStudentSubjectAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
@@ -227,11 +225,11 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
 
         for (int i = 0; i < mainResponseStudentSubject.getFinalArray().size(); i++) {
             listDatastudentName.add(mainResponseStudentSubject.getFinalArray().get(i).getStudentName());
-
-            for (int j = 0; j < mainResponseStudentSubject.getFinalArray().get(i).getStudentSubject().size(); j++) {
-                studentsubjectarrayList.add(mainResponseStudentSubject.getFinalArray().get(i).getStudentSubject().get(j));
-            }
             Log.d("listDatastudentName", "" + listDatastudentName);
+
+        }
+        for (int j = 0; j <mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().size();j++) {
+            studentsubjectarrayList.add(mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().get(j));
         }
         studentAssignesubjectAdapter = new StudentAssignesubjectAdapter(getActivity(), listDatastudentName,studentsubjectarrayList);
         studentassignesubject_list.setAdapter(studentAssignesubjectAdapter);

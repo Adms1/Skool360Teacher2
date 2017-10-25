@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment {
         final Animation myAnim = AnimationUtils.loadAnimation(mContext, R.anim.bounce);
 
         // Use bounce interpolator with amplitude 0.2 and frequency 20
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 5);
         myAnim.setInterpolator(interpolator);
 
         grid_view.startAnimation(myAnim);
@@ -199,6 +199,13 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
 
+                } else if (position == 8) {
+                    fragment = new PTMMainFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+
                 }
             }
         });
@@ -208,22 +215,23 @@ public class HomeFragment extends Fragment {
                 if (menu_linear.isSelected()) {
                     menu_linear.setSelected(false);
                     collapse(header, timeDuration, previousHeight);
-                }else {
+                } else {
                     menu_linear.setSelected(true);
-                    expand(header, timeDuration-200,450);
+                    expand(header, timeDuration - 200, 450);
                 }
             }
         });
     }
+
     public static void expand(final View v, int duration, int targetHeight) {
 
-        int prevHeight  = v.getHeight();
+        int prevHeight = v.getHeight();
 
         v.setVisibility(View.VISIBLE);
         ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
         previousHeight = prevHeight;
 
-        Log.d("previousHeight",""+previousHeight);
+        Log.d("previousHeight", "" + previousHeight);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -237,7 +245,7 @@ public class HomeFragment extends Fragment {
     }
 
     public static void collapse(final View v, int duration, int targetHeight) {
-        int prevHeight  = v.getHeight();
+        int prevHeight = v.getHeight();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
         valueAnimator.setInterpolator(new DecelerateInterpolator());
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

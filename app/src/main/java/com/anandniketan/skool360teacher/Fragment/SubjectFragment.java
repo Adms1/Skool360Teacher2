@@ -53,7 +53,7 @@ public class SubjectFragment extends Fragment {
 
         tabLayout_subject = (TabLayout) rootView.findViewById(R.id.tabLayout_subject);
         tabLayout_subject.addTab(tabLayout_subject.newTab().setText("My Subject"), true);
-        tabLayout_subject.addTab(tabLayout_subject.newTab().setText("Student Assigned Subject"));
+        tabLayout_subject.addTab(tabLayout_subject.newTab().setText("Student Subject"));
         tabLayout_subject.setTabMode(TabLayout.MODE_FIXED);
         tabLayout_subject.setTabGravity(TabLayout.GRAVITY_FILL);
 

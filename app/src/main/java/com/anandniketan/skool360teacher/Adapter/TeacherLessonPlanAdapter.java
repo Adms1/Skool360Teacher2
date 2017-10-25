@@ -1,13 +1,10 @@
 package com.anandniketan.skool360teacher.Adapter;
 
-import android.Manifest;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,20 +13,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anandniketan.skool360teacher.Models.LessonPlanResponse.LessonDatum;
-import com.anandniketan.skool360teacher.Models.NewResponse.SubjectMark;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.io.File;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by admsandroid on 10/13/2017.
@@ -38,12 +31,14 @@ import java.util.Date;
 public class TeacherLessonPlanAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<LessonDatum> arrayList = new ArrayList<>();
+    private ProgressDialog progressDialog = null;
+    FragmentManager activity;
 
     // Constructor
-    public TeacherLessonPlanAdapter(Context c, ArrayList<LessonDatum> arrayList) {
+    public TeacherLessonPlanAdapter(Context c, ArrayList<LessonDatum> arrayList, FragmentManager activity) {
         mContext = c;
         this.arrayList = arrayList;
-
+        this.activity = activity;
     }
 
     private class ViewHolder {
@@ -89,6 +84,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         String extStorageDirectory = "";
+                        String saveFilePath = null;
                         long currentTime = Calendar.getInstance().getTimeInMillis();
                         Log.d("date", "" + currentTime);
                         Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
@@ -97,15 +93,16 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                         if (isSDSupportedDevice && isSDPresent) {
                             // yes SD-card is present
                             Utility.ping(mContext, "present");
-                            extStorageDirectory = Environment.getExternalStorageDirectory().toString() + "/" + "Skool 360 Teacher" + "/" + "pdf" +
-                                    "/" + currentTime + ".pdf";
+                            extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                            saveFilePath = String.valueOf(new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + currentTime).getPath());
 
                         } else {
                             // Sorry
                             Utility.ping(mContext, "notpresent");
 
-                            extStorageDirectory = Environment.getDownloadCacheDirectory() + "/" + "Skool 360 Teacher" + "/" + "pdf" +
-                                    "/" + currentTime + ".pdf";
+                            File cDir = mContext.getExternalFilesDir(null);
+                            saveFilePath = String.valueOf(new File(cDir.getPath()+"/"+ currentTime+"/"+"PDF"+"Code.txt"));
+                            Log.d("path", saveFilePath);
                         }
 
                         Log.d("path", extStorageDirectory);
@@ -114,15 +111,16 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                         Log.d("URL", fileURL);
                         Ion.with(mContext)
                                 .load(fileURL)  // download url
-                                .write(new File(extStorageDirectory))  // File no path
+                                .write(new File(saveFilePath))  // File no path
                                 .setCallback(new FutureCallback<File>() {
                                     @Override
                                     public void onCompleted(Exception e, File file) {
-                                        Utility.ping(mContext, e.getMessage());
-                                        System.out.print(e.getMessage());
+//                                        Utility.ping(mContext, e.getMessage());
+//                                        System.out.print(e.getMessage());
 //                                        Intent in = new Intent(this,webviewActivity.class);
-//                                        in.putExtra(pathpasskravno) // ahiya tari file no path    ??aa file ne mare webview ma load kravi hoy to?
+//                                        in.putExtra(pathpasskravno) // ahiya tari file no path
 //                                        startActivity(in);
+
                                     }
                                 });
 
@@ -135,31 +133,46 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         String wordfile = "http://192.168.1.9:8085/Backend/LessonPlanWord.aspx?ID=" + arrayList.get(position).getID();
+                        String extStorageDirectory = "";
+                        String saveFilePath = null;
                         long currentTime = Calendar.getInstance().getTimeInMillis();
                         Log.d("date", "" + currentTime);
-                        String extStorageDirectory = Environment.getExternalStorageDirectory().toString() + "Skool 360 Teacher" + "/" + "word" +
-                                "/" + currentTime + ".word";
+                        Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+                        Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
+
+                        if (isSDSupportedDevice && isSDPresent) {
+                            // yes SD-card is present
+                            Utility.ping(mContext, "present");
+                            extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                            saveFilePath = String.valueOf(new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + currentTime).getPath());
+
+                        } else {
+                            // Sorry
+                            Utility.ping(mContext, "notpresent");
+
+                            File cDir = mContext.getExternalFilesDir(null);
+                            saveFilePath = String.valueOf(new File(cDir.getPath()+"/"+ currentTime+"/"+"Word"+"Word.txt"));
+                            Log.d("path", saveFilePath);
+                        }
+
                         Log.d("path", extStorageDirectory);
+
+
                         Log.d("URL", wordfile);
                         Ion.with(mContext)
                                 .load(wordfile)  // download url
-                                .write(new File(extStorageDirectory))  // File no path
+                                .write(new File(saveFilePath))  // File no path
                                 .setCallback(new FutureCallback<File>() {
                                     @Override
                                     public void onCompleted(Exception e, File file) {
-                                        // download done...
-                                        // do stuff with the File or error
-                                        // Popup batadvanu k done thai gayu download
-//                                        if (!file.getP) {
-//                                            Utility.ping(mContext, file.getPath());
-//                                        } else {
                                         Utility.ping(mContext, e.getMessage());
-//                                        }
+                                        System.out.print(e.getMessage());
 //                                        Intent in = new Intent(this,webviewActivity.class);
-//                                        in.putExtra(pathpasskravno) // ahiya tari file no path    ??aa file ne mare webview ma load kravi hoy to?
+//                                        in.putExtra(pathpasskravno) // ahiya tari file no path
 //                                        startActivity(in);
                                     }
                                 });
+
                     }
                 });
             } catch (Exception e) {
@@ -169,7 +182,33 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public void downloadPDF(final String pdfURL) {
+        final String fileName = pdfURL.substring(pdfURL.lastIndexOf('/') + 1);
 
+        if (Utility.isFileExists(fileName, "announcement")) {
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            Utility.pong(mContext, "File already exists at " + new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + fileName).getPath());
+
+        } else {
+            progressDialog.show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Utility.downloadFile(pdfURL, fileName, "announcement");
+//                    .runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+                    progressDialog.dismiss();
+                    String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+                    Utility.pong(mContext, "File download complete at " + new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + fileName).getPath());
+//                        }
+//                    });
+                }
+
+
+            }).start();
+        }
+    }
 }
 
 

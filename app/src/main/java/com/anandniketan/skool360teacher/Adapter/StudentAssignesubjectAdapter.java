@@ -128,8 +128,10 @@ class StudentGridsubjectAdapter extends BaseAdapter {
                 viewHolder.check_subject.setText(studentsubjectarrayList.get(position).getSubject());
                 viewHolder.check_subject.setTag(studentsubjectarrayList.get(position).getSubjectID());
 
+//                convertView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 150));
+
                 GridView.LayoutParams glp = (GridView.LayoutParams) convertView.getLayoutParams();
-                glp.height = (studentsubjectarrayList.get(position).getSubject().length() * 30) + 20;
+                glp.height = (studentsubjectarrayList.get(position).getSubject().length() * 30) + 10;
                 convertView.setLayoutParams(glp);
             } catch (Exception e) {
                 e.printStackTrace();

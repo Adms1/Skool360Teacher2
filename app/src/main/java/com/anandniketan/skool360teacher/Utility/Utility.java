@@ -17,13 +17,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 
+import static android.icu.util.MeasureUnit.MEGABYTE;
+
 /**
  * Created by Megha on 15-Sep-16.
  */
 public class Utility {
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static SharedPreferences sharedpreferences;
-
+    public static String parentFolderName = "Skool 360 Teacher";
+    public static String childAnnouncementFolderName = "Pdf";
+    public static String childCircularFolderName = "Word";
+    private static final int  MEGABYTE = 1024 * 1024;
 
     public static boolean isNetworkConnected(Context ctxt) {
         ConnectivityManager cm = (ConnectivityManager) ctxt
@@ -35,7 +40,13 @@ public class Utility {
         } else
             return true;
     }
-
+    public static boolean isFileExists(String fileName, String moduleName){
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        if(moduleName.equalsIgnoreCase("announcement"))
+            return new File(extStorageDirectory, parentFolderName+"/"+ childAnnouncementFolderName +"/"+fileName).isFile();
+        else
+            return new File(extStorageDirectory, parentFolderName+"/"+ childCircularFolderName +"/"+fileName).isFile();
+    }
     public static void ping(Context context, String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
@@ -79,4 +90,54 @@ public class Utility {
 
         return mDAY + "/" + mMONTH + "/" + mYEAR;
     }
+
+    public static void downloadFile(String fileUrl, String fileName, String moduleName){
+        try {
+
+            File directoryPath = createFile(fileName, moduleName);
+
+            fileUrl = fileUrl.replace(" ", "%20");
+            URL url = new URL(fileUrl);
+            HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection.connect();
+
+            InputStream inputStream = urlConnection.getInputStream();
+            FileOutputStream fileOutputStream = new FileOutputStream(directoryPath);
+            int totalSize = urlConnection.getContentLength();
+
+            byte[] buffer = new byte[MEGABYTE];
+            int bufferLength = 0;
+            while((bufferLength = inputStream.read(buffer)) > 0 ){
+                fileOutputStream.write(buffer, 0, bufferLength);
+            }
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static File createFile(String fileName, String moduleName){
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        File folder = null;
+
+        if(moduleName.equalsIgnoreCase("announcement"))
+            folder = new File(extStorageDirectory, parentFolderName+"/"+childAnnouncementFolderName);
+        else
+            folder = new File(extStorageDirectory, parentFolderName+"/"+childCircularFolderName);
+
+        folder.mkdirs();
+
+        File pdfFile = new File(folder, fileName);
+
+        try{
+            pdfFile.createNewFile();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return pdfFile;
+    }
+
 }

@@ -19,7 +19,7 @@
             android:layout_height="31dp"
             android:layout_weight="1"
             android:text="@string/standard"
-            android:padding="5dp"
+            android:paddingTop="8dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="12dp" />
@@ -30,7 +30,7 @@
             android:layout_height="31dp"
             android:layout_weight="1"
             android:text="@string/classes"
-            android:padding="5dp"
+            android:paddingTop="8dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="12dp" />
@@ -41,7 +41,7 @@
             android:layout_height="31dp"
             android:layout_weight="1"
             android:text="@string/subject"
-            android:padding="5dp"
+            android:paddingTop="8dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="12dp" />

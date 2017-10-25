@@ -59,7 +59,7 @@ public class TodayscheduleFragment extends Fragment {
 
         init();
         setListner();
-        setTodayschedule();
+
 
         return rootView;
     }
@@ -72,11 +72,17 @@ public class TodayscheduleFragment extends Fragment {
         schedule_list = (ListView) rootView.findViewById(R.id.schedule_list);
 
         setUserVisibleHint(true);
-    }///
+    }
 
     public void setListner() {
     }
-
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && rootView != null) {
+            setTodayschedule();
+        }
+        // execute your data loading logic.
+    }
 
     public void setTodayschedule() {
         if (Utility.isNetworkConnected(mContext)) {

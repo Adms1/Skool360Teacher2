@@ -53,7 +53,10 @@ public class AppConfiguration {
     public static String GetTeacherLessonPlanScheduledHomework = "TeacherLessonPlanScheduledHomework";
     public static String GetTeacherLessonPlanSchedule = "TeacherLessonPlanSchedule";
     public static String GetTeacherLessonPlan = "TeacherLessonPlan";
-
+    public static String TeacherGetClassSubjectWiseStudent = "TeacherGetClassSubjectWiseStudent";
+    public static String PTMTeacherStudentInsertDetail = "PTMTeacherStudentInsertDetail";
+    public static String PTMTeacherStudentGetDetail = "PTMTeacherStudentGetDetail";
+    public static String PTMDeleteMeeting = "PTMDeleteMeeting";
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();
     public static String stdid;

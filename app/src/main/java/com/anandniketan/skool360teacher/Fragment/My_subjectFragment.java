@@ -45,7 +45,7 @@ public class My_subjectFragment extends Fragment {
 
         init();
         setListner();
-        setTodayschedule();
+
 
         return rootView;
     }
@@ -63,7 +63,13 @@ public class My_subjectFragment extends Fragment {
     public void setListner() {
     }
 
-
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && rootView != null) {
+            setTodayschedule();
+        }
+        // execute your data loading logic.
+    }
     public void setTodayschedule() {
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
