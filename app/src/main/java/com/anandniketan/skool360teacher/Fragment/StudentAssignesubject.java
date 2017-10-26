@@ -226,7 +226,6 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
         for (int i = 0; i < mainResponseStudentSubject.getFinalArray().size(); i++) {
             listDatastudentName.add(mainResponseStudentSubject.getFinalArray().get(i).getStudentName());
             Log.d("listDatastudentName", "" + listDatastudentName);
-
         }
         for (int j = 0; j <mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().size();j++) {
             studentsubjectarrayList.add(mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().get(j));
@@ -234,6 +233,5 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
         studentAssignesubjectAdapter = new StudentAssignesubjectAdapter(getActivity(), listDatastudentName,studentsubjectarrayList);
         studentassignesubject_list.setAdapter(studentAssignesubjectAdapter);
         studentassignesubject_list.deferNotifyDataSetChanged();
-
     }
 }
