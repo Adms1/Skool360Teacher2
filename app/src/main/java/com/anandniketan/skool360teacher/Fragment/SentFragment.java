@@ -143,7 +143,5 @@ public class SentFragment extends Fragment {
             rows.add(response.getFinalArray().get(j));
             listDataChild.put(listDataHeader.get(j), rows);
         }
-
-
     }
 }

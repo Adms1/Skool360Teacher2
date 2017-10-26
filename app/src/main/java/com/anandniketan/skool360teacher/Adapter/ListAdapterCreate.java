@@ -4,28 +4,19 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.Environment;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Models.LessonPlanResponse.LessonDatum;
 import com.anandniketan.skool360teacher.Models.PTMCreateResponse.StudentDatum;
-import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
 import com.anandniketan.skool360teacher.R;
-import com.anandniketan.skool360teacher.Utility.Utility;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * Created by admsandroid on 10/25/2017.
@@ -36,6 +27,7 @@ public class ListAdapterCreate extends BaseAdapter {
     private ArrayList<StudentDatum> arrayList = new ArrayList<>();
     private ProgressDialog progressDialog = null;
     FragmentManager activity;
+    private ArrayList<String> dataCheck = new ArrayList<String>();
 
     // Constructor
     public ListAdapterCreate(Context c, ArrayList<StudentDatum> arrayList, FragmentManager activity) {
@@ -76,13 +68,27 @@ public class ListAdapterCreate extends BaseAdapter {
 
             viewHolder.student_name_txt = (TextView) convertView.findViewById(R.id.student_name_txt);
             viewHolder.gr_no_txt = (TextView) convertView.findViewById(R.id.gr_no_txt);
-            viewHolder.create_Checkbox = (CheckBox) convertView.findViewById(R.id.class_checkbox);
+            viewHolder.create_Checkbox = (CheckBox) convertView.findViewById(R.id.create_Checkbox);
 
             try {
                 viewHolder.student_name_txt.setText(arrayList.get(position).getStudentName());
                 viewHolder.gr_no_txt.setText(arrayList.get(position).getGRNO());
-                viewHolder.create_Checkbox.setTag(arrayList.get(position).getStudentID());
 
+
+                viewHolder.create_Checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        String checkvalue;
+                        if (isChecked) {
+                            checkvalue=arrayList.get(position).getStudentID().toString();
+                            dataCheck.add(checkvalue);
+                            Log.d("dataCheck",dataCheck.toString());
+                        }else{
+                            dataCheck.remove(arrayList.get(position).getStudentID().toString());
+                            Log.d("dataUnCheck",dataCheck.toString());
+                        }
+                    }
+                });
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -91,7 +97,9 @@ public class ListAdapterCreate extends BaseAdapter {
         return convertView;
     }
 
-
+    public ArrayList<String> getData() {
+        return dataCheck;
+    }
 }
 
 

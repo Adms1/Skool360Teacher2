@@ -101,7 +101,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                             Utility.ping(mContext, "notpresent");
 
                             File cDir = mContext.getExternalFilesDir(null);
-                            saveFilePath = String.valueOf(new File(cDir.getPath()+"/"+ currentTime+"/"+"PDF"+"Code.txt"));
+                            saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + currentTime + "Code.pdf"));
                             Log.d("path", saveFilePath);
                         }
 
@@ -115,13 +115,19 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                                 .setCallback(new FutureCallback<File>() {
                                     @Override
                                     public void onCompleted(Exception e, File file) {
-//                                        Utility.ping(mContext, e.getMessage());
-//                                        System.out.print(e.getMessage());
+
+                                        if (file.length() > 0) {
+                                            String file1 = file.getPath();
+                                            Log.d("file11", file1);
+                                        } else {
+                                            Utility.ping(mContext, e.getMessage());
+                                        }
+                                    }
 //                                        Intent in = new Intent(this,webviewActivity.class);
 //                                        in.putExtra(pathpasskravno) // ahiya tari file no path
 //                                        startActivity(in);
 
-                                    }
+
                                 });
 
                     }
@@ -151,7 +157,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                             Utility.ping(mContext, "notpresent");
 
                             File cDir = mContext.getExternalFilesDir(null);
-                            saveFilePath = String.valueOf(new File(cDir.getPath()+"/"+ currentTime+"/"+"Word"+"Word.txt"));
+                            saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + currentTime + "Word.docx"));
                             Log.d("path", saveFilePath);
                         }
 
@@ -165,8 +171,8 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                                 .setCallback(new FutureCallback<File>() {
                                     @Override
                                     public void onCompleted(Exception e, File file) {
-                                        Utility.ping(mContext, e.getMessage());
-                                        System.out.print(e.getMessage());
+//                                        Utility.ping(mContext, e.getMessage());
+//                                        System.out.print(e.getMessage());
 //                                        Intent in = new Intent(this,webviewActivity.class);
 //                                        in.putExtra(pathpasskravno) // ahiya tari file no path
 //                                        startActivity(in);

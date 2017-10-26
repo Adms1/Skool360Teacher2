@@ -14,6 +14,7 @@ import com.anandniketan.skool360teacher.AsyncTasks.PTMDeleteMeetingAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.PTMTeacherStudentGetDetailAsyncTask;
 import com.anandniketan.skool360teacher.Models.MainPtmSentDeleteResponse;
 import com.anandniketan.skool360teacher.Models.PTMInboxResponse.FinalArrayInbox;
+import com.anandniketan.skool360teacher.Models.PTMInboxResponse.MainPtmInboxResponse;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 
@@ -35,7 +36,10 @@ public class ExpandableListAdapterSent extends BaseExpandableListAdapter {
     private ProgressDialog progressDialog = null;
     private PTMDeleteMeetingAsyncTask ptmDeleteMeetingAsyncTask = null;
     private MainPtmSentDeleteResponse response;
+    private PTMTeacherStudentGetDetailAsyncTask ptmTeacherStudentGetDetailAsyncTask = null;
+    MainPtmInboxResponse inboxresponse;
 
+    ExpandableListAdapterSent expandableListAdapterSent;
 
     public ExpandableListAdapterSent(Context context, List<String> listDataHeader,
                                      HashMap<String, List<FinalArrayInbox>> listChildData) {
@@ -95,11 +99,12 @@ public class ExpandableListAdapterSent extends BaseExpandableListAdapter {
                                 @Override
                                 public void run() {
                                     progressDialog.dismiss();
-                                    if (response.getFinalArray().size() > 0) {
-                                        Utility.ping(_context, "Delete Message.");
-                                    } else {
-                                        progressDialog.dismiss();
-                                    }
+//                                    if (response.getFinalArray().size() == 0) {
+                                    Utility.ping(_context, "Delete Message.");
+                                    expandableListAdapterSent.notifyDataSetChanged();
+//                                    } else {
+//                                        progressDialog.dismiss();
+//                                    }
                                 }
                             });
                         } catch (Exception e) {
@@ -116,6 +121,7 @@ public class ExpandableListAdapterSent extends BaseExpandableListAdapter {
         });
         return convertView;
     }
+
     @Override
     public int getChildrenCount(int groupPosition) {
         return this.listChildData.get(this._listDataHeader.get(groupPosition)).size();
@@ -181,7 +187,47 @@ public class ExpandableListAdapterSent extends BaseExpandableListAdapter {
     }
 
 
+    public void getSentData() {
+        if (Utility.isNetworkConnected(_context)) {
+            progressDialog = new ProgressDialog(_context);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("UserID", Utility.getPref(_context, "StaffID"));
+                        params.put("UserType", "staff");
+                        params.put("MessgaeType", "Sent");
+                        ptmTeacherStudentGetDetailAsyncTask = new PTMTeacherStudentGetDetailAsyncTask(params);
+                        inboxresponse = ptmTeacherStudentGetDetailAsyncTask.execute().get();
+                        this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (response.getFinalArray().size() > 0) {
+
+                                } else {
+                                    progressDialog.dismiss();
+
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                private void runOnUiThread(Runnable runnable) {
+                }
+            }).start();
+        } else {
+            Utility.ping(_context, "Network not available");
+        }
+    }
 }
 
 

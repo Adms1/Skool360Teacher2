@@ -130,7 +130,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                         alertDialogAndroid.setCancelable(false);
                         alertDialogAndroid.show();
                         Window window = alertDialogAndroid.getWindow();
-                        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1200);
+                        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1000);
                         WindowManager.LayoutParams wlp = window.getAttributes();
 
                         wlp.gravity = Gravity.CENTER;

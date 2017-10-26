@@ -47,6 +47,8 @@
             android:scrollbars="none"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_below="@+id/test_header" />
+            android:layout_below="@+id/test_header"
+            android:divider="@color/gray"
+            android:dividerHeight="1dp"/>
     </RelativeLayout>
 </LinearLayout>

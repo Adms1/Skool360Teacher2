@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical"
-    android:paddingTop="5dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -47,14 +46,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="left"
-            android:layout_marginLeft="5dp"
-            android:layout_toStartOf="@+id/linearLayout2"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:paddingBottom="25dp"
+            android:paddingBottom="35dp"
             android:scaleType="fitStart"
-            android:src="@drawable/skool_360"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_alignTop="@+id/btnMenu" />
+            android:src="@drawable/skool_360" />
 
         <Button
             android:id="@+id/btnMenu"
@@ -70,9 +66,9 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:text="Attendance"
+            android:text="ATTENDANCE"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginTop="11dp"
             android:textStyle="bold"
             android:layout_alignTop="@+id/header"

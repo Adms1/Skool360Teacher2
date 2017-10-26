@@ -1,50 +1,76 @@
 package com.anandniketan.skool360teacher.Fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anandniketan.skool360teacher.Adapter.ListAdapterCreate;
+import com.anandniketan.skool360teacher.AsyncTasks.PTMTeacherStudentInsertDetailAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetClassSubjectWiseStudentAsyncTask;
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
+import com.anandniketan.skool360teacher.Models.MainPtmSentMessageResponse;
 import com.anandniketan.skool360teacher.Models.PTMCreateResponse.FinalArrayStudentForCreate;
 import com.anandniketan.skool360teacher.Models.PTMCreateResponse.MainResponseDisplayStudent;
 import com.anandniketan.skool360teacher.Models.PTMCreateResponse.StudentDatum;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.io.UTFDataFormatException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class CreateFragment extends Fragment {
+public class CreateFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private View rootView;
-    private TextView txtNoRecordsCreate,txtNoRecordsCreateStudent;
+    private TextView txtNoRecordsCreate, txtNoRecordsCreateStudent;
     private Context mContext;
     private ProgressDialog progressDialog = null;
     private TeacherGetClassSubjectWiseStudentAsyncTask getClassSubjectWiseStudentAsyncTask = null;
     private LinearLayout Create_header, Create_class_linear;
     private Spinner Create_class_spinner;
     private ListView lvCreate;
+    private ImageView insert_message_img;
+    private AlertDialog alertDialogAndroid = null;
+    private Button close_btn, send_btn;
+    private TextView insert_message_date_txt;
+    private EditText  insert_message_subject_txt, insert_message_Message_txt;
+    private DatePickerDialog datePickerDialog;
+    int Year, Month, Day;
+    Calendar calendar;
+    int mYear, mMonth, mDay;
     ListAdapterCreate listAdapterCreate;
-
     private ArrayList<StudentDatum> arrayList;
     String spinnerSelectedValue, value;
     MainResponseDisplayStudent response;
+
+    private PTMTeacherStudentInsertDetailAsyncTask getPTMTeacherStudentInsertDetailAsyncTask = null;
+    MainPtmSentMessageResponse mainPtmSentMessageResponse;
 
     public CreateFragment() {
     }
@@ -62,15 +88,20 @@ public class CreateFragment extends Fragment {
     }
 
     public void initViews() {
+        calendar = Calendar.getInstance();
+        Year = calendar.get(Calendar.YEAR);
+        Month = calendar.get(Calendar.MONTH);
+        Day = calendar.get(Calendar.DAY_OF_MONTH);
+
         txtNoRecordsCreate = (TextView) rootView.findViewById(R.id.txtNoRecordsCreate);
-        txtNoRecordsCreateStudent=(TextView)rootView.findViewById(R.id.txtNoRecordsCreateStudent);
+        txtNoRecordsCreateStudent = (TextView) rootView.findViewById(R.id.txtNoRecordsCreateStudent);
         Create_header = (LinearLayout) rootView.findViewById(R.id.Create_header);
         Create_class_linear = (LinearLayout) rootView.findViewById(R.id.Create_class_linear);
         Create_class_spinner = (Spinner) rootView.findViewById(R.id.Create_class_spinner);
         lvCreate = (ListView) rootView.findViewById(R.id.lvCreate);
+        insert_message_img = (ImageView) rootView.findViewById(R.id.insert_message_img);
+
         setUserVisibleHint(true);
-
-
     }
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -103,6 +134,18 @@ public class CreateFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        insert_message_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendMessage();
+            }
+        });
+        lvCreate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(mContext,position,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -159,7 +202,7 @@ public class CreateFragment extends Fragment {
                 }
 
                 Log.d("arrayList", "" + arrayList.size());
-            }else {
+            } else {
                 txtNoRecordsCreateStudent.setVisibility(View.VISIBLE);
                 Create_header.setVisibility(View.GONE);
             }
@@ -167,7 +210,8 @@ public class CreateFragment extends Fragment {
         listAdapterCreate = new ListAdapterCreate(getActivity(), arrayList, getActivity().getFragmentManager());
         lvCreate.setAdapter(listAdapterCreate);
         lvCreate.deferNotifyDataSetChanged();
-        }
+
+    }
 
     public void fillspinner() {
         ArrayList<String> row = new ArrayList<String>();
@@ -179,5 +223,139 @@ public class CreateFragment extends Fragment {
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         Create_class_spinner.setAdapter(adapterYear);
+    }
+
+    public void CreateMessage() {
+
+        for (int i = 0; i < lvCreate.getChildCount(); i++) {
+            View v = lvCreate.getChildAt(i);
+
+            CheckBox cb = (CheckBox) v.findViewById(R.id.create_Checkbox);
+
+            if (cb.isChecked()) {
+                insert_message_img.setVisibility(View.VISIBLE);
+                Utility.ping(mContext, "check");
+            } else {
+                insert_message_img.setVisibility(View.GONE);
+                Utility.ping(mContext, "Uncheck");
+            }
+        }
+
+    }
+
+    public void SendMessage() {
+        LayoutInflater lInflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View layout = lInflater.inflate(R.layout.insert_message_item, null);
+
+        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(mContext);
+        alertDialogBuilderUserInput.setView(layout);
+
+        alertDialogAndroid = alertDialogBuilderUserInput.create();
+        alertDialogAndroid.setCancelable(false);
+        alertDialogAndroid.show();
+        Window window = alertDialogAndroid.getWindow();
+        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        WindowManager.LayoutParams wlp = window.getAttributes();
+
+        wlp.gravity = Gravity.CENTER_HORIZONTAL;
+        wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        window.setAttributes(wlp);
+        alertDialogAndroid.show();
+
+        insert_message_date_txt = (TextView) layout.findViewById(R.id.insert_message_date_txt);
+        insert_message_subject_txt = (EditText) layout.findViewById(R.id.insert_message_subject_txt);
+        insert_message_Message_txt = (EditText) layout.findViewById(R.id.insert_message_Message_txt);
+        send_btn = (Button) layout.findViewById(R.id.send_message_btn);
+        close_btn = (Button) layout.findViewById(R.id.close_btn);
+
+        insert_message_date_txt.setText(Utility.getTodaysDate());
+
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialogAndroid.dismiss();
+            }
+        });
+        insert_message_date_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog = DatePickerDialog.newInstance(CreateFragment.this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
+            }
+        });
+        ArrayList<String> id = new ArrayList<>();
+        String StudentArray = null;
+        ArrayList<String> array = listAdapterCreate.getData();
+        for (int j = 0; j < array.size(); j++) {
+            id.add(array.get(j).toString());
+        }
+        Log.d("StudentArray", "" + id);
+//        if (Utility.isNetworkConnected(mContext)) {
+//            progressDialog = new ProgressDialog(mContext);
+//            progressDialog.setMessage("Please Wait...");
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
+//
+//            final String finalStudentArray = StudentArray;
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        HashMap<String, String> params = new HashMap<String, String>();
+//                        params.put("MessageID", "0");
+//                        params.put("FromID", Utility.getPref(mContext, "StaffID"));
+//                        params.put("ToID", finalStudentArray);
+//                        params.put("MeetingDate", insert_message_date_txt.getText().toString());
+//                        params.put("SubjectLine", insert_message_subject_txt.getText().toString());
+//                        params.put("Description", insert_message_Message_txt.getText().toString());
+//
+//                        getPTMTeacherStudentInsertDetailAsyncTask = new PTMTeacherStudentInsertDetailAsyncTask(params);
+//                        mainPtmSentMessageResponse = getPTMTeacherStudentInsertDetailAsyncTask.execute().get();
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                progressDialog.dismiss();
+//                                if (mainPtmSentMessageResponse.getFinalArray().size() > 0) {
+//                                    Utility.ping(mContext, "Send Sucessfully");
+//                                } else {
+//                                    progressDialog.dismiss();
+//
+//                                }
+//                            }
+//                        });
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//        } else {
+//            Utility.ping(mContext, "Network not available");
+//        }
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+        mDay = dayOfMonth;
+        mMonth = monthOfYear + 1;
+        mYear = year;
+        String d, m, y;
+        d = Integer.toString(mDay);
+        m = Integer.toString(mMonth);
+        y = Integer.toString(mYear);
+
+        if (mDay < 10) {
+            d = "0" + d;
+        }
+        if (mMonth < 10) {
+            m = "0" + m;
+        }
+
+        insert_message_date_txt.setText(d + "/" + m + "/" + y);
     }
 }

@@ -195,10 +195,10 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         alertDialogAndroid.setCancelable(false);
         alertDialogAndroid.show();
         Window window = alertDialogAndroid.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1200);
+        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1000);
         WindowManager.LayoutParams wlp = window.getAttributes();
 
-        wlp.gravity = Gravity.CENTER_HORIZONTAL;
+        wlp.gravity = Gravity.CENTER;
         wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         window.setAttributes(wlp);
         alertDialogAndroid.show();
