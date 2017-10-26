@@ -5,24 +5,39 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.Models.LessonPlanResponse.LessonDatum;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
+import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.shockwave.pdfium.PdfDocument;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
 
 /**
  * Created by admsandroid on 10/13/2017.
@@ -33,6 +48,12 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
     private ArrayList<LessonDatum> arrayList = new ArrayList<>();
     private ProgressDialog progressDialog = null;
     FragmentManager activity;
+    private AlertDialog alertDialogAndroid = null;
+
+    Button close_btn;
+    WebView webview;
+    String filename;
+    File SAMPLE_FILE = null;
 
     // Constructor
     public TeacherLessonPlanAdapter(Context c, ArrayList<LessonDatum> arrayList, FragmentManager activity) {
@@ -119,6 +140,43 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                                         if (file.length() > 0) {
                                             String file1 = file.getPath();
                                             Log.d("file11", file1);
+                                            LayoutInflater lInflater = (LayoutInflater) mContext
+                                                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                            final View layout = lInflater.inflate(R.layout.pdf_view, null);
+
+                                            AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(mContext);
+                                            alertDialogBuilderUserInput.setView(layout);
+
+                                            alertDialogAndroid = alertDialogBuilderUserInput.create();
+                                            alertDialogAndroid.setCancelable(false);
+                                            alertDialogAndroid.show();
+                                            Window window = alertDialogAndroid.getWindow();
+                                            window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1200);
+                                            WindowManager.LayoutParams wlp = window.getAttributes();
+
+                                            wlp.gravity = Gravity.CENTER;
+                                            wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+                                            window.setAttributes(wlp);
+                                            alertDialogAndroid.show();
+                                            webview = (WebView) layout.findViewById(R.id.webview);
+                                            close_btn = (Button) layout.findViewById(R.id.close_btn);
+
+                                            SAMPLE_FILE = new File("/storage/emulated/0/Android/data/com.anandniketan.skool360teacher/files/1509019489329Code.pdf");
+                                            filename = SAMPLE_FILE.getPath();
+                                            Log.d("filename", filename);
+                                            webview.getSettings().setJavaScriptEnabled(true);
+                                            String pdf = "http://192.168.1.9:8085/Backend/lessonplanpdf.aspx?ID=" + arrayList.get(position).getID();
+                                            webview.loadUrl("http://docs.google.com/gview?embedded=true&url=" + pdf);
+
+//                                            webview.loadData(myscript,"text/html", "UTF-8");
+                                            close_btn.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    Log.d("filename", filename);
+                                                    alertDialogAndroid.dismiss();
+                                                }
+                                            });
+
                                         } else {
                                             Utility.ping(mContext, e.getMessage());
                                         }
@@ -215,6 +273,8 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
             }).start();
         }
     }
+
+
 }
 
 

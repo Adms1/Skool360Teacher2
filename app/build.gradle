@@ -55,4 +55,5 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.google.android.gms:play-services-location:8.4.0'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.barteksc:android-pdf-viewer:2.0.3'
 }
