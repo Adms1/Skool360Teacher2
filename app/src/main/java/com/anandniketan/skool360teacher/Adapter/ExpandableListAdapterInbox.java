@@ -1,12 +1,14 @@
 package com.anandniketan.skool360teacher.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.anandniketan.skool360teacher.Interfacess.onInboxRead;
 import com.anandniketan.skool360teacher.Models.HomeworkModel;
 import com.anandniketan.skool360teacher.Models.PTMInboxResponse.FinalArrayInbox;
 import com.anandniketan.skool360teacher.R;
@@ -25,12 +27,14 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<FinalArrayInbox>> listChildData;
+    private onInboxRead onInboxRead;
 
     public ExpandableListAdapterInbox(Context context, List<String> listDataHeader,
-                                      HashMap<String, List<FinalArrayInbox>> listChildData) {
+                                      HashMap<String, List<FinalArrayInbox>> listChildData, onInboxRead onInboxRead) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this.listChildData = listChildData;
+        this.onInboxRead = onInboxRead;
     }
 
     @Override
@@ -57,10 +61,17 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         }
 
 
-            TextView txtSubject;
-            txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
-            txtSubject.setText(childData.get(childPosition).getDescription());
+        TextView txtSubject;
+        txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
 
+        if (childData.get(childPosition).getReadStatus().equalsIgnoreCase("UnRead")) {
+            txtSubject.setTypeface(null, Typeface.BOLD);
+            onInboxRead.readMessageStatus();
+        } else {
+            txtSubject.setTypeface(null, Typeface.NORMAL);
+        }
+
+        txtSubject.setText(childData.get(childPosition).getDescription());
         return convertView;
     }
 

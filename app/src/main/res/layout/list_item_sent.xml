@@ -32,7 +32,8 @@
                 android:text="Subject"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="13dip" />
+                android:textSize="13dip"
+                android:textStyle="normal"/>
 
             <Button
                 android:id="@+id/delete_btn"

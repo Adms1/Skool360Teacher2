@@ -81,6 +81,7 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
         setUserVisibleHint(true);
 
     }
+
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && rootView != null) {
@@ -89,6 +90,7 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
         }
         // execute your data loading logic.
     }
+
     public void setListner() {
     }
 
@@ -120,6 +122,7 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
 
                 if (j == 0) {
                     standardcheckBox.setChecked(true);
+                    standardcheckBox.setClickable(false);
                 }
                 standardcheckBox.setOnCheckedChangeListener(this);
                 standard_checkbox_linear.addView(convertView);
@@ -133,7 +136,9 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
 
                 if (k == 0) {
                     classcheckBox.setChecked(true);
+                    classcheckBox.setClickable(false);
                 }
+
                 classcheckBox.setOnCheckedChangeListener(this);
                 class_checkbox_linear.addView(convertView);
             }
@@ -158,7 +163,7 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
                         params.put("ClassID", ClassId);
-                        
+
                         getTeacherGetAssignStudentSubjectAsyncTask = new GetTeacherGetAssignStudentSubjectAsyncTask(params);
                         mainResponseStudentSubject = getTeacherGetAssignStudentSubjectAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
@@ -227,10 +232,10 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
             listDatastudentName.add(mainResponseStudentSubject.getFinalArray().get(i).getStudentName());
             Log.d("listDatastudentName", "" + listDatastudentName);
         }
-        for (int j = 0; j <mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().size();j++) {
+        for (int j = 0; j < mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().size(); j++) {
             studentsubjectarrayList.add(mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().get(j));
         }
-        studentAssignesubjectAdapter = new StudentAssignesubjectAdapter(getActivity(), listDatastudentName,studentsubjectarrayList);
+        studentAssignesubjectAdapter = new StudentAssignesubjectAdapter(getActivity(), listDatastudentName, studentsubjectarrayList);
         studentassignesubject_list.setAdapter(studentAssignesubjectAdapter);
         studentassignesubject_list.deferNotifyDataSetChanged();
     }

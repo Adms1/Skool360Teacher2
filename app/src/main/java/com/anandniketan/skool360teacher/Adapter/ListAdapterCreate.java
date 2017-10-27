@@ -13,8 +13,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.anandniketan.skool360teacher.Interfacess.CallBack;
 import com.anandniketan.skool360teacher.Models.PTMCreateResponse.StudentDatum;
 import com.anandniketan.skool360teacher.R;
+import com.anandniketan.skool360teacher.Interfacess.onCheckBoxChnage;
 
 import java.util.ArrayList;
 
@@ -26,14 +28,17 @@ public class ListAdapterCreate extends BaseAdapter {
     private Context mContext;
     private ArrayList<StudentDatum> arrayList = new ArrayList<>();
     private ProgressDialog progressDialog = null;
-    FragmentManager activity;
+    FragmentManager manager;
     private ArrayList<String> dataCheck = new ArrayList<String>();
+    private CallBack mCallBack;
+    private onCheckBoxChnage listner;
 
     // Constructor
-    public ListAdapterCreate(Context c, ArrayList<StudentDatum> arrayList, FragmentManager activity) {
+    public ListAdapterCreate(Context c, ArrayList<StudentDatum> arrayList, FragmentManager manager, onCheckBoxChnage listner) {
         mContext = c;
         this.arrayList = arrayList;
-        this.activity = activity;
+        this.manager = manager;
+        this.listner = listner;
     }
 
     private class ViewHolder {
@@ -80,12 +85,15 @@ public class ListAdapterCreate extends BaseAdapter {
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         String checkvalue;
                         if (isChecked) {
-                            checkvalue=arrayList.get(position).getStudentID().toString();
+//                            ((CreateFragment) mContext).CreateMessage();
+                            listner.getChecked();
+                            checkvalue = arrayList.get(position).getStudentID().toString();
                             dataCheck.add(checkvalue);
-                            Log.d("dataCheck",dataCheck.toString());
-                        }else{
+                            Log.d("dataCheck", dataCheck.toString());
+                        } else {
+                            listner.getChecked();
                             dataCheck.remove(arrayList.get(position).getStudentID().toString());
-                            Log.d("dataUnCheck",dataCheck.toString());
+                            Log.d("dataUnCheck", dataCheck.toString());
                         }
                     }
                 });

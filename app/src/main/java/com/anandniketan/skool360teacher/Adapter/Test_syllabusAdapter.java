@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
-import com.anandniketan.skool360teacher.CallBack;
+import com.anandniketan.skool360teacher.Interfacess.CallBack;
 import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
 import com.anandniketan.skool360teacher.R;

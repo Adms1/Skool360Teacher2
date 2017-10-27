@@ -3,6 +3,7 @@ package com.anandniketan.skool360teacher.Adapter;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,14 @@ import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.AsyncTasks.PTMDeleteMeetingAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.PTMTeacherStudentGetDetailAsyncTask;
+import com.anandniketan.skool360teacher.Interfacess.onDeleteButton;
 import com.anandniketan.skool360teacher.Models.MainPtmSentDeleteResponse;
 import com.anandniketan.skool360teacher.Models.PTMInboxResponse.FinalArrayInbox;
 import com.anandniketan.skool360teacher.Models.PTMInboxResponse.MainPtmInboxResponse;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,19 +36,15 @@ public class ExpandableListAdapterSent extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<FinalArrayInbox>> listChildData;
-    private ProgressDialog progressDialog = null;
-    private PTMDeleteMeetingAsyncTask ptmDeleteMeetingAsyncTask = null;
-    private MainPtmSentDeleteResponse response;
-    private PTMTeacherStudentGetDetailAsyncTask ptmTeacherStudentGetDetailAsyncTask = null;
-    MainPtmInboxResponse inboxresponse;
-
-    ExpandableListAdapterSent expandableListAdapterSent;
+    private ArrayList<String> dataCheck = new ArrayList<String>();
+private onDeleteButton listner;
 
     public ExpandableListAdapterSent(Context context, List<String> listDataHeader,
-                                     HashMap<String, List<FinalArrayInbox>> listChildData) {
+                                     HashMap<String, List<FinalArrayInbox>> listChildData, onDeleteButton listner) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this.listChildData = listChildData;
+        this.listner=listner;
     }
 
     @Override
@@ -77,46 +76,18 @@ public class ExpandableListAdapterSent extends BaseExpandableListAdapter {
         txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
         delete_btn = (Button) convertView.findViewById(R.id.delete_btn);
 
+        if (childData.get(childPosition).getReadStatus().equalsIgnoreCase("UnRead")) {
+            txtSubject.setTypeface(null, Typeface.BOLD);
+        } else {
+            txtSubject.setTypeface(null, Typeface.NORMAL);
+        }
         txtSubject.setText(childData.get(childPosition).getDescription());
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                progressDialog = new ProgressDialog(_context);
-//                progressDialog.setMessage("Please Wait...");
-//                progressDialog.setCancelable(false);
-//                progressDialog.show();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("MessageID", childData.get(childPosition).getMessageID());
-
-                            ptmDeleteMeetingAsyncTask = new PTMDeleteMeetingAsyncTask(params);
-                            response = ptmDeleteMeetingAsyncTask.execute().get();
-                            this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressDialog.dismiss();
-//                                    if (response.getFinalArray().size() == 0) {
-                                    Utility.ping(_context, "Delete Message.");
-                                    expandableListAdapterSent.notifyDataSetChanged();
-//                                    } else {
-//                                        progressDialog.dismiss();
-//                                    }
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    private void runOnUiThread(Runnable runnable) {
-                    }
-
-
-                }).start();
+                dataCheck.add(childData.get(childPosition).getMessageID());
+                listner.deleteSentMessage();
             }
         });
         return convertView;
@@ -171,8 +142,6 @@ public class ExpandableListAdapterSent extends BaseExpandableListAdapter {
         } else {
             view_inbox_txt.setTextColor(_context.getResources().getColor(R.color.absent_header));
         }
-
-
         return convertView;
     }
 
@@ -186,47 +155,8 @@ public class ExpandableListAdapterSent extends BaseExpandableListAdapter {
         return true;
     }
 
-
-    public void getSentData() {
-        if (Utility.isNetworkConnected(_context)) {
-            progressDialog = new ProgressDialog(_context);
-            progressDialog.setMessage("Please Wait...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("UserID", Utility.getPref(_context, "StaffID"));
-                        params.put("UserType", "staff");
-                        params.put("MessgaeType", "Sent");
-                        ptmTeacherStudentGetDetailAsyncTask = new PTMTeacherStudentGetDetailAsyncTask(params);
-                        inboxresponse = ptmTeacherStudentGetDetailAsyncTask.execute().get();
-                        this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                                if (response.getFinalArray().size() > 0) {
-
-                                } else {
-                                    progressDialog.dismiss();
-
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                private void runOnUiThread(Runnable runnable) {
-                }
-            }).start();
-        } else {
-            Utility.ping(_context, "Network not available");
-        }
+    public ArrayList<String> getMessageId() {
+        return dataCheck;
     }
 }
 

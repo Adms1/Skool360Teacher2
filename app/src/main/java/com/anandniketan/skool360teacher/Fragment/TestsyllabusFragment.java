@@ -2,45 +2,30 @@ package com.anandniketan.skool360teacher.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
 import com.anandniketan.skool360teacher.Adapter.Test_syllabusAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
-import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
-import com.anandniketan.skool360teacher.CallBack;
-import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
+import com.anandniketan.skool360teacher.Interfacess.CallBack;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class TestsyllabusFragment extends Fragment implements CallBack {

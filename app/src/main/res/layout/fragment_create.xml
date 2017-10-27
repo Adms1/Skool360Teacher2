@@ -97,7 +97,7 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="165dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:src="@drawable/wright"/>
         </LinearLayout>
     </RelativeLayout>

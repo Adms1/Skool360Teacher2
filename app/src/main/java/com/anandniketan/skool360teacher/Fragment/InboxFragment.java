@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterInbox;
 import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterLessonPlan;
 import com.anandniketan.skool360teacher.AsyncTasks.PTMTeacherStudentGetDetailAsyncTask;
+import com.anandniketan.skool360teacher.Interfacess.onInboxRead;
 import com.anandniketan.skool360teacher.Models.LessonPlanModel;
 import com.anandniketan.skool360teacher.Models.NewResponse.SubjectMark;
 import com.anandniketan.skool360teacher.Models.PTMInboxResponse.FinalArrayInbox;
@@ -114,7 +115,12 @@ public class InboxFragment extends Fragment {
                                 if (response.getFinalArray().size() > 0) {
                                     txtNoRecordsinbox.setVisibility(View.GONE);
                                     setExpandableListData();
-                                    expandableListAdapterInbox = new ExpandableListAdapterInbox(getActivity(), listDataHeader, listDataChild);
+                                    expandableListAdapterInbox = new ExpandableListAdapterInbox(getActivity(), listDataHeader, listDataChild, new onInboxRead() {
+                                        @Override
+                                        public void readMessageStatus() {
+
+                                        }
+                                    });
                                     lvExpinbox.setAdapter(expandableListAdapterInbox);
                                 } else {
                                     progressDialog.dismiss();
@@ -146,7 +152,9 @@ public class InboxFragment extends Fragment {
             rows.add(response.getFinalArray().get(j));
             listDataChild.put(listDataHeader.get(j), rows);
         }
+    }
 
+    public void ReadStatusMessage(){
 
     }
 }

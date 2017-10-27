@@ -1,6 +1,5 @@
 package com.anandniketan.skool360teacher.Fragment;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -25,18 +24,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anandniketan.skool360teacher.Adapter.ListAdapterCreate;
 import com.anandniketan.skool360teacher.AsyncTasks.PTMTeacherStudentInsertDetailAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetClassSubjectWiseStudentAsyncTask;
-import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
 import com.anandniketan.skool360teacher.Models.MainPtmSentMessageResponse;
 import com.anandniketan.skool360teacher.Models.PTMCreateResponse.FinalArrayStudentForCreate;
 import com.anandniketan.skool360teacher.Models.PTMCreateResponse.MainResponseDisplayStudent;
 import com.anandniketan.skool360teacher.Models.PTMCreateResponse.StudentDatum;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
+import com.anandniketan.skool360teacher.Interfacess.onCheckBoxChnage;
+import com.koushikdutta.ion.builder.Builders;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
     private AlertDialog alertDialogAndroid = null;
     private Button close_btn, send_btn;
     private TextView insert_message_date_txt;
-    private EditText  insert_message_subject_txt, insert_message_Message_txt;
+    private EditText insert_message_subject_txt, insert_message_Message_txt;
     private DatePickerDialog datePickerDialog;
     int Year, Month, Day;
     Calendar calendar;
@@ -71,6 +70,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
     private PTMTeacherStudentInsertDetailAsyncTask getPTMTeacherStudentInsertDetailAsyncTask = null;
     MainPtmSentMessageResponse mainPtmSentMessageResponse;
+    String finalStudentArray;
 
     public CreateFragment() {
     }
@@ -142,12 +142,6 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                 SendMessage();
             }
         });
-        lvCreate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext,position,Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     public void getStudentData() {
@@ -197,6 +191,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
             if (array.get(i).getStudentData().size() > 0) {
                 Create_header.setVisibility(View.VISIBLE);
                 txtNoRecordsCreateStudent.setVisibility(View.GONE);
+                insert_message_img.setVisibility(View.GONE);
                 for (int j = 0; j < array.get(i).getStudentData().size(); j++) {
                     arrayList.add(array.get(i).getStudentData().get(j));
                 }
@@ -205,9 +200,25 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
             } else {
                 txtNoRecordsCreateStudent.setVisibility(View.VISIBLE);
                 Create_header.setVisibility(View.GONE);
+                insert_message_img.setVisibility(View.GONE);
             }
         }
-        listAdapterCreate = new ListAdapterCreate(getActivity(), arrayList, getActivity().getFragmentManager());
+        listAdapterCreate = new ListAdapterCreate(getActivity(), arrayList, getActivity().getFragmentManager(), new onCheckBoxChnage() {
+            @Override
+            public void getChecked() {
+                for (int i = 0; i < lvCreate.getChildCount(); i++) {
+                    View view = lvCreate.getChildAt(i);
+                    CheckBox ch = (CheckBox) view.findViewById(R.id.create_Checkbox);
+                    if (ch.isChecked()) {
+                        insert_message_img.setVisibility(View.VISIBLE);
+                        return;
+                    } else {
+                        insert_message_img.setVisibility(View.GONE);
+                        return;
+                    }
+                }
+            }
+        });
         lvCreate.setAdapter(listAdapterCreate);
         lvCreate.deferNotifyDataSetChanged();
 
@@ -223,24 +234,6 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         Create_class_spinner.setAdapter(adapterYear);
-    }
-
-    public void CreateMessage() {
-
-        for (int i = 0; i < lvCreate.getChildCount(); i++) {
-            View v = lvCreate.getChildAt(i);
-
-            CheckBox cb = (CheckBox) v.findViewById(R.id.create_Checkbox);
-
-            if (cb.isChecked()) {
-                insert_message_img.setVisibility(View.VISIBLE);
-                Utility.ping(mContext, "check");
-            } else {
-                insert_message_img.setVisibility(View.GONE);
-                Utility.ping(mContext, "Uncheck");
-            }
-        }
-
     }
 
     public void SendMessage() {
@@ -288,54 +281,74 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                 datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
-        ArrayList<String> id = new ArrayList<>();
-        String StudentArray = null;
-        ArrayList<String> array = listAdapterCreate.getData();
-        for (int j = 0; j < array.size(); j++) {
-            id.add(array.get(j).toString());
-        }
-        Log.d("StudentArray", "" + id);
-//        if (Utility.isNetworkConnected(mContext)) {
-//            progressDialog = new ProgressDialog(mContext);
-//            progressDialog.setMessage("Please Wait...");
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
-//
-//            final String finalStudentArray = StudentArray;
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        HashMap<String, String> params = new HashMap<String, String>();
-//                        params.put("MessageID", "0");
-//                        params.put("FromID", Utility.getPref(mContext, "StaffID"));
-//                        params.put("ToID", finalStudentArray);
-//                        params.put("MeetingDate", insert_message_date_txt.getText().toString());
-//                        params.put("SubjectLine", insert_message_subject_txt.getText().toString());
-//                        params.put("Description", insert_message_Message_txt.getText().toString());
-//
-//                        getPTMTeacherStudentInsertDetailAsyncTask = new PTMTeacherStudentInsertDetailAsyncTask(params);
-//                        mainPtmSentMessageResponse = getPTMTeacherStudentInsertDetailAsyncTask.execute().get();
-//                        getActivity().runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                progressDialog.dismiss();
-//                                if (mainPtmSentMessageResponse.getFinalArray().size() > 0) {
-//                                    Utility.ping(mContext, "Send Sucessfully");
-//                                } else {
-//                                    progressDialog.dismiss();
-//
-//                                }
-//                            }
-//                        });
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//        } else {
-//            Utility.ping(mContext, "Network not available");
-//        }
+        send_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> id = new ArrayList<>();
+                final String messageDate, messageSubject, messageMessageLine;
+                ArrayList<String> array = listAdapterCreate.getData();
+                for (int j = 0; j < array.size(); j++) {
+                    id.add(array.get(j).toString());
+                }
+                finalStudentArray = String.valueOf(id);
+                finalStudentArray = finalStudentArray.substring(1, finalStudentArray.length() - 1);
+                messageDate = insert_message_date_txt.getText().toString();
+                messageSubject = insert_message_subject_txt.getText().toString();
+                messageMessageLine = insert_message_Message_txt.getText().toString();
+                Log.d("StudentArray", "" + id);
+
+
+                if (Utility.isNetworkConnected(mContext)) {
+                    if (!finalStudentArray.equalsIgnoreCase("") &&!messageDate.equalsIgnoreCase("")&&
+                            !messageSubject.equalsIgnoreCase("")&&!messageMessageLine.equalsIgnoreCase("")) {
+                        progressDialog = new ProgressDialog(mContext);
+                        progressDialog.setMessage("Please Wait...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+
+
+                        Log.d("finalStudentArray", finalStudentArray);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    HashMap<String, String> params = new HashMap<String, String>();
+                                    params.put("MessageID", "0");
+                                    params.put("FromID", Utility.getPref(mContext, "StaffID"));
+                                    params.put("ToID", finalStudentArray);
+                                    params.put("MeetingDate", messageDate);
+                                    params.put("SubjectLine", messageSubject);
+                                    params.put("Description", messageMessageLine);
+
+                                    getPTMTeacherStudentInsertDetailAsyncTask = new PTMTeacherStudentInsertDetailAsyncTask(params);
+                                    mainPtmSentMessageResponse = getPTMTeacherStudentInsertDetailAsyncTask.execute().get();
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            progressDialog.dismiss();
+                                            if (mainPtmSentMessageResponse.getFinalArray().size() > 0) {
+                                                Utility.ping(mContext, "Send Sucessfully");
+                                                alertDialogAndroid.dismiss();
+                                            } else {
+                                                progressDialog.dismiss();
+
+                                            }
+                                        }
+                                    });
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                    } else {
+                        Utility.ping(mContext, "Blank field not allowed.");
+                    }
+                } else {
+                    Utility.ping(mContext, "Network not available");
+                }
+            }
+        });
+
     }
 
     @Override
