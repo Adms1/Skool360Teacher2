@@ -206,15 +206,17 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         listAdapterCreate = new ListAdapterCreate(getActivity(), arrayList, getActivity().getFragmentManager(), new onCheckBoxChnage() {
             @Override
             public void getChecked() {
-                for (int i = 0; i < lvCreate.getChildCount(); i++) {
+                for (int i = 0; i <= lvCreate.getChildCount(); i++) {
                     View view = lvCreate.getChildAt(i);
-                    CheckBox ch = (CheckBox) view.findViewById(R.id.create_Checkbox);
-                    if (ch.isChecked()) {
-                        insert_message_img.setVisibility(View.VISIBLE);
-                        return;
-                    } else {
-                        insert_message_img.setVisibility(View.GONE);
-                        return;
+                    if (view != null) {
+                        CheckBox ch = (CheckBox) view.findViewById(R.id.create_Checkbox);
+                        if (ch.isChecked()) {
+                            insert_message_img.setVisibility(View.VISIBLE);
+                            return;
+                        } else {
+                            insert_message_img.setVisibility(View.GONE);
+//                            return;
+                        }
                     }
                 }
             }
@@ -299,8 +301,8 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
 
                 if (Utility.isNetworkConnected(mContext)) {
-                    if (!finalStudentArray.equalsIgnoreCase("") &&!messageDate.equalsIgnoreCase("")&&
-                            !messageSubject.equalsIgnoreCase("")&&!messageMessageLine.equalsIgnoreCase("")) {
+                    if (!finalStudentArray.equalsIgnoreCase("") && !messageDate.equalsIgnoreCase("") &&
+                            !messageSubject.equalsIgnoreCase("") && !messageMessageLine.equalsIgnoreCase("")) {
                         progressDialog = new ProgressDialog(mContext);
                         progressDialog.setMessage("Please Wait...");
                         progressDialog.setCancelable(false);

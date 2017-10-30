@@ -45,7 +45,7 @@ public class GetTeacherGetAssignStudentSubjectAsyncTask  extends AsyncTask<Void,
 //                    "      \"StudentSubject\": [\n" +
 //                    "        {\n" +
 //                    "          \"SubjectID\": 3,\n" +
-//                    "          \"Subject\": \"Book Club\",\n" +
+//                    "          \"Subject\": \"JAva\",\n" +
 //                    "          \"CheckedStatus\": \"1\"\n" +
 //                    "        },\n" +
 //                    "        {\n" +

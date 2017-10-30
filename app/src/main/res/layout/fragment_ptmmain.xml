@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
                 android:background="@color/orange"
-                android:minHeight="?attr/actionBarSize"
+                    android:minHeight="?attr/actionBarSize"
                 app:tabIndicatorColor="@color/editTextcolor"
                 app:tabIndicatorHeight="5dp"
                 app:tabMaxWidth="0dp"

@@ -17,8 +17,10 @@ import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.Adapter.StudentAssignesubjectAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherGetAssignStudentSubjectAsyncTask;
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertAssignStudentSubjectAsyncTask;
 import com.anandniketan.skool360teacher.Models.StudentAssignSubjectResponse.MainResponseStudentSubject;
 import com.anandniketan.skool360teacher.Models.StudentAssignSubjectResponse.StudentSubject;
+import com.anandniketan.skool360teacher.Models.TeacherInsertAssignStudentSubjectModel.TeacherInsertSubjectMainResponse;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.AppConfiguration;
 import com.anandniketan.skool360teacher.Utility.Utility;
@@ -52,6 +54,9 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
     private ImageView insert_subject_img;
     private ArrayList<StudentSubject> studentsubjectarrayList;
     private ArrayList<String> listDatastudentName;
+
+    private TeacherInsertAssignStudentSubjectAsyncTask teacherInsertAssignStudentSubjectAsyncTask = null;
+    TeacherInsertSubjectMainResponse teacherInsertSubjectMainResponse;
 
     @Override
 
@@ -92,6 +97,12 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
     }
 
     public void setListner() {
+        insert_subject_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InsertTeacherAssignSubject();
+            }
+        });
     }
 
     public void setStandardandClass() {
@@ -230,13 +241,54 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
 
         for (int i = 0; i < mainResponseStudentSubject.getFinalArray().size(); i++) {
             listDatastudentName.add(mainResponseStudentSubject.getFinalArray().get(i).getStudentName());
-            Log.d("listDatastudentName", "" + listDatastudentName);
+
         }
         for (int j = 0; j < mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().size(); j++) {
             studentsubjectarrayList.add(mainResponseStudentSubject.getFinalArray().get(0).getStudentSubject().get(j));
         }
-        studentAssignesubjectAdapter = new StudentAssignesubjectAdapter(getActivity(), listDatastudentName, studentsubjectarrayList);
+        studentAssignesubjectAdapter = new StudentAssignesubjectAdapter(getActivity(), listDatastudentName, mainResponseStudentSubject);
         studentassignesubject_list.setAdapter(studentAssignesubjectAdapter);
         studentassignesubject_list.deferNotifyDataSetChanged();
+    }
+
+
+    public void InsertTeacherAssignSubject() {
+
+        if (Utility.isNetworkConnected(mContext)) {
+            progressDialog = new ProgressDialog(mContext);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("ClassID", ClassId);
+                        params.put("StudentSubjectAry", "");
+
+                        teacherInsertAssignStudentSubjectAsyncTask = new TeacherInsertAssignStudentSubjectAsyncTask(params);
+                        teacherInsertSubjectMainResponse = teacherInsertAssignStudentSubjectAsyncTask.execute().get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (teacherInsertSubjectMainResponse.getFinalArray().size() >= 0) {
+                                    Utility.ping(mContext, "Save Sucessfully");
+                                } else {
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        } else {
+            Utility.ping(mContext, "Network not available");
+        }
     }
 }

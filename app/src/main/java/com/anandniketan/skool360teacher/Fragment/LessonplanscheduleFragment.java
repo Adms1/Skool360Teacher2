@@ -3,30 +3,22 @@ package com.anandniketan.skool360teacher.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterHomeWork;
 import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterLessonPlan;
-import com.anandniketan.skool360teacher.Adapter.TodayscheduleAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherLessonPlanScheduleAsyncTask;
-import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherLessonPlanScheduledHomeworkAsyncTask;
-import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherTodayScheduleAsyncTask;
-import com.anandniketan.skool360teacher.Models.HomeworkModel;
 import com.anandniketan.skool360teacher.Models.LessonPlanModel;
-import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -58,7 +50,7 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
     private ArrayList<LessonPlanModel> lessonPlanModels = new ArrayList<>();
     private RelativeLayout date_rel;
     private LinearLayout lesson_plan_header;
-
+    Typeface typeface;
 
     public LessonplanscheduleFragment() {
     }
@@ -89,10 +81,13 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
         Month = calendar.get(Calendar.MONTH);
         Day = calendar.get(Calendar.DAY_OF_MONTH);
 
-
+        typeface = Typeface.createFromAsset(mContext.getAssets(), "Roboto-Medium.ttf");
+        fromDate.setTypeface(typeface);
+        toDate.setTypeface(typeface);
 
         //load today's data first
         fromDate.setText(Utility.getTodaysDate());
+
         toDate.setText(Utility.getTodaysDate());
         getHomeworkData(fromDate.getText().toString(), toDate.getText().toString());
     }

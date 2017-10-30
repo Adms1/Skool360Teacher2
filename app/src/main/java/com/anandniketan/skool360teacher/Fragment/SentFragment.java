@@ -113,9 +113,8 @@ public class SentFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (response.getFinalArray().size() > 0) {
+                                if (response.getFinalArray().size()>=0) {
                                     txtNoRecordsSent.setVisibility(View.GONE);
-                                    Sent_header.setVisibility(View.VISIBLE);
                                     setExpandableListData();
                                     expandableListAdapterSent = new ExpandableListAdapterSent(getActivity(), listDataHeader, listDataChild, new onDeleteButton() {
                                         @Override
@@ -149,7 +148,7 @@ public class SentFragment extends Fragment {
                                                                     progressDialog.dismiss();
                                                                     if (responsedelete.getFinalArray().size() >= 0) {
                                                                         Utility.ping(mContext, "Delete Message.");
-                                                                        expandableListAdapterSent.notifyDataSetChanged();
+
                                                                         getSentData();
                                                                     } else {
                                                                         progressDialog.dismiss();
@@ -167,11 +166,12 @@ public class SentFragment extends Fragment {
                                         }
                                     });
                                     lvExpSent.setAdapter(expandableListAdapterSent);
+                                    expandableListAdapterSent.notifyDataSetChanged();
                                     lvExpSent.deferNotifyDataSetChanged();
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordsSent.setVisibility(View.VISIBLE);
-                                    Sent_header.setVisibility(View.GONE);
+//                                    Sent_header.setVisibility(View.GONE);
                                 }
                             }
                         });
@@ -197,6 +197,14 @@ public class SentFragment extends Fragment {
             ArrayList<FinalArrayInbox> rows = new ArrayList<FinalArrayInbox>();
             rows.add(response.getFinalArray().get(j));
             listDataChild.put(listDataHeader.get(j), rows);
+        }
+        if(listDataChild.size()>0)
+        {
+            Sent_header.setVisibility(View.VISIBLE);
+            txtNoRecordsSent.setVisibility(View.GONE);
+        }else{
+            Sent_header.setVisibility(View.GONE);
+            txtNoRecordsSent.setVisibility(View.VISIBLE);
         }
     }
 }

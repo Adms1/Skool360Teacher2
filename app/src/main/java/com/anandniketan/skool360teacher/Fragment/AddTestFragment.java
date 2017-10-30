@@ -165,12 +165,11 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                     addTest.AddTestID = teacherGetTestNameModels.get(i).getTestID();
                 }
                 String testvalue;
-                testvalue=adapterView.getItemAtPosition(i).toString();
-                if(testvalue.equalsIgnoreCase("-Please Select-")){
+                testvalue = adapterView.getItemAtPosition(i).toString();
+                if (testvalue.equalsIgnoreCase("-Please Select-")) {
                     Add_btn.setEnabled(false);
                     Add_btn.setAlpha((float) 0.5);
-                }else
-                {
+                } else {
                     Add_btn.setEnabled(true);
                     Add_btn.setAlpha(1);
                 }
@@ -466,6 +465,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
 
                     if (i == 0) {
                         checkBox.setChecked(true);
+                        addTest.classname = checkBox.getText().toString();
                     }
                     checkBox.setOnClickListener(onStateChangedListener(checkBox, i));
                     checkbox_linear.addView(convertView);

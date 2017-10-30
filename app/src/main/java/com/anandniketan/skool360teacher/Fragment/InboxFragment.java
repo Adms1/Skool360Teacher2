@@ -154,7 +154,4 @@ public class InboxFragment extends Fragment {
         }
     }
 
-    public void ReadStatusMessage(){
-
-    }
 }

@@ -28,7 +28,7 @@
     <GridView
         android:id="@+id/subject_grid_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="150dp"
         android:layout_below="@+id/student_linear"
         android:numColumns="3"
         android:scrollbars="none" />

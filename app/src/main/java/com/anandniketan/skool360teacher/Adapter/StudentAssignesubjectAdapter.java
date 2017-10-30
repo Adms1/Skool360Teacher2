@@ -2,15 +2,18 @@ package com.anandniketan.skool360teacher.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.anandniketan.skool360teacher.Models.StudentAssignSubjectResponse.FinalArrayStudentSubject;
 import com.anandniketan.skool360teacher.Models.StudentAssignSubjectResponse.MainResponseStudentSubject;
 import com.anandniketan.skool360teacher.Models.StudentAssignSubjectResponse.StudentSubject;
 import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
@@ -27,14 +30,13 @@ public class StudentAssignesubjectAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<StudentSubject> studentsubjectarrayList = new ArrayList<>();
     private ArrayList<String> studentnamelist = new ArrayList<String>();
-
+    MainResponseStudentSubject mainResponseStudentSubject;
 
     // Constructor
-    public StudentAssignesubjectAdapter(Context c, ArrayList<String> studentnamelist, ArrayList<StudentSubject> studentsubjectarrayList) {
+    public StudentAssignesubjectAdapter(Context c, ArrayList<String> studentnamelist, MainResponseStudentSubject mainResponseStudentSubject) {
         mContext = c;
-        this.studentsubjectarrayList = studentsubjectarrayList;
         this.studentnamelist = studentnamelist;
-
+        this.mainResponseStudentSubject = mainResponseStudentSubject;
     }
 
     private class ViewHolder {
@@ -71,7 +73,7 @@ public class StudentAssignesubjectAdapter extends BaseAdapter {
 
             try {
                 viewHolder.txt_studentName.setText(studentnamelist.get(position));
-                StudentGridsubjectAdapter adapter = new StudentGridsubjectAdapter(mContext, studentsubjectarrayList);
+                StudentGridsubjectAdapter adapter = new StudentGridsubjectAdapter(mContext, mainResponseStudentSubject.getFinalArray().get(position));
                 viewHolder.subject_grid_view.setAdapter(adapter);
                 viewHolder.subject_grid_view.deferNotifyDataSetChanged();
 
@@ -85,10 +87,10 @@ public class StudentAssignesubjectAdapter extends BaseAdapter {
 
 class StudentGridsubjectAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<StudentSubject> studentsubjectarrayList = new ArrayList<>();
+    private FinalArrayStudentSubject studentsubjectarrayList;
 
     // Constructor
-    public StudentGridsubjectAdapter(Context c, ArrayList<StudentSubject> studentsubjectarrayList) {
+    public StudentGridsubjectAdapter(Context c, FinalArrayStudentSubject studentsubjectarrayList) {
         mContext = c;
         this.studentsubjectarrayList = studentsubjectarrayList;
     }
@@ -99,17 +101,17 @@ class StudentGridsubjectAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return studentsubjectarrayList.size();
+        return studentsubjectarrayList.getStudentSubject().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return studentsubjectarrayList.get(position);
+        return studentsubjectarrayList.getStudentSubject().get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -122,17 +124,30 @@ class StudentGridsubjectAdapter extends BaseAdapter {
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.list_row_student_checkbox, null);
             viewHolder.check_subject = (CheckBox) convertView.findViewById(R.id.check_subject);
-
+            StudentSubject subjObj = studentsubjectarrayList.getStudentSubject().get(position);
             try {
 
-                viewHolder.check_subject.setText(studentsubjectarrayList.get(position).getSubject());
-                viewHolder.check_subject.setTag(studentsubjectarrayList.get(position).getSubjectID());
+                viewHolder.check_subject.setText(subjObj.getSubject());
+                viewHolder.check_subject.setTag(subjObj.getSubjectID());
+
+                if (subjObj.getCheckedStatus().equalsIgnoreCase("1")) {
+                    viewHolder.check_subject.setChecked(true);
+                }
+
+                viewHolder.check_subject.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked){
+                            Log.d("checkvalue", viewHolder.check_subject.getTag().toString());
+                        }
+                    }
+                });
 
 //                convertView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 150));
 
-                GridView.LayoutParams glp = (GridView.LayoutParams) convertView.getLayoutParams();
-                glp.height = (studentsubjectarrayList.get(position).getSubject().length() * 30) + 10;
-                convertView.setLayoutParams(glp);
+//                GridView.LayoutParams glp = (GridView.LayoutParams) convertView.getLayoutParams();
+//                glp.height = (subjObj.getSubject() * 30) + 10;
+//                convertView.setLayoutParams(glp);
             } catch (Exception e) {
                 e.printStackTrace();
             }

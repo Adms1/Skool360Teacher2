@@ -84,16 +84,16 @@ public class ListAdapterCreate extends BaseAdapter {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         String checkvalue;
+
                         if (isChecked) {
-//                            ((CreateFragment) mContext).CreateMessage();
-                            listner.getChecked();
                             checkvalue = arrayList.get(position).getStudentID().toString();
                             dataCheck.add(checkvalue);
                             Log.d("dataCheck", dataCheck.toString());
-                        } else {
                             listner.getChecked();
+                        } else {
                             dataCheck.remove(arrayList.get(position).getStudentID().toString());
                             Log.d("dataUnCheck", dataCheck.toString());
+                            listner.getChecked();
                         }
                     }
                 });
