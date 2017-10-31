@@ -37,8 +37,7 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
     String messageId, FromId, Toid, messageDate, messageSubject, messageMessageLine;
     private PTMTeacherStudentInsertDetailAsyncTask getPTMTeacherStudentInsertDetailAsyncTask = null;
     MainPtmSentMessageResponse mainPtmSentMessageResponse;
-    private ArrayList<FinalArrayInbox> staffattendaceModel = new ArrayList<>();
-
+    private ArrayList<String> staffattendaceModel = new ArrayList<>();
 
     public ExpandableListAdapterInbox(Context context, List<String> listDataHeader,
                                       HashMap<String, List<FinalArrayInbox>> listChildData, onInboxRead onInboxRead) {
@@ -83,55 +82,13 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
 
         if (childData.get(childPosition).getReadStatus().equalsIgnoreCase("Pending")) {
             txtSubject.setTypeface(null, Typeface.BOLD);
+            staffattendaceModel.add(messageId + "|" + FromId + "|" + Toid + "|" + messageDate + "|" + messageSubject + "|" + messageMessageLine);
+            Log.d("stringArray", staffattendaceModel.toString());
             onInboxRead.readMessageStatus();
-            if (Utility.isNetworkConnected(_context)) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("MessageID", messageId);
-                            params.put("FromID", FromId);
-                            params.put("ToID", Toid);
-                            params.put("MeetingDate", messageDate);
-                            params.put("SubjectLine", messageSubject);
-                            params.put("Description", messageMessageLine);
-
-                            getPTMTeacherStudentInsertDetailAsyncTask = new PTMTeacherStudentInsertDetailAsyncTask(params);
-                            mainPtmSentMessageResponse = getPTMTeacherStudentInsertDetailAsyncTask.execute().get();
-                            this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    if (mainPtmSentMessageResponse.getFinalArray().size() > 0) {
-                                        Utility.ping(_context, "Send Sucessfully");
-                                        staffattendaceModel.get(childPosition).setReadStatus("Read");
-                                    } else {
-
-
-                                    }
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    private void runOnUiThread(Runnable runnable) {
-                    }
-                }).start();
-            } else {
-                Utility.ping(_context, "Network not available");
-            }
-        } else
-
-        {
+        } else {
             txtSubject.setTypeface(null, Typeface.NORMAL);
         }
-
-        txtSubject.setText(childData.get(childPosition).
-
-                getDescription());
+        txtSubject.setText(childData.get(childPosition).getDescription());
         return convertView;
     }
 
@@ -199,7 +156,7 @@ public class ExpandableListAdapterInbox extends BaseExpandableListAdapter {
         return true;
     }
 
-    public ArrayList<FinalArrayInbox> getData() {
+    public ArrayList<String> getData() {
         return staffattendaceModel;
     }
 

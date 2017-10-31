@@ -21,6 +21,7 @@ import com.anandniketan.skool360teacher.Models.TeacherGetAssignStudentSubjectmMo
 import com.anandniketan.skool360teacher.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by admsandroid on 9/25/2017.
@@ -33,7 +34,7 @@ public class StudentAssignesubjectAdapter extends BaseAdapter {
     MainResponseStudentSubject mainResponseStudentSubject;
 
     // Constructor
-    public StudentAssignesubjectAdapter(Context c, ArrayList<String> studentnamelist, MainResponseStudentSubject mainResponseStudentSubject) {
+    public  StudentAssignesubjectAdapter(Context c, ArrayList<String> studentnamelist, MainResponseStudentSubject mainResponseStudentSubject) {
         mContext = c;
         this.studentnamelist = studentnamelist;
         this.mainResponseStudentSubject = mainResponseStudentSubject;
@@ -115,30 +116,31 @@ class StudentGridsubjectAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View cv, ViewGroup parent) {
         final ViewHolder viewHolder;
         View view = null;
-        convertView = null;
-        if (convertView == null) {
+        cv = null;
+        if (cv == null) {
             viewHolder = new ViewHolder();
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.list_row_student_checkbox, null);
-            viewHolder.check_subject = (CheckBox) convertView.findViewById(R.id.check_subject);
+            cv = mInflater.inflate(R.layout.list_row_student_checkbox, null);
+            viewHolder.check_subject = (CheckBox) cv.findViewById(R.id.check_subject);
             StudentSubject subjObj = studentsubjectarrayList.getStudentSubject().get(position);
-            try {
 
+          final  ArrayList<String> subjectId = new ArrayList<>();
+            try {
                 viewHolder.check_subject.setText(subjObj.getSubject());
                 viewHolder.check_subject.setTag(subjObj.getSubjectID());
-
                 if (subjObj.getCheckedStatus().equalsIgnoreCase("1")) {
                     viewHolder.check_subject.setChecked(true);
+                    subjectId.add(viewHolder.check_subject.getTag().toString());
                 }
-
                 viewHolder.check_subject.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked){
-                            Log.d("checkvalue", viewHolder.check_subject.getTag().toString());
+                        if (isChecked) {
+                            subjectId.add(viewHolder.check_subject.getTag().toString());
+                            Log.d("checkvalue",subjectId.toString());
                         }
                     }
                 });
@@ -152,7 +154,7 @@ class StudentGridsubjectAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
         }
-        return convertView;
+        return cv;
     }
 }
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -54,7 +55,8 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
     private ImageView insert_subject_img;
     private ArrayList<StudentSubject> studentsubjectarrayList;
     private ArrayList<String> listDatastudentName;
-
+    ArrayList<String> newArray;
+    String res = "";;
     private TeacherInsertAssignStudentSubjectAsyncTask teacherInsertAssignStudentSubjectAsyncTask = null;
     TeacherInsertSubjectMainResponse teacherInsertSubjectMainResponse;
 
@@ -253,42 +255,72 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
 
 
     public void InsertTeacherAssignSubject() {
-
-        if (Utility.isNetworkConnected(mContext)) {
-            progressDialog = new ProgressDialog(mContext);
-            progressDialog.setMessage("Please Wait...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("ClassID", ClassId);
-                        params.put("StudentSubjectAry", "");
-
-                        teacherInsertAssignStudentSubjectAsyncTask = new TeacherInsertAssignStudentSubjectAsyncTask(params);
-                        teacherInsertSubjectMainResponse = teacherInsertAssignStudentSubjectAsyncTask.execute().get();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                                if (teacherInsertSubjectMainResponse.getFinalArray().size() >= 0) {
-                                    Utility.ping(mContext, "Save Sucessfully");
-                                } else {
-                                    progressDialog.dismiss();
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        boolean isFirstAdded = false;
+        newArray = new ArrayList<>();
+        for (int i = 0; i < studentassignesubject_list.getChildCount(); i++) {
+            String customString = String.valueOf(mainResponseStudentSubject.getFinalArray().get(i).getStudentID());
+            View childView = studentassignesubject_list.getChildAt(i);
+            GridView gd = (GridView) childView.findViewById(R.id.subject_grid_view);
+            for (int j = 0; j < gd.getChildCount(); j++) {
+                View gridViewChildView = gd.getChildAt(j);
+                CheckBox checkBox = (CheckBox) gridViewChildView.findViewById(R.id.check_subject);
+                if (checkBox.isChecked()) {
+//                    if (!isFirstAdded) {
+                        customString = customString+","+String.valueOf(checkBox.getTag());
+                        Log.d("ifcustomString ", customString);
+                        isFirstAdded = true;
+//                        } else {
+//                            customString = customString + "," + String.valueOf(checkBox.getTag());
+//                            Log.d("elsecustomString ", customString);
+//                            isFirstAdded = true;
+//                        }
                 }
-            }).start();
-
-        } else {
-            Utility.ping(mContext, "Network not available");
+            }
+            newArray.add(customString);
+            Log.d("newArray ", newArray.toString());
         }
+
+
+        for (String s : newArray) {
+            res=res+"|"+s;
+        }
+        Log.d("Objects ", res);
+//        if (Utility.isNetworkConnected(mContext)) {
+//            progressDialog = new ProgressDialog(mContext);
+//            progressDialog.setMessage("Please Wait...");
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
+//
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        HashMap<String, String> params = new HashMap<String, String>();
+//                        params.put("ClassID", ClassId);
+//                        params.put("StudentSubjectAry", s);
+//
+//                        teacherInsertAssignStudentSubjectAsyncTask = new TeacherInsertAssignStudentSubjectAsyncTask(params);
+//                        teacherInsertSubjectMainResponse = teacherInsertAssignStudentSubjectAsyncTask.execute().get();
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                progressDialog.dismiss();
+//                                if (teacherInsertSubjectMainResponse.getFinalArray().size() >= 0) {
+//                                    Utility.ping(mContext, "Save Sucessfully");
+//                                    setTodayschedule();
+//                                } else {
+//                                    progressDialog.dismiss();
+//                                }
+//                            }
+//                        });
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//
+//        } else {
+//            Utility.ping(mContext, "Network not available");
+//        }
     }
 }
