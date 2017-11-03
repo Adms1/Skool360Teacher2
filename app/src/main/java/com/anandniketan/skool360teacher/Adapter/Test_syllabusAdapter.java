@@ -238,8 +238,8 @@ public class Test_syllabusAdapter extends BaseAdapter{
                         edit_test_date_txt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-//                              DialogFragment newFragment = new SelectDateFragment();
-//                                newFragment.show(Test_syllabusAdapter.this, "DatePicker");
+                              DialogFragment newFragment = new SelectDateFragment();
+//                                newFragment.show(activit, "DatePicker");
                             }
                         });
 
@@ -294,44 +294,45 @@ public class Test_syllabusAdapter extends BaseAdapter{
 
     private void runOnUiThread(Runnable runnable) {
     }
-//    public static class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-//
-//        @Override
-//        public Dialog onCreateDialog(Bundle savedInstanceState) {
-//            final Calendar calendar = Calendar.getInstance();
-//            int yy = calendar.get(Calendar.YEAR);
-//            int mm = calendar.get(Calendar.MONTH);
-//            int dd = calendar.get(Calendar.DAY_OF_MONTH);
-//            return new DatePickerDialog(, this, yy, mm, dd);
-//
-//        }
-//        @Override
-//        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-//            populateSetDate(year, monthOfYear + 1, dayOfMonth);
-//        }
-//        public void populateSetDate(int year, int month, int day) {
-//            int mYear, mMonth, mDay;
-//            mDay = day;
-//            mMonth = month + 1;
-//            mYear = year;
-//            String d, m, y;
-//            d = Integer.toString(mDay);
-//            m = Integer.toString(mMonth);
-//            y = Integer.toString(mYear);
-//
-//            if (mDay < 10) {
-//                d = "0" + d;
-//            }
-//            if (mMonth < 10) {
-//                m = "0" + m;
-//            }
-//
-//
-//            dateFinal = d + "/" + m+ "/" + year;
-//
-//            edit_test_date_txt.setText(dateFinal);
-//        }
-//    }
+    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar calendar = Calendar.getInstance();
+            int yy = calendar.get(Calendar.YEAR);
+            int mm = calendar.get(Calendar.MONTH);
+            int dd = calendar.get(Calendar.DAY_OF_MONTH);
+            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
+
+        }
+        public void populateSetDate(int year, int month, int day) {
+            int mYear, mMonth, mDay;
+            mDay = day;
+            mMonth = month + 1;
+            mYear = year;
+            String d, m, y;
+            d = Integer.toString(mDay);
+            m = Integer.toString(mMonth);
+            y = Integer.toString(mYear);
+
+            if (mDay < 10) {
+                d = "0" + d;
+            }
+            if (mMonth < 10) {
+                m = "0" + m;
+            }
+
+
+            dateFinal = d + "/" + m+ "/" + year;
+
+            edit_test_date_txt.setText(dateFinal);
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            populateSetDate(year, month + 1, dayOfMonth);
+        }
+    }
 
     public void getTestSyllabusData() {
         if (Utility.isNetworkConnected(mContext)) {
