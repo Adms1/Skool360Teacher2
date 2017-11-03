@@ -32,7 +32,11 @@ public class LoginActivity extends AppCompatActivity {
     private Context mContext;
     private ProgressDialog progressDialog;
     private ArrayList<LoginModel> logindetailModels = new ArrayList<>();
-    boolean isBoolean_permission_location = false, isBoolean_permission_phoneState = false;
+    boolean isBoolean_permission_access_network = false,
+            isBoolean_permission_internet = false,
+            isBoolean_permission_wifi = false,
+            isBoolean_permission_read_external = false,
+            isBoolean_permission_wirte_external = false;
     public static final int REQUEST_PERMISSIONS_ACCESS_NETWORK_STATE = 1;
     public static final int REQUEST_PERMISSIONS_Internet = 2;
     public static final int REQUEST_PERMISSIONS_ACCESS_WIFI_STATE = 3;
@@ -50,75 +54,83 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        if (Utility.isNetworkConnected(mContext)) {
+//        if (isBoolean_permission_internet &&
+//                isBoolean_permission_access_network &&
+//                isBoolean_permission_wifi &&
+//                isBoolean_permission_read_external &&
+//                isBoolean_permission_wirte_external) {
+            if (Utility.isNetworkConnected(mContext)) {
 
-            if (!binding.UserNameEdt.getText().toString().equalsIgnoreCase("")) {
-                if (!binding.PasswordEdt.getText().toString().equalsIgnoreCase("")) {
-                    if (binding.PasswordEdt.getText().toString().length() >= 3 && binding.PasswordEdt.getText().toString().length() <= 13) {
-                        progressDialog = new ProgressDialog(mContext);
-                        progressDialog.setMessage("Please wait...");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
+                if (!binding.UserNameEdt.getText().toString().equalsIgnoreCase("")) {
+                    if (!binding.PasswordEdt.getText().toString().equalsIgnoreCase("")) {
+                        if (binding.PasswordEdt.getText().toString().length() >= 3 && binding.PasswordEdt.getText().toString().length() <= 13) {
+                            progressDialog = new ProgressDialog(mContext);
+                            progressDialog.setMessage("Please wait...");
+                            progressDialog.setCancelable(false);
+                            progressDialog.show();
 
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    HashMap<String, String> params = new HashMap<String, String>();
-                                    params.put("UserID", binding.UserNameEdt.getText().toString().trim());
-                                    params.put("Password", binding.PasswordEdt.getText().toString().trim());
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        HashMap<String, String> params = new HashMap<String, String>();
+                                        params.put("UserID", binding.UserNameEdt.getText().toString().trim());
+                                        params.put("Password", binding.PasswordEdt.getText().toString().trim());
 
-                                    loginAsyncTask = new LoginAsyncTask(params);
-                                    logindetailModels = loginAsyncTask.execute().get();
+                                        loginAsyncTask = new LoginAsyncTask(params);
+                                        logindetailModels = loginAsyncTask.execute().get();
 
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            progressDialog.dismiss();
-                                            if (logindetailModels.size() > 0) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                progressDialog.dismiss();
+                                                if (logindetailModels.size() > 0) {
 //                              TODO: Store result values for future use
 
-                                                if (binding.RememberChk.isChecked()) {
-                                                    saveUserNamePwd(binding.UserNameEdt.getText().toString(), binding.PasswordEdt.getText().toString());
+                                                    if (binding.RememberChk.isChecked()) {
+                                                        saveUserNamePwd(binding.UserNameEdt.getText().toString(), binding.PasswordEdt.getText().toString());
+                                                    }
+                                                    Utility.setPref(mContext, "StaffID", logindetailModels.get(0).getStaffID());
+                                                    Utility.setPref(mContext, "Emp_Code", logindetailModels.get(0).getEmp_Code());
+                                                    Utility.setPref(mContext, "Emp_Name", logindetailModels.get(0).getEmp_Name());
+                                                    Utility.setPref(mContext, "DepratmentID", logindetailModels.get(0).getDepratmentID());
+                                                    Utility.setPref(mContext, "DesignationID", logindetailModels.get(0).getDesignationID());
+                                                    Utility.setPref(mContext, "DeviceId", logindetailModels.get(0).getDeviceId());
+
+                                                    Utility.pong(mContext, "Login Successful");
+                                                    Intent intentDashboard = new Intent(LoginActivity.this, DashBoardActivity.class);
+                                                    startActivity(intentDashboard);
+
+                                                    finish();
+                                                } else {
+                                                    Utility.pong(mContext, "Invalid Credentials. Please try again...");
                                                 }
-                                                Utility.setPref(mContext, "StaffID", logindetailModels.get(0).getStaffID());
-                                                Utility.setPref(mContext, "Emp_Code", logindetailModels.get(0).getEmp_Code());
-                                                Utility.setPref(mContext, "Emp_Name", logindetailModels.get(0).getEmp_Name());
-                                                Utility.setPref(mContext, "DepratmentID", logindetailModels.get(0).getDepratmentID());
-                                                Utility.setPref(mContext, "DesignationID", logindetailModels.get(0).getDesignationID());
-                                                Utility.setPref(mContext, "DeviceId", logindetailModels.get(0).getDeviceId());
-
-                                                Utility.pong(mContext, "Login Successful");
-                                                Intent intentDashboard = new Intent(LoginActivity.this, DashBoardActivity.class);
-                                                startActivity(intentDashboard);
-
-                                                finish();
-                                            } else {
-                                                Utility.pong(mContext, "Invalid Credentials. Please try again...");
                                             }
-                                        }
-                                    });
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                        });
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        }).start();
+                            }).start();
+                        } else {
+                            binding.PasswordEdt.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shake));
+                            Utility.ping(mContext, "Password must be 3 to 13 character");
+                        }
                     } else {
                         binding.PasswordEdt.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shake));
-                        Utility.ping(mContext, "Password must be 3 to 13 character");
+                        Utility.ping(mContext, "Enter Password");
                     }
                 } else {
-                    binding.PasswordEdt.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shake));
-                    Utility.ping(mContext, "Enter Password");
+                    binding.UserNameEdt.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shake));
+                    Utility.ping(mContext, "Enter Username");
                 }
             } else {
-                binding.UserNameEdt.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shake));
-                Utility.ping(mContext, "Enter Username");
+                Utility.ping(mContext, "Network not available");
             }
-        } else {
-            Utility.ping(mContext, "Network not available");
-        }
+//        }
     }
+
+
 
 
     public void checkUnmPwd() {
@@ -145,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         } else {
-            isBoolean_permission_location = true;
+            isBoolean_permission_internet = true;
         }
     }
 
@@ -159,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         } else {
-            isBoolean_permission_phoneState = true;
+            isBoolean_permission_access_network = true;
         }
     }
 
@@ -174,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         } else {
-            isBoolean_permission_location = true;
+            isBoolean_permission_wifi = true;
         }
     }
 
@@ -189,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         } else {
-            isBoolean_permission_location = true;
+            isBoolean_permission_read_external = true;
         }
     }
 
@@ -204,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         } else {
-            isBoolean_permission_location = true;
+            isBoolean_permission_wirte_external = true;
         }
     }
 
@@ -215,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_PERMISSIONS_ACCESS_NETWORK_STATE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_location = true;
+                    isBoolean_permission_access_network = true;
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
@@ -224,7 +236,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             case REQUEST_PERMISSIONS_Internet: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_phoneState = true;
+                    isBoolean_permission_internet = true;
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
@@ -234,7 +246,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             case REQUEST_PERMISSIONS_ACCESS_WIFI_STATE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_phoneState = true;
+                    isBoolean_permission_wifi = true;
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
@@ -244,7 +256,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             case REQUEST_PERMISSIONS_READ_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_phoneState = true;
+                    isBoolean_permission_read_external = true;
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
@@ -254,7 +266,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             case REQUEST_PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_phoneState = true;
+                    isBoolean_permission_wirte_external = true;
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();

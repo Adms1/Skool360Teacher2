@@ -1,10 +1,13 @@
 package com.anandniketan.skool360teacher.Adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
@@ -16,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +27,9 @@ import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
+import com.anandniketan.skool360teacher.Fragment.AddTestFragment;
+import com.anandniketan.skool360teacher.Fragment.LessonplanscheduleFragment;
+import com.anandniketan.skool360teacher.Fragment.TestsyllabusFragment;
 import com.anandniketan.skool360teacher.Interfacess.CallBack;
 import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
@@ -43,16 +50,14 @@ import java.util.HashMap;
  */
 
 @SuppressWarnings("Since15")
-public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialog.OnDateSetListener {
+public class Test_syllabusAdapter extends BaseAdapter{
     private Context mContext;
     private ArrayList<Test_SyllabusModel> test_syllabusModels = new ArrayList<>();
     AlertDialog alertDialogAndroid = null;
-    private DatePickerDialog datePickerDialog;
     int Year, Month, Day;
     Calendar calendar;
-    int mYear, mMonth, mDay;
     Button close_btn, Edit_btn;
-    TextView edit_test_txt, edit_test_date_txt, edit_test_grade_txt, edit_test_subject_txt;
+    private static TextView edit_test_txt, edit_test_date_txt, edit_test_grade_txt, edit_test_subject_txt;
     LinearLayout llListData;
     FragmentManager activity;
     private ProgressDialog progressDialog = null;
@@ -64,6 +69,14 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
     private CallBack mCallBack;
     Test_SyllabusModel.TestSyllabus model;
     Test_syllabusAdapter test_syllabusAdapter;
+    private static String dateFinal;
+
+
+    int startmonth, startyear, startday, endmonth, endyear, endday;
+    int mYEAR;
+    int mMONTH;
+    int mDAY;
+
 
     // Constructor
     public Test_syllabusAdapter(Context c, FragmentManager activity, ArrayList<Test_SyllabusModel> test_syllabusModels) {
@@ -72,6 +85,8 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
         this.activity = activity;
 
     }
+
+
 
     private class ViewHolder {
         TextView srno_txt, test_name_txt, grade_txt, subject_txt;
@@ -178,11 +193,6 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
 
 
                                 if (Utility.isNetworkConnected(mContext)) {
-//                                    progressDialog = new ProgressDialog(mContext);
-//                                    progressDialog.setMessage("Please Wait...");
-//                                    progressDialog.setCancelable(false);
-//                                    progressDialog.show();
-
                                     final String finalTxtstr = txtstr;
                                     new Thread(new Runnable() {
                                         @Override
@@ -228,13 +238,8 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                         edit_test_date_txt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                datePickerDialog = DatePickerDialog.newInstance(Test_syllabusAdapter.this, Year, Month, Day);
-                                datePickerDialog.setThemeDark(false);
-                                datePickerDialog.setOkText("Done");
-                                datePickerDialog.showYearPickerFirst(false);
-                                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-                                datePickerDialog.setTitle("Select Date From DatePickerDialog");
-                                datePickerDialog.show(activity, "DatePickerDialog");
+//                              DialogFragment newFragment = new SelectDateFragment();
+//                                newFragment.show(Test_syllabusAdapter.this, "DatePicker");
                             }
                         });
 
@@ -289,29 +294,44 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
 
     private void runOnUiThread(Runnable runnable) {
     }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "Selected Date : " + Day + "/" + Month + "/" + Year;
-        String datestr = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-
-        mDay = dayOfMonth;
-        mMonth = monthOfYear + 1;
-        mYear = year;
-        String d, m, y;
-        d = Integer.toString(mDay);
-        m = Integer.toString(mMonth);
-        y = Integer.toString(mYear);
-
-        if (mDay < 10) {
-            d = "0" + d;
-        }
-        if (mMonth < 10) {
-            m = "0" + m;
-        }
-
-        edit_test_date_txt.setText(d + "/" + m + "/" + y);
-    }
+//    public static class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+//
+//        @Override
+//        public Dialog onCreateDialog(Bundle savedInstanceState) {
+//            final Calendar calendar = Calendar.getInstance();
+//            int yy = calendar.get(Calendar.YEAR);
+//            int mm = calendar.get(Calendar.MONTH);
+//            int dd = calendar.get(Calendar.DAY_OF_MONTH);
+//            return new DatePickerDialog(, this, yy, mm, dd);
+//
+//        }
+//        @Override
+//        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+//            populateSetDate(year, monthOfYear + 1, dayOfMonth);
+//        }
+//        public void populateSetDate(int year, int month, int day) {
+//            int mYear, mMonth, mDay;
+//            mDay = day;
+//            mMonth = month + 1;
+//            mYear = year;
+//            String d, m, y;
+//            d = Integer.toString(mDay);
+//            m = Integer.toString(mMonth);
+//            y = Integer.toString(mYear);
+//
+//            if (mDay < 10) {
+//                d = "0" + d;
+//            }
+//            if (mMonth < 10) {
+//                m = "0" + m;
+//            }
+//
+//
+//            dateFinal = d + "/" + m+ "/" + year;
+//
+//            edit_test_date_txt.setText(dateFinal);
+//        }
+//    }
 
     public void getTestSyllabusData() {
         if (Utility.isNetworkConnected(mContext)) {
@@ -349,6 +369,10 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
         }
 
     }
+
+
+
+
 }
 
 

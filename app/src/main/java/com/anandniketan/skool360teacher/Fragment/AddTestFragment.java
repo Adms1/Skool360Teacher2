@@ -1,10 +1,12 @@
 package com.anandniketan.skool360teacher.Fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -46,13 +49,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 
-public class AddTestFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class AddTestFragment extends Fragment {
 
     public AddTestFragment() {
         // Required empty public constructor
     }
 
-    private Button test_date, Add_btn;
+    private static Button test_date, Add_btn;
     private Spinner standard_subject_spinner, test_section_spinner, test_spinner;
     private Context mContext;
     private View rootView;
@@ -60,7 +63,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     private DatePickerDialog datePickerDialog;
     int Year, Month, Day;
     Calendar calendar;
-    int mYear, mMonth, mDay;
     private ProgressDialog progressDialog = null;
     private GetTeacherAssignedSubjectAsyncTask getTeacherAssignedSubjectAsyncTask = null;
     private ArrayList<TeacherAssignedSubjectModel> teacherAssignedSubjectModels = new ArrayList<>();
@@ -79,7 +81,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     AddTest addTest = new AddTest();
     private int selectedPosition = -1;
     private ArrayList<String> text = new ArrayList<>();
-
+    private static String dateFinal;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -113,7 +115,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && rootView != null) {
             setTodayschedule();
             fillsubjectspinner();
         }
@@ -124,12 +126,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         test_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datePickerDialog = DatePickerDialog.newInstance(AddTestFragment.this, Year, Month, Day);
-                datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(false);
-                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-                datePickerDialog.setTitle("Select Date From DatePickerDialog");
-                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
+                DialogFragment newFragment = new SelectDateFragment();
+                newFragment.show(getFragmentManager(), "DatePicker");
             }
         });
         Add_btn.setOnClickListener(new View.OnClickListener() {
@@ -263,12 +261,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                                     @Override
                                     public void run() {
                                         Utility.ping(mContext, "Add Test");
-//                                                        progressDialog.dismiss();
-//                                                        if (insertTest.size() > 0) {
-//                                                            Utility.ping(mContext, "Update Test");
-//                                                        } else {
-////                                                            progressDialog.dismiss();
-//                                                        }
+                                        alertDialogAndroid.dismiss();
                                     }
                                 });
                             } catch (Exception e) {
@@ -345,30 +338,44 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         }
     }
 
+    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
 
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "Selected Date : " + Day + "/" + Month + "/" + Year;
-        String datestr = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-
-        mDay = dayOfMonth;
-        mMonth = monthOfYear + 1;
-        mYear = year;
-        String d, m, y;
-        d = Integer.toString(mDay);
-        m = Integer.toString(mMonth);
-        y = Integer.toString(mYear);
-
-        if (mDay < 10) {
-            d = "0" + d;
-        }
-        if (mMonth < 10) {
-            m = "0" + m;
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar calendar = Calendar.getInstance();
+            int yy = calendar.get(Calendar.YEAR);
+            int mm = calendar.get(Calendar.MONTH);
+            int dd = calendar.get(Calendar.DAY_OF_MONTH);
+            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
         }
 
-        test_date.setText(d + "/" + m + "/" + y);
+        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+            populateSetDate(yy, mm + 1, dd);
+        }
+
+        public void populateSetDate(int year, int month, int day) {
+            int mYear, mMonth, mDay;
+            mDay = day;
+            mMonth = month + 1;
+            mYear = year;
+            String d, m, y;
+            d = Integer.toString(mDay);
+            m = Integer.toString(mMonth);
+            y = Integer.toString(mYear);
+
+            if (mDay < 10) {
+                d = "0" + d;
+            }
+            if (mMonth < 10) {
+                m = "0" + m;
+            }
+
+
+            dateFinal = d + "/" + m+ "/" + year;
+
+            test_date.setText(dateFinal);
+        }
     }
-
     public void getTestName() {
         if (Utility.isNetworkConnected(mContext)) {
 //            progressDialog = new ProgressDialog(mContext);
@@ -432,6 +439,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
 
     public void standardsubjectsectionspinner() {
         ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<String> arrayListclassID = new ArrayList<>();
         String getsubjectstandardstr = teacherAssignedSubjectModels.get(0).getStandardsubject();
 
         if (!getsubjectstandardstr.equalsIgnoreCase("")) {
@@ -442,6 +450,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             for (int i = 0; i < teacherAssignedSubjectModels.size(); i++) {
                 if (str[0].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getStandard()) && str[1].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getSubject())) {
                     arrayList.add(teacherAssignedSubjectModels.get(i).getClassname());
+                    arrayListclassID.add(teacherAssignedSubjectModels.get(i).getClassID());
                     addTest.SubjectID = teacherAssignedSubjectModels.get(i).getSubjectID();
                     addTest.SectionID = teacherAssignedSubjectModels.get(i).getClassID();
                     Log.d("arrayList", "" + arrayList);
@@ -517,6 +526,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                     checkBox.setChecked(true);
                     selectedPosition = position;
                     addTest.classname = checkBox.getText().toString();
+
+                    Log.d("classname", addTest.classname);
                 } else {
                     selectedPosition = -1;
                     checkBox.setChecked(false);

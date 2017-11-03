@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Models.HomeworkModel;
 import com.anandniketan.skool360teacher.Models.LessonPlanModel;
 import com.anandniketan.skool360teacher.R;
 
@@ -205,43 +204,43 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Gujrati-Saral-1.ttf");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL2.TTF");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL3.TTF");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL4.TTF");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/H-SARAL0.TTF");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral1.TTF");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral2.TTF");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral3.TTF");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Shivaji05":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Shivaji05.ttf");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Shruti":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Shruti.ttf");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             default:
@@ -255,43 +254,43 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Gujrati-Saral-1.ttf");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL2.TTF");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL3.TTF");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL4.TTF");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/H-SARAL0.TTF");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral1.TTF");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral2.TTF");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral3.TTF");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Shivaji05":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Shivaji05.ttf");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Shruti":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Shruti.ttf");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             default:
@@ -305,43 +304,43 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
                 objective_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Gujrati-Saral-1.ttf");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL2.TTF");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL3.TTF");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL4.TTF");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/H-SARAL0.TTF");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral1.TTF");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral2.TTF");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral3.TTF");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Shivaji05":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Shivaji05.ttf");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Shruti":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Shruti.ttf");
                 objective_txt.setTypeface(typeface);
                 break;
             default:
@@ -355,43 +354,43 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Gujrati-Saral-1.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Gujrati-Saral-1.ttf");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL2.TTF");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL3.TTF");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/G-SARAL4.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/G-SARAL4.TTF");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-4":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/H-SARAL0.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/H-SARAL0.TTF");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-1":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral1.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral1.TTF");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-2":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral2.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral2.TTF");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Hindi Saral-3":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/h-saral3.TTF");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/h-saral3.TTF");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Shivaji05":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shivaji05.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Shivaji05.ttf");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Shruti":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Shruti.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Shruti.ttf");
                 assessment_txt.setTypeface(typeface);
                 break;
             default:

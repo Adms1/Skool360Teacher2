@@ -31,6 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_line"
+                    android:drawableLeft="@drawable/user"
                     android:hint="@string/UserName"
                     android:maxLines="1"
                     android:padding="10dp"

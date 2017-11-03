@@ -17,15 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Adapter.AttendanceAdapter;
 import com.anandniketan.skool360teacher.Adapter.TodayscheduleAdapter;
-import com.anandniketan.skool360teacher.AsyncTasks.GetStaffAttendanceAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherTodayScheduleAsyncTask;
-import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.w3c.dom.Text;
 

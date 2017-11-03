@@ -163,11 +163,11 @@
                     android:textSize="14dp" />
             </LinearLayout>
 
-            <ScrollView
-                android:id="@+id/scrollView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none">
+            <!--<ScrollView-->
+                <!--android:id="@+id/scrollView1"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:scrollbars="none">-->
 
                 <LinearLayout
                     android:id="@+id/llListData"
@@ -178,9 +178,9 @@
                     android:layout_weight="0.26"
                     android:orientation="vertical"
                     android:textAlignment="center"></LinearLayout>
-            </ScrollView>
+            <!--</ScrollView>-->
 
-            
+
             <Button
                 android:id="@+id/Edit_btn"
                 android:layout_width="wrap_content"

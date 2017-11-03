@@ -171,8 +171,9 @@ public class AttendanceAdapter extends BaseAdapter {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
+            convertView.setTag(viewHolder);
+        }else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         return convertView;
     }
