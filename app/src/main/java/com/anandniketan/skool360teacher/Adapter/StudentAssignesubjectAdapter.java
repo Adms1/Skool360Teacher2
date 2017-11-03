@@ -29,15 +29,15 @@ import java.util.Arrays;
 
 public class StudentAssignesubjectAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<StudentSubject> studentsubjectarrayList = new ArrayList<>();
-    private ArrayList<String> studentnamelist = new ArrayList<String>();
-    MainResponseStudentSubject mainResponseStudentSubject;
+    private MainResponseStudentSubject studentsubjectarrayList;
+    private ArrayList<String> studentnamelist;
+    private StudentGridsubjectAdapter adapter;
 
     // Constructor
-    public  StudentAssignesubjectAdapter(Context c, ArrayList<String> studentnamelist, MainResponseStudentSubject mainResponseStudentSubject) {
+    public StudentAssignesubjectAdapter(Context c, ArrayList<String> studentnamelist, MainResponseStudentSubject studentsubjectarrayList) {
         mContext = c;
+        this.studentsubjectarrayList = studentsubjectarrayList;
         this.studentnamelist = studentnamelist;
-        this.mainResponseStudentSubject = mainResponseStudentSubject;
     }
 
     private class ViewHolder {
@@ -52,7 +52,7 @@ public class StudentAssignesubjectAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return studentnamelist.get(position);
+        return studentsubjectarrayList.getFinalArray().get(position);
     }
 
     @Override
@@ -72,89 +72,20 @@ public class StudentAssignesubjectAdapter extends BaseAdapter {
             viewHolder.txt_studentName = (TextView) convertView.findViewById(R.id.txt_studentName);
             viewHolder.subject_grid_view = (GridView) convertView.findViewById(R.id.subject_grid_view);
 
+
             try {
                 viewHolder.txt_studentName.setText(studentnamelist.get(position));
-                StudentGridsubjectAdapter adapter = new StudentGridsubjectAdapter(mContext, mainResponseStudentSubject.getFinalArray().get(position));
+                adapter = new StudentGridsubjectAdapter(mContext, studentsubjectarrayList.getFinalArray().get(position));
                 viewHolder.subject_grid_view.setAdapter(adapter);
-                viewHolder.subject_grid_view.deferNotifyDataSetChanged();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         return convertView;
     }
-}
 
-class StudentGridsubjectAdapter extends BaseAdapter {
-    private Context mContext;
-    private FinalArrayStudentSubject studentsubjectarrayList;
-
-    // Constructor
-    public StudentGridsubjectAdapter(Context c, FinalArrayStudentSubject studentsubjectarrayList) {
-        mContext = c;
-        this.studentsubjectarrayList = studentsubjectarrayList;
-    }
-
-    private class ViewHolder {
-        CheckBox check_subject;
-    }
-
-    @Override
-    public int getCount() {
-        return studentsubjectarrayList.getStudentSubject().size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return studentsubjectarrayList.getStudentSubject().get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(final int position, View cv, ViewGroup parent) {
-        final ViewHolder viewHolder;
-        View view = null;
-        cv = null;
-        if (cv == null) {
-            viewHolder = new ViewHolder();
-            LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            cv = mInflater.inflate(R.layout.list_row_student_checkbox, null);
-            viewHolder.check_subject = (CheckBox) cv.findViewById(R.id.check_subject);
-            StudentSubject subjObj = studentsubjectarrayList.getStudentSubject().get(position);
-
-          final  ArrayList<String> subjectId = new ArrayList<>();
-            try {
-                viewHolder.check_subject.setText(subjObj.getSubject());
-                viewHolder.check_subject.setTag(subjObj.getSubjectID());
-                if (subjObj.getCheckedStatus().equalsIgnoreCase("1")) {
-                    viewHolder.check_subject.setChecked(true);
-                    subjectId.add(viewHolder.check_subject.getTag().toString());
-                }
-                viewHolder.check_subject.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            subjectId.add(viewHolder.check_subject.getTag().toString());
-                            Log.d("checkvalue",subjectId.toString());
-                        }
-                    }
-                });
-
-//                convertView.setLayoutParams(new GridView.LayoutParams(GridView.AUTO_FIT, 150));
-
-//                GridView.LayoutParams glp = (GridView.LayoutParams) convertView.getLayoutParams();
-//                glp.height = (subjObj.getSubject() * 30) + 10;
-//                convertView.setLayoutParams(glp);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return cv;
-    }
 }
 
