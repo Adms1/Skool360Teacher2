@@ -98,10 +98,11 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
             SetLanguageObjective(splitFont3);
             SetLanguageAssessmentQue(splitFont4);
 
+            String object=childData.get(childPosition).getObjective().replace("&nbsp","");
 
             homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
             chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
-            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
+            objective_txt.setText(Html.fromHtml(object));
             assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
 
         } else {

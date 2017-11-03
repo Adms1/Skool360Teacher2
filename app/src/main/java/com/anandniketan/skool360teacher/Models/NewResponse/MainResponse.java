@@ -10,7 +10,7 @@ public class MainResponse {
     @SerializedName("Success")
     @Expose
     private String success;
-    @SerializedName("FinalArrayLesson")
+    @SerializedName("FinalArray")
     @Expose
     private List<FinalArray> finalArray = null;
 

@@ -1,97 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_1"
-    android:gravity="center"
-    tools:context=".Activities.LoginActivity">
 
-    <LinearLayout
-        android:id="@+id/Login_linear"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="80dp"
-        android:gravity="center|center_vertical"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/login_1"
+        android:gravity="center"
+        tools:context=".Activities.LoginActivity">
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
+            android:id="@+id/Login_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/TextLabel">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="80dp"
+            android:gravity="center|center_vertical"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <EditText
-                android:id="@+id/UserName_edt"
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel">
+
+                <EditText
+                    android:id="@+id/UserName_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_line"
+                    android:hint="@string/UserName"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColor="@color/editTextcolor"
+                    android:textColorHint="@color/editTextcolor"
+                    android:textSize="14dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/edit_line"
-                android:drawableLeft="@drawable/user"
-                android:hint="@string/UserName"
-                android:padding="10dp"
-                android:maxLines="1"
-                android:textColor="@color/editTextcolor"
-                android:textColorHint="@color/editTextcolor"
-                android:textSize="14dp" />
-        </android.support.design.widget.TextInputLayout>
+                android:theme="@style/TextLabel">
 
-        <android.support.design.widget.TextInputLayout
+                <EditText
+                    android:id="@+id/Password_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_line"
+                    android:drawableLeft="@drawable/password"
+                    android:hint="@string/Password"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:inputType="textPassword"
+                    android:textColor="@color/editTextcolor"
+                    android:textColorHint="@color/editTextcolor"
+                    android:textSize="14dp" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/Remember_chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Login_linear"
+            android:layout_alignStart="@+id/Login_linear"
+            android:layout_below="@+id/Login_linear"
+            android:layout_marginLeft="26dp"
+            android:layout_marginStart="26dp"
+            android:button="@drawable/checkbox_selector"
+            android:padding="10dp"
+            android:text="Remember Credentials"
+            android:textAlignment="center"
+            android:textColor="@color/editTextcolor"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/Login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/TextLabel"
-            android:layout_marginTop="10dp">
-
-            <EditText
-                android:id="@+id/Password_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/edit_line"
-                android:drawableLeft="@drawable/password"
-                android:hint="@string/Password"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:textColor="@color/editTextcolor"
-                android:textColorHint="@color/editTextcolor"
-                android:textSize="14dp" />
-        </android.support.design.widget.TextInputLayout>
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/Remember_chk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Login_linear"
-        android:layout_alignStart="@+id/Login_linear"
-        android:layout_below="@+id/Login_linear"
-        android:layout_marginLeft="26dp"
-        android:layout_marginStart="26dp"
-        android:button="@drawable/checkbox_selector"
-        android:padding="10dp"
-        android:text="Remember Credentials"
-        android:textAlignment="center"
-        android:textColor="@color/editTextcolor"
-        android:textSize="13dp"
-        android:textStyle="bold" />
-
-
-    <Button
-        android:id="@+id/Login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Remember_chk"
-        android:layout_margin="45dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/round_button"
-        android:padding="12dp"
-        android:onClick="login"
-        android:text="@string/Login"
-        android:textAlignment="center"
-        android:textColor="@color/editTextcolor"
-        android:textSize="14dp" />
-</RelativeLayout>
+            android:layout_below="@+id/Remember_chk"
+            android:layout_margin="45dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/round_button"
+            android:onClick="login"
+            android:padding="12dp"
+            android:text="@string/Login"
+            android:textAlignment="center"
+            android:textColor="@color/editTextcolor"
+            android:textSize="14dp" />
+    </RelativeLayout>
 </layout>

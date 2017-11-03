@@ -1,20 +1,20 @@
 package com.anandniketan.skool360teacher.Fragment;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +23,17 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
+import com.anandniketan.skool360teacher.Activities.LoginActivity;
 import com.anandniketan.skool360teacher.Activities.MyBounceInterpolator;
 import com.anandniketan.skool360teacher.Adapter.ImageAdapter;
+import com.anandniketan.skool360teacher.AsyncTasks.DeviceVersionAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.GetStaffProfileAsyncTask;
-import com.anandniketan.skool360teacher.AsyncTasks.LoginAsyncTask;
-import com.anandniketan.skool360teacher.Models.LoginModel;
+import com.anandniketan.skool360teacher.Models.DeviceVersionModel;
 import com.anandniketan.skool360teacher.Models.UserProfileModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.AppConfiguration;
@@ -58,7 +56,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeFragment extends Fragment {
 
     private View rootView;
-    private Button btnMenu, btn_notification, menu_linear;
+    private Button btnMenu, btn_notification, menu_linear, btnLogout;
     private GridView grid_view;
     private ImageView logo;
     private LinearLayout header;
@@ -75,6 +73,11 @@ public class HomeFragment extends Fragment {
     boolean flag = false;
     static int previousHeight;
     int timeDuration = 500;
+    private AlertDialog alertDialogAndroid = null;
+    private boolean isVersionCodeUpdated = false;
+    private int versionCode = 0;
+    private DeviceVersionAsyncTask deviceVersionAsyncTask = null;
+    DeviceVersionModel deviceVersionModel;
 
     public HomeFragment() {
     }
@@ -87,6 +90,7 @@ public class HomeFragment extends Fragment {
         initViews();
         setListners();
         if (Utility.isNetworkConnected(mContext)) {
+//           getVersionUpdateInfo();
             getUserProfile();
         } else {
             Utility.ping(mContext, "Network not available");
@@ -96,8 +100,15 @@ public class HomeFragment extends Fragment {
     }
 
     public void initViews() {
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            versionCode = pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         menu_linear = (Button) rootView.findViewById(R.id.menu_linear);
-//        btnMenu = (Button) rootView.findViewById(R.id.btnMenu);
+        btnLogout = (Button) rootView.findViewById(R.id.btnLogout);
         grid_view = (GridView) rootView.findViewById(R.id.grid_view);
         grid_view.setAdapter(new ImageAdapter(mContext));
 //        grid_view.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.bounce));
@@ -134,15 +145,39 @@ public class HomeFragment extends Fragment {
 
     }
 
-    //change Megha 04-09-2017
 
     public void setListners() {
-//        btnMenu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DashBoardActivity.onLeft();
-//            }
-//        });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                        .setCancelable(false)
+                        .setTitle("Logout")
+                        .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                        .setMessage("Are you sure you want to logout? ")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utility.setPref(mContext, "StaffID", "");
+                                Utility.setPref(mContext, "Emp_Code","");
+                                Utility.setPref(mContext, "Emp_Name","");
+                                Utility.setPref(mContext, "DepratmentID","");
+                                Utility.setPref(mContext, "DesignationID","");
+                                Utility.setPref(mContext, "DeviceId","");
+                                Utility.setPref(mContext, "unm","");
+                                Utility.setPref(mContext, "pwd", "");
+                                Intent i = new Intent(getActivity(),LoginActivity.class);
+                                getActivity().startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.ic_launcher)
+                        .show();
+            }
+        });
         grid_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -305,6 +340,63 @@ public class HomeFragment extends Fragment {
         student_classname_txt.setText(userProfileModels.get(0).getDesignation());
         for (int i = 0; i < userProfileModels.get(0).getGetclassDetailsArrayList().size(); i++) {
             AppConfiguration.rows.add(userProfileModels.get(0).getGetclassDetailsArrayList().get(i));
+        }
+    }
+
+    public void getVersionUpdateInfo() {
+        if (Utility.isNetworkConnected(mContext)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("UserID", Utility.getPref(mContext, "StaffID"));
+                        params.put("VersionID", String.valueOf(versionCode));//String.valueOf(versionCode)
+                        params.put("UserType", "Staff");
+                        deviceVersionAsyncTask = new DeviceVersionAsyncTask(params);
+                        deviceVersionModel = deviceVersionAsyncTask.execute().get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (deviceVersionModel.getSuccess().equalsIgnoreCase("True")) {
+                                    isVersionCodeUpdated = true;
+                                    Log.d("hellotrue", "" + isVersionCodeUpdated);
+//                                    getUserProfile();
+                                } else {
+                                    isVersionCodeUpdated = false;
+                                    Log.d("hellofalse", "" + isVersionCodeUpdated);
+                                    new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                                            .setCancelable(false)
+                                            .setTitle("Skool360 ShilajTeacher Update")
+                                            .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                                            .setMessage("Please update to a new version of the app.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketan.skool360teacher"));
+                                                    getActivity().startActivity(i);
+
+                                                }
+                                            })
+                                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    // do nothing
+                                                    Utility.pong(mContext, "You wont be able to use other funcationality without updating to a newer version");
+                                                    getActivity().finish();
+                                                }
+                                            })
+                                            .setIcon(R.drawable.ic_launcher)
+                                            .show();
+
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
     }
 }

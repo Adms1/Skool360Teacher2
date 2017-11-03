@@ -101,6 +101,7 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
                 isFromDate = true;
                 datePickerDialog = DatePickerDialog.newInstance(LessonplanscheduleFragment.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
                 datePickerDialog.setTitle("Select Date From DatePickerDialog");
@@ -114,6 +115,8 @@ public class LessonplanscheduleFragment extends Fragment implements DatePickerDi
                 isFromDate = false;
                 datePickerDialog = DatePickerDialog.newInstance(LessonplanscheduleFragment.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
+
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
                 datePickerDialog.setTitle("Select Date From DatePickerDialog");

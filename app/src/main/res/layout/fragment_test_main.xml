@@ -83,16 +83,17 @@
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout_test_main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginTop="80dp"
                 android:background="@color/orange"
                 android:minHeight="?attr/actionBarSize"
                 app:tabIndicatorColor="@color/editTextcolor"
-                app:tabIndicatorHeight="5dp"
+                app:tabIndicatorHeight="4dp"
                 app:tabMaxWidth="0dp"
                 app:tabTextAppearance="?android:attr/textAppearanceSmall"
                 app:tabSelectedTextColor="@color/editTextcolor"
-                app:tabTextColor="@color/editTextcolor" />
+                app:tabTextColor="@color/editTextcolor"
+                android:elevation="7dp"/>
              
 
             <android.support.v4.view.ViewPager

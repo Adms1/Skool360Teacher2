@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mContext = this;
+        binding.UserNameEdt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.user,0, 0,0);
         checkUnmPwd();
     }
 
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (!binding.UserNameEdt.getText().toString().equalsIgnoreCase("")) {
                 if (!binding.PasswordEdt.getText().toString().equalsIgnoreCase("")) {
-                    if (binding.PasswordEdt.getText().toString().length() >=3 && binding.PasswordEdt.getText().toString().length() <= 13) {
+                    if (binding.PasswordEdt.getText().toString().length() >= 3 && binding.PasswordEdt.getText().toString().length() <= 13) {
                         progressDialog = new ProgressDialog(mContext);
                         progressDialog.setMessage("Please wait...");
                         progressDialog.setCancelable(false);
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 Utility.pong(mContext, "Login Successful");
                                                 Intent intentDashboard = new Intent(LoginActivity.this, DashBoardActivity.class);
                                                 startActivity(intentDashboard);
-//                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
                                                 finish();
                                             } else {
                                                 Utility.pong(mContext, "Invalid Credentials. Please try again...");
@@ -93,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                         }).start();
                     } else {
                         binding.PasswordEdt.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shake));
-                        Utility.ping(mContext,"Password must be 3 to 13 character");
+                        Utility.ping(mContext, "Password must be 3 to 13 character");
                     }
                 } else {
                     binding.PasswordEdt.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.shake));
@@ -107,7 +108,6 @@ public class LoginActivity extends AppCompatActivity {
             Utility.ping(mContext, "Network not available");
         }
     }
-
 
 
     public void checkUnmPwd() {

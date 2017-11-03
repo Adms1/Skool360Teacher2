@@ -230,6 +230,7 @@ public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialo
                             public void onClick(View view) {
                                 datePickerDialog = DatePickerDialog.newInstance(Test_syllabusAdapter.this, Year, Month, Day);
                                 datePickerDialog.setThemeDark(false);
+                                datePickerDialog.setOkText("Done");
                                 datePickerDialog.showYearPickerFirst(false);
                                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
                                 datePickerDialog.setTitle("Select Date From DatePickerDialog");

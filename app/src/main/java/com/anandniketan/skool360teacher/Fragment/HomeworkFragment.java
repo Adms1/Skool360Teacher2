@@ -102,6 +102,8 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                 isFromDate = true;
                 datePickerDialog = DatePickerDialog.newInstance(HomeworkFragment.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
+
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
                 datePickerDialog.setTitle("Select Date From DatePickerDialog");
@@ -115,6 +117,7 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                 isFromDate = false;
                 datePickerDialog = DatePickerDialog.newInstance(HomeworkFragment.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
                 datePickerDialog.setTitle("Select Date From DatePickerDialog");

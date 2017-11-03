@@ -266,6 +266,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
         insert_message_date_txt.setText(Utility.getTodaysDate());
 
+
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,6 +278,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
             public void onClick(View v) {
                 datePickerDialog = DatePickerDialog.newInstance(CreateFragment.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
                 datePickerDialog.setTitle("Select Date From DatePickerDialog");
@@ -328,7 +330,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                                         @Override
                                         public void run() {
                                             progressDialog.dismiss();
-                                            if (mainPtmSentMessageResponse.getFinalArray().size() > 0) {
+                                            if (mainPtmSentMessageResponse.getFinalArray().size() >=0) {
                                                 Utility.ping(mContext, "Send Sucessfully");
                                                 alertDialogAndroid.dismiss();
                                             } else {

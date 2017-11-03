@@ -200,7 +200,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     public void SetLanguageHomework(String type) {
         switch (type) {
             case "ArivNdr POMt":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Arvinder.ttf");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
@@ -250,7 +250,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     public void SetLanguageChapterName(String type) {
         switch (type) {
             case "ArivNdr POMt":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Arvinder.ttf");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
@@ -300,7 +300,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     public void SetLanguageObjective(String type) {
         switch (type) {
             case "ArivNdr POMt":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Arvinder.ttf");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
@@ -350,7 +350,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     public void SetLanguageAssessmentQue(String type) {
         switch (type) {
             case "ArivNdr POMt":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/Arvinder.ttf");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":

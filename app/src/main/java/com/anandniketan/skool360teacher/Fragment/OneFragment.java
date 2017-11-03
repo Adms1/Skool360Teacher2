@@ -117,6 +117,7 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
             public void onClick(View v) {
                 datePickerDialog = DatePickerDialog.newInstance(OneFragment.this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
                 datePickerDialog.setTitle("Select Date From DatePickerDialog");

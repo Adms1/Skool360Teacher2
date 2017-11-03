@@ -56,7 +56,8 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
     private ArrayList<StudentSubject> studentsubjectarrayList;
     private ArrayList<String> listDatastudentName;
     ArrayList<String> newArray;
-    String res = "";;
+    String res = "", studentsubjectIdstr;
+
     private TeacherInsertAssignStudentSubjectAsyncTask teacherInsertAssignStudentSubjectAsyncTask = null;
     TeacherInsertSubjectMainResponse teacherInsertSubjectMainResponse;
 
@@ -255,72 +256,106 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
 
 
     public void InsertTeacherAssignSubject() {
-        boolean isFirstAdded = false;
-        newArray = new ArrayList<>();
-        for (int i = 0; i < studentassignesubject_list.getChildCount(); i++) {
-            String customString = String.valueOf(mainResponseStudentSubject.getFinalArray().get(i).getStudentID());
+        ArrayList<String> newArray = new ArrayList<>();
+        for (int i = 0; i < studentassignesubject_list.getCount(); i++) {
+            String customString = "";
             View childView = studentassignesubject_list.getChildAt(i);
             GridView gd = (GridView) childView.findViewById(R.id.subject_grid_view);
+            boolean isFirstAdded = false;
             for (int j = 0; j < gd.getChildCount(); j++) {
                 View gridViewChildView = gd.getChildAt(j);
                 CheckBox checkBox = (CheckBox) gridViewChildView.findViewById(R.id.check_subject);
                 if (checkBox.isChecked()) {
-//                    if (!isFirstAdded) {
-                        customString = customString+","+String.valueOf(checkBox.getTag());
-                        Log.d("ifcustomString ", customString);
+                    if (!isFirstAdded) {
+                        customString = String.valueOf(mainResponseStudentSubject.getFinalArray().get(i).getStudentID());
+                        customString = customString + "," + String.valueOf(checkBox.getTag());
                         isFirstAdded = true;
-//                        } else {
-//                            customString = customString + "," + String.valueOf(checkBox.getTag());
-//                            Log.d("elsecustomString ", customString);
-//                            isFirstAdded = true;
-//                        }
+                    } else {
+                        customString = customString + "," + String.valueOf(checkBox.getTag());
+                    }
                 }
             }
             newArray.add(customString);
-            Log.d("newArray ", newArray.toString());
         }
-
-
+        String responseString = "";
         for (String s : newArray) {
-            res=res+"|"+s;
+            responseString = responseString + "|" + s;
         }
-        Log.d("Objects ", res);
-//        if (Utility.isNetworkConnected(mContext)) {
-//            progressDialog = new ProgressDialog(mContext);
-//            progressDialog.setMessage("Please Wait...");
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
+        Log.d("responseString ", responseString);
+    }
+//        newArray = new ArrayList<>();
+//        newArray.clear();
+//        res = "";
+//        boolean isFirstAdded = false;
+//        newArray = new ArrayList<>();
 //
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        HashMap<String, String> params = new HashMap<String, String>();
-//                        params.put("ClassID", ClassId);
-//                        params.put("StudentSubjectAry", s);
-//
-//                        teacherInsertAssignStudentSubjectAsyncTask = new TeacherInsertAssignStudentSubjectAsyncTask(params);
-//                        teacherInsertSubjectMainResponse = teacherInsertAssignStudentSubjectAsyncTask.execute().get();
-//                        getActivity().runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                progressDialog.dismiss();
-//                                if (teacherInsertSubjectMainResponse.getFinalArray().size() >= 0) {
-//                                    Utility.ping(mContext, "Save Sucessfully");
-//                                    setTodayschedule();
-//                                } else {
-//                                    progressDialog.dismiss();
-//                                }
-//                            }
-//                        });
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
+//        for (int i = 0; i < studentassignesubject_list.getChildCount(); i++) {
+//            String customString = String.valueOf(mainResponseStudentSubject.getFinalArray().get(i).getStudentID());
+//            View childView = studentassignesubject_list.getChildAt(i);
+//            GridView gd = (GridView) childView.findViewById(R.id.subject_grid_view);
+//            for (int j = 0; j < gd.getChildCount(); j++) {
+//                View gridViewChildView = gd.getChildAt(j);
+//                CheckBox checkBox = (CheckBox) gridViewChildView.findViewById(R.id.check_subject);
+//                if (checkBox.isChecked()) {
+//                    if (!isFirstAdded) {
+//                        customString = customString + "," + String.valueOf(checkBox.getTag());
+//                        Log.d("ifcustomString ", customString);
+//                        isFirstAdded = true;
+//                    } else {
+//                        customString = customString + "|" + String.valueOf(checkBox.getTag());
+//                        Log.d("elsecustomString ", customString);
+////                            isFirstAdded = true;
 //                    }
 //                }
-//            }).start();
 //
+//            }
+//
+//            newArray.add(customString);
+//
+//            Log.d("newArray ", newArray.toString());
+//
+//        }
+//        studentsubjectIdstr = res.replaceFirst("\\|", "");
+//        Log.d("str ", studentsubjectIdstr.trim());
+//        if (Utility.isNetworkConnected(mContext)) {
+//            if (!ClassId.equalsIgnoreCase("") && !studentsubjectIdstr.equalsIgnoreCase("")) {
+//                progressDialog = new ProgressDialog(mContext);
+//                progressDialog.setMessage("Please Wait...");
+//                progressDialog.setCancelable(false);
+//                progressDialog.show();
+//
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            HashMap<String, String> params = new HashMap<String, String>();
+//                            params.put("ClassID", ClassId);
+//                            params.put("StudentSubjectAry", studentsubjectIdstr);
+//
+//                            teacherInsertAssignStudentSubjectAsyncTask = new TeacherInsertAssignStudentSubjectAsyncTask(params);
+//                            teacherInsertSubjectMainResponse = teacherInsertAssignStudentSubjectAsyncTask.execute().get();
+//                            getActivity().runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    progressDialog.dismiss();
+//                                    if (teacherInsertSubjectMainResponse.getFinalArray().size() >= 0) {
+//                                        Utility.ping(mContext, "Save Sucessfully");
+////                                        setTodayschedule();
+//                                    } else {
+//                                        progressDialog.dismiss();
+//                                    }
+//                                }
+//                            });
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }).start();
+//            } else {
+//                Utility.ping(mContext, "Select One Subject.");
+//            }
 //        } else {
 //            Utility.ping(mContext, "Network not available");
 //        }
-    }
+//    }
 }

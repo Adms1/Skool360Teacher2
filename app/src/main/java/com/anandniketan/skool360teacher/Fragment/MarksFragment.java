@@ -162,7 +162,7 @@ public class MarksFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
-                    search_edt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.cross, 0);
+                    search_edt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.cross_11, 0);
                 } else {
                     search_edt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.search_icon, 0);
                 }
