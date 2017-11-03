@@ -243,7 +243,10 @@ public class OneFragment extends Fragment {
 
         ArrayList<StaffAttendanceModel> array = attendanceAdapter.getData();
         ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails> StudentArray = array.get(0).getAttendanceList().get(0).getStudentList();
+
+
         for (int i = 0; i < StudentArray.size(); i++) {
+
             id.add(StudentArray.get(i).getAttendanceID());
             status.add(StudentArray.get(i).getAttendenceStatus());
             studid.add(StudentArray.get(i).getStudentID());
@@ -251,11 +254,15 @@ public class OneFragment extends Fragment {
             Log.d("AttendanceID", id.toString());
             Log.d("statusID", status.toString());
             Log.d("studID", studid.toString());
+
         }
+
+
         String idStr = "";
-        for (String s : id) {
-            idStr = s;
+        for (String s : status) {
+            idStr = idStr + "," + s;
         }
+        Log.d("idStr", idStr.toString());
         idStr = idStr.substring(1, idStr.length());
         Log.d("finalidStr", idStr.toString());
 //            if (Utility.isNetworkConnected(mContext)) {
