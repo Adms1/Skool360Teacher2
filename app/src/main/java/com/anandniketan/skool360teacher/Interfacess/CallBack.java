@@ -5,5 +5,5 @@ package com.anandniketan.skool360teacher.Interfacess;
  */
 
 public interface CallBack {
-    public void getTestSyllabusData();
+    public void getTestSyllabusUpdateData();
 }

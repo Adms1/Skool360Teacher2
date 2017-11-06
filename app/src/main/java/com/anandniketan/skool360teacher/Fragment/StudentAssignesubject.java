@@ -131,7 +131,6 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
                 standardcheckBox.setText(standardIdarray.get(j));
                 stand_text_chk.setText(standardIdarray.get(j));
                 Log.d("standard", standardIdarray.get(j));
-//                textView.setText(arrayList.get(i));
 
                 if (j == 0) {
                     standardcheckBox.setChecked(true);

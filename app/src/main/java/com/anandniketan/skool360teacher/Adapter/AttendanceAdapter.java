@@ -41,7 +41,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AttendanceAdapter extends BaseAdapter {
     private Context mContext;
-    //    private HashMap<String, ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails>> _listDataChild;
 
     private List<StaffAttendanceModel.AttendanceDetails.StudentDetails> _rowchild;
     private ArrayList<StaffAttendanceModel> staffattendaceModel = new ArrayList<>();
@@ -59,7 +58,6 @@ public class AttendanceAdapter extends BaseAdapter {
     private class ViewHolder {
         CircleImageView profile_image;
         TextView student_name_txt;
-        //        RadioButton present_chk, absent_chk, leave_chk;
         RadioGroup attendancechk;
         CheckBox present_chk, absent_chk, leave_chk;
 
@@ -124,7 +122,6 @@ public class AttendanceAdapter extends BaseAdapter {
                             staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("1");
                             viewHolder.absent_chk.setChecked(false);
                             viewHolder.leave_chk.setChecked(false);
-
                         }
                     }
                 });
@@ -153,7 +150,6 @@ public class AttendanceAdapter extends BaseAdapter {
                 viewHolder.absent_chk.setChecked(false);
                 viewHolder.present_chk.setChecked(false);
                 viewHolder.leave_chk.setChecked(false);
-
                 switch (Integer.parseInt(staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getAttendenceStatus())) {
                     case 0:
                         viewHolder.absent_chk.setChecked(true);
@@ -166,8 +162,10 @@ public class AttendanceAdapter extends BaseAdapter {
                         break;
                     case -2:
                         viewHolder.present_chk.setChecked(true);
+                        viewHolder.present_chk.setClickable(false);
                     default:
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

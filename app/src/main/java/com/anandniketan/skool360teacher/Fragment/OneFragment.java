@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.Adapter.AttendanceAdapter;
+import com.anandniketan.skool360teacher.Adapter.Test_syllabusAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetStaffAttendanceAsyncTask;
 import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.R;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class OneFragment extends Fragment {
+public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     public OneFragment() {
         // Required empty public constructor
@@ -54,6 +55,8 @@ public class OneFragment extends Fragment {
     private View rootView;
     private ProgressDialog progressDialog = null;
     private static Button start_date;
+    private DatePickerDialog datePickerDialog;
+    int mYear, mMonth, mDay;
     int Year, Month, Day;
     Calendar calendar;
     private TextView total_student_txt, present_txt, absent_txt, leave_txt, txtNoRecords;
@@ -122,53 +125,88 @@ public class OneFragment extends Fragment {
                 InsertAttendance();
             }
         });
+//        start_date.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogFragment newFragment = new SelectDateFragment();
+//                newFragment.show(getFragmentManager(), "DatePicker");
+//            }
+//        });
         start_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new SelectDateFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
+                datePickerDialog = DatePickerDialog.newInstance(OneFragment.this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
     }
 
-    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = "Selected Date : " + Day + "/" + Month + "/" + Year;
+        String datestr = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
 
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar calendar = Calendar.getInstance();
-            int yy = calendar.get(Calendar.YEAR);
-            int mm = calendar.get(Calendar.MONTH);
-            int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
+        mDay = dayOfMonth;
+        mMonth = monthOfYear + 1;
+        mYear = year;
+        String d, m, y;
+        d = Integer.toString(mDay);
+        m = Integer.toString(mMonth);
+        y = Integer.toString(mYear);
+
+        if (mDay < 10) {
+            d = "0" + d;
+        }
+        if (mMonth < 10) {
+            m = "0" + m;
         }
 
-        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-            populateSetDate(yy, mm + 1, dd);
-        }
-
-        public void populateSetDate(int year, int month, int day) {
-            int mYear, mMonth, mDay;
-            mDay = day;
-            mMonth = month + 1;
-            mYear = year;
-            String d, m, y;
-            d = Integer.toString(mDay);
-            m = Integer.toString(mMonth);
-            y = Integer.toString(mYear);
-
-            if (mDay < 10) {
-                d = "0" + d;
-            }
-            if (mMonth < 10) {
-                m = "0" + m;
-            }
-
-
-            dateFinal = d + "/" + m + "/" + year;
-
-            start_date.setText(dateFinal);
-        }
+        start_date.setText(d + "/" + m + "/" + y);
     }
+
+//    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
+//
+//        @Override
+//        public Dialog onCreateDialog(Bundle savedInstanceState) {
+//            final Calendar calendar = Calendar.getInstance();
+//            int yy = calendar.get(Calendar.YEAR);
+//            int mm = calendar.get(Calendar.MONTH);
+//            int dd = calendar.get(Calendar.DAY_OF_MONTH);
+//            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
+//        }
+//
+//        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+//            populateSetDate(yy, mm + 1, dd);
+//        }
+//
+//        public void populateSetDate(int year, int month, int day) {
+//            int mYear, mMonth, mDay;
+//            mDay = day;
+//            mMonth = month + 1;
+//            mYear = year;
+//            String d, m, y;
+//            d = Integer.toString(mDay);
+//            m = Integer.toString(mMonth);
+//            y = Integer.toString(mYear);
+//
+//            if (mDay < 10) {
+//                d = "0" + d;
+//            }
+//            if (mMonth < 10) {
+//                m = "0" + m;
+//            }
+//
+//
+//            dateFinal = d + "/" + m + "/" + year;
+//
+//            start_date.setText(dateFinal);
+//        }
+//    }
 
     public void setGetstaffAttendanceDetail() {
         if (Utility.isNetworkConnected(mContext)) {
@@ -245,26 +283,42 @@ public class OneFragment extends Fragment {
         ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails> StudentArray = array.get(0).getAttendanceList().get(0).getStudentList();
 
 
-        for (int i = 0; i < StudentArray.size(); i++) {
 
-            id.add(StudentArray.get(i).getAttendanceID());
-            status.add(StudentArray.get(i).getAttendenceStatus());
-            studid.add(StudentArray.get(i).getStudentID());
+            for (int i = 0; i < StudentArray.size(); i++) {
 
-            Log.d("AttendanceID", id.toString());
-            Log.d("statusID", status.toString());
-            Log.d("studID", studid.toString());
+                id.add(StudentArray.get(i).getAttendanceID());
+                status.add(StudentArray.get(i).getAttendenceStatus());
+                studid.add(StudentArray.get(i).getStudentID());
 
-        }
+                Log.d("AttendanceID", id.toString());
+                Log.d("statusID", status.toString());
+                Log.d("studID", studid.toString());
 
+            }
 
-        String idStr = "";
+        String finalstatusStr = "";
         for (String s : status) {
-            idStr = idStr + "," + s;
+            finalstatusStr = finalstatusStr + "," + s;
         }
-        Log.d("idStr", idStr.toString());
-        idStr = idStr.substring(1, idStr.length());
-        Log.d("finalidStr", idStr.toString());
+        Log.d("idStr", finalstatusStr.toString());
+        finalstatusStr = finalstatusStr.substring(1, finalstatusStr.length());
+        Log.d("finalstatusStr", finalstatusStr.toString());
+
+        String finalidStr = "";
+        for (String s : id) {
+            finalidStr = finalidStr + "," + s;
+        }
+        Log.d("finalidStr", finalidStr.toString());
+        finalidStr = finalidStr.substring(1, finalidStr.length());
+        Log.d("finalidStr", finalidStr.toString());
+
+        String finalstudid = "";
+        for (String s : studid) {
+            finalstudid = finalstudid + "," + s;
+        }
+        Log.d("finalstudid", finalstudid.toString());
+        finalstudid = finalstudid.substring(1, finalstudid.length());
+        Log.d("finalstudid", finalstudid.toString());
 //            if (Utility.isNetworkConnected(mContext)) {
 //                progressDialog = new ProgressDialog(mContext);
 //                progressDialog.setMessage("Please Wait...");
@@ -281,10 +335,10 @@ public class OneFragment extends Fragment {
 //                            params.put("ClassID", classId);
 //                            params.put("Date", start_date.getText().toString());
 //                            params.put("Comment", "test");
-//                            params.put("AttendacneStatus", String.valueOf(status));
+//                            params.put("AttendacneStatus",finalstatusStr);
 //                            params.put("CurrantDate", Utility.getTodaysDate());
-//                            params.put("StudentID", String.valueOf(studid));
-//                            params.put("AttendanceID", String.valueOf(id));
+//                            params.put("StudentID", finalstudid);
+//                            params.put("AttendanceID",finalidStr);
 //
 //
 //                            getstaffAttendanceAsyncTask = new GetStaffAttendanceAsyncTask(params);

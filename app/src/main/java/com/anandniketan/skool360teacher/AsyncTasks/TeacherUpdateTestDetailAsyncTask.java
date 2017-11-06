@@ -2,23 +2,22 @@ package com.anandniketan.skool360teacher.AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
-import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
+import com.anandniketan.skool360teacher.Models.DeviceVersionModel;
+import com.anandniketan.skool360teacher.Models.UpdateTestDetailModel;
 import com.anandniketan.skool360teacher.Utility.AppConfiguration;
-import com.anandniketan.skool360teacher.Utility.ParseJSON;
 import com.anandniketan.skool360teacher.WebServicesCall.WebServicesCall;
+import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by admsandroid on 9/28/2017.
+ * Created by admsandroid on 11/6/2017.
  */
 
-public class TeacherInsertTestDetailAsyncTask extends AsyncTask<Void, Void, ArrayList<TeacherInsertTestDetailModel>> {
+public class TeacherUpdateTestDetailAsyncTask  extends AsyncTask<Void, Void, UpdateTestDetailModel> {
     HashMap<String, String> param = new HashMap<String, String>();
 
-    public TeacherInsertTestDetailAsyncTask(HashMap<String, String> param) {
+    public TeacherUpdateTestDetailAsyncTask(HashMap<String, String> param) {
         this.param = param;
     }
 
@@ -28,21 +27,22 @@ public class TeacherInsertTestDetailAsyncTask extends AsyncTask<Void, Void, Arra
     }
 
     @Override
-    protected ArrayList<TeacherInsertTestDetailModel> doInBackground(Void... params) {
+    protected UpdateTestDetailModel doInBackground(Void... params) {
         String responseString = null;
-        ArrayList<TeacherInsertTestDetailModel> result = null;
+        UpdateTestDetailModel updateTestDetailModel = null;
         try {
             responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetTeacherInsertTestDetail), param);
-            result = ParseJSON.parseTeacherInsertTestDetailJson(responseString);
+            Gson gson = new Gson();
+            updateTestDetailModel = gson.fromJson(responseString, UpdateTestDetailModel.class);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
-        return result;
+        return updateTestDetailModel;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<TeacherInsertTestDetailModel> result) {
+    protected void onPostExecute(UpdateTestDetailModel result) {
         super.onPostExecute(result);
     }
 }

@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class HomeworkFragment extends Fragment {
+public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private View rootView;
     private Button btnMenu, btnFilterHomework, btnBacktest_homework;
     private static TextView fromDate, toDate;
@@ -97,12 +97,35 @@ public class HomeworkFragment extends Fragment {
 
     public void setListners() {
 
+//        fromDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                isFromDate = true;
+//                DialogFragment newFragment = new SelectDateFragment();
+//                newFragment.show(getFragmentManager(), "DatePicker");
+//            }
+//        });
+//
+//        toDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                isFromDate = false;
+//                DialogFragment newFragment = new SelectDateFragment();
+//                newFragment.show(getFragmentManager(), "DatePicker");
+//            }
+//        });
+
         fromDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isFromDate = true;
-                DialogFragment newFragment = new SelectDateFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
+                datePickerDialog = DatePickerDialog.newInstance(HomeworkFragment.this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
 
@@ -110,38 +133,15 @@ public class HomeworkFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isFromDate = false;
-                DialogFragment newFragment = new SelectDateFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
+                datePickerDialog = DatePickerDialog.newInstance(HomeworkFragment.this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
-
-//        fromDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                isFromDate = true;
-//                datePickerDialog = DatePickerDialog.newInstance(HomeworkFragment.this, Year, Month, Day);
-//                datePickerDialog.setThemeDark(false);
-//                datePickerDialog.setOkText("Done");
-//                datePickerDialog.showYearPickerFirst(false);
-//                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-//                datePickerDialog.setTitle("Select Date From DatePickerDialog");
-//                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
-//            }
-//        });
-
-//        toDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                isFromDate = false;
-//                datePickerDialog = DatePickerDialog.newInstance(HomeworkFragment.this, Year, Month, Day);
-//                datePickerDialog.setThemeDark(false);
-//                datePickerDialog.setOkText("Done");
-//                datePickerDialog.showYearPickerFirst(false);
-//                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-//                datePickerDialog.setTitle("Select Date From DatePickerDialog");
-//                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
-//            }
-//        });
 
         btnFilterHomework.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,45 +210,45 @@ public class HomeworkFragment extends Fragment {
 //    }
 
 
-    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar calendar = Calendar.getInstance();
-            int yy = calendar.get(Calendar.YEAR);
-            int mm = calendar.get(Calendar.MONTH);
-            int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
-        }
-
-        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-            populateSetDate(yy, mm + 1, dd);
-        }
-
-        public void populateSetDate(int year, int month, int day) {
-            int mYear, mMonth, mDay;
-            mDay = day;
-            mMonth = month + 1;
-            mYear = year;
-            String d, m, y;
-            d = Integer.toString(mDay);
-            m = Integer.toString(mMonth);
-            y = Integer.toString(mYear);
-
-            if (mDay < 10) {
-                d = "0" + d;
-            }
-            if (mMonth < 10) {
-                m = "0" + m;
-            }
-            dateFinal = d + "/" + m+ "/" + year;
-            if (isFromDate) {
-                fromDate.setText(dateFinal);
-            } else {
-                toDate.setText(dateFinal);
-            }
-        }
-    }
+//    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
+//
+//        @Override
+//        public Dialog onCreateDialog(Bundle savedInstanceState) {
+//            final Calendar calendar = Calendar.getInstance();
+//            int yy = calendar.get(Calendar.YEAR);
+//            int mm = calendar.get(Calendar.MONTH);
+//            int dd = calendar.get(Calendar.DAY_OF_MONTH);
+//            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
+//        }
+//
+//        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+//            populateSetDate(yy, mm + 1, dd);
+//        }
+//
+//        public void populateSetDate(int year, int month, int day) {
+//            int mYear, mMonth, mDay;
+//            mDay = day;
+//            mMonth = month + 1;
+//            mYear = year;
+//            String d, m, y;
+//            d = Integer.toString(mDay);
+//            m = Integer.toString(mMonth);
+//            y = Integer.toString(mYear);
+//
+//            if (mDay < 10) {
+//                d = "0" + d;
+//            }
+//            if (mMonth < 10) {
+//                m = "0" + m;
+//            }
+//            dateFinal = d + "/" + m+ "/" + year;
+//            if (isFromDate) {
+//                fromDate.setText(dateFinal);
+//            } else {
+//                toDate.setText(dateFinal);
+//            }
+//        }
+//    }
     public void getHomeworkData(final String fromDate, final String toDate) {
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
@@ -316,5 +316,30 @@ public class HomeworkFragment extends Fragment {
             }
 
 
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        populateSetDate(year, monthOfYear + 1, dayOfMonth);
+    }
+
+    public void populateSetDate(int year, int month, int day) {
+        String d, m, y;
+        d = Integer.toString(day);
+        m = Integer.toString(month);
+        y = Integer.toString(year);
+        if (day < 10) {
+            d = "0" + d;
+        }
+        if (month < 10) {
+            m = "0" + m;
+        }
+
+        dateFinal = d + "/" + m + "/" + y;
+        if (isFromDate) {
+            fromDate.setText(dateFinal);
+        } else {
+            toDate.setText(dateFinal);
+        }
     }
 }

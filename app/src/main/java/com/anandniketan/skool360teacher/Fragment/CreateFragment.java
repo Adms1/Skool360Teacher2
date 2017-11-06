@@ -48,7 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class CreateFragment extends Fragment{
+public class CreateFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private View rootView;
     private TextView txtNoRecordsCreate, txtNoRecordsCreateStudent;
     private Context mContext;
@@ -276,11 +276,24 @@ public class CreateFragment extends Fragment{
                 alertDialogAndroid.dismiss();
             }
         });
+//        insert_message_date_txt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogFragment newFragment = new SelectDateFragment();
+//                newFragment.show(getFragmentManager(), "DatePicker");
+//            }
+//        });
+
         insert_message_date_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new SelectDateFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
+                datePickerDialog = DatePickerDialog.newInstance(CreateFragment.this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
         send_btn.setOnClickListener(new View.OnClickListener() {
@@ -353,42 +366,62 @@ public class CreateFragment extends Fragment{
 
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        mDay = dayOfMonth;
+        mMonth = monthOfYear + 1;
+        mYear = year;
+        String d, m, y;
+        d = Integer.toString(mDay);
+        m = Integer.toString(mMonth);
+        y = Integer.toString(mYear);
 
-    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar calendar = Calendar.getInstance();
-            int yy = calendar.get(Calendar.YEAR);
-            int mm = calendar.get(Calendar.MONTH);
-            int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
+        if (mDay < 10) {
+            d = "0" + d;
+        }
+        if (mMonth < 10) {
+            m = "0" + m;
         }
 
-        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-            populateSetDate(yy, mm + 1, dd);
-        }
-
-        public void populateSetDate(int year, int month, int day) {
-            int mYear, mMonth, mDay;
-            mDay = day;
-            mMonth = month + 1;
-            mYear = year;
-            String d, m, y;
-            d = Integer.toString(mDay);
-            m = Integer.toString(mMonth);
-            y = Integer.toString(mYear);
-
-            if (mDay < 10) {
-                d = "0" + d;
-            }
-            if (mMonth < 10) {
-                m = "0" + m;
-            }
-            dateFinal = d + "/" + m+ "/" + year;
-
-                insert_message_date_txt.setText(dateFinal);
-
-        }
+        insert_message_date_txt.setText(d + "/" + m + "/" + y);
     }
+
+
+//    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
+//
+//        @Override
+//        public Dialog onCreateDialog(Bundle savedInstanceState) {
+//            final Calendar calendar = Calendar.getInstance();
+//            int yy = calendar.get(Calendar.YEAR);
+//            int mm = calendar.get(Calendar.MONTH);
+//            int dd = calendar.get(Calendar.DAY_OF_MONTH);
+//            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
+//        }
+//
+//        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+//            populateSetDate(yy, mm + 1, dd);
+//        }
+//
+//        public void populateSetDate(int year, int month, int day) {
+//            int mYear, mMonth, mDay;
+//            mDay = day;
+//            mMonth = month + 1;
+//            mYear = year;
+//            String d, m, y;
+//            d = Integer.toString(mDay);
+//            m = Integer.toString(mMonth);
+//            y = Integer.toString(mYear);
+//
+//            if (mDay < 10) {
+//                d = "0" + d;
+//            }
+//            if (mMonth < 10) {
+//                m = "0" + m;
+//            }
+//            dateFinal = d + "/" + m+ "/" + year;
+//
+//                insert_message_date_txt.setText(dateFinal);
+//
+//        }
+//    }
 }

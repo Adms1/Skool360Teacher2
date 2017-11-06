@@ -113,5 +113,10 @@ public class TestsyllabusFragment extends Fragment implements CallBack {
             Utility.ping(mContext, "Network not available");
         }
     }
+
+    @Override
+    public void getTestSyllabusUpdateData() {
+
+    }
 }
 

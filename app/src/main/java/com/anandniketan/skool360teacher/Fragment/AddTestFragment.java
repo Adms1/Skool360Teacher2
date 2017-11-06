@@ -49,7 +49,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 
-public class AddTestFragment extends Fragment {
+public class AddTestFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     public AddTestFragment() {
         // Required empty public constructor
@@ -62,6 +62,7 @@ public class AddTestFragment extends Fragment {
     private TextView txtNoRecords;
     private DatePickerDialog datePickerDialog;
     int Year, Month, Day;
+    int mYear, mMonth, mDay;
     Calendar calendar;
     private ProgressDialog progressDialog = null;
     private GetTeacherAssignedSubjectAsyncTask getTeacherAssignedSubjectAsyncTask = null;
@@ -82,6 +83,8 @@ public class AddTestFragment extends Fragment {
     private int selectedPosition = -1;
     private ArrayList<String> text = new ArrayList<>();
     private static String dateFinal;
+    String checknamestr, checkidstr;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,7 +103,6 @@ public class AddTestFragment extends Fragment {
         Day = calendar.get(Calendar.DAY_OF_MONTH);
 
         standard_subject_spinner = (Spinner) rootView.findViewById(R.id.standard_subject_spinner);
-//        test_section_spinner = (Spinner) rootView.findViewById(R.id.test_section_spinner);
         test_spinner = (Spinner) rootView.findViewById(R.id.test_spinner);
         test_date = (Button) rootView.findViewById(R.id.test_date);
         Add_btn = (Button) rootView.findViewById(R.id.Add_btn);
@@ -123,11 +125,23 @@ public class AddTestFragment extends Fragment {
     }
 
     public void setListner() {
+//        test_date.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DialogFragment newFragment = new SelectDateFragment();
+//                newFragment.show(getFragmentManager(), "DatePicker");
+//            }
+//        });
         test_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment newFragment = new SelectDateFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
+                datePickerDialog = DatePickerDialog.newInstance(AddTestFragment.this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
         Add_btn.setOnClickListener(new View.OnClickListener() {
@@ -135,24 +149,20 @@ public class AddTestFragment extends Fragment {
             public void onClick(View view) {
                 addTest.TestDate = test_date.getText().toString();
                 Dialog();
-
             }
         });
-
         standard_subject_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                addTest.classnamearray.clear();
+                    addTest.classidarray.clear();
                 if (teacherAssignedSubjectModels.size() > 0) {
                     teacherAssignedSubjectModels.get(0).setStandardsubject((String) adapterView.getItemAtPosition(i).toString());
                     standardsubjectsectionspinner();
-
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         test_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -208,12 +218,16 @@ public class AddTestFragment extends Fragment {
         add_test_grade_txt = (TextView) layout.findViewById(R.id.add_test_grade_txt);
         add_test_subject_txt = (TextView) layout.findViewById(R.id.add_test_subject_txt);
         llListData = (LinearLayout) layout.findViewById(R.id.llListData);
+        String classnameStr = addTest.classnamearray.toString();
 
+        String finalStr = classnameStr.substring(1, classnameStr.length() - 1);
+        Log.d("last", finalStr);
 
         add_test_txt.setText(addTest.testName);
         add_test_date_txt.setText(addTest.TestDate);
-        add_test_grade_txt.setText(addTest.standard + " - " + addTest.classname);
+        add_test_grade_txt.setText(addTest.standard + " - " + finalStr);
         add_test_subject_txt.setText(addTest.SubjectName);
+
 
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,6 +250,12 @@ public class AddTestFragment extends Fragment {
                 }
                 text.add(txtstr);
                 Log.d("join", "" + text.toString());
+                String classIdStr="";
+                for(String s:addTest.classidarray){
+                    classIdStr=classIdStr+"|"+s;
+                }
+                final String finalclassIdStr = classIdStr.substring(1, classIdStr.length());
+                Log.d("finalclassIdStr", finalclassIdStr);
                 if (Utility.isNetworkConnected(mContext)) {
 //                                    progressDialog = new ProgressDialog(mContext);
 //                                    progressDialog.setMessage("Please Wait...");
@@ -252,7 +272,7 @@ public class AddTestFragment extends Fragment {
                                 params.put("TestID", addTest.AddTestID);
                                 params.put("TestDate", add_test_date_txt.getText().toString());
                                 params.put("SubjectID", addTest.SubjectID);
-                                params.put("SectionID", addTest.SectionID);
+                                params.put("SectionID", finalclassIdStr);
                                 params.put("Arydetail", finalTxtstr);
 
                                 teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
@@ -338,6 +358,29 @@ public class AddTestFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = "Selected Date : " + Day + "/" + Month + "/" + Year;
+        String datestr = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+
+        mDay = dayOfMonth;
+        mMonth = monthOfYear + 1;
+        mYear = year;
+        String d, m, y;
+        d = Integer.toString(mDay);
+        m = Integer.toString(mMonth);
+        y = Integer.toString(mYear);
+
+        if (mDay < 10) {
+            d = "0" + d;
+        }
+        if (mMonth < 10) {
+            m = "0" + m;
+        }
+
+        test_date.setText(d + "/" + m + "/" + y);
+    }
+
     public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -371,11 +414,12 @@ public class AddTestFragment extends Fragment {
             }
 
 
-            dateFinal = d + "/" + m+ "/" + year;
+            dateFinal = d + "/" + m + "/" + year;
 
             test_date.setText(dateFinal);
         }
     }
+
     public void getTestName() {
         if (Utility.isNetworkConnected(mContext)) {
 //            progressDialog = new ProgressDialog(mContext);
@@ -449,10 +493,9 @@ public class AddTestFragment extends Fragment {
             addTest.standard = str[0].trim();
             for (int i = 0; i < teacherAssignedSubjectModels.size(); i++) {
                 if (str[0].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getStandard()) && str[1].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getSubject())) {
-                    arrayList.add(teacherAssignedSubjectModels.get(i).getClassname());
+                    arrayList.add(teacherAssignedSubjectModels.get(i).getClassname() + "|" + teacherAssignedSubjectModels.get(i).getClassID());
                     arrayListclassID.add(teacherAssignedSubjectModels.get(i).getClassID());
                     addTest.SubjectID = teacherAssignedSubjectModels.get(i).getSubjectID();
-                    addTest.SectionID = teacherAssignedSubjectModels.get(i).getClassID();
                     Log.d("arrayList", "" + arrayList);
                 }
                 if (str[0].trim().equalsIgnoreCase(teacherAssignedSubjectModels.get(i).getStandard())) {
@@ -469,12 +512,18 @@ public class AddTestFragment extends Fragment {
                     View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_checkbox, null);
                     checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
 
-                    checkBox.setText(arrayList.get(i));
-//                textView.setText(arrayList.get(i));
+                    String checkvalue = arrayList.get(i);
+                    String[] splitvalue = checkvalue.split("\\|");
+                    Log.d("checkvalue", checkvalue);
+                    checkBox.setText(splitvalue[0]);
+                    checkBox.setTag(splitvalue[1]);
 
                     if (i == 0) {
                         checkBox.setChecked(true);
-                        addTest.classname = checkBox.getText().toString();
+                        checknamestr = checkBox.getText().toString();
+                        checkidstr = checkBox.getTag().toString();
+                        addTest.classnamearray.add(checknamestr);
+                        addTest.classidarray.add(checkidstr);
                     }
                     checkBox.setOnClickListener(onStateChangedListener(checkBox, i));
                     checkbox_linear.addView(convertView);
@@ -486,8 +535,6 @@ public class AddTestFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         } else {
             txtNoRecords.setVisibility(View.VISIBLE);
             main_linear_add.setVisibility(View.GONE);
@@ -515,6 +562,8 @@ public class AddTestFragment extends Fragment {
         private String testName;
         private String standard;
         private String classname;
+        private ArrayList<String> classidarray = new ArrayList<String>();
+        private ArrayList<String> classnamearray = new ArrayList<String>();
 
     }
 
@@ -522,19 +571,21 @@ public class AddTestFragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checknamestr = checkBox.getText().toString();
+                checkidstr = checkBox.getTag().toString();
                 if (checkBox.isChecked()) {
-                    checkBox.setChecked(true);
                     selectedPosition = position;
-                    addTest.classname = checkBox.getText().toString();
-
-                    Log.d("classname", addTest.classname);
+                    addTest.classnamearray.add(checknamestr);
+                    addTest.classidarray.add(checkidstr);
+                    Log.d("classidarray", addTest.classidarray.toString());
+                    Log.d("classnamearray", addTest.classnamearray.toString());
                 } else {
                     selectedPosition = -1;
-                    checkBox.setChecked(false);
-
+                    addTest.classnamearray.remove(checknamestr);
+                    addTest.classidarray.remove(checkidstr);
+                    Log.d("classidarray", addTest.classidarray.toString());
+                    Log.d("classnamearray", addTest.classnamearray.toString());
                 }
-
-
             }
         };
     }

@@ -27,12 +27,14 @@ import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherUpdateTestDetailAsyncTask;
 import com.anandniketan.skool360teacher.Fragment.AddTestFragment;
 import com.anandniketan.skool360teacher.Fragment.LessonplanscheduleFragment;
 import com.anandniketan.skool360teacher.Fragment.TestsyllabusFragment;
 import com.anandniketan.skool360teacher.Interfacess.CallBack;
 import com.anandniketan.skool360teacher.Models.TeacherInsertTestDetailModel;
 import com.anandniketan.skool360teacher.Models.Test_SyllabusModel;
+import com.anandniketan.skool360teacher.Models.UpdateTestDetailModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -50,19 +52,21 @@ import java.util.HashMap;
  */
 
 @SuppressWarnings("Since15")
-public class Test_syllabusAdapter extends BaseAdapter{
+public class Test_syllabusAdapter extends BaseAdapter implements DatePickerDialog.OnDateSetListener {
     private Context mContext;
     private ArrayList<Test_SyllabusModel> test_syllabusModels = new ArrayList<>();
     AlertDialog alertDialogAndroid = null;
+    private DatePickerDialog datePickerDialog;
     int Year, Month, Day;
     Calendar calendar;
+    int mYear, mMonth, mDay;
     Button close_btn, Edit_btn;
     private static TextView edit_test_txt, edit_test_date_txt, edit_test_grade_txt, edit_test_subject_txt;
     LinearLayout llListData;
     FragmentManager activity;
     private ProgressDialog progressDialog = null;
-    private TeacherInsertTestDetailAsyncTask teacherInsertTestDetailAsyncTask = null;
-    private ArrayList<TeacherInsertTestDetailModel> insertTest = new ArrayList<>();
+    private TeacherUpdateTestDetailAsyncTask updateTestDetailAsyncTask = null;
+    UpdateTestDetailModel updateTestDetailModel;
     private ArrayList<String> text = new ArrayList<>();
     private TeacherGetTestSyllabusAsyncTask teacherGetTestSyllabusAsyncTask = null;
     EditText syllbus_edt;
@@ -86,6 +90,28 @@ public class Test_syllabusAdapter extends BaseAdapter{
 
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = "Selected Date : " + Day + "/" + Month + "/" + Year;
+        String datestr = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+
+        mDay = dayOfMonth;
+        mMonth = monthOfYear + 1;
+        mYear = year;
+        String d, m, y;
+        d = Integer.toString(mDay);
+        m = Integer.toString(mMonth);
+        y = Integer.toString(mYear);
+
+        if (mDay < 10) {
+            d = "0" + d;
+        }
+        if (mMonth < 10) {
+            m = "0" + m;
+        }
+
+        edit_test_date_txt.setText(d + "/" + m + "/" + y);
+    }
 
 
     private class ViewHolder {
@@ -207,21 +233,23 @@ public class Test_syllabusAdapter extends BaseAdapter{
                                                 params.put("SectionID", test_syllabusModels.get(position).getSectionID());
                                                 params.put("Arydetail", finalTxtstr);
 
-                                                teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
-                                                insertTest = teacherInsertTestDetailAsyncTask.execute().get();
+                                                updateTestDetailAsyncTask = new TeacherUpdateTestDetailAsyncTask(params);
+                                                updateTestDetailModel = updateTestDetailAsyncTask.execute().get();
                                                 Test_syllabusAdapter.this.runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        mCallBack.getTestSyllabusData();
-                                                        if (insertTest.size() > 0) {
-                                                            progressDialog.dismiss();
-                                                            Utility.ping(mContext, "Add Test");
+                                                        mCallBack.getTestSyllabusUpdateData();
+
+                                                        if (updateTestDetailModel.getSuccess().equalsIgnoreCase("True")) {
+                                                            alertDialogAndroid.dismiss();
+                                                            close_btn.performClick();
+                                                            Utility.ping(mContext, "Update Test");
                                                             model = test_syllabusModels.get(position).getGetSyllabusData().get(position);
                                                             model.setSyllabus(String.valueOf(text));
                                                             test_syllabusModels.get(position).getGetSyllabusData().set(position, model);
 
                                                         } else {
-//                                                            progressDialog.dismiss();
+                                                           Utility.ping(mContext, "Something error");
                                                         }
                                                     }
                                                 });
@@ -238,13 +266,18 @@ public class Test_syllabusAdapter extends BaseAdapter{
                         edit_test_date_txt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                              DialogFragment newFragment = new SelectDateFragment();
-//                                newFragment.show(activit, "DatePicker");
+                                datePickerDialog = DatePickerDialog.newInstance(Test_syllabusAdapter.this, Year, Month, Day);
+                                datePickerDialog.setThemeDark(false);
+                                datePickerDialog.setOkText("Done");
+                                datePickerDialog.showYearPickerFirst(false);
+                                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+                                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+                                datePickerDialog.show(activity, "DatePickerDialog");
                             }
                         });
 
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                        SimpleDateFormat output = new SimpleDateFormat("dd-MM-yyyy");
+                        SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
                         Date d = null;
                         try {
                             d = sdf.parse(test_syllabusModels.get(position).getTestDate());
@@ -294,6 +327,7 @@ public class Test_syllabusAdapter extends BaseAdapter{
 
     private void runOnUiThread(Runnable runnable) {
     }
+
     public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
 
         @Override
@@ -305,6 +339,7 @@ public class Test_syllabusAdapter extends BaseAdapter{
             return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
 
         }
+
         public void populateSetDate(int year, int month, int day) {
             int mYear, mMonth, mDay;
             mDay = day;
@@ -323,7 +358,7 @@ public class Test_syllabusAdapter extends BaseAdapter{
             }
 
 
-            dateFinal = d + "/" + m+ "/" + year;
+            dateFinal = d + "/" + m + "/" + year;
 
             edit_test_date_txt.setText(dateFinal);
         }
@@ -370,8 +405,6 @@ public class Test_syllabusAdapter extends BaseAdapter{
         }
 
     }
-
-
 
 
 }

@@ -83,6 +83,10 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
         splitFont2 = "";
         splitFont3 = "";
         FontStyle = childData.get(childPosition).getFont();
+        String object = childData.get(childPosition).getObjective().replaceAll("&nbsp;","") ;
+        String homeworkname = childData.get(childPosition).getHomeWork().replace("&nbsp;", "");
+        String chaptername = childData.get(childPosition).getChapterName().replace("&nbsp;", "");
+        String assement=childData.get(childPosition).getChapterName().replace("&nbsp;", "");
 
         if (!FontStyle.equalsIgnoreCase("-|-|-|-")) {
             String[] splitFontStyle = FontStyle.split("\\|");
@@ -97,21 +101,24 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
             SetLanguageObjective(splitFont3);
             SetLanguageAssessmentQue(splitFont4);
 
-            String object=childData.get(childPosition).getObjective().replace("&nbsp","");
 
-            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
-            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
-            objective_txt.setText(Html.fromHtml(object));
-            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
+            homwork_name_txt.setText(homeworkname.trim());
+            chapter_name_txt.setText(chaptername.trim());
+            objective_txt.setText(object.trim());
+            assessment_txt.setText(assement.trim());
 
         } else {
-//            typeface = Typeface.createFromAsset(_context.getAssets(), "Fonts/arial.ttf");
-            String homework = childData.get(childPosition).getHomeWork();
-            Log.d("homework", homework);
-            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
-            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
-            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
-            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
+            typeface = Typeface.createFromAsset(_context.getAssets(), "Font/arial.ttf");
+
+            homwork_name_txt.setTypeface(typeface);
+            chapter_name_txt.setTypeface(typeface);
+            objective_txt.setTypeface(typeface);
+            assessment_txt.setTypeface(typeface);
+
+            homwork_name_txt.setText(homeworkname.trim());
+            chapter_name_txt.setText(chaptername.trim());
+            objective_txt.setText(object.trim());
+            assessment_txt.setText(assement.trim());
         }
 
 
@@ -200,7 +207,7 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
     public void SetLanguageHomework(String type) {
         switch (type) {
             case "ArivNdr POMt":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Arvinder.ttf");
                 homwork_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
@@ -250,7 +257,7 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
     public void SetLanguageChapterName(String type) {
         switch (type) {
             case "ArivNdr POMt":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Arvinder.ttf");
                 chapter_name_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
@@ -300,7 +307,7 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
     public void SetLanguageObjective(String type) {
         switch (type) {
             case "ArivNdr POMt":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Arvinder.ttf");
                 objective_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":
@@ -350,7 +357,7 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
     public void SetLanguageAssessmentQue(String type) {
         switch (type) {
             case "ArivNdr POMt":
-                typeface = Typeface.createFromAsset(_context.getAssets(), "Fotns/Arvinder.ttf");
+                typeface = Typeface.createFromAsset(_context.getAssets(), "Font/Arvinder.ttf");
                 assessment_txt.setTypeface(typeface);
                 break;
             case "Gujrati Saral-1":

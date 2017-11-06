@@ -82,6 +82,11 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         splitFont3 = "";
         FontStyle = childData.get(childPosition).getFont();
 
+        String object = childData.get(childPosition).getObjective().replace("&nbsp;","") ;
+        String homeworkname = childData.get(childPosition).getHomeWork().replace("&nbsp;", "");
+        String chaptername = childData.get(childPosition).getChapterName().replace("&nbsp;", "");
+        String assement=childData.get(childPosition).getChapterName().replace("&nbsp;", "");
+
         if (!FontStyle.equalsIgnoreCase("-|-|-|-")) {
             String[] splitFontStyle = FontStyle.split("\\|");
             Log.d("SplitFOnt", splitFontStyle[0]);
@@ -95,22 +100,22 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             SetLanguageObjective(splitFont3);
             SetLanguageAssessmentQue(splitFont4);
 
-            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
-            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
-            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
-            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
+            homwork_name_txt.setText((homeworkname.trim()));
+            chapter_name_txt.setText((chaptername.trim()));
+            objective_txt.setText((object.trim()));
+            assessment_txt.setText((assement.trim()));
 
         } else {
-//            typeface = Typeface.createFromAsset(_context.getAssets(),"Fonts/arial.ttf");
-//            homework_title_txt.setTypeface(typeface);
-//            lblchaptername.setTypeface(typeface);
-//            lblobjective.setTypeface(typeface);
-//            lblque.setTypeface(typeface);
+            typeface = Typeface.createFromAsset(_context.getAssets(),"Font/arial.ttf");
+            homwork_name_txt.setTypeface(typeface);
+            chapter_name_txt.setTypeface(typeface);
+            objective_txt.setTypeface(typeface);
+            assessment_txt.setTypeface(typeface);
 
-            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork()));
-            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName()));
-            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective()));
-            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue()));
+            homwork_name_txt.setText((homeworkname.trim()));
+            chapter_name_txt.setText((chaptername.trim()));
+            objective_txt.setText((object.trim()));
+            assessment_txt.setText((assement.trim()));
         }
 
 
