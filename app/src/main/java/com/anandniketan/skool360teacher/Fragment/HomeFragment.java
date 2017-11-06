@@ -373,7 +373,7 @@ public class HomeFragment extends Fragment {
                                             .setTitle("Skool360 ShilajTeacher Update")
                                             .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
                                             .setMessage("Please update to a new version of the app.")
-                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            .setPositiveButton("Upgrade", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.anandniketan.skool360teacher"));
                                                     getActivity().startActivity(i);

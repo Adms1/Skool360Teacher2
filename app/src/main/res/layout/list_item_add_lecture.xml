@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:weightSum="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/close_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="270dp"
+                    android:background="@drawable/close_cancel"
+                    android:text="X"
+                    android:textColor="@color/editTextcolor" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/edit_lecture_txt_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Grade    :"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/edit_grade_spinner"
+                    android:layout_width="190dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/dropdown_button"
+                    android:dropDownVerticalOffset="35dp"
+                    android:forceHasOverlappingRendering="false"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/edit_lecture_section_txt_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Section  :"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+                <LinearLayout
+                    android:id="@+id/edit_lecture_section_llListData"
+                    android:layout_width="190dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="left|center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"></LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/edit_Subject_txt_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Subject  :"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/edit_subject_spinner"
+                    android:layout_width="190dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/dropdown_button"
+                    android:dropDownVerticalOffset="35dp"
+                    android:forceHasOverlappingRendering="false"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/edit_day_txt_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Day         :"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/edit_day_txt"
+                    android:layout_width="190dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+                    android:text="Monday"
+                    android:textColor="@color/gray"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/edit_day_lecture_txt_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Day         :"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/edit_day_lecture_txt"
+                    android:layout_width="190dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+                    android:text="Monday"
+                    android:textColor="@color/gray"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/edit_Starttime_txt_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Subject  :"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/edit_Starttime_spinner"
+                    android:layout_width="90dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/dropdown_button"
+                    android:dropDownVerticalOffset="35dp"
+                    android:forceHasOverlappingRendering="false"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+
+                <Spinner
+                    android:id="@+id/edit_Starttime1_spinner"
+                    android:layout_width="90dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/dropdown_button"
+                    android:dropDownVerticalOffset="35dp"
+                    android:forceHasOverlappingRendering="false"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.22"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/edit_Endtime_txt_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Subject  :"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/edit_Endtime_spinner"
+                    android:layout_width="90dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/dropdown_button"
+                    android:dropDownVerticalOffset="35dp"
+                    android:forceHasOverlappingRendering="false"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+
+                <Spinner
+                    android:id="@+id/edit_Endtime1_spinner"
+                    android:layout_width="90dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/dropdown_button"
+                    android:dropDownVerticalOffset="35dp"
+                    android:forceHasOverlappingRendering="false"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_lecture_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/round_button"
+                android:text="ADD"
+                android:textColor="@color/editTextcolor"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
