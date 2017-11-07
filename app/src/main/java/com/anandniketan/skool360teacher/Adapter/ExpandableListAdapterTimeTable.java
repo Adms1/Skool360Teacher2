@@ -2,16 +2,18 @@ package com.anandniketan.skool360teacher.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anandniketan.skool360teacher.Interfacess.onDeleteLecture;
 import com.anandniketan.skool360teacher.Models.TeacherGetTimetableModel;
 import com.anandniketan.skool360teacher.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,12 +29,18 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, ArrayList<TeacherGetTimetableModel.TimeTable.TimeTableData>> _listDataChild;
+    private onDeleteLecture _onDeleteLecture;
+    private ArrayList<String> timetableid = new ArrayList<String>();
+    private String day = new String();
+    private String Lecture = new String();
 
     public ExpandableListAdapterTimeTable(Context context, List<String> listDataHeader,
-                                          HashMap<String, ArrayList<TeacherGetTimetableModel.TimeTable.TimeTableData>> listChildData) {
+                                          HashMap<String, ArrayList<TeacherGetTimetableModel.TimeTable.TimeTableData>> listChildData,
+                                          onDeleteLecture onDeleteLecture) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
+        this._onDeleteLecture = onDeleteLecture;
     }
 
     @Override
@@ -50,16 +58,18 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (childPosition > 0) {
 
-            TeacherGetTimetableModel.TimeTable.TimeTableData currentchild = getChild(groupPosition, childPosition - 1);
+            final TeacherGetTimetableModel.TimeTable.TimeTableData currentchild = getChild(groupPosition, childPosition - 1);
             convertView = infalInflater.inflate(R.layout.list_item_timetable, null);
 
             TextView txtLecture, txtSubject, txtclass;
+            ImageView delete_insert_img;
             txtLecture = (TextView) convertView.findViewById(R.id.txtLecture);
             txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
             txtclass = (TextView) convertView.findViewById(R.id.txtClass);
+            delete_insert_img = (ImageView) convertView.findViewById(R.id.delete_insert_img);
 
             txtLecture.setText(currentchild.getLecture());
 
@@ -73,8 +83,27 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
             } else {
                 txtclass.setText("-");
             }
-        }
-        else {
+
+            if (currentchild.getTimetableID().equalsIgnoreCase("0")) {
+                delete_insert_img.setImageResource(R.drawable.plus);
+            } else {
+                delete_insert_img.setImageResource(R.drawable.deletelecture);
+            }
+
+            delete_insert_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (currentchild.getTimetableID().equalsIgnoreCase("0")) {
+                        Lecture = currentchild.getLecture();
+                        _onDeleteLecture.getAddLecture();
+                    } else {
+                        timetableid.add(currentchild.getTimetableID());
+                        _onDeleteLecture.getDeleteLecture();
+                    }
+
+                }
+            });
+        } else {
             convertView = infalInflater.inflate(R.layout.timetable_header, null);
         }
         return convertView;
@@ -115,13 +144,14 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 
+
         if (isExpanded) {
             lblListHeader.setTextColor(_context.getResources().getColor(R.color.present_header));
+            day = lblListHeader.getText().toString();
+            Log.d("day",day);
         } else {
             lblListHeader.setTextColor(_context.getResources().getColor(R.color.orange));
         }
-
-
         return convertView;
     }
 
@@ -133,5 +163,18 @@ public class ExpandableListAdapterTimeTable extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+
+    public ArrayList<String> getTimeTableId() {
+        return timetableid;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public String getLecture() {
+        return Lecture;
     }
 }

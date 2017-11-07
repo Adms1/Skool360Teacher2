@@ -285,7 +285,6 @@ public class OneFragment extends Fragment implements DatePickerDialog.OnDateSetL
 
 
             for (int i = 0; i < StudentArray.size(); i++) {
-
                 id.add(StudentArray.get(i).getAttendanceID());
                 status.add(StudentArray.get(i).getAttendenceStatus());
                 studid.add(StudentArray.get(i).getStudentID());

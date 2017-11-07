@@ -58,6 +58,9 @@ public class AppConfiguration {
     public static String PTMDeleteMeeting = "PTMDeleteMeeting";
     public static String TeacherInsertAssignStudentSubject = "TeacherInsertAssignStudentSubject";
     public static String DeviceVersion = "DeviceVersion";
+    public static String InsertTimetable = "InsertTimetable";
+    public static String DeleteTimetable = "DeleteTimetable";
+    public static String TeacherStudentHomeworkStatus = "TeacherStudentHomeworkStatus";
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();
     public static String stdid;

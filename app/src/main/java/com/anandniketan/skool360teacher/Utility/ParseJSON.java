@@ -356,6 +356,7 @@ public class ParseJSON {
                         timetableData.setSubject(jsonChildNode1.getString("Subject"));
                         timetableData.setStandardClass(jsonChildNode1.getString("StandardClass"));
                         timetableData.setProxyStatus(jsonChildNode1.getString("ProxyStatus"));
+                        timetableData.setTimetableID(jsonChildNode1.getString("TimetableID"));
 
                         timetablesData.add(timetableData);
                     }
@@ -564,6 +565,10 @@ public class ParseJSON {
                     homeWorkData.setChapterName(jsonChildNode.getString("ChapterName"));
                     homeWorkData.setObjective(jsonChildNode.getString("Objective"));
                     homeWorkData.setAssessmentQue(jsonChildNode.getString("AssessmentQue"));
+                    homeWorkData.setStandardID(jsonChildNode.getString("StandardID"));
+                    homeWorkData.setClassID(jsonChildNode.getString("ClassID"));
+                    homeWorkData.setTermID(jsonChildNode.getString("TermID"));
+                    homeWorkData.setSubjectID(jsonChildNode.getString("SubjectID"));
                     homeWorkData.setFont(jsonChildNode.getString("Font"));
 
                     homeWorkDatas.add(homeWorkData);

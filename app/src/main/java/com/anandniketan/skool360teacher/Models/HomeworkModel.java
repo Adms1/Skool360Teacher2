@@ -53,6 +53,10 @@ public class HomeworkModel {
         private String ChapterName;
         private String Objective;
         private String AssessmentQue;
+        private String StandardID;
+        private String ClassID;
+        private String SubjectID;
+        private String TermID;
         private String Font;
 
         public String getDate() {
@@ -125,6 +129,38 @@ public class HomeworkModel {
 
         public void setFont(String font) {
             Font = font;
+        }
+
+        public String getStandardID() {
+            return StandardID;
+        }
+
+        public void setStandardID(String standardID) {
+            StandardID = standardID;
+        }
+
+        public String getClassID() {
+            return ClassID;
+        }
+
+        public void setClassID(String classID) {
+            ClassID = classID;
+        }
+
+        public String getSubjectID() {
+            return SubjectID;
+        }
+
+        public void setSubjectID(String subjectID) {
+            SubjectID = subjectID;
+        }
+
+        public String getTermID() {
+            return TermID;
+        }
+
+        public void setTermID(String termID) {
+            TermID = termID;
         }
     }
 }

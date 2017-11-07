@@ -20,7 +20,7 @@ public class GetStaffAttendanceAsyncTask extends AsyncTask<Void, Void, ArrayList
     public GetStaffAttendanceAsyncTask(HashMap<String, String> param) {
         this.param = param;
     }
-    
+
 
     @Override
     protected void onPreExecute() {

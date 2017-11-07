@@ -58,6 +58,7 @@ public class TeacherGetTimetableModel {
             private String Subject;
             private String StandardClass;
             private String ProxyStatus;
+            private String TimetableID;
 
             public String getLecture() {
                 return Lecture;
@@ -89,6 +90,14 @@ public class TeacherGetTimetableModel {
 
             public void setProxyStatus(String proxyStatus) {
                 ProxyStatus = proxyStatus;
+            }
+
+            public String getTimetableID() {
+                return TimetableID;
+            }
+
+            public void setTimetableID(String timetableID) {
+                TimetableID = timetableID;
             }
         }
     }

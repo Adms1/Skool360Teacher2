@@ -44,7 +44,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
-                    android:text="Grade    :"
+                    android:text="Grade       :"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="14dp"
@@ -63,7 +63,7 @@
                     android:forceHasOverlappingRendering="false"
                     android:gravity="left|center_vertical"
                     android:paddingBottom="1dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="35dp"
                     android:paddingTop="5dp"
                     android:textColor="@color/black"
                     android:textSize="12dp" />
@@ -83,7 +83,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
-                    android:text="Section  :"
+                    android:text="Section     :"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="14dp"
@@ -91,8 +91,8 @@
 
                 <LinearLayout
                     android:id="@+id/edit_lecture_section_llListData"
-                    android:layout_width="190dp"
-                    android:layout_height="35dp"
+                    android:layout_width="230dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="10dp"
@@ -119,7 +119,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
-                    android:text="Subject  :"
+                    android:text="Subject     :"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="14dp"
@@ -157,7 +157,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
-                    android:text="Day         :"
+                    android:text="Day            :"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="14dp"
@@ -177,7 +177,7 @@
                     android:paddingTop="6dp"
                     android:text="Monday"
                     android:textColor="@color/gray"
-                    android:textSize="12dp" />
+                    android:textSize="14dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -193,7 +193,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
-                    android:text="Day         :"
+                    android:text="Leacture   :"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="14dp"
@@ -213,7 +213,7 @@
                     android:paddingTop="6dp"
                     android:text="Monday"
                     android:textColor="@color/gray"
-                    android:textSize="12dp" />
+                    android:textSize="14dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -229,7 +229,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
-                    android:text="Subject  :"
+                    android:text="StartTime :"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="14dp"
@@ -285,7 +285,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="5dp"
-                    android:text="Subject  :"
+                    android:text="EndTime   :"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="14dp"

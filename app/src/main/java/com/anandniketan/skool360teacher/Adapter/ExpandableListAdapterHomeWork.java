@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anandniketan.skool360teacher.Interfacess.onStudentHomeWorkStatus;
 import com.anandniketan.skool360teacher.Models.HomeworkModel;
 import com.anandniketan.skool360teacher.R;
 
@@ -35,15 +37,21 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     private HashMap<String, ArrayList<HomeworkModel.HomeworkData>> _listDataChild;
     String FontStyle, splitFont1, splitFont2, splitFont3, splitFont4;
     TextView subject_title_txt, homwork_name_txt, chapter_name_txt, objective_txt, assessment_txt;
+    Button StudentHomeWorkStatus_btn;
     ImageView imgRightSign;
     LinearLayout chapter_linear, objective_linear, que_linear;
     Typeface typeface;
+    onStudentHomeWorkStatus _onStudentHomeWorkStatus;
+    ArrayList<String> getId = new ArrayList<>();
+    private String date = new String();
 
     public ExpandableListAdapterHomeWork(Context context, List<String> listDataHeader,
-                                         HashMap<String, ArrayList<HomeworkModel.HomeworkData>> listChildData) {
+                                         HashMap<String, ArrayList<HomeworkModel.HomeworkData>> listChildData,
+                                         onStudentHomeWorkStatus onStudentHomeWorkStatus) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
+        this._onStudentHomeWorkStatus = onStudentHomeWorkStatus;
     }
 
     @Override
@@ -61,7 +69,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              final boolean isLastChild, View convertView, ViewGroup parent) {
 
-        ArrayList<HomeworkModel.HomeworkData> childData = getChild(groupPosition, 0);
+        final ArrayList<HomeworkModel.HomeworkData> childData = getChild(groupPosition, 0);
 
 
         if (convertView == null) {
@@ -74,7 +82,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         chapter_name_txt = (TextView) convertView.findViewById(R.id.chapter_name_txt);
         objective_txt = (TextView) convertView.findViewById(R.id.objective_txt);
         assessment_txt = (TextView) convertView.findViewById(R.id.assessment_txt);
-
+        StudentHomeWorkStatus_btn = (Button) convertView.findViewById(R.id.StudentHomeWorkStatus_btn);
 
         FontStyle = "";
         splitFont1 = "";
@@ -82,10 +90,10 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         splitFont3 = "";
         FontStyle = childData.get(childPosition).getFont();
 
-        String object = childData.get(childPosition).getObjective().replace("&nbsp;","") ;
+        String object = childData.get(childPosition).getObjective().replace("&nbsp;", "");
         String homeworkname = childData.get(childPosition).getHomeWork().replace("&nbsp;", "");
         String chaptername = childData.get(childPosition).getChapterName().replace("&nbsp;", "");
-        String assement=childData.get(childPosition).getChapterName().replace("&nbsp;", "");
+        String assement = childData.get(childPosition).getChapterName().replace("&nbsp;", "");
 
         if (!FontStyle.equalsIgnoreCase("-|-|-|-")) {
             String[] splitFontStyle = FontStyle.split("\\|");
@@ -106,7 +114,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             assessment_txt.setText((assement.trim()));
 
         } else {
-            typeface = Typeface.createFromAsset(_context.getAssets(),"Font/arial.ttf");
+            typeface = Typeface.createFromAsset(_context.getAssets(), "Font/arial.ttf");
             homwork_name_txt.setTypeface(typeface);
             chapter_name_txt.setTypeface(typeface);
             objective_txt.setTypeface(typeface);
@@ -117,7 +125,14 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             objective_txt.setText((object.trim()));
             assessment_txt.setText((assement.trim()));
         }
-
+        StudentHomeWorkStatus_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getId.add(childData.get(childPosition).getStandardID() + "|" + childData.get(childPosition).getClassID() +
+                        "|" + childData.get(childPosition).getSubjectID() + "|" + childData.get(childPosition).getTermID());
+                _onStudentHomeWorkStatus.getStudentHomeWorkStatus();
+            }
+        });
 
         return convertView;
     }
@@ -167,7 +182,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         arrow_txt = (ImageView) convertView.findViewById(R.id.arrow_txt);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        SimpleDateFormat output = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
         Date d = null;
         try {
             d = sdf.parse(headerTitle1);
@@ -183,6 +198,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
 
         if (isExpanded) {
             arrow_txt.setBackgroundResource(R.drawable.arrow_1_42_down);
+            date = Date_txt.getText().toString();
         } else {
             arrow_txt.setBackgroundResource(R.drawable.arrow_1_42);
         }
@@ -399,6 +415,15 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
                 break;
             default:
         }
+    }
+
+
+    public ArrayList<String> getAllId() {
+        return getId;
+    }
+
+    public String getDate() {
+        return date;
     }
 }
 

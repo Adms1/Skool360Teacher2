@@ -130,6 +130,16 @@
                 android:text="hiiii"
                 android:textSize="12dp" />
         </LinearLayout>
-
+        <Button
+            android:id="@+id/StudentHomeWorkStatus_btn"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/round_button"
+            android:text="Student HomeWork Status"
+            android:textColor="@color/editTextcolor"
+            android:textSize="12dp" />
     </LinearLayout>
 </LinearLayout>
