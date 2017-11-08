@@ -171,7 +171,6 @@ public class TimeTableFragment extends Fragment {
                                         @Override
                                         public void getDeleteLecture() {
                                             ArrayList<String> id = new ArrayList<>();
-                                            String StudentArray = null;
                                             ArrayList<String> array = listAdapterTimeTable.getTimeTableId();
                                             for (int j = 0; j < array.size(); j++) {
                                                 id.add(array.get(j).toString());
@@ -179,10 +178,6 @@ public class TimeTableFragment extends Fragment {
                                             finalLectureIdArray = String.valueOf(id);
                                             finalLectureIdArray = finalLectureIdArray.substring(1, finalLectureIdArray.length() - 1);
                                             Log.d("finalLectureIdArray", finalLectureIdArray);
-//                                            progressDialog = new ProgressDialog(mContext);
-//                                            progressDialog.setMessage("Please Wait...");
-//                                            progressDialog.setCancelable(false);
-//                                            progressDialog.show();
                                             if (Utility.isNetworkConnected(mContext)) {
                                                 if (!finalLectureIdArray.equalsIgnoreCase("")) {
                                                     new Thread(new Runnable() {
@@ -313,7 +308,6 @@ public class TimeTableFragment extends Fragment {
                 classnamearray.clear();
                 classidarray.clear();
                 if (teacherAssignedSubjectModels.size() > 0) {
-//                    teacherAssignedSubjectModels.get(0).setStandard((String) parent.getItemAtPosition(position).toString());
                     selectedStandard=parent.getSelectedItem().toString();
                     fillsection();
                     fillsubjectspinner();

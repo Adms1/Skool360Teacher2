@@ -24,10 +24,12 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.anandniketan.skool360teacher.Adapter.AddTestDetalisListAdapter;
 import com.anandniketan.skool360teacher.Adapter.MysubjectAdapetr;
 import com.anandniketan.skool360teacher.Adapter.Test_syllabusAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherAssignedSubjectAsyncTask;
@@ -69,9 +71,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     private ArrayList<TeacherAssignedSubjectModel> teacherAssignedSubjectModels = new ArrayList<>();
     private AlertDialog alertDialogAndroid = null;
     private Button close_btn, add_btn;
+    private ListView listData;
     private TextView add_test_txt, add_test_date_txt, add_test_grade_txt, add_test_subject_txt;
-    private LinearLayout llListData;
-    private EditText syllbus_edt;
     private CheckBox checkBox;
     private TeacherInsertTestDetailAsyncTask teacherInsertTestDetailAsyncTask = null;
     private ArrayList<TeacherInsertTestDetailModel> insertTest = new ArrayList<>();
@@ -84,6 +85,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     private ArrayList<String> text = new ArrayList<>();
     private static String dateFinal;
     String checknamestr, checkidstr;
+    AddTestDetalisListAdapter addTestDetalisListAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -155,12 +158,13 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 addTest.classnamearray.clear();
-                    addTest.classidarray.clear();
+                addTest.classidarray.clear();
                 if (teacherAssignedSubjectModels.size() > 0) {
                     teacherAssignedSubjectModels.get(0).setStandardsubject((String) adapterView.getItemAtPosition(i).toString());
                     standardsubjectsectionspinner();
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -202,7 +206,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         alertDialogAndroid.setCancelable(false);
         alertDialogAndroid.show();
         Window window = alertDialogAndroid.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1000);
+        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1100);
         WindowManager.LayoutParams wlp = window.getAttributes();
 
         wlp.gravity = Gravity.CENTER;
@@ -217,11 +221,20 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         add_test_date_txt = (TextView) layout.findViewById(R.id.add_test_date_txt);
         add_test_grade_txt = (TextView) layout.findViewById(R.id.add_test_grade_txt);
         add_test_subject_txt = (TextView) layout.findViewById(R.id.add_test_subject_txt);
-        llListData = (LinearLayout) layout.findViewById(R.id.llListData);
-        String classnameStr = addTest.classnamearray.toString();
+        listData = (ListView) layout.findViewById(R.id.listData);
 
+        String classnameStr = addTest.classnamearray.toString();
         String finalStr = classnameStr.substring(1, classnameStr.length() - 1);
         Log.d("last", finalStr);
+        ArrayList<String> number = new ArrayList<String>();
+
+        for (int i = 0; i < 10; i++) {
+            number.add(String.valueOf(i));
+        }
+        Log.d("number", "" + number);
+        addTestDetalisListAdapter = new AddTestDetalisListAdapter(getActivity(), number);
+        listData.setAdapter(addTestDetalisListAdapter);
+        listData.deferNotifyDataSetChanged();
 
         add_test_txt.setText(addTest.testName);
         add_test_date_txt.setText(addTest.TestDate);
@@ -240,9 +253,9 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             public void onClick(View view) {
                 String txtstr = "";
                 text = new ArrayList<String>();
-                for (int i = 0; i < llListData.getChildCount(); i++) {
+                for (int i = 0; i < listData.getChildCount(); i++) {
 
-                    View mView = llListData.getChildAt(i);
+                    View mView = listData.getChildAt(i);
                     EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
                     if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
                         txtstr = txtstr + myEditText.getText().toString() + "|&";
@@ -250,9 +263,9 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                 }
                 text.add(txtstr);
                 Log.d("join", "" + text.toString());
-                String classIdStr="";
-                for(String s:addTest.classidarray){
-                    classIdStr=classIdStr+"|"+s;
+                String classIdStr = "";
+                for (String s : addTest.classidarray) {
+                    classIdStr = classIdStr + "|" + s;
                 }
                 final String finalclassIdStr = classIdStr.substring(1, classIdStr.length());
                 Log.d("finalclassIdStr", finalclassIdStr);
@@ -295,26 +308,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             }
         });
 
-        if (llListData.getChildCount() > 0) {
-            llListData.removeAllViews();
-        }
-        try {
-            for (int i = 0; i < 10; i++) {
-                View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_edittext, null);
-                syllbus_edt = (EditText) convertView.findViewById(R.id.syllabus_txt);
-
-                llListData.addView(convertView);
-            }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
-
 
     public void setTodayschedule() {
         if (Utility.isNetworkConnected(mContext)) {

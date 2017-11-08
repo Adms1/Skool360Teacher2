@@ -4,11 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+    <!--<ScrollView-->
+        <!--android:id="@+id/scrollView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:scrollbars="none">-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,23 +163,12 @@
                     android:textSize="14dp" />
             </LinearLayout>
 
-            <!--<ScrollView-->
-                <!--android:id="@+id/scrollView1"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:scrollbars="none">-->
-
-                <LinearLayout
-                    android:id="@+id/llListData"
-                    android:layout_width="match_parent"
-                    android:layout_height="430dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="1dp"
-                    android:layout_weight="0.26"
-                    android:orientation="vertical"
-                    android:textAlignment="center"></LinearLayout>
-            <!--</ScrollView>-->
-
+            <ListView
+                android:id="@+id/listData"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scrollbars="none"
+                android:layout_marginBottom="10dp"></ListView>
 
             <Button
                 android:id="@+id/Edit_btn"
@@ -187,11 +176,11 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="-10dp"
                 android:background="@drawable/round_button"
                 android:text="Update"
                 android:textColor="@color/editTextcolor"
                 android:textSize="14dp" />
         </LinearLayout>
-    </ScrollView>
+    <!--</ScrollView>-->
 </LinearLayout>

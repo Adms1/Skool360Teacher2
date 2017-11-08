@@ -191,12 +191,23 @@ public class HomeFragment extends Fragment {
                             .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
                 } else if (position == 1) {
-                    fragment = new SubjectFragment();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(0, 0)
-                            .replace(R.id.frame_container, fragment).commit();
-
+                    if (userProfileModels.get(0).getGetclassDetailsArrayList().size() > 0) {
+                        fragment = new SubjectFragment();
+                        fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(0, 0)
+                                .replace(R.id.frame_container, fragment).commit();
+                    }else {
+                        new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                                .setCancelable(false)
+                                .setMessage("No Record Found.")
+                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .show();
+                    }
                 } else if (position == 2) {
                     fragment = new TimeTableFragment();
                     fragmentManager = getFragmentManager();
@@ -205,11 +216,24 @@ public class HomeFragment extends Fragment {
                             .replace(R.id.frame_container, fragment).commit();
 
                 } else if (position == 3) {
-                    fragment = new AttendanceFragment();
-                    fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(0, 0)
-                            .replace(R.id.frame_container, fragment).commit();
+                    if (userProfileModels.get(0).getGetclassDetailsArrayList().size() > 0) {
+                        fragment = new AttendanceFragment();
+                        fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(0, 0)
+                                .replace(R.id.frame_container, fragment).commit();
+                    } else {
+                        new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                                .setCancelable(false)
+                                .setMessage("No Record Found.")
+                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .show();
+                    }
+
                 } else if (position == 4) {
                     fragment = new LessonPlanFragment();
                     fragmentManager = getFragmentManager();
