@@ -1,15 +1,11 @@
 package com.anandniketan.skool360teacher.Fragment;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +14,8 @@ import android.widget.Button;
 
 import com.anandniketan.skool360teacher.Activities.DashBoardActivity;
 import com.anandniketan.skool360teacher.Adapter.Pager;
-import com.anandniketan.skool360teacher.AsyncTasks.GetStaffAttendanceAsyncTask;
-import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.AppConfiguration;
-
-import java.util.ArrayList;
 
 public class AttendanceFragment extends Fragment {
     private View rootView;
@@ -91,7 +83,7 @@ public class AttendanceFragment extends Fragment {
         for (int i = 0; i < AppConfiguration.rows.size(); i++) {
             Log.d("size", "" + AppConfiguration.rows.size());
 
-            OneFragment fView = new OneFragment(i, AppConfiguration.rows.get(i).getClassID(), AppConfiguration.rows.get(i).getStandardID());
+            OneFragmentAtt fView = new OneFragmentAtt(i, AppConfiguration.rows.get(i).getClassID(), AppConfiguration.rows.get(i).getStandardID());
             View view = fView.getView();
 //            AppConfiguration.stdid = AppConfiguration.rows.get(0).getStandardID();
 //            AppConfiguration.clsid = AppConfiguration.rows.get(0).getClassID();

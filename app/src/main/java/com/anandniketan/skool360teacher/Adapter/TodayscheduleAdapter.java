@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.Models.TeacherTodayScheduleModel;
 import com.anandniketan.skool360teacher.R;
 

@@ -2,24 +2,17 @@ package com.anandniketan.skool360teacher.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.IdRes;
-import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
+import com.anandniketan.skool360teacher.Models.Attendance.StaffNewAttendenceModel;
+import com.anandniketan.skool360teacher.Models.Attendance.StudentDetailAttedance;
 import com.anandniketan.skool360teacher.R;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -29,29 +22,21 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by admsandroid on 9/19/2017.
+ * Created by admsandroid on 11/8/2017.
  */
 
-public class AttendanceAdapter extends BaseAdapter {
+public class AttendanceListAdapter extends BaseAdapter {
     private Context mContext;
-
-    private List<StaffAttendanceModel.AttendanceDetails.StudentDetails> _rowchild;
-    private ArrayList<StaffAttendanceModel> staffattendaceModel = new ArrayList<>();
+    private StaffNewAttendenceModel staffNewAttendenceModel;
     ImageLoader imageLoader;
-    boolean[] itemChecked;
-    boolean chkvalue = false;
 
     // Constructor
-    public AttendanceAdapter(Context c, ArrayList<StaffAttendanceModel> staffattendaceModel) {
+    public AttendanceListAdapter(Context c, StaffNewAttendenceModel staffNewAttendenceModel) {
         mContext = c;
-        this.staffattendaceModel = staffattendaceModel;
+        this.staffNewAttendenceModel = staffNewAttendenceModel;
 
     }
 
@@ -65,12 +50,12 @@ public class AttendanceAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().size();
+        return staffNewAttendenceModel.getFinalArray().get(0).getStudentDetail().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return staffattendaceModel.get(position);
+        return staffNewAttendenceModel.getFinalArray().get(0).getStudentDetail().get(position);
     }
 
     @Override
@@ -95,6 +80,8 @@ public class AttendanceAdapter extends BaseAdapter {
 
             imageLoader = ImageLoader.getInstance();
 
+
+            final StudentDetailAttedance detail = staffNewAttendenceModel.getFinalArray().get(0).getStudentDetail().get(position);
             try {
 
                 DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -112,14 +99,14 @@ public class AttendanceAdapter extends BaseAdapter {
                         .tasksProcessingOrder(QueueProcessingType.LIFO)// .enableLogging()
                         .build();
                 imageLoader.init(config.createDefault(mContext));
-                imageLoader.displayImage(staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getStudentImage(), viewHolder.profile_image);
-                viewHolder.student_name_txt.setText(staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getStudentName().trim());
+                imageLoader.displayImage(detail.getStudentImage(), viewHolder.profile_image);
+                viewHolder.student_name_txt.setText(detail.getStudentName().trim());
 
                 viewHolder.present_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (b == true) {
-                            staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("1");
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (isChecked) {
+                            detail.setAttendenceStatus("1");
                             viewHolder.absent_chk.setChecked(false);
                             viewHolder.leave_chk.setChecked(false);
                         }
@@ -127,9 +114,9 @@ public class AttendanceAdapter extends BaseAdapter {
                 });
                 viewHolder.absent_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (b == true) {
-                            staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("0");
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if (isChecked) {
+                            detail.setAttendenceStatus("0");
                             viewHolder.present_chk.setChecked(false);
                             viewHolder.leave_chk.setChecked(false);
                         }
@@ -137,10 +124,10 @@ public class AttendanceAdapter extends BaseAdapter {
                 });
                 viewHolder.leave_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
-                        if (b == true) {
-                            staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).setAttendenceStatus("-1");
+                        if (isChecked) {
+                            detail.setAttendenceStatus("-1");
                             viewHolder.absent_chk.setChecked(false);
                             viewHolder.present_chk.setChecked(false);
                         }
@@ -150,7 +137,7 @@ public class AttendanceAdapter extends BaseAdapter {
                 viewHolder.absent_chk.setChecked(false);
                 viewHolder.present_chk.setChecked(false);
                 viewHolder.leave_chk.setChecked(false);
-                switch (Integer.parseInt(staffattendaceModel.get(0).getAttendanceList().get(0).getStudentList().get(position).getAttendenceStatus())) {
+                switch (Integer.parseInt(detail.getAttendenceStatus())) {
                     case 0:
                         viewHolder.absent_chk.setChecked(true);
                         break;
@@ -170,16 +157,11 @@ public class AttendanceAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
             convertView.setTag(viewHolder);
-        }else {
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         return convertView;
     }
-
-    public ArrayList<StaffAttendanceModel> getData() {
-        return staffattendaceModel;
-    }
-
-
 }
+
 

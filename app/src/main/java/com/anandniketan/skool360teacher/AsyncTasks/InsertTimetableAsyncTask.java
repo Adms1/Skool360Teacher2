@@ -2,8 +2,6 @@ package com.anandniketan.skool360teacher.AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.anandniketan.skool360teacher.Models.DeleteLectureModel;
-import com.anandniketan.skool360teacher.Models.InsertAttendanceModel;
 import com.anandniketan.skool360teacher.Models.InsertLectureModel;
 import com.anandniketan.skool360teacher.Utility.AppConfiguration;
 import com.anandniketan.skool360teacher.WebServicesCall.WebServicesCall;

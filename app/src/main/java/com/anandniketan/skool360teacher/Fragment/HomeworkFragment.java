@@ -32,10 +32,16 @@ import com.anandniketan.skool360teacher.Adapter.ExpandableListAdapterHomeWork;
 import com.anandniketan.skool360teacher.Adapter.HomeWorkStatusListAdapter;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherLessonPlanAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.GetTeacherLessonPlanScheduledHomeworkAsyncTask;
+import com.anandniketan.skool360teacher.AsyncTasks.InsertTimetableAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherGetClassSubjectWiseStudentAsyncTask;
 import com.anandniketan.skool360teacher.AsyncTasks.TeacherStudentHomeworkStatusAsynctask;
+import com.anandniketan.skool360teacher.AsyncTasks.TeacherStudentHomeworkStatusInsertUpdateAsyncTask;
 import com.anandniketan.skool360teacher.Interfacess.onStudentHomeWorkStatus;
+import com.anandniketan.skool360teacher.Models.FinalArrayhomeworkstatus;
 import com.anandniketan.skool360teacher.Models.HomeworkModel;
+import com.anandniketan.skool360teacher.Models.HomeworkStatusInsertUpdateModel;
+import com.anandniketan.skool360teacher.Models.StudentAssignSubjectResponse.FinalArrayStudentSubject;
+import com.anandniketan.skool360teacher.Models.StudentAssignSubjectResponse.StudentSubject;
 import com.anandniketan.skool360teacher.Models.TeacherStudentHomeworkStatusModel;
 import com.anandniketan.skool360teacher.R;
 import com.anandniketan.skool360teacher.Utility.Utility;
@@ -44,6 +50,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,11 +87,18 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
     private LinearLayout header_linear;
     private ListView student_homework_status_list;
     private TextView txtNoRecordshomeworkstatus;
+
     //use for fillstudentlist listview
-    TeacherStudentHomeworkStatusAsynctask teacherStudentHomeworkStatusAsynctask = null;
+    private TeacherStudentHomeworkStatusAsynctask teacherStudentHomeworkStatusAsynctask = null;
     TeacherStudentHomeworkStatusModel teacherStudentHomeworkStatusResponse;
     HomeWorkStatusListAdapter homeWorkStatusListAdapter = null;
     String DateStr, TermIdStr, StandardIdStr, ClassIdStr, SubjectIdStr, spiltStr;
+
+    //use for inserthomeworkstatus
+    private TeacherStudentHomeworkStatusInsertUpdateAsyncTask teacherStudentHomeworkStatusInsertUpdateAsyncTask = null;
+    HomeworkStatusInsertUpdateModel homeworkStatusInsertUpdateModelResponse;
+    String homeworkIdstr;
+    String homeworkdetailidstr = "";
 
     public HomeworkFragment() {
     }
@@ -388,7 +402,7 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
         alertDialogAndroid.setCancelable(false);
         alertDialogAndroid.show();
         Window window = alertDialogAndroid.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         WindowManager.LayoutParams wlp = window.getAttributes();
 
         wlp.gravity = Gravity.CENTER_HORIZONTAL;
@@ -403,33 +417,23 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
         txtNoRecordshomeworkstatus = (TextView) layout.findViewById(R.id.txtNoRecordshomeworkstatus);
 
         getStudentHomeworkStatus();
-
-        if(teacherStudentHomeworkStatusResponse.getFinalArray().get(0).getHomeWorkStatus().equalsIgnoreCase("-1")){
-            insert_homework_status_img.setImageResource(R.drawable.submit);
-        }else {
-            insert_homework_status_img.setImageResource(R.drawable.update_1);
-        }
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialogAndroid.dismiss();
             }
         });
+        insert_homework_status_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getInserthomeworkstatus();
+            }
+        });
     }
 
     public void getStudentHomeworkStatus() {
-        String date;
+
         DateStr = listAdapter.getDate().toString();
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-//        SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
-//        Date d = null;
-//        try {
-//            d = sdf.parse(date);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        DateStr = output.format(d);
-//        Log.d("date", DateStr);
         ArrayList<String> arrayList = listAdapter.getAllId();
 
         for (int i = 0; i < arrayList.size(); i++) {
@@ -437,10 +441,10 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
         }
         String[] splitValue = spiltStr.split("\\|");
 
-        TermIdStr = splitValue[0];
-        StandardIdStr = splitValue[1];
-        ClassIdStr = splitValue[2];
-        SubjectIdStr = splitValue[3];
+        StandardIdStr = splitValue[0];
+        ClassIdStr = splitValue[1];
+        SubjectIdStr = splitValue[2];
+        TermIdStr = splitValue[3];
         Log.d("value", TermIdStr + "" + StandardIdStr + "" + ClassIdStr + "" + SubjectIdStr);
 
 
@@ -457,7 +461,7 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("TermID", TermIdStr);
                         params.put("Date", DateStr);
-                        params.put("StandardID", StandardIdStr);
+                        params.put("StandardID", StandardIdStr);//StandardIdStr
                         params.put("ClassID", ClassIdStr);
                         params.put("SubjectID", SubjectIdStr);
 
@@ -467,19 +471,34 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (teacherStudentHomeworkStatusResponse.getFinalArray().size() > 0) {
-                                    header_linear.setVisibility(View.VISIBLE);
-                                    txtNoRecordshomeworkstatus.setVisibility(View.GONE);
-                                    insert_homework_status_img.setVisibility(View.VISIBLE);
-                                    homeWorkStatusListAdapter = new HomeWorkStatusListAdapter(getActivity(), teacherStudentHomeworkStatusResponse);
-                                    student_homework_status_list.setAdapter(homeWorkStatusListAdapter);
-                                    student_homework_status_list.deferNotifyDataSetChanged();
+                                if (teacherStudentHomeworkStatusResponse.getSuccess().equalsIgnoreCase("True")) {
+                                    if (teacherStudentHomeworkStatusResponse.getFinalArray().size() > 0) {
+                                        if (teacherStudentHomeworkStatusResponse.getFinalArray().get(0).getHomeWorkStatus().equalsIgnoreCase("-1")) {
+                                            insert_homework_status_img.setImageResource(R.drawable.submit);
+                                        } else {
+                                            insert_homework_status_img.setImageResource(R.drawable.update_1);
+                                        }
+                                        header_linear.setVisibility(View.VISIBLE);
+                                        student_homework_status_list.setVisibility(View.VISIBLE);
+                                        txtNoRecordshomeworkstatus.setVisibility(View.GONE);
+                                        insert_homework_status_img.setVisibility(View.VISIBLE);
+                                        changestatus();
+                                        homeWorkStatusListAdapter = new HomeWorkStatusListAdapter(getActivity(), teacherStudentHomeworkStatusResponse);
+                                        student_homework_status_list.setAdapter(homeWorkStatusListAdapter);
+                                        student_homework_status_list.deferNotifyDataSetChanged();
+                                    } else {
+                                        progressDialog.dismiss();
+                                        header_linear.setVisibility(View.GONE);
+                                        student_homework_status_list.setVisibility(View.GONE);
+                                        txtNoRecordshomeworkstatus.setVisibility(View.VISIBLE);
+                                        insert_homework_status_img.setVisibility(View.GONE);
+                                    }
                                 } else {
-                                    progressDialog.dismiss();
                                     header_linear.setVisibility(View.GONE);
                                     txtNoRecordshomeworkstatus.setVisibility(View.VISIBLE);
                                     insert_homework_status_img.setVisibility(View.GONE);
                                 }
+
                             }
                         });
                     } catch (Exception e) {
@@ -493,4 +512,80 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
         }
     }
 
+    public void changestatus() {
+        for (int i = 0; i < teacherStudentHomeworkStatusResponse.getFinalArray().size(); i++) {
+            if (teacherStudentHomeworkStatusResponse.getFinalArray().get(i).getHomeWorkStatus().equalsIgnoreCase("-1")) {
+                teacherStudentHomeworkStatusResponse.getFinalArray().get(i).setHomeWorkStatus("1");
+            }
+        }
+    }
+
+    public void getInserthomeworkstatus() {
+        ArrayList<String> newArray = new ArrayList<>();
+        boolean isEnable = false;
+        String studentString = "";
+        for (int j = 0; j < teacherStudentHomeworkStatusResponse.getFinalArray().size(); j++) {
+            homeworkIdstr = teacherStudentHomeworkStatusResponse.getFinalArray().get(0).getHomeWorkID();
+            if (!isEnable) {
+                studentString = String.valueOf(teacherStudentHomeworkStatusResponse.getFinalArray().get(j).getHomeWorkDetailID()) + ","
+                        + teacherStudentHomeworkStatusResponse.getFinalArray().get(j).getStudentID() + "," +
+                        teacherStudentHomeworkStatusResponse.getFinalArray().get(j).getHomeWorkStatus();
+                isEnable = true;
+            } else {
+                studentString = studentString + "|" + String.valueOf(teacherStudentHomeworkStatusResponse.getFinalArray().get(j).getHomeWorkDetailID()) + ","
+                        + teacherStudentHomeworkStatusResponse.getFinalArray().get(j).getStudentID() + "," +
+                        teacherStudentHomeworkStatusResponse.getFinalArray().get(j).getHomeWorkStatus();
+            }
+        }
+        newArray.add(studentString);
+        homeworkdetailidstr = "";
+        for (String s : newArray) {
+            homeworkdetailidstr = homeworkdetailidstr + "," + s;
+        }
+        homeworkdetailidstr = homeworkdetailidstr.substring(1, homeworkdetailidstr.length());
+
+        Log.d("homeworkdetailidstr", "" + homeworkdetailidstr);
+
+        progressDialog = new ProgressDialog(mContext);
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        if (Utility.isNetworkConnected(mContext)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+                        params.put("HomeWorkID", homeworkIdstr);
+                        params.put("HomeWorkDetailID", homeworkdetailidstr);
+                        params.put("StandardID", StandardIdStr);
+                        params.put("ClassID", ClassIdStr);
+                        params.put("SubjectID", SubjectIdStr);
+                        params.put("Date", DateStr);
+
+                        teacherStudentHomeworkStatusInsertUpdateAsyncTask = new TeacherStudentHomeworkStatusInsertUpdateAsyncTask(params);
+                        homeworkStatusInsertUpdateModelResponse = teacherStudentHomeworkStatusInsertUpdateAsyncTask.execute().get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (homeworkStatusInsertUpdateModelResponse.getFinalArray().size() >= 0) {
+                                    Utility.ping(mContext, "Save Succesfully");
+                                    alertDialogAndroid.dismiss();
+//                                    getHomeworkData(fromDate.getText().toString(), toDate.getText().toString());
+                                } else {
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            Utility.ping(mContext, "Network not available");
+        }
+    }
 }

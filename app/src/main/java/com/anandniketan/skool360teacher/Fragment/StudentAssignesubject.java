@@ -260,7 +260,7 @@ public class StudentAssignesubject extends Fragment implements CompoundButton.On
             int stuId = studentInfoObj.getStudentID();
             int subjectCount = studentInfoObj.getStudentSubject().size();
             boolean isEnable = false;
-            String studentString = "";
+                String studentString = "";
             for (int j = 0; j < subjectCount; j++) {
                 StudentSubject subObj = studentInfoObj.getStudentSubject().get(j);
                 String status = subObj.getCheckedStatus();

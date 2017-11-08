@@ -8,27 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.Models.FinalArrayhomeworkstatus;
-import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
-import com.anandniketan.skool360teacher.Models.StudentAssignSubjectResponse.StudentSubject;
-import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
 import com.anandniketan.skool360teacher.Models.TeacherStudentHomeworkStatusModel;
 import com.anandniketan.skool360teacher.R;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by admsandroid on 11/7/2017.
@@ -36,30 +20,28 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeWorkStatusListAdapter extends BaseAdapter {
     private Context mContext;
-    private TeacherStudentHomeworkStatusModel teacherStudentHomeworkStatusModel;
+    private TeacherStudentHomeworkStatusModel studentsubjectarrayList;
 
     // Constructor
-    public HomeWorkStatusListAdapter(Context c, TeacherStudentHomeworkStatusModel teacherStudentHomeworkStatusResponse) {
+    public HomeWorkStatusListAdapter(Context c, TeacherStudentHomeworkStatusModel studentsubjectarrayList) {
         mContext = c;
-        this.teacherStudentHomeworkStatusModel = teacherStudentHomeworkStatusModel;
+        this.studentsubjectarrayList = studentsubjectarrayList;
 
     }
 
     private class ViewHolder {
-        private TextView homework_status_student_name_txt;
-        private CheckBox done_chk, pendding_chk;
-
-
+        TextView homework_status_student_name_txt;
+        CheckBox done_chk, pendding_chk;
     }
 
     @Override
     public int getCount() {
-        return teacherStudentHomeworkStatusModel.getFinalArray().size();
+        return studentsubjectarrayList.getFinalArray().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return teacherStudentHomeworkStatusModel.getFinalArray().get(position);
+        return studentsubjectarrayList.getFinalArray().get(position);
     }
 
     @Override
@@ -76,15 +58,33 @@ public class HomeWorkStatusListAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.list_adapter_item, null);
-
             viewHolder.homework_status_student_name_txt = (TextView) convertView.findViewById(R.id.homework_status_student_name_txt);
             viewHolder.done_chk = (CheckBox) convertView.findViewById(R.id.done_chk);
             viewHolder.pendding_chk = (CheckBox) convertView.findViewById(R.id.pendding_chk);
 
-            final FinalArrayhomeworkstatus subjObj = teacherStudentHomeworkStatusModel.getFinalArray().get(position);
-            try {
+            final FinalArrayhomeworkstatus subjObj = studentsubjectarrayList.getFinalArray().get(position);
 
+            try {
                 viewHolder.homework_status_student_name_txt.setText(subjObj.getStudentName());
+
+                viewHolder.done_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            subjObj.setHomeWorkStatus("1");
+                            viewHolder.pendding_chk.setChecked(false);
+                        }
+                    }
+                });
+                viewHolder.pendding_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            subjObj.setHomeWorkStatus("0");
+                            viewHolder.done_chk.setChecked(false);
+                        }
+                    }
+                });
                 switch (Integer.parseInt(subjObj.getHomeWorkStatus())) {
                     case 0:
                         viewHolder.pendding_chk.setChecked(true);
@@ -94,10 +94,9 @@ public class HomeWorkStatusListAdapter extends BaseAdapter {
                         break;
                     case -1:
                         viewHolder.done_chk.setChecked(true);
-                        viewHolder.done_chk.setClickable(false);
+                        break;
                     default:
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -107,7 +106,6 @@ public class HomeWorkStatusListAdapter extends BaseAdapter {
         }
         return convertView;
     }
-
 
 }
 

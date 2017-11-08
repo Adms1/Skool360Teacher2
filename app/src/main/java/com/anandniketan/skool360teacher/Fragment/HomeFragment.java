@@ -161,14 +161,14 @@ public class HomeFragment extends Fragment {
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Utility.setPref(mContext, "StaffID", "");
-                                Utility.setPref(mContext, "Emp_Code","");
-                                Utility.setPref(mContext, "Emp_Name","");
-                                Utility.setPref(mContext, "DepratmentID","");
-                                Utility.setPref(mContext, "DesignationID","");
-                                Utility.setPref(mContext, "DeviceId","");
-                                Utility.setPref(mContext, "unm","");
+                                Utility.setPref(mContext, "Emp_Code", "");
+                                Utility.setPref(mContext, "Emp_Name", "");
+                                Utility.setPref(mContext, "DepratmentID", "");
+                                Utility.setPref(mContext, "DesignationID", "");
+                                Utility.setPref(mContext, "DeviceId", "");
+                                Utility.setPref(mContext, "unm", "");
                                 Utility.setPref(mContext, "pwd", "");
-                                Intent i = new Intent(getActivity(),LoginActivity.class);
+                                Intent i = new Intent(getActivity(), LoginActivity.class);
                                 getActivity().startActivity(i);
                             }
                         })
@@ -339,7 +339,7 @@ public class HomeFragment extends Fragment {
             imageLoader.displayImage(userProfileModels.get(0).getImage(), profile_image);
         }
 
-        student_name_txt.setText(userProfileModels.get(0).getEmp_Name());
+        student_name_txt.setText(userProfileModels.get(0).getEmp_Name() + "(" + userProfileModels.get(0).getEmp_Code() + ")");
         student_classname_txt.setText(userProfileModels.get(0).getDesignation());
         for (int i = 0; i < userProfileModels.get(0).getGetclassDetailsArrayList().size(); i++) {
             AppConfiguration.rows.add(userProfileModels.get(0).getGetclassDetailsArrayList().get(i));

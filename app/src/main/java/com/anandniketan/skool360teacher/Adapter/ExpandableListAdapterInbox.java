@@ -1,6 +1,5 @@
 package com.anandniketan.skool360teacher.Adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -12,12 +11,9 @@ import android.widget.TextView;
 
 import com.anandniketan.skool360teacher.AsyncTasks.PTMTeacherStudentInsertDetailAsyncTask;
 import com.anandniketan.skool360teacher.Interfacess.onInboxRead;
-import com.anandniketan.skool360teacher.Models.HomeworkModel;
 import com.anandniketan.skool360teacher.Models.MainPtmSentMessageResponse;
 import com.anandniketan.skool360teacher.Models.PTMInboxResponse.FinalArrayInbox;
-import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.R;
-import com.anandniketan.skool360teacher.Utility.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,10 +1,8 @@
 package com.anandniketan.skool360teacher.Utility;
 
 import com.anandniketan.skool360teacher.Models.HomeworkModel;
-import com.anandniketan.skool360teacher.Models.InsertAttendanceModel;
 import com.anandniketan.skool360teacher.Models.LessonPlanModel;
 import com.anandniketan.skool360teacher.Models.LoginModel;
-import com.anandniketan.skool360teacher.Models.StaffAttendanceModel;
 import com.anandniketan.skool360teacher.Models.TeacherAssignedSubjectModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetAssignStudentSubjectmModel;
 import com.anandniketan.skool360teacher.Models.TeacherGetTestMarksModel;
@@ -127,90 +125,6 @@ public class ParseJSON {
         return result;
     }
 
-    public static ArrayList<StaffAttendanceModel> parseStaffAttendanceJson(String responseString) {
-        ArrayList<StaffAttendanceModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            StaffAttendanceModel staffAttendanceModel = new StaffAttendanceModel();
-
-            if (data_load_basket.toString().equals("True")) {
-                staffAttendanceModel.setDate(reader.getString("Date"));
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                StaffAttendanceModel.AttendanceDetails attendanceDetails = null;
-                ArrayList<StaffAttendanceModel.AttendanceDetails> attendanceDetailses = new ArrayList<>();
-                for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    attendanceDetails = staffAttendanceModel.new AttendanceDetails();
-                    attendanceDetails.setStandardID(jsonChildNode.getString("StandardID"));
-                    attendanceDetails.setClassID(jsonChildNode.getString("ClassID"));
-                    attendanceDetails.setTotal(jsonChildNode.getString("Total"));
-                    attendanceDetails.setTotalAbsent(jsonChildNode.getString("TotalAbsent"));
-                    attendanceDetails.setTotalPresent(jsonChildNode.getString("TotalPresent"));
-                    attendanceDetails.setTotalLeave(jsonChildNode.getString("TotalLeave"));
-
-                    JSONArray jsonMainNode1 = jsonChildNode.optJSONArray("StudentDetail");
-                    StaffAttendanceModel.AttendanceDetails.StudentDetails studentDetailsData = null;
-                    ArrayList<StaffAttendanceModel.AttendanceDetails.StudentDetails> studentDetailsDatas = new ArrayList<>();
-                    for (int j = 0; j < jsonMainNode1.length(); j++) {
-                        JSONObject jsonChildNode1 = jsonMainNode1.getJSONObject(j);
-                        studentDetailsData = attendanceDetails.new StudentDetails();
-                        studentDetailsData.setStudentID(jsonChildNode1.getString("StudentID"));
-                        studentDetailsData.setStudentName(jsonChildNode1.getString("StudentName"));
-                        studentDetailsData.setStudentImage(jsonChildNode1.getString("StudentImage"));
-                        studentDetailsData.setAttendanceID(jsonChildNode1.getString("AttendanceID"));
-                        studentDetailsData.setAttendenceStatus(jsonChildNode1.getString("AttendenceStatus"));
-                        studentDetailsData.setComment(jsonChildNode1.getString("Comment"));
-
-                        studentDetailsDatas.add(studentDetailsData);
-                    }
-                    attendanceDetails.setStudentList(studentDetailsDatas);
-                    attendanceDetailses.add(attendanceDetails);
-                }
-                staffAttendanceModel.setAttendanceList(attendanceDetailses);
-                result.add(staffAttendanceModel);
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-    public static ArrayList<InsertAttendanceModel> parseInsertAttendanceJson(String responseString) {
-        ArrayList<InsertAttendanceModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            InsertAttendanceModel insertAttendanceModel = null;
-
-            if (data_load_basket.toString().equals("True")) {
-
-
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                for (int a = 0; a < jsonMainNode.length(); a++) {
-                    insertAttendanceModel = new InsertAttendanceModel();
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
-
-//                    result.add();
-                }
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
 
     public static ArrayList<TeacherTodayScheduleModel> parseTeacherTodayscheduleJson(String responseString) {
         ArrayList<TeacherTodayScheduleModel> result = new ArrayList<>();
