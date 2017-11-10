@@ -8,39 +8,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="1dp"
-        android:visibility="visible">
+        android:paddingBottom="@dimen/_1sdp"
+        android:visibility="visible"
+        android:background="@drawable/list_line">
 
         <TextView
-            android:layout_width="49dp"
+            android:layout_width="@dimen/_45sdp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="225dp"
+            android:layout_marginLeft="@dimen/_170sdp"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:text="P"
-            android:textSize="18dp"
+            android:textSize="@dimen/_11sdp"
             android:textColor="@color/present_header"
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="41dp"
+            android:layout_width="@dimen/_30sdp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/_1sdp"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="@dimen/_5sdp"
             android:text="A"
-            android:textSize="18dp"
+            android:textSize="@dimen/_11sdp"
             android:textColor="@color/absent_header"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="39dp"
+            android:layout_width="@dimen/_39sdp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/_3sdp"
             android:gravity="center"
-            android:padding="5dp"
-            android:textSize="18dp"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_11sdp"
             android:text="L"
             android:textColor="@color/orange"
             android:textStyle="bold" />

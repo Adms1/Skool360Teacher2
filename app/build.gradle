@@ -4,7 +4,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "com.anandniketan.skool360teacher"
+        applicationId "com.anandniketan.anandniketanskool360shilajteacher"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
@@ -48,10 +48,9 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.3.0'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.wdullaer:materialdatetimepicker:2.3.0'
-    compile 'com.github.markushi:circlebutton:1.1'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'com.google.android.gms:play-services-location:8.4.0'
-    compile 'com.github.barteksc:android-pdf-viewer:2.0.3'
+    compile 'com.intuit.sdp:sdp-android:1.0.4'
     testCompile 'junit:junit:4.12'
 }

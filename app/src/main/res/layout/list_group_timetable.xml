@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:layout_margin="@dimen/_10sdp"
     android:background="@drawable/shadow_box"
-    android:padding="15dp"
-    android:layout_margin="10dp">
+    android:orientation="horizontal"
+    android:padding="@dimen/_10sdp">
 
     <TextView
         android:id="@+id/lblListHeader"
@@ -16,6 +16,6 @@
         android:text="Monday"
         android:textAlignment="textStart"
         android:textColor="@color/orange"
-        android:textSize="15dp"/>
+        android:textSize="@dimen/_10sdp" />
 
 </LinearLayout>

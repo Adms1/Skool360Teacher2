@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:singleLine="false"
         android:gravity="center"
-        android:textSize="12sp"
+        android:textSize="@dimen/_10sdp"
         android:textColor="@color/design_change_d2"
         android:textStyle="normal"
         android:text="Appointment Request"/>

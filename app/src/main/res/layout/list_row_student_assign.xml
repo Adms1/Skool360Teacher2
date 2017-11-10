@@ -15,20 +15,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            android:paddingTop="@dimen/_5sdp"
             android:text="Megha Shah"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="normal" />
     </LinearLayout>
 
     <GridView
         android:id="@+id/subject_grid_view"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="@dimen/_120sdp"
         android:layout_below="@+id/student_linear"
         android:numColumns="3"
         android:scrollbars="none" />

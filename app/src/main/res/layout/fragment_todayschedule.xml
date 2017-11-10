@@ -7,17 +7,17 @@
     android:layout_height="match_parent"
     android:background="@color/bg_color"
     android:orientation="vertical"
-    android:paddingTop="5dp"
+    android:paddingTop="@dimen/_5sdp"
     android:weightSum="1">
 
     <TextView
         android:id="@+id/txtNoRecords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:gravity="center"
         android:text="No Records Found..."
-        android:textSize="14dp"
+        android:textSize="@dimen/_11sdp"
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="bold"
         android:visibility="gone" />
