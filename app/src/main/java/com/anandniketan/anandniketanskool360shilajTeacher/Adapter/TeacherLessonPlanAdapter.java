@@ -122,7 +122,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter{
 //                            Utility.ping(mContext, "notpresent");
 
                             File cDir = mContext.getExternalFilesDir(null);
-                            saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + currentTime + "Code.pdf"));
+                            saveFilePath = String.valueOf(new File(cDir.getPath() + "/"+ currentTime + "Code.pdf"));
                             Log.d("path", saveFilePath);
                         }
 //

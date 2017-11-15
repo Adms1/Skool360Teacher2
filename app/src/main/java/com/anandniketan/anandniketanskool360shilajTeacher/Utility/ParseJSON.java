@@ -44,6 +44,7 @@ public class ParseJSON {
                     loginModel.setDeviceId(jsonChildNode.getString("DeviceId"));
                     loginModel.setDesignationID(jsonChildNode.getString("DesignationID"));
                     loginModel.setDepratmentID(jsonChildNode.getString("DepratmentID"));
+                    loginModel.setType(jsonChildNode.getString("Type"));
 
                     LoginModel.ClassDetail data = null;
                     ArrayList<LoginModel.ClassDetail> dataArrayList = new ArrayList<>();

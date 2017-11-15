@@ -2,6 +2,8 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivity;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.TeacherLessonPlanAdapter;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherLessonPlanAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanResponse.FinalArrayLesson;
@@ -48,7 +51,7 @@ public class LessonPlanFragment extends Fragment {
     private LinearLayout header_linear;
     private TextView txtNoRecordslessonplan;
     private Spinner class_spinner;
-    private Button btnBacktest_lessonplan;
+    private Button btnBacktest_lessonplan,btnLogout;
     private ArrayList<LessonDatum> arrayList;
     MainResponseLesson responseLesson;
 
@@ -73,9 +76,43 @@ public class LessonPlanFragment extends Fragment {
         lesson_list = (ListView) rootView.findViewById(R.id.lesson_list);
         class_spinner = (Spinner) rootView.findViewById(R.id.class_spinner);
         btnBacktest_lessonplan = (Button) rootView.findViewById(R.id.btnBacktest_lessonplan);
+        btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
     }
 
     public void setListner() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                        .setCancelable(false)
+                        .setTitle("Logout")
+                        .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                        .setMessage("Are you sure you want to logout? ")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utility.setPref(mContext, "StaffID", "");
+                                Utility.setPref(mContext, "Emp_Code", "");
+                                Utility.setPref(mContext, "Emp_Name", "");
+                                Utility.setPref(mContext, "DepratmentID", "");
+                                Utility.setPref(mContext, "DesignationID", "");
+                                Utility.setPref(mContext, "DeviceId", "");
+                                Utility.setPref(mContext, "unm", "");
+                                Utility.setPref(mContext, "pwd", "");
+                                Utility.setPref(mContext, "LoginType", "");
+
+                                Intent i = new Intent(getActivity(), LoginActivity.class);
+                                getActivity().startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.ic_launcher)
+                        .show();
+            }
+        });
         btnBacktest_lessonplan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

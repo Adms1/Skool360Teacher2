@@ -15,6 +15,7 @@ public class LoginModel {
     private String DesignationID;
     private String DeviceId;
     private ArrayList<ClassDetail> getGetclassDetailsArrayList;
+    private String Type;
 
     public LoginModel() {
     }
@@ -73,6 +74,14 @@ public class LoginModel {
 
     public void setGetGetclassDetailsArrayList(ArrayList<ClassDetail> getGetclassDetailsArrayList) {
         this.getGetclassDetailsArrayList = getGetclassDetailsArrayList;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
     }
 
     public class ClassDetail {

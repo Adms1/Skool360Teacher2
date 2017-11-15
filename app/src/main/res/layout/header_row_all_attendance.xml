@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_line"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_1sdp"
+        android:visibility="visible"
+        android:weightSum="4">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1.3"
+            android:padding="@dimen/_5sdp"
+            android:text="Student Name"
+            android:textColor="@color/scheduleheadertextcolor"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1.5"
+            android:padding="@dimen/_5sdp"
+            android:text="Status"
+            android:textColor="@color/scheduleheadertextcolor"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1.2"
+            android:padding="@dimen/_5sdp"
+            android:text="Remark"
+            android:textColor="@color/scheduleheadertextcolor"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>

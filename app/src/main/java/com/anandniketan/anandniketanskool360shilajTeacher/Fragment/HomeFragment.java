@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         initViews();
         setListners();
         if (Utility.isNetworkConnected(mContext)) {
-           getVersionUpdateInfo();
+            getVersionUpdateInfo();
 //            getUserProfile();
         } else {
             Utility.ping(mContext, "Network not available");
@@ -164,6 +164,8 @@ public class HomeFragment extends Fragment {
                                 Utility.setPref(mContext, "DeviceId", "");
                                 Utility.setPref(mContext, "unm", "");
                                 Utility.setPref(mContext, "pwd", "");
+                                Utility.setPref(mContext, "LoginType", "");
+
                                 Intent i = new Intent(getActivity(), LoginActivity.class);
                                 getActivity().startActivity(i);
                             }
@@ -193,7 +195,7 @@ public class HomeFragment extends Fragment {
                         fragmentManager.beginTransaction()
                                 .setCustomAnimations(0, 0)
                                 .replace(R.id.frame_container, fragment).commit();
-                    }else {
+                    } else {
                         new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
                                 .setCancelable(false)
                                 .setMessage("No Record Found.")
@@ -423,6 +425,9 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    public void checkpermission() {
+
+    }
 
 }
 

@@ -33,8 +33,10 @@ public class AppConfiguration {
 
     //Local
     public static String DOMAIN_LOCAL = "";
-//        public static String DOMAIN_LIVE = "http://192.168.1.18:8085/MobileApp_Service.asmx/"; //use for only office
-    public static String DOMAIN_LIVE = "http://103.8.216.132/MobileApp_Service.asmx/"; //use for client
+    public static String DOMAIN_LIVE = "http://192.168.1.10:8085/MobileApp_Service.asmx/"; //use for only office
+//    public static String DOMAIN_LIVE = "http://103.204.192.187:8085/MobileApp_Service.asmx/";
+
+//    public static String DOMAIN_LIVE = "http://103.8.216.132/MobileApp_Service.asmx/"; //use for client
 
     public static String GetStaffLogin = "StaffLogin";
     public static String GetStaffAttendence = "StaffAttendence";
@@ -61,9 +63,14 @@ public class AppConfiguration {
     public static String DeleteTimetable = "DeleteTimetable";
     public static String TeacherStudentHomeworkStatus = "TeacherStudentHomeworkStatus";
     public static String TeacherStudentHomeworkStatusInsertUpdate = "TeacherStudentHomeworkStatusInsertUpdate";
+    public static String GetStandardSection = "GetStandardSection";
+    public static String GetAttendenceData_All = "GetAttendenceData_All";
+    public static String GetConsistentAb = "GetConsistentAb";
+    public static String InsertConsistentAbSMS="InsertConsistentAbSMS";
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();
     public static String stdid;
     public static String clsid;
+    public static String Logintype;
 
 }

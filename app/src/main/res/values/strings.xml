@@ -13,6 +13,7 @@
     <string name="present">Present :</string>
     <string name="absent">Absent :</string>
     <string name="leave">Leave :</string>
+    <string name="onduty">OnDuty :</string>
     <string name="student_name">Megha Shah</string>
     <string name="lecture">Lecture</string>
     <string name="timing">Timing</string>
@@ -44,6 +45,7 @@
     <string name="lessonchaptername">Chapter Name</string>
     <string name="lessonpdf">PDF</string>
     <string name="lessonword">WORD</string>
+    <string name="standardattendance">Standard :</string>
 
 
     <string-array name="menuoption1">

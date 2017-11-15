@@ -2,6 +2,8 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +25,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivity;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.ExpandableListAdapterHomeWork;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.HomeWorkStatusListAdapter;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherLessonPlanScheduledHomeworkAsyncTask;
@@ -44,7 +47,7 @@ import java.util.List;
 
 public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private View rootView;
-    private Button btnMenu, btnFilterHomework, btnBacktest_homework;
+    private Button btnMenu, btnFilterHomework, btnBacktest_homework, btnLogout;
     private static TextView fromDate, toDate;
     private TextView txtNoRecordshomework;
     private static String dateFinal;
@@ -109,6 +112,7 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
         lvExpHomework = (ExpandableListView) rootView.findViewById(R.id.lvExpHomework);
         date_rel = (RelativeLayout) rootView.findViewById(R.id.date_rel);
         homework_header = (LinearLayout) rootView.findViewById(R.id.homework_header);
+        btnLogout = (Button) rootView.findViewById(R.id.btnLogout);
 
         calendar = Calendar.getInstance();
         Year = calendar.get(Calendar.YEAR);
@@ -123,6 +127,39 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
     }
 
     public void setListners() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                        .setCancelable(false)
+                        .setTitle("Logout")
+                        .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                        .setMessage("Are you sure you want to logout? ")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utility.setPref(mContext, "StaffID", "");
+                                Utility.setPref(mContext, "Emp_Code", "");
+                                Utility.setPref(mContext, "Emp_Name", "");
+                                Utility.setPref(mContext, "DepratmentID", "");
+                                Utility.setPref(mContext, "DesignationID", "");
+                                Utility.setPref(mContext, "DeviceId", "");
+                                Utility.setPref(mContext, "unm", "");
+                                Utility.setPref(mContext, "pwd", "");
+                                Utility.setPref(mContext, "LoginType", "");
+
+                                Intent i = new Intent(getActivity(), LoginActivity.class);
+                                getActivity().startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.ic_launcher)
+                        .show();
+            }
+        });
         fromDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,6 +227,7 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
             }
         });
     }
+
     public void getHomeworkData(final String fromDate, final String toDate) {
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);

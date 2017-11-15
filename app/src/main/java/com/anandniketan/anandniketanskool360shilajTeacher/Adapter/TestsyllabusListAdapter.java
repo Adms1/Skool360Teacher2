@@ -72,6 +72,7 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
     int mMONTH;
     int mDAY;
     private ArrayList<String> editTestData = new ArrayList<String>();
+    private String editString = new String();
     private onEditTest onEditTest;
 
     // Constructor
@@ -163,7 +164,7 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
                         alertDialogAndroid.setCancelable(false);
                         alertDialogAndroid.show();
                         Window window = alertDialogAndroid.getWindow();
-                        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, 1100);
+                        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         WindowManager.LayoutParams wlp = window.getAttributes();
 
                         wlp.gravity = Gravity.CENTER;
@@ -203,15 +204,18 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
 
                                     View mView = listData.getChildAt(i);
                                     EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
-                                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
-                                        txtstr = txtstr + myEditText.getText().toString() + "|&";
-                                    }
+                                        if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
+                                            txtstr = txtstr + myEditText.getText().toString() + "|&";
+                                        }
                                 }
                                 text.add(txtstr);
                                 Log.d("join", "" + text.toString());
+                                String textstr = text.toString();
+                                Log.d("join", "" + textstr.toString());
+                                editString = textstr.toString();
                                 editTestData.add(test_syllabusModels.get(position).getTSMasterID() + "|" + test_syllabusModels.get(position).getTestID() + "|" +
                                         test_syllabusModels.get(position).getSubjectID() + "|" + test_syllabusModels.get(position).getSectionID() + "|" +
-                                        test_syllabusModels.get(position).getTestDate()+"|"+text);
+                                        test_syllabusModels.get(position).getTestDate());
                                 onEditTest.getEditTest();
 //                                if (Utility.isNetworkConnected(mContext)) {
 //                                    progressDialog = new ProgressDialog(mContext);
@@ -360,6 +364,10 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
 
     public ArrayList<String> getDataforEditTest() {
         return editTestData;
+    }
+
+    public String getEditStr() {
+        return editString;
     }
 }
 

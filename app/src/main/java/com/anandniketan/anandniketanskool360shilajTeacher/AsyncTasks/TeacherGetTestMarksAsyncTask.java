@@ -237,7 +237,6 @@ public class TeacherGetTestMarksAsyncTask extends AsyncTask<Void, Void,MainRespo
 //                    "]\n" +
 //                    "}";
             responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetTeacherGetTestMarks), param);
-//            response = ParseJSON.parseTeacherGetTestMarksJson(responseString);
             Gson gson = new Gson();
             response = gson.fromJson(responseString, MainResponse.class);
         } catch (Exception e) {

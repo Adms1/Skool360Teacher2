@@ -60,6 +60,7 @@ public class My_subjectFragment extends Fragment {
     }
 
     public void setListner() {
+
     }
 
     public void setUserVisibleHint(boolean isVisibleToUser) {

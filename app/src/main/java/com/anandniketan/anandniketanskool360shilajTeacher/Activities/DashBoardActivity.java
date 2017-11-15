@@ -24,10 +24,12 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.MenuoptionItem
 import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.AttendanceFragment;
 import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.HomeFragment;
 import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.HomeworkFragment;
+import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.OtherLoginHomeFragment;
 import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.SubjectFragment;
 import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.TimeTableFragment;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.MenuoptionItemModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 
 import java.util.ArrayList;
@@ -55,7 +57,12 @@ public class DashBoardActivity extends FragmentActivity {
         setContentView(R.layout.activity_dash_board);
         mContext = this;
         Initialize();
-        displayView(0);
+        if (Utility.getPref(mContext, "LoginType").equalsIgnoreCase("Other")) {
+            otherLogindisplayView(0);
+        } else {
+            displayView(0);
+        }
+
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_launcher, // nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
@@ -188,45 +195,52 @@ public class DashBoardActivity extends FragmentActivity {
                 myid = fragment.getId();
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 break;
-            case 1:
-                fragment = new AttendanceFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-            case 2:
-                fragment = new SubjectFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-            case 3:
-                fragment = new TimeTableFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-            case 5:
-                fragment = new HomeworkFragment();
-                myid = fragment.getId();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                break;
-            case 13:
-                Utility.setPref(mContext, "unm", "");
-                Utility.setPref(mContext, "pwd", "");
-                Utility.setPref(mContext, "StaffID", "");
-                Utility.setPref(mContext, "Emp_Code", "");
-                Utility.setPref(mContext, "Emp_Name", "");
-                Utility.setPref(mContext, "DepratmentID", "");
-                Utility.setPref(mContext, "DesignationID", "");
-                Utility.setPref(mContext, "DeviceId", "");
-                Intent intentLogin = new Intent(DashBoardActivity.this, LoginActivity.class);
-                startActivity(intentLogin);
-                finish();
-                break;
         }
         if (fragment != null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             if (fragment instanceof HomeFragment) {
+                if (first_time_trans) {
+                    first_time_trans = false;
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+
+                } else {
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
+                }
+            } else {
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(0, 0)
+                        .replace(R.id.frame_container, fragment).commit();
+            }
+
+            // update selected item and title, then close the drawer
+            mDrawerList.setItemChecked(position, true);
+            mDrawerList.setSelection(position);
+            mDrawerLayout.closeDrawers();
+        } else {
+            // error in creating fragment
+            Log.e("Dashboard", "Error in creating fragment");
+        }
+    }
+
+    public void otherLogindisplayView(int position) {
+        switch (position) {
+            case 0:
+                fragment = new OtherLoginHomeFragment();
+                myid = fragment.getId();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
+        }
+        if (fragment != null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            if (fragment instanceof OtherLoginHomeFragment) {
                 if (first_time_trans) {
                     first_time_trans = false;
                     fragmentManager.beginTransaction()
@@ -273,6 +287,11 @@ public class DashBoardActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        displayView(0);
+        if (Utility.getPref(mContext, "LoginType").equalsIgnoreCase("Other")) {
+            otherLogindisplayView(0);
+        } else {
+            displayView(0);
+        }
+
     }
 }

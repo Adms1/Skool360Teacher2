@@ -290,6 +290,7 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
                                 if (staffInsertAttendenceModelResponse.getFinalArray().size() > 0) {
                                     Utility.ping(mContext, "Save Sucessfully");
                                     updateAttendace();
+                                    setGetstaffAttendanceDetail();
                                 } else {
                                     progressDialog.dismiss();
                                 }

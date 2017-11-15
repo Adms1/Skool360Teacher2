@@ -1,6 +1,8 @@
 package com.anandniketan.anandniketanskool360shilajTeacher.Fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,13 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivity;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.Pager;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 
 public class AttendanceFragment extends Fragment {
     private View rootView;
-    private Button btnBackAttendance;
+    private Button btnBackAttendance, btnLogout;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -42,6 +46,7 @@ public class AttendanceFragment extends Fragment {
 
     public void init() {
 //Initializing the tablayout
+        btnLogout = (Button) rootView.findViewById(R.id.btnLogout);
         btnBackAttendance = (Button) rootView.findViewById(R.id.btnBackAttendance);
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
         setupViewPager(viewPager);
@@ -54,6 +59,39 @@ public class AttendanceFragment extends Fragment {
     }
 
     public void setListner() {
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                        .setCancelable(false)
+                        .setTitle("Logout")
+                        .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                        .setMessage("Are you sure you want to logout? ")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utility.setPref(mContext, "StaffID", "");
+                                Utility.setPref(mContext, "Emp_Code", "");
+                                Utility.setPref(mContext, "Emp_Name", "");
+                                Utility.setPref(mContext, "DepratmentID", "");
+                                Utility.setPref(mContext, "DesignationID", "");
+                                Utility.setPref(mContext, "DeviceId", "");
+                                Utility.setPref(mContext, "unm", "");
+                                Utility.setPref(mContext, "pwd", "");
+                                Utility.setPref(mContext, "LoginType", "");
+
+                                Intent i = new Intent(getActivity(), LoginActivity.class);
+                                getActivity().startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.ic_launcher)
+                        .show();
+            }
+        });
         btnBackAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

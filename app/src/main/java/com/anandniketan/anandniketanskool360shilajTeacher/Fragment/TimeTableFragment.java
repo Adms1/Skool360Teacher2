@@ -2,6 +2,8 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivity;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.ExpandableListAdapterTimeTable;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.DeleteTimetableAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherAssignedSubjectAsyncTask;
@@ -43,7 +46,7 @@ import java.util.List;
 
 public class TimeTableFragment extends Fragment {
     private View rootView;
-    private Button  btnBackTimeTable;
+    private Button  btnBackTimeTable,btnLogout;
     private TextView txtNoRecordsTimetable;
     private Context mContext;
     private ProgressDialog progressDialog = null;
@@ -97,6 +100,7 @@ public class TimeTableFragment extends Fragment {
     }
 
     public void initViews() {
+        btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
         txtNoRecordsTimetable = (TextView) rootView.findViewById(R.id.txtNoRecordsTimetable);
         btnBackTimeTable = (Button) rootView.findViewById(R.id.btnBackTimeTable);
         lvExpTimeTable = (ExpandableListView) rootView.findViewById(R.id.lvExpTimeTable);
@@ -105,7 +109,38 @@ public class TimeTableFragment extends Fragment {
     }
 
     public void setListners() {
-
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new android.app.AlertDialog.Builder(new android.view.ContextThemeWrapper(getActivity(), R.style.AppTheme))
+                        .setCancelable(false)
+                        .setTitle("Logout")
+                        .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
+                        .setMessage("Are you sure you want to logout? ")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utility.setPref(mContext, "StaffID", "");
+                                Utility.setPref(mContext, "Emp_Code", "");
+                                Utility.setPref(mContext, "Emp_Name", "");
+                                Utility.setPref(mContext, "DepratmentID", "");
+                                Utility.setPref(mContext, "DesignationID", "");
+                                Utility.setPref(mContext, "DeviceId", "");
+                                Utility.setPref(mContext, "unm", "");
+                                Utility.setPref(mContext, "pwd", "");
+                                Utility.setPref(mContext, "LoginType", "");
+                                Intent i = new Intent(getActivity(), LoginActivity.class);
+                                getActivity().startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.ic_launcher)
+                        .show();
+            }
+        });
         btnBackTimeTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

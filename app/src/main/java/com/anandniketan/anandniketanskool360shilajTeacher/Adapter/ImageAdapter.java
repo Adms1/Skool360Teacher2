@@ -55,7 +55,7 @@ public class ImageAdapter extends BaseAdapter {
         TextView txtGridOptionsName = null;
 
         LayoutInflater mInflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        convertView = mInflater.inflate(R.layout.grid_cell,null);
+        convertView = mInflater.inflate(R.layout.grid_cell, null);
 
         imgGridOptions = (ImageView) convertView.findViewById(R.id.imgGridOptions);
         txtGridOptionsName = (TextView) convertView.findViewById(R.id.txtGridOptionsName);

@@ -151,8 +151,6 @@ public class TestsyllabusFragment extends Fragment {
         Log.d(" arrayvalue", arrayvalue);
         arrayvalue = arrayvalue.substring(1, arrayvalue.length() - 1);
         String[] splitarrayvalue = arrayvalue.split("\\|");
-        splitarrayvalue[5] = splitarrayvalue[5].substring(1, splitarrayvalue[5].length());
-        Log.d(" splitarrayvalue[5]", splitarrayvalue[5]);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
         Date d = null;
@@ -166,7 +164,12 @@ public class TestsyllabusFragment extends Fragment {
         TestIDstr = splitarrayvalue[1];
         SubjectIDstr = splitarrayvalue[2];
         SectionIDstr = splitarrayvalue[3];
-        finalTxtstr = splitarrayvalue[5];
+
+        String valueString=testsyllabusListAdapter.getEditStr();
+        Log.d("valueString",valueString);
+        valueString=valueString.substring(1,valueString.length()-1);
+        Log.d("aftervalueString",valueString);
+        finalTxtstr =valueString;
 
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);

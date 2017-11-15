@@ -19,6 +19,6 @@
         android:textSize="@dimen/_10sdp"
         android:textColor="@color/design_change_d2"
         android:textStyle="normal"
-        android:text="Appointment Request"/>
+        android:text="Consistent Absent"/>
 
 </LinearLayout>

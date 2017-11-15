@@ -21,6 +21,10 @@ public class FinalArrayUpdateAttendace {
     @Expose
     private Integer totalLeave;
 
+    @SerializedName("TotalOnDuty")
+    @Expose
+    private Integer totalOnDuty;
+
     public Integer getTotal() {
         return total;
     }
@@ -51,5 +55,13 @@ public class FinalArrayUpdateAttendace {
 
     public void setTotalLeave(Integer totalLeave) {
         this.totalLeave = totalLeave;
+    }
+
+    public Integer getTotalOnDuty() {
+        return totalOnDuty;
+    }
+
+    public void setTotalOnDuty(Integer totalOnDuty) {
+        this.totalOnDuty = totalOnDuty;
     }
 }

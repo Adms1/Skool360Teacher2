@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_weight=".3"
+            android:src="@drawable/profile_pic_holder" />
+
+        <TextView
+            android:id="@+id/student_name_txt"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/student_name"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp" />
+
+        <Spinner
+            android:id="@+id/standard_attendace_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1.5"
+            android:background="@drawable/dropdown_button_1"
+            android:dropDownVerticalOffset="@dimen/_30sdp"
+            android:forceHasOverlappingRendering="false"
+            android:gravity="left|center_vertical"
+            android:paddingBottom="1dp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingTop="@dimen/_1sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp" />
+        <EditText
+            android:id="@+id/remark_txt"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_weight="1.2"
+            android:background="@drawable/edit_attendace"
+            android:hint="@string/student_name"
+            android:padding="@dimen/_1sdp"
+            android:paddingLeft="@dimen/_7sdp"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp" />
+    </LinearLayout>
+</LinearLayout>
