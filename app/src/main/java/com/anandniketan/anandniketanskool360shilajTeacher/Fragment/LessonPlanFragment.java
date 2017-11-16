@@ -29,6 +29,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherLessonPl
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -77,6 +78,20 @@ public class LessonPlanFragment extends Fragment {
         class_spinner = (Spinner) rootView.findViewById(R.id.class_spinner);
         btnBacktest_lessonplan = (Button) rootView.findViewById(R.id.btnBacktest_lessonplan);
         btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
+
+
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(class_spinner);
+            popupWindow.setHeight(200);
+
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
     }
 
     public void setListner() {

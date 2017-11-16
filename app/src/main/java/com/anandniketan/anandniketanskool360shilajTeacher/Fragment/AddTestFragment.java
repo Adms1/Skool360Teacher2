@@ -37,6 +37,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -103,6 +104,25 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         txtNoRecords = (TextView) rootView.findViewById(R.id.txtNoRecordstest);
         checkbox_linear = (LinearLayout) rootView.findViewById(R.id.checkbox_linear);
         main_linear_add = (LinearLayout) rootView.findViewById(R.id.main_linear_add);
+
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(standard_subject_spinner);
+            android.widget.ListPopupWindow popupWindow1 = (android.widget.ListPopupWindow) popup.get(test_spinner);
+
+
+            popupWindow.setHeight(200);
+            popupWindow1.setHeight(200);
+
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+
+
         setUserVisibleHint(true);
         test_date.setText(Utility.getTodaysDate());
 

@@ -39,6 +39,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherGetTimet
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ import java.util.List;
 
 public class TimeTableFragment extends Fragment {
     private View rootView;
-    private Button  btnBackTimeTable,btnLogout;
+    private Button btnBackTimeTable, btnLogout;
     private TextView txtNoRecordsTimetable;
     private Context mContext;
     private ProgressDialog progressDialog = null;
@@ -71,7 +72,7 @@ public class TimeTableFragment extends Fragment {
     private CheckBox checkBox;
     HashMap<Integer, String> standardIdMap;
     HashMap<Integer, String> subjectIdMap;
-    String Standardid, Subejctid, checknamestr, checkidstr, starttimehour, starttimeminit, endtimehour, endtimeminit, Day, Lecture,selectedStandard;
+    String Standardid, Subejctid, checknamestr, checkidstr, starttimehour, starttimeminit, endtimehour, endtimeminit, Day, Lecture, selectedStandard;
     private ArrayList<String> classnamearray = new ArrayList<String>();
     private ArrayList<String> classidarray = new ArrayList<String>();
     private int selectedPosition = -1;
@@ -100,7 +101,7 @@ public class TimeTableFragment extends Fragment {
     }
 
     public void initViews() {
-        btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
+        btnLogout = (Button) rootView.findViewById(R.id.btnLogout);
         txtNoRecordsTimetable = (TextView) rootView.findViewById(R.id.txtNoRecordsTimetable);
         btnBackTimeTable = (Button) rootView.findViewById(R.id.btnBackTimeTable);
         lvExpTimeTable = (ExpandableListView) rootView.findViewById(R.id.lvExpTimeTable);
@@ -304,6 +305,30 @@ public class TimeTableFragment extends Fragment {
         edit_day_lecture_txt = (TextView) layout.findViewById(R.id.edit_day_lecture_txt);
         edit_lecture_section_llListData = (LinearLayout) layout.findViewById(R.id.edit_lecture_section_llListData);
 
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_grade_spinner);
+            android.widget.ListPopupWindow popupWindow1 = (android.widget.ListPopupWindow) popup.get(edit_subject_spinner);
+            android.widget.ListPopupWindow popupWindow2 = (android.widget.ListPopupWindow) popup.get(edit_Starttime_spinner);
+            android.widget.ListPopupWindow popupWindow3 = (android.widget.ListPopupWindow) popup.get(edit_Starttime1_spinner);
+            android.widget.ListPopupWindow popupWindow4 = (android.widget.ListPopupWindow) popup.get(edit_Endtime_spinner);
+            android.widget.ListPopupWindow popupWindow5 = (android.widget.ListPopupWindow) popup.get(edit_Endtime1_spinner);
+
+            popupWindow.setHeight(200);
+            popupWindow1.setHeight(200);
+            popupWindow2.setHeight(200);
+            popupWindow3.setHeight(200);
+            popupWindow4.setHeight(200);
+            popupWindow5.setHeight(200);
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+
+
         setTodayschedule();
         fillStartEndTimeHourspinner();
         edit_day_txt.setText(listAdapterTimeTable.getDay());
@@ -327,7 +352,7 @@ public class TimeTableFragment extends Fragment {
                 classnamearray.clear();
                 classidarray.clear();
                 if (teacherAssignedSubjectModels.size() > 0) {
-                    selectedStandard=parent.getSelectedItem().toString();
+                    selectedStandard = parent.getSelectedItem().toString();
                     fillsection();
                     fillsubjectspinner();
                 }
@@ -476,19 +501,19 @@ public class TimeTableFragment extends Fragment {
         ArrayList<String> sectionArray = new ArrayList<String>();
         String standardTxt = teacherAssignedSubjectModels.get(0).getStandard();
         sectionArray.clear();
-        for (int m = 0; m <teacherAssignedSubjectModels.size(); m++) {
+        for (int m = 0; m < teacherAssignedSubjectModels.size(); m++) {
             if (selectedStandard.equalsIgnoreCase(teacherAssignedSubjectModels.get(m).getStandard())) {
                 sectionArray.add(teacherAssignedSubjectModels.get(m).getClassname() + "|" + teacherAssignedSubjectModels.get(m).getClassID());
-                Log.d("sectionArray",""+sectionArray);
+                Log.d("sectionArray", "" + sectionArray);
             }
         }
 
-        if (edit_lecture_section_llListData.getChildCount()>0){
+        if (edit_lecture_section_llListData.getChildCount() > 0) {
             edit_lecture_section_llListData.removeAllViews();
         }
 
         try {
-            for (int i=0;i<sectionArray.size();i++){
+            for (int i = 0; i < sectionArray.size(); i++) {
                 View convertView = LayoutInflater.from(mContext).inflate(R.layout.list_checkbox, null);
                 checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
 
@@ -507,7 +532,7 @@ public class TimeTableFragment extends Fragment {
                 checkBox.setOnClickListener(onStateChangedListener(checkBox, i));
                 edit_lecture_section_llListData.addView(convertView);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -626,42 +651,42 @@ public class TimeTableFragment extends Fragment {
             progressDialog.setCancelable(false);
             progressDialog.show();
             if (Utility.isNetworkConnected(mContext)) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                HashMap<String, String> params = new HashMap<String, String>();
-                                params.put("StaffID", Utility.getPref(mContext, "StaffID"));
-                                params.put("ClassID", finalclassIdStr);
-                                params.put("StandardID", Standardid);
-                                params.put("SubjectID", Subejctid);
-                                params.put("DayName", Day);
-                                params.put("LectureName", Lecture);
-                                params.put("Strttimehour", starttimehour);
-                                params.put("StrttimeMin", starttimeminit);
-                                params.put("Endtimehour", endtimehour);
-                                params.put("EndtimeMin", endtimeminit);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            HashMap<String, String> params = new HashMap<String, String>();
+                            params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+                            params.put("ClassID", finalclassIdStr);
+                            params.put("StandardID", Standardid);
+                            params.put("SubjectID", Subejctid);
+                            params.put("DayName", Day);
+                            params.put("LectureName", Lecture);
+                            params.put("Strttimehour", starttimehour);
+                            params.put("StrttimeMin", starttimeminit);
+                            params.put("Endtimehour", endtimehour);
+                            params.put("EndtimeMin", endtimeminit);
 
-                                insertTimetableAsyncTask = new InsertTimetableAsyncTask(params);
-                                insertLectureModel = insertTimetableAsyncTask.execute().get();
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
+                            insertTimetableAsyncTask = new InsertTimetableAsyncTask(params);
+                            insertLectureModel = insertTimetableAsyncTask.execute().get();
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressDialog.dismiss();
+                                    if (insertLectureModel.getFinalArray().size() >= 0) {
+                                        Utility.ping(mContext, "Add Lecture.");
+                                        alertDialogAndroid.dismiss();
+                                        getTimeTableData();
+                                    } else {
                                         progressDialog.dismiss();
-                                        if (insertLectureModel.getFinalArray().size() >= 0) {
-                                            Utility.ping(mContext, "Add Lecture.");
-                                            alertDialogAndroid.dismiss();
-                                            getTimeTableData();
-                                        } else {
-                                            progressDialog.dismiss();
-                                        }
                                     }
-                                });
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    }).start();
+                    }
+                }).start();
             } else {
                 Utility.ping(mContext, "Network not available");
             }

@@ -38,6 +38,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.google.android.gms.maps.model.UrlTileProvider;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.lang.reflect.Field;
 import java.net.InterfaceAddress;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -115,6 +116,25 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
         student_list = (ListView) rootView.findViewById(R.id.student_list);
 
         start_date.setText(Utility.getTodaysDate());
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(standard_attendace_spinner);
+            android.widget.ListPopupWindow popupWindow1 = (android.widget.ListPopupWindow) popup.get(standard_division_spinner);
+
+
+            popupWindow.setHeight(200);
+            popupWindow1.setHeight(200);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+
+
+
     }
 
     public void setListner() {

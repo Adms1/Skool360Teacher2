@@ -20,10 +20,9 @@ public class otherLoginImageAdapter extends BaseAdapter {
     private Context mContext;
 
     public Integer[] mThumbIds = {
-            R.drawable.attendance,R.drawable.consistent_absent
+           R.drawable.consistent_absent, R.drawable.attendance
     };
-
-    public String[] mThumbNames = {"Attendance","Consistent Absent"};
+    public String[] mThumbNames = {"Consistent Absent","Attendance"};
 
     // Constructor
     public otherLoginImageAdapter(Context c) {

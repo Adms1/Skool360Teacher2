@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mContext = this;
         fn_permission_ACCESS_ACCESS_NETWORK_STATE();
@@ -277,5 +276,12 @@ public class LoginActivity extends AppCompatActivity {
                 fn_permission_ACCESS_WRITE_EXTERNAL_STORAGE();
             }
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

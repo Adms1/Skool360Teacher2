@@ -33,6 +33,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse.Stu
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,7 +42,7 @@ import java.util.List;
 
 public class MarksFragment extends Fragment {
     private View rootView;
-    private Button btnMenu, btnBackMarks,btnLogout;
+    private Button btnMenu, btnBackMarks, btnLogout;
     private TextView txtNoRecordsMarks;
     private Context mContext;
     private ProgressDialog progressDialog = null;
@@ -86,8 +87,21 @@ public class MarksFragment extends Fragment {
         class_spinner = (Spinner) rootView.findViewById(R.id.class_spinner);
         search_img = (ImageView) rootView.findViewById(R.id.search_img);
         search_edt = (EditText) rootView.findViewById(R.id.search_edt);
-        btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
+        btnLogout = (Button) rootView.findViewById(R.id.btnLogout);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
 
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(class_spinner);
+
+
+            popupWindow.setHeight(200);
+
+
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         getMarksData();
     }
 
@@ -233,18 +247,18 @@ public class MarksFragment extends Fragment {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                    if (response.getFinalArray().size() > 0) {
-                                        txtNoRecordsMarks.setVisibility(View.GONE);
-                                        class_linear.setVisibility(View.VISIBLE);
+                                if (response.getFinalArray().size() > 0) {
+                                    txtNoRecordsMarks.setVisibility(View.GONE);
+                                    class_linear.setVisibility(View.VISIBLE);
 
-                                        fillspinner();
-                                    } else {
-                                        progressDialog.dismiss();
-                                        txtNoRecordsMarks.setVisibility(View.VISIBLE);
-                                        Marks_header.setVisibility(View.GONE);
-                                        class_linear.setVisibility(View.GONE);
+                                    fillspinner();
+                                } else {
+                                    progressDialog.dismiss();
+                                    txtNoRecordsMarks.setVisibility(View.VISIBLE);
+                                    Marks_header.setVisibility(View.GONE);
+                                    class_linear.setVisibility(View.GONE);
 
-                                    }
+                                }
 
                             }
                         });

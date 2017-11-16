@@ -37,6 +37,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onCheckBoxChnage;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -99,6 +100,21 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         Create_class_spinner = (Spinner) rootView.findViewById(R.id.Create_class_spinner);
         lvCreate = (ListView) rootView.findViewById(R.id.lvCreate);
         insert_message_img = (ImageView) rootView.findViewById(R.id.insert_message_img);
+
+
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(Create_class_spinner);
+
+            popupWindow.setHeight(200);
+
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
 
         setUserVisibleHint(true);
     }
@@ -272,13 +288,6 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                 alertDialogAndroid.dismiss();
             }
         });
-//        insert_message_date_txt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DialogFragment newFragment = new SelectDateFragment();
-//                newFragment.show(getFragmentManager(), "DatePicker");
-//            }
-//        });
 
         insert_message_date_txt.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -180,14 +180,13 @@ public class OtherLoginHomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    fragment = new AllAttendanceFragment();
+                    fragment = new ConsistentAbsentFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
-
-                }else if(position==1){
-                    fragment = new ConsistentAbsentFragment();
+                } else if (position == 1) {
+                    fragment = new AllAttendanceFragment();
                     fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(0, 0)
@@ -278,6 +277,7 @@ public class OtherLoginHomeFragment extends Fragment {
         }).start();
 
     }
+
     public void fillData() {
         AppConfiguration.rows.clear();
         if (userProfileModels.get(0).getImage().equalsIgnoreCase("")) {
