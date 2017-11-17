@@ -24,6 +24,8 @@ public class FinalArray_ConsistentAb {
     @Expose
     private Integer absentFrom;
 
+    private String checkstatus;
+
     public String getStudent() {
         return student;
     }
@@ -64,4 +66,11 @@ public class FinalArray_ConsistentAb {
         this.absentFrom = absentFrom;
     }
 
+    public String getCheckstatus() {
+        return checkstatus;
+    }
+
+    public void setCheckstatus(String checkstatus) {
+        this.checkstatus = checkstatus;
+    }
 }

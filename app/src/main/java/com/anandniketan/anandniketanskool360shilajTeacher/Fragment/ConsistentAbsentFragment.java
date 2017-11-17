@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,14 +26,12 @@ import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivity;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.ConsistentAbsentListAdapter;
-import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.MysubjectAdapetr;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetConsistentAbAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherAssignedSubjectAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.InsertConsistentAbSMSAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.PTMTeacherStudentInsertDetailAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.getCheckconsistentAb;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetConsistentAbModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.InsertConsistentAbSMSModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMCreateResponse.StudentDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -42,7 +39,6 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 public class ConsistentAbsentFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
@@ -177,18 +173,21 @@ public class ConsistentAbsentFragment extends Fragment implements DatePickerDial
                                     consistentAbsentListAdapter = new ConsistentAbsentListAdapter(getActivity(), getConsistentAbModelResponse, new getCheckconsistentAb() {
                                         @Override
                                         public void getCheckconsistentAb() {
-                                            for (int i = 0; i <= consistent_absent_list.getChildCount(); i++) {
-                                                View view = consistent_absent_list.getChildAt(i);
-                                                if (view != null) {
-                                                    CheckBox ch = (CheckBox) view.findViewById(R.id.edit_chk);
+
+                                            for (int i = 0; i <=consistent_absent_list.getChildCount(); i++) {
+                                                View view1 = consistent_absent_list.getChildAt(i);
+                                                if (view1 != null) {
+                                                    CheckBox ch = (CheckBox) view1.findViewById(R.id.edit_chk);
                                                     if (ch.isChecked()) {
                                                         insert_message_img.setVisibility(View.VISIBLE);
-                                                        return;
+                                                       return;
                                                     } else {
                                                         insert_message_img.setVisibility(View.GONE);
+//                                                       break;
                                                     }
                                                 }
                                             }
+
                                         }
                                     });
                                     consistent_absent_list.setAdapter(consistentAbsentListAdapter);

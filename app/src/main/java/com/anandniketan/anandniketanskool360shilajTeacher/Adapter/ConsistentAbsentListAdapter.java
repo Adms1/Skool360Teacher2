@@ -76,7 +76,11 @@ public class ConsistentAbsentListAdapter extends BaseAdapter {
             viewHolder.sms_txt = (TextView) convertView.findViewById(R.id.sms_txt);
             viewHolder.absent_from_txt = (TextView) convertView.findViewById(R.id.absent_from_txt);
             viewHolder.edit_chk = (CheckBox) convertView.findViewById(R.id.edit_chk);
+            convertView.setTag(viewHolder);
 
+        }else{
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
             final FinalArray_ConsistentAb detail = getConsistentAbModel.getFinalArray().get(position);
 
             try {
@@ -91,6 +95,7 @@ public class ConsistentAbsentListAdapter extends BaseAdapter {
                         String checkvalue, mobilenovalue;
 
                         if (isChecked) {
+                            detail.setCheckstatus("1");
                             checkvalue = detail.getPkStudentID().toString();
                             dataCheck.add(checkvalue);
                             Log.d("dataCheck", dataCheck.toString());
@@ -99,17 +104,27 @@ public class ConsistentAbsentListAdapter extends BaseAdapter {
                             Log.d("mobiledata", mobiledata.toString());
                             listner.getCheckconsistentAb();
                         } else {
+                            detail.setCheckstatus("0");
                             dataCheck.remove(detail.getPkStudentID().toString());
+                            mobilenovalue = detail.getSmsNo().toString();
+                            mobiledata.remove(mobilenovalue);
                             Log.d("dataUnCheck", dataCheck.toString());
+                            Log.d("mobiledata", mobiledata.toString());
                             listner.getCheckconsistentAb();
                         }
                     }
                 });
+                if (detail.getCheckstatus().equalsIgnoreCase("1")) {
+                    viewHolder.edit_chk.setChecked(true);
+                } else {
+                    viewHolder.edit_chk.setChecked(false);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+
+
         return convertView;
     }
 

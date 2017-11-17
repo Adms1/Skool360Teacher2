@@ -72,6 +72,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
     MainPtmSentMessageResponse mainPtmSentMessageResponse;
     String finalStudentArray;
     private static String dateFinal;
+
     public CreateFragment() {
     }
 
@@ -100,7 +101,6 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         Create_class_spinner = (Spinner) rootView.findViewById(R.id.Create_class_spinner);
         lvCreate = (ListView) rootView.findViewById(R.id.lvCreate);
         insert_message_img = (ImageView) rootView.findViewById(R.id.insert_message_img);
-
 
 
         try {
@@ -221,6 +221,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         listAdapterCreate = new ListAdapterCreate(getActivity(), arrayList, getActivity().getFragmentManager(), new onCheckBoxChnage() {
             @Override
             public void getChecked() {
+                insert_message_img.setVisibility(View.GONE);
                 for (int i = 0; i <= lvCreate.getChildCount(); i++) {
                     View view = lvCreate.getChildAt(i);
                     if (view != null) {
@@ -228,12 +229,19 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                         if (ch.isChecked()) {
                             insert_message_img.setVisibility(View.VISIBLE);
                             return;
-                        } else {
-                            insert_message_img.setVisibility(View.GONE);
-//                            return;
                         }
+//                        else {
+//                            insert_message_img.setVisibility(View.GONE);
+////                            return;
+//                        }
                     }
                 }
+
+//                for (int i = 0; i < listAdapterCreate.getCount(); i++) {
+//
+//                    View view = listAdapterCreate.getItem(i);
+//                }
+
             }
         });
         lvCreate.setAdapter(listAdapterCreate);
@@ -346,7 +354,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                                         @Override
                                         public void run() {
                                             progressDialog.dismiss();
-                                            if (mainPtmSentMessageResponse.getFinalArray().size() >=0) {
+                                            if (mainPtmSentMessageResponse.getFinalArray().size() >= 0) {
                                                 Utility.ping(mContext, "Send Sucessfully");
                                                 alertDialogAndroid.dismiss();
                                             } else {

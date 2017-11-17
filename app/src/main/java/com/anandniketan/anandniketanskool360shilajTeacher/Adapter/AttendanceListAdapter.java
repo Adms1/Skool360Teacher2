@@ -108,42 +108,6 @@ public class AttendanceListAdapter extends BaseAdapter {
                 imageLoader.displayImage(detail.getStudentImage(), viewHolder.profile_image);
                 viewHolder.student_name_txt.setText(detail.getStudentName().trim());
 
-//                viewHolder.present_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                        if (isChecked) {
-//                            detail.setAttendenceStatus("1");
-//                            viewHolder.absent_chk.setChecked(false);
-//                            viewHolder.leave_chk.setChecked(false);
-//                        }
-//                    }
-//                });
-//                viewHolder.absent_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                        if (isChecked) {
-//                            detail.setAttendenceStatus("0");
-//                            viewHolder.present_chk.setChecked(false);
-//                            viewHolder.leave_chk.setChecked(false);
-//                        }
-//                    }
-//                });
-//                viewHolder.leave_chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                    @Override
-//                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//
-//                        if (isChecked) {
-//                            detail.setAttendenceStatus("-1");
-//                            viewHolder.absent_chk.setChecked(false);
-//                            viewHolder.present_chk.setChecked(false);
-//                        }
-//                    }
-//                });
-//
-//                viewHolder.absent_chk.setChecked(false);
-//                viewHolder.present_chk.setChecked(false);
-//                viewHolder.leave_chk.setChecked(false);
-
                 viewHolder.attendance_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {

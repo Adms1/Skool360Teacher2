@@ -86,17 +86,25 @@ public class ListAdapterCreate extends BaseAdapter {
                         String checkvalue;
 
                         if (isChecked) {
+                            arrayList.get(position).setCheck("1");
                             checkvalue = arrayList.get(position).getStudentID().toString();
                             dataCheck.add(checkvalue);
                             Log.d("dataCheck", dataCheck.toString());
                             listner.getChecked();
                         } else {
+                            arrayList.get(position).setCheck("0");
                             dataCheck.remove(arrayList.get(position).getStudentID().toString());
                             Log.d("dataUnCheck", dataCheck.toString());
                             listner.getChecked();
                         }
                     }
                 });
+
+                if(arrayList.get(position).getCheck().equalsIgnoreCase("1")){
+                    viewHolder.create_Checkbox.setChecked(true);
+                }else{
+                    viewHolder.create_Checkbox.setChecked(false);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
