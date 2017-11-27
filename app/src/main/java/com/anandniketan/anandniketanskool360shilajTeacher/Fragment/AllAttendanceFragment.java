@@ -116,25 +116,6 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
         student_list = (ListView) rootView.findViewById(R.id.student_list);
 
         start_date.setText(Utility.getTodaysDate());
-
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(standard_attendace_spinner);
-            android.widget.ListPopupWindow popupWindow1 = (android.widget.ListPopupWindow) popup.get(standard_division_spinner);
-
-
-            popupWindow.setHeight(200);
-            popupWindow1.setHeight(200);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
-
-
-
     }
 
     public void setListner() {
@@ -295,8 +276,27 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
             spinnerstandardIdArray[i] = standardname.get(i).trim();
         }
 
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(standard_attendace_spinner);
+
+            popupWindow.setHeight(spinnerstandardIdArray.length > 5 ? 500 : spinnerstandardIdArray.length * 100);
+//            popupWindow1.setHeght(200);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+
+
+
         ArrayAdapter<String> adapterstandard = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
+//        adapterstandard.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         standard_attendace_spinner.setAdapter(adapterstandard);
+
+
     }
 
     public void fillsectionspinner() {
@@ -317,6 +317,19 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
         for (int i = 0; i < sectionId.size(); i++) {
             spinnerSection.put(i, String.valueOf(sectionId.get(i)));
             spinnersectionIdArray[i] = sectionname.get(i).trim();
+        }
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(standard_division_spinner);
+
+            popupWindow.setHeight(spinnersectionIdArray.length > 5 ? 500 : spinnersectionIdArray.length * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
         }
         ArrayAdapter<String> adapterstandard = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnersectionIdArray);
         standard_division_spinner.setAdapter(adapterstandard);

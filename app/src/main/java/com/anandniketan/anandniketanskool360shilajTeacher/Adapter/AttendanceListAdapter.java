@@ -75,10 +75,6 @@ public class AttendanceListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.list_row_student_attendance, null);
             viewHolder.profile_image = (CircleImageView) convertView.findViewById(R.id.profile_image);
             viewHolder.student_name_txt = (TextView) convertView.findViewById(R.id.student_name_txt);
-//            viewHolder.present_chk = (CheckBox) convertView.findViewById(R.id.present_chk);
-//            viewHolder.absent_chk = (CheckBox) convertView.findViewById(R.id.absent_chk);
-//            viewHolder.leave_chk = (CheckBox) convertView.findViewById(R.id.leave_chk);
-
             viewHolder.present_chk = (RadioButton) convertView.findViewById(R.id.present_chk);
             viewHolder.absent_chk = (RadioButton) convertView.findViewById(R.id.absent_chk);
             viewHolder.leave_chk = (RadioButton) convertView.findViewById(R.id.leave_chk);

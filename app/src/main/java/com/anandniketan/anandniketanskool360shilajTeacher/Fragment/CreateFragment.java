@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -101,20 +102,6 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         Create_class_spinner = (Spinner) rootView.findViewById(R.id.Create_class_spinner);
         lvCreate = (ListView) rootView.findViewById(R.id.lvCreate);
         insert_message_img = (ImageView) rootView.findViewById(R.id.insert_message_img);
-
-
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(Create_class_spinner);
-
-            popupWindow.setHeight(200);
-
-        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
 
         setUserVisibleHint(true);
     }
@@ -230,18 +217,8 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                             insert_message_img.setVisibility(View.VISIBLE);
                             return;
                         }
-//                        else {
-//                            insert_message_img.setVisibility(View.GONE);
-////                            return;
-//                        }
                     }
                 }
-
-//                for (int i = 0; i < listAdapterCreate.getCount(); i++) {
-//
-//                    View view = listAdapterCreate.getItem(i);
-//                }
-
             }
         });
         lvCreate.setAdapter(listAdapterCreate);
@@ -256,6 +233,23 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
             row.add(response.getFinalArraycreate().get(z).getStandard() + "-" +
                     response.getFinalArraycreate().get(z).getClassname() + "->" +
                     response.getFinalArraycreate().get(z).getSubject());
+        }
+        HashSet hs = new HashSet();
+        hs.addAll(row);
+        row.clear();
+        row.addAll(hs);
+        Log.d("marks",""+row);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(Create_class_spinner);
+
+            popupWindow.setHeight(row.size() > 5 ? 500 : row.size() * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         Create_class_spinner.setAdapter(adapterYear);
@@ -398,43 +392,4 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
         insert_message_date_txt.setText(d + "/" + m + "/" + y);
     }
-
-
-//    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
-//
-//        @Override
-//        public Dialog onCreateDialog(Bundle savedInstanceState) {
-//            final Calendar calendar = Calendar.getInstance();
-//            int yy = calendar.get(Calendar.YEAR);
-//            int mm = calendar.get(Calendar.MONTH);
-//            int dd = calendar.get(Calendar.DAY_OF_MONTH);
-//            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
-//        }
-//
-//        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-//            populateSetDate(yy, mm + 1, dd);
-//        }
-//
-//        public void populateSetDate(int year, int month, int day) {
-//            int mYear, mMonth, mDay;
-//            mDay = day;
-//            mMonth = month + 1;
-//            mYear = year;
-//            String d, m, y;
-//            d = Integer.toString(mDay);
-//            m = Integer.toString(mMonth);
-//            y = Integer.toString(mYear);
-//
-//            if (mDay < 10) {
-//                d = "0" + d;
-//            }
-//            if (mMonth < 10) {
-//                m = "0" + m;
-//            }
-//            dateFinal = d + "/" + m+ "/" + year;
-//
-//                insert_message_date_txt.setText(dateFinal);
-//
-//        }
-//    }
 }

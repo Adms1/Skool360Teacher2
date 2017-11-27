@@ -191,6 +191,12 @@ public class OtherLoginHomeFragment extends Fragment {
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(0, 0)
                             .replace(R.id.frame_container, fragment).commit();
+                }else if (position == 2) {
+                    fragment = new StudentAbsentFragment();
+                    fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(0, 0)
+                            .replace(R.id.frame_container, fragment).commit();
                 }
             }
         });

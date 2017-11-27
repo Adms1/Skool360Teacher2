@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnBacktest_consistent_absent"
+                android:id="@+id/btnBacktest_student_absent"
                 android:layout_width="@dimen/_13sdp"
                 android:layout_height="@dimen/_13sdp"
                 android:layout_alignParentBottom="true"
@@ -71,13 +71,13 @@
             android:layout_alignTop="@+id/header"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_6sdp"
-            android:text="CONSISTENT ABSENT"
+            android:text="STUDENT ABSENT"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_12sdp"
             android:textStyle="normal" />
 
         <TextView
-            android:id="@+id/txtNoRecordsconsistentabsent"
+            android:id="@+id/txtNoRecordsstudentabsent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
@@ -91,7 +91,7 @@
 
 
         <LinearLayout
-            android:id="@+id/consistent_absent_header"
+            android:id="@+id/student_absent_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
@@ -108,11 +108,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_1sdp"
-            android:layout_below="@+id/consistent_absent_header"
+            android:layout_below="@+id/student_absent_header"
             android:orientation="vertical">
 
             <ListView
-                android:id="@+id/consistent_absent_list"
+                android:id="@+id/student_absent_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="@dimen/_20sdp"

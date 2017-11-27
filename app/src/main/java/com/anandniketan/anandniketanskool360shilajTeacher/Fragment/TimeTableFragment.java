@@ -43,6 +43,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class TimeTableFragment extends Fragment {
@@ -305,30 +306,6 @@ public class TimeTableFragment extends Fragment {
         edit_day_lecture_txt = (TextView) layout.findViewById(R.id.edit_day_lecture_txt);
         edit_lecture_section_llListData = (LinearLayout) layout.findViewById(R.id.edit_lecture_section_llListData);
 
-
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_grade_spinner);
-            android.widget.ListPopupWindow popupWindow1 = (android.widget.ListPopupWindow) popup.get(edit_subject_spinner);
-            android.widget.ListPopupWindow popupWindow2 = (android.widget.ListPopupWindow) popup.get(edit_Starttime_spinner);
-            android.widget.ListPopupWindow popupWindow3 = (android.widget.ListPopupWindow) popup.get(edit_Starttime1_spinner);
-            android.widget.ListPopupWindow popupWindow4 = (android.widget.ListPopupWindow) popup.get(edit_Endtime_spinner);
-            android.widget.ListPopupWindow popupWindow5 = (android.widget.ListPopupWindow) popup.get(edit_Endtime1_spinner);
-
-            popupWindow.setHeight(200);
-            popupWindow1.setHeight(200);
-            popupWindow2.setHeight(200);
-            popupWindow3.setHeight(200);
-            popupWindow4.setHeight(200);
-            popupWindow5.setHeight(200);
-        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
-
-
         setTodayschedule();
         fillStartEndTimeHourspinner();
         edit_day_txt.setText(listAdapterTimeTable.getDay());
@@ -480,10 +457,19 @@ public class TimeTableFragment extends Fragment {
         for (int z = 0; z < teacherAssignedSubjectModels.size(); z++) {
             standardId.add(Integer.parseInt(teacherAssignedSubjectModels.get(z).getStandardID()));
         }
+        HashSet hs = new HashSet();
+        hs.addAll(standardId);
+        standardId.clear();
+        standardId.addAll(hs);
+        Log.d("standardId",""+standardId);
         for (int z = 0; z < teacherAssignedSubjectModels.size(); z++) {
             row.add(teacherAssignedSubjectModels.get(z).getStandard());
         }
-
+        HashSet hs1 = new HashSet();
+        hs1.addAll(row);
+        row.clear();
+        row.addAll(hs1);
+        Log.d("row",""+row);
         String[] spinnerstandardIdArray = new String[standardId.size()];
 
         standardIdMap = new HashMap<Integer, String>();
@@ -492,6 +478,20 @@ public class TimeTableFragment extends Fragment {
             spinnerstandardIdArray[i] = row.get(i).trim();
         }
         Log.d("spinnerstandardIdArray", Arrays.toString(spinnerstandardIdArray));
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_grade_spinner);
+
+            popupWindow.setHeight(spinnerstandardIdArray.length > 5 ? 500 : spinnerstandardIdArray.length * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
         edit_grade_spinner.setAdapter(adapterYear);
 
@@ -571,6 +571,16 @@ public class TimeTableFragment extends Fragment {
                 subjectId.add(Integer.parseInt(teacherAssignedSubjectModels.get(z).getSubjectID()));
             }
         }
+        HashSet hs1 = new HashSet();
+        hs1.addAll(rowsubject);
+        rowsubject.clear();
+        rowsubject.addAll(hs1);
+        Log.d("rowsubject",""+rowsubject);
+        HashSet hs = new HashSet();
+        hs.addAll(subjectId);
+        subjectId.clear();
+        subjectId.addAll(hs);
+        Log.d("subjectId",""+subjectId);
         Log.d("subjectId", "" + subjectId);
         String[] spinnersubjectIdArray = new String[subjectId.size()];
 
@@ -578,6 +588,19 @@ public class TimeTableFragment extends Fragment {
         for (int i = 0; i < subjectId.size(); i++) {
             subjectIdMap.put(i, String.valueOf(subjectId.get(i)));
             spinnersubjectIdArray[i] = rowsubject.get(i).trim();
+        }
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_subject_spinner);
+
+            popupWindow.setHeight(spinnersubjectIdArray.length > 5 ? 500 : spinnersubjectIdArray.length * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnersubjectIdArray);
         edit_subject_spinner.setAdapter(adapterYear);
@@ -593,6 +616,18 @@ public class TimeTableFragment extends Fragment {
                 starthours.add(String.valueOf(j));
             }
         }
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_Starttime_spinner);
+
+            popupWindow.setHeight(starthours.size() > 5 ? 500 : starthours.size() * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, starthours);
         edit_Starttime_spinner.setAdapter(adapterYear);
 
@@ -606,6 +641,19 @@ public class TimeTableFragment extends Fragment {
                 start1hours.add(String.valueOf(j));
             }
         }
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_Starttime1_spinner);
+
+            popupWindow.setHeight(start1hours.size() > 5 ? 500 : start1hours.size() * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         ArrayAdapter<String> adapterstarthour = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, start1hours);
         edit_Starttime1_spinner.setAdapter(adapterstarthour);
 
@@ -618,6 +666,19 @@ public class TimeTableFragment extends Fragment {
                 endhours.add(String.valueOf(j));
             }
         }
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_Endtime_spinner);
+
+            popupWindow.setHeight(endhours.size() > 5 ? 500 : endhours.size() * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
         ArrayAdapter<String> adapterendhour = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, endhours);
         edit_Endtime_spinner.setAdapter(adapterendhour);
 
@@ -629,6 +690,18 @@ public class TimeTableFragment extends Fragment {
             } else {
                 end1hours.add(String.valueOf(j));
             }
+        }
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_Endtime1_spinner);
+
+            popupWindow.setHeight(end1hours.size() > 5 ? 500 : end1hours.size() * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
         }
         ArrayAdapter<String> adapterend1hour = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, end1hours);
         edit_Endtime1_spinner.setAdapter(adapterend1hour);

@@ -11,7 +11,9 @@
         <item name="colorAccent">@color/linear_color</item>
         <item name="android:textColorHint">@color/editTextcolor</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
     </style>
+
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->
 
@@ -26,9 +28,17 @@
         <item name="android:textStyle">normal</item>
 
     </style>
+
     <style name="myDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
 
         <item name="colorAccent">@color/editTextcolor</item>
     </style>
+
+    <style name="SpinnerStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:divider">#d1d1d1</item>
+        <item name="android:dividerHeight">0.5dp</item>
+        <item name="android:background">@color/editTextcolor</item>
+    </style>
+
 </resources>

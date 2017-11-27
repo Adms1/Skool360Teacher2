@@ -33,6 +33,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -77,23 +78,8 @@ public class LessonPlanFragment extends Fragment {
         lesson_list = (ListView) rootView.findViewById(R.id.lesson_list);
         class_spinner = (Spinner) rootView.findViewById(R.id.class_spinner);
         btnBacktest_lessonplan = (Button) rootView.findViewById(R.id.btnBacktest_lessonplan);
-        btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
-
-
-
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(class_spinner);
-            popupWindow.setHeight(200);
-
-        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
+        btnLogout = (Button) rootView.findViewById(R.id.btnLogout);
     }
-
     public void setListner() {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +211,26 @@ public class LessonPlanFragment extends Fragment {
             row.add(responseLesson.getFinalArrayLesson().get(z).getStandard() + " -> "
                     + responseLesson.getFinalArrayLesson().get(z).getSubject());
         }
+
+        HashSet hs = new HashSet();
+        hs.addAll(row);
+        row.clear();
+        row.addAll(hs);
+        Log.d("row",""+row);
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(class_spinner);
+
+            popupWindow.setHeight(row.size() > 5 ? 500 : row.size() * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         class_spinner.setAdapter(adapterYear);
     }

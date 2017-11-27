@@ -41,6 +41,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class AddTestFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -105,24 +106,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         checkbox_linear = (LinearLayout) rootView.findViewById(R.id.checkbox_linear);
         main_linear_add = (LinearLayout) rootView.findViewById(R.id.main_linear_add);
 
-
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(standard_subject_spinner);
-            android.widget.ListPopupWindow popupWindow1 = (android.widget.ListPopupWindow) popup.get(test_spinner);
-
-
-            popupWindow.setHeight(200);
-            popupWindow1.setHeight(200);
-
-        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
-
-
         setUserVisibleHint(true);
         test_date.setText(Utility.getTodaysDate());
 
@@ -139,13 +122,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
     public void setListner() {
-//        test_date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DialogFragment newFragment = new SelectDateFragment();
-//                newFragment.show(getFragmentManager(), "DatePicker");
-//            }
-//        });
+
         test_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -387,44 +364,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         test_date.setText(d + "/" + m + "/" + y);
     }
 
-    public static class SelectDateFragment extends DialogFragment implements android.app.DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar calendar = Calendar.getInstance();
-            int yy = calendar.get(Calendar.YEAR);
-            int mm = calendar.get(Calendar.MONTH);
-            int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            return new android.app.DatePickerDialog(getActivity(), this, yy, mm, dd);
-        }
-
-        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-            populateSetDate(yy, mm + 1, dd);
-        }
-
-        public void populateSetDate(int year, int month, int day) {
-            int mYear, mMonth, mDay;
-            mDay = day;
-            mMonth = month + 1;
-            mYear = year;
-            String d, m, y;
-            d = Integer.toString(mDay);
-            m = Integer.toString(mMonth);
-            y = Integer.toString(mYear);
-
-            if (mDay < 10) {
-                d = "0" + d;
-            }
-            if (mMonth < 10) {
-                m = "0" + m;
-            }
-
-
-            dateFinal = d + "/" + m + "/" + year;
-
-            test_date.setText(dateFinal);
-        }
-    }
 
     public void getTestName() {
         if (Utility.isNetworkConnected(mContext)) {
@@ -478,10 +417,24 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             row.add(teacherAssignedSubjectModels.get(z).getStandard() + " -> " + teacherAssignedSubjectModels.get(z).getSubject());
         }
 
-//        HashSet<String> duplicates = new HashSet<String>();
-//        duplicates.add(String.valueOf(row));
-//        row.clear();
-//        row.addAll(duplicates);
+        HashSet hs = new HashSet();
+        hs.addAll(row);
+        row.clear();
+        row.addAll(hs);
+        Log.d("gfdgfdgfgfd",""+row);
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(standard_subject_spinner);
+
+            popupWindow.setHeight(row.size() > 5 ? 500 : row.size() * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, row);
         standard_subject_spinner.setAdapter(adapterYear);
 
@@ -553,6 +506,24 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         for (int k = 0; k < teacherGetTestNameModels.size(); k++) {
             rowtest.add(teacherGetTestNameModels.get(k).getTestName() + teacherGetTestNameModels.get(k).getTestID());
         }
+        HashSet hs = new HashSet();
+        hs.addAll(rowtest);
+        rowtest.clear();
+        rowtest.addAll(hs);
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(test_spinner);
+
+            popupWindow.setHeight(rowtest.size() > 5 ? 500 : rowtest.size() * 100);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
+
         ArrayAdapter<String> adaptertest = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, rowtest);
         test_spinner.setAdapter(adaptertest);
     }

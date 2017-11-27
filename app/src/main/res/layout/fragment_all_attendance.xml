@@ -307,6 +307,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:gravity="center"
             android:text="No Records Found..."
+            android:layout_below="@+id/header"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="@dimen/_11sdp"
             android:textStyle="bold"
