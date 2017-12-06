@@ -17,7 +17,8 @@ public class StudentDatum {
     @SerializedName("GRNO")
     @Expose
     private String gRNO;
-
+    @SerializedName("CheckboxStatus")
+    @Expose
     private String check;
 
     public Integer getStudentID() {

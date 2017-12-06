@@ -12,12 +12,12 @@
             android:id="@+id/Login_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_80sdp"
+            android:layout_marginTop="167dp"
             android:gravity="center|center_vertical"
             android:orientation="vertical"
-            android:padding="@dimen/_20sdp">
+            android:padding="@dimen/_20sdp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -34,6 +34,7 @@
                     android:hint="@string/UserName"
                     android:maxLines="1"
                     android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
                     android:textColor="@color/editTextcolor"
                     android:textColorHint="@color/editTextcolor"
                     android:textSize="@dimen/_11sdp" />
@@ -55,6 +56,7 @@
                     android:hint="@string/Password"
                     android:maxLines="1"
                     android:padding="@dimen/_10sdp"
+                    android:singleLine="true"
                     android:inputType="textPassword"
                     android:textColor="@color/editTextcolor"
                     android:textColorHint="@color/editTextcolor"
@@ -82,17 +84,17 @@
 
         <Button
             android:id="@+id/Login_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="@dimen/_38sdp"
             android:layout_below="@+id/Remember_chk"
             android:layout_margin="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/round_button"
             android:onClick="login"
-            android:padding="@dimen/_12sdp"
+            android:padding="@dimen/_10sdp"
             android:text="@string/Login"
             android:textAlignment="center"
             android:textColor="@color/editTextcolor"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_11sdp" />
     </RelativeLayout>
 </layout>

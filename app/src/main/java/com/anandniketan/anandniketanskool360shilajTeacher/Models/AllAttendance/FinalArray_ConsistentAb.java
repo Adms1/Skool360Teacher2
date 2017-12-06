@@ -23,7 +23,8 @@ public class FinalArray_ConsistentAb {
     @SerializedName("Absent From")
     @Expose
     private Integer absentFrom;
-
+    @SerializedName("checkstatus")
+    @Expose
     private String checkstatus;
 
     public String getStudent() {

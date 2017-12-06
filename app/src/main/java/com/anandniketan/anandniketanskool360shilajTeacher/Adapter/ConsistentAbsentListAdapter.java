@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by admsandroid on 11/15/2017.
  */
 
-public class ConsistentAbsentListAdapter extends BaseAdapter {
+    public class ConsistentAbsentListAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<String> dataCheck = new ArrayList<String>();
     private ArrayList<String> mobiledata = new ArrayList<>();
@@ -134,6 +134,10 @@ public class ConsistentAbsentListAdapter extends BaseAdapter {
 
     public ArrayList<String> getMobileData() {
         return mobiledata;
+    }
+
+    public GetConsistentAbModel getDatas(){
+        return getConsistentAbModel;
     }
 }
 

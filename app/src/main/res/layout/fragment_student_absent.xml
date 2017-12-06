@@ -53,14 +53,14 @@
             android:scaleType="fitStart"
             android:src="@drawable/skool_360" />
 
-
         <Button
             android:id="@+id/btnLogout"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@drawable/logout_button"
             android:visibility="visible" />
 
@@ -80,7 +80,7 @@
             android:id="@+id/txtNoRecordsstudentabsent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header"
+            android:layout_below="@+id/linearLayout2"
             android:layout_marginTop="@dimen/_20sdp"
             android:gravity="center"
             android:text="No Records Found..."
@@ -88,45 +88,165 @@
             android:textSize="@dimen/_11sdp"
             android:textStyle="bold"
             android:visibility="gone" />
+        <LinearLayout
+            android:id="@+id/linear_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
+            <TextView
+                android:id="@+id/date_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:text="Date :"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold"
+                android:layout_weight="0.28" />
+
+            <Button
+                android:id="@+id/start_date"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/calendar_line"
+                android:gravity="center"
+                android:paddingBottom="@dimen/_1sdp"
+                android:paddingLeft="@dimen/_1sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:textSize="@dimen/_10sdp"
+                android:layout_weight="0.37" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_date"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/standard_subject_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:text="@string/standardattendance"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/standard_attendace_spinner"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_weight="0.83"
+                android:background="@drawable/dropdown_button_1"
+                android:forceHasOverlappingRendering="false"
+                android:gravity="left|center_vertical"
+                android:paddingBottom="1dp"
+                android:paddingLeft="@dimen/_15sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/standard_division_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:layout_weight="0.07"
+                android:text="@string/section"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/standard_division_spinner"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_weight="0.83"
+                android:background="@drawable/dropdown_button_1"
+                android:gravity="left|center_vertical"
+                android:forceHasOverlappingRendering="false"
+                android:paddingBottom="1dp"
+                android:paddingLeft="@dimen/_15sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/student_absent_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header"
+            android:layout_below="@+id/linearLayout2"
             android:layout_margin="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <include layout="@layout/list_consistent_absent_header" />
+            <include layout="@layout/list_student_absent_header" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/consistent_absent_list_linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_1sdp"
             android:layout_below="@+id/student_absent_header"
+            android:layout_margin="@dimen/_1sdp"
             android:orientation="vertical">
 
             <ListView
                 android:id="@+id/student_absent_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="@dimen/_20sdp"
-                android:scrollbars="none"
                 android:descendantFocusability="afterDescendants"
                 android:divider="@color/gray"
-                android:dividerHeight="1dp"/>
+                android:dividerHeight="1dp"
+                android:paddingBottom="@dimen/_20sdp"
+                android:scrollbars="none"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_48sdp"
-            android:layout_marginTop="-60dp"
             android:layout_below="@+id/consistent_absent_list_linear"
+            android:layout_marginTop="-90dp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:orientation="horizontal">
 
             <ImageView
@@ -135,9 +255,9 @@
                 android:layout_height="@dimen/_38sdp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/_130sdp"
+                android:alpha="0.8"
                 android:src="@drawable/wright"
-                android:visibility="gone"
-                android:alpha="0.8"/>
+                android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

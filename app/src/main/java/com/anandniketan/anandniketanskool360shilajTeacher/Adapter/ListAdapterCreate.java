@@ -116,6 +116,10 @@ public class ListAdapterCreate extends BaseAdapter {
     public ArrayList<String> getData() {
         return dataCheck;
     }
+
+    public ArrayList<StudentDatum> getDatas(){
+        return arrayList;
+    }
 }
 
 

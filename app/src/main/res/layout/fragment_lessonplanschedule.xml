@@ -42,7 +42,7 @@
 
             <Button
                 android:id="@+id/btnFilterlessonplan"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_alignBottom="@+id/toDate"
                     android:layout_alignTop="@+id/toDate"

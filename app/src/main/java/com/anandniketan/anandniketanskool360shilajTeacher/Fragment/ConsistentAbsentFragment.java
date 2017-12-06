@@ -30,6 +30,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetConsiste
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.InsertConsistentAbSMSAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.getCheckconsistentAb;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetConsistentAbModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetDateWiseAbsentStudentModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.InsertConsistentAbSMSModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMCreateResponse.StudentDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
@@ -170,22 +171,42 @@ public class ConsistentAbsentFragment extends Fragment implements DatePickerDial
                                 if (getConsistentAbModelResponse.getFinalArray().size() > 0) {
                                     txtNoRecordsconsistentabsent.setVisibility(View.GONE);
                                     consistent_absent_header.setVisibility(View.VISIBLE);
+                                    for (int i = 0; i < getConsistentAbModelResponse.getFinalArray().size(); i++) {
+                                        getConsistentAbModelResponse.getFinalArray().get(i).setCheckstatus("0");
+                                    }
                                     consistentAbsentListAdapter = new ConsistentAbsentListAdapter(getActivity(), getConsistentAbModelResponse, new getCheckconsistentAb() {
                                         @Override
                                         public void getCheckconsistentAb() {
 
-                                            for (int i = 0; i <=consistent_absent_list.getChildCount(); i++) {
-                                                View view1 = consistent_absent_list.getChildAt(i);
-                                                if (view1 != null) {
-                                                    CheckBox ch = (CheckBox) view1.findViewById(R.id.edit_chk);
-                                                    if (ch.isChecked()) {
-                                                        insert_message_img.setVisibility(View.VISIBLE);
-                                                       return;
-                                                    } else {
-                                                        insert_message_img.setVisibility(View.GONE);
-//                                                       break;
-                                                    }
+//                                            for (int i = 0; i <=consistent_absent_list.getChildCount(); i++) {
+//                                                View view1 = consistent_absent_list.getChildAt(i);
+//                                                if (view1 != null) {
+//                                                    CheckBox ch = (CheckBox) view1.findViewById(R.id.edit_chk);
+//                                                    if (ch.isChecked()) {
+//                                                        insert_message_img.setVisibility(View.VISIBLE);
+//                                                       return;
+//                                                    } else {
+//                                                        insert_message_img.setVisibility(View.GONE);
+////                                                       break;
+//                                                    }
+//                                                }
+//                                            }
+
+                                            GetConsistentAbModel updatedData = consistentAbsentListAdapter.getDatas();
+                                            Boolean data = false;
+                                            for (int i = 0; i <updatedData.getFinalArray().size(); i++) {
+                                                if (updatedData.getFinalArray().get(i).getCheckstatus().equalsIgnoreCase("1")) {
+                                                    data = true;
+                                                    Log.d("Position , Checked or not", "" + i + " : " + updatedData.getFinalArray().get(i).getCheckstatus());
                                                 }
+//                                                else {
+//                                                    data = false;
+//                                                }
+                                            }
+                                            if (data) {
+                                                insert_message_img.setVisibility(View.VISIBLE);
+                                            } else {
+                                                insert_message_img.setVisibility(View.GONE);
                                             }
 
                                         }

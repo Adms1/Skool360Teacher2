@@ -55,7 +55,7 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
 
     private ProgressDialog progressDialog = null;
     private Spinner standard_attendace_spinner, standard_division_spinner;
-    private Button start_date, btnBackAllAttendance,btnLogout;
+    private Button start_date, btnBackAllAttendance, btnLogout;
     private ImageView insert_attendance_img;
     private TextView all_total_student_txt, all_present_txt, all_absent_txt, all_leave_txt, all_onduty_txt, txtNoRecords;
     private LinearLayout header_linear, student_list_linear;
@@ -103,7 +103,7 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
         standard_division_spinner = (Spinner) rootView.findViewById(R.id.standard_division_spinner);
         start_date = (Button) rootView.findViewById(R.id.start_date);
         btnBackAllAttendance = (Button) rootView.findViewById(R.id.btnBackAllAttendance);
-        btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
+        btnLogout = (Button) rootView.findViewById(R.id.btnLogout);
         insert_attendance_img = (ImageView) rootView.findViewById(R.id.insert_attendance_img);
         all_total_student_txt = (TextView) rootView.findViewById(R.id.all_total_student_txt);
         all_present_txt = (TextView) rootView.findViewById(R.id.all_present_txt);
@@ -285,11 +285,9 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
 
             popupWindow.setHeight(spinnerstandardIdArray.length > 5 ? 500 : spinnerstandardIdArray.length * 100);
 //            popupWindow1.setHeght(200);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
-
 
 
         ArrayAdapter<String> adapterstandard = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
@@ -327,8 +325,7 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(standard_division_spinner);
 
             popupWindow.setHeight(spinnersectionIdArray.length > 5 ? 500 : spinnersectionIdArray.length * 100);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
         ArrayAdapter<String> adapterstandard = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnersectionIdArray);
@@ -358,18 +355,22 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (getAttendenceData_allModelResponse.getFinalArray().size() > 0) {
-                                    txtNoRecords.setVisibility(View.GONE);
-                                    prepareList();
-                                    all_attendaceListAdapter = new All_AttendaceListAdapter(getActivity(), getAttendenceData_allModelResponse);
-                                    student_list.setAdapter(all_attendaceListAdapter);
-                                    student_list.deferNotifyDataSetChanged();
-                                    insert_attendance_img.setVisibility(View.VISIBLE);
-                                } else {
-                                    progressDialog.dismiss();
-                                    txtNoRecords.setVisibility(View.VISIBLE);
-                                    insert_attendance_img.setVisibility(View.GONE);
-                                    header_linear.setVisibility(View.GONE);
+                                if (getAttendenceData_allModelResponse.getSuccess().equalsIgnoreCase("True")) {
+                                    if (getAttendenceData_allModelResponse.getFinalArray().size() > 0) {
+                                        txtNoRecords.setVisibility(View.GONE);
+                                        prepareList();
+                                        all_attendaceListAdapter = new All_AttendaceListAdapter(getActivity(), getAttendenceData_allModelResponse);
+                                        student_list.setAdapter(all_attendaceListAdapter);
+                                        student_list.deferNotifyDataSetChanged();
+                                        insert_attendance_img.setVisibility(View.VISIBLE);
+                                    } else {
+                                        progressDialog.dismiss();
+                                        txtNoRecords.setVisibility(View.VISIBLE);
+                                        insert_attendance_img.setVisibility(View.GONE);
+                                        header_linear.setVisibility(View.GONE);
+                                    }
+                                }else{
+                                    Utility.ping(mContext,"No Record found");
                                 }
                             }
                         });
@@ -513,7 +514,7 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (staffInsertAttendenceModelResponse.getFinalArray().size() > 0) {
+                                if (staffInsertAttendenceModelResponse.getFinalArray().size() >= 0) {
                                     Utility.ping(mContext, "Save Sucessfully");
                                     updateAttendace();
                                     getStudentData();

@@ -10,44 +10,56 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:visibility="visible"
-        android:weightSum="4"
         android:padding="@dimen/_5sdp"
+        android:weightSum="4"
         android:background="@drawable/list_line">
-
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_3sdp"
+            android:paddingTop="@dimen/_1sdp"
+            android:text="SrNo"
+            android:layout_weight=".45"
+            android:textAlignment="center"
+            android:layout_gravity="center|center_horizontal"
+            android:textColor="@color/scheduleheadertextcolor"
+            android:textSize="@dimen/_11sdp"/>
         <TextView
             android:id="@+id/name_txt"
-            android:layout_width="@dimen/_61sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:padding="@dimen/_3sdp"
             android:paddingTop="@dimen/_1sdp"
             android:text="Student Name"
+            android:layout_weight="1.3"
             android:textAlignment="center"
             android:layout_gravity="center|center_horizontal"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="@dimen/_11sdp"  />
+            android:textSize="@dimen/_11sdp"/>
+
 
         <TextView
             android:id="@+id/standard_txt"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
-            android:layout_weight="1.68"
             android:padding="@dimen/_3sdp"
             android:paddingTop="@dimen/_3sdp"
             android:text="Standard"
+            android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/scheduleheadertextcolor"
             android:textSize="@dimen/_11sdp"  />
 
         <TextView
-            android:id="@+id/sms_no_txt"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:id="@+id/section_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
-            android:layout_weight="1.68"
+            android:layout_weight="1"
             android:padding="@dimen/_3sdp"
             android:paddingTop="@dimen/_3sdp"
-            android:text="Sms No"
+            android:text="Section"
             android:textAlignment="center"
             android:textColor="@color/scheduleheadertextcolor"
             android:textSize="@dimen/_11sdp" />

@@ -55,13 +55,15 @@
 
         <Button
             android:id="@+id/btnLogout"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:background="@drawable/logout_button"
             android:visibility="visible" />
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
@@ -97,18 +99,17 @@
             <Spinner
                 android:id="@+id/standard_attendace_spinner"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:layout_weight="1"
+                android:layout_weight="0.80"
                 android:background="@drawable/dropdown_button_1"
-                android:dropDownVerticalOffset="@dimen/_30sdp"
                 android:forceHasOverlappingRendering="false"
                 android:gravity="left|center_vertical"
                 android:paddingBottom="1dp"
-                android:paddingLeft="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_15sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp" />
@@ -139,18 +140,17 @@
             <Spinner
                 android:id="@+id/standard_division_spinner"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_weight="1"
                 android:background="@drawable/dropdown_button_1"
-                android:dropDownVerticalOffset="@dimen/_30sdp"
                 android:forceHasOverlappingRendering="false"
                 android:gravity="left|center_vertical"
                 android:paddingBottom="1dp"
-                android:paddingLeft="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_15sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp" />
@@ -180,7 +180,7 @@
                 android:paddingBottom="@dimen/_1sdp"
                 android:paddingLeft="@dimen/_1sdp"
                 android:paddingTop="@dimen/_5sdp"
-                android:textSize="@dimen/_10sdp"/>
+                android:textSize="@dimen/_10sdp" />
 
             <TextView
                 android:id="@+id/all_total_student_txt"
@@ -196,7 +196,7 @@
                 android:paddingTop="@dimen/_5sdp"
                 android:text="@string/totalstudent"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp"  />
+                android:textSize="@dimen/_12sdp" />
         </LinearLayout>
 
         <LinearLayout
@@ -234,6 +234,7 @@
                 android:text="A :"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp" />
+
             <TextView
                 android:id="@+id/all_leave_txt"
                 android:layout_width="0dp"
@@ -304,10 +305,10 @@
             android:id="@+id/txtNoRecords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
             android:layout_marginTop="@dimen/_20sdp"
             android:gravity="center"
             android:text="No Records Found..."
-            android:layout_below="@+id/header"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="@dimen/_11sdp"
             android:textStyle="bold"
