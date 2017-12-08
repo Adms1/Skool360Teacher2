@@ -178,20 +178,6 @@ public class ConsistentAbsentFragment extends Fragment implements DatePickerDial
                                         @Override
                                         public void getCheckconsistentAb() {
 
-//                                            for (int i = 0; i <=consistent_absent_list.getChildCount(); i++) {
-//                                                View view1 = consistent_absent_list.getChildAt(i);
-//                                                if (view1 != null) {
-//                                                    CheckBox ch = (CheckBox) view1.findViewById(R.id.edit_chk);
-//                                                    if (ch.isChecked()) {
-//                                                        insert_message_img.setVisibility(View.VISIBLE);
-//                                                       return;
-//                                                    } else {
-//                                                        insert_message_img.setVisibility(View.GONE);
-////                                                       break;
-//                                                    }
-//                                                }
-//                                            }
-
                                             GetConsistentAbModel updatedData = consistentAbsentListAdapter.getDatas();
                                             Boolean data = false;
                                             for (int i = 0; i <updatedData.getFinalArray().size(); i++) {
