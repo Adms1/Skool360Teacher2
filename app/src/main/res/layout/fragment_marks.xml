@@ -29,7 +29,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:background="@drawable/logout_button" />
 
             <TextView

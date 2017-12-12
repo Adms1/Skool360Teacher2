@@ -167,9 +167,6 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                             public void run() {
                                 progressDialog.dismiss();
                                 if (response.getFinalArraycreate().size() > 0) {
-//                                    for (int i = 0; i < response.getFinalArraycreate().get(0).getStudentData().size(); i++) {
-//                                        response.getFinalArraycreate().get(0).getStudentData().get(i).setCheck("0");
-//                                    }
                                     txtNoRecordsCreate.setVisibility(View.GONE);
                                     fillspinner();
                                 } else {
@@ -216,17 +213,6 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
             @Override
             public void getChecked() {
                 insert_message_img.setVisibility(View.GONE);
-//                for (int i = 0; i <= lvCreate.getChildCount(); i++) {
-//                    View view = lvCreate.getChildAt(i);
-//                    if (view != null) {
-//                        CheckBox ch = (CheckBox) view.findViewById(R.id.create_Checkbox);
-//                        if (ch.isChecked()) {
-//                            insert_message_img.setVisibility(View.VISIBLE);
-//                            return;
-//                        }
-//                    }
-//                }
-
                 ArrayList<StudentDatum> updatedData = listAdapterCreate.getDatas();
                 Boolean data = false;
                 for (int i = 0; i <updatedData.size(); i++) {
@@ -234,9 +220,6 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                         data = true;
                         Log.d("Position , Checked or not", "" + i + " : " + updatedData.get(i).getCheck());
                     }
-//                                                else {
-//                                                    data = false;
-//                                                }
                 }
                 if (data) {
                     insert_message_img.setVisibility(View.VISIBLE);

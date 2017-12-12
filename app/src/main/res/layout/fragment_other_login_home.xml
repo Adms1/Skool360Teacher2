@@ -35,7 +35,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/_40sdp"
                     android:layout_marginStart="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_23sdp"
                     android:src="@drawable/profile_pic_holder"
                     app:border_color="@color/orange"
                     app:border_width="@dimen/_2sdp" />
@@ -63,8 +63,6 @@
                     android:textColor="@color/editTextcolor"
                     android:textSize="@dimen/_13sdp"
                     android:textStyle="italic" />
-
-
 
             </RelativeLayout>
         </LinearLayout>
@@ -102,6 +100,7 @@
 
         </RelativeLayout>
 
+
         <RelativeLayout
             android:id="@+id/headerRel"
             android:layout_width="match_parent"
@@ -114,7 +113,7 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:background="@drawable/logout_button" />
@@ -157,20 +156,20 @@
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginBottom="@dimen/_2sdp"/>
         </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_43sdp"
             android:layout_below="@+id/headerRel"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-32dp"
-            android:paddingTop="@dimen/_1sdp"
+            android:layout_marginTop="-30dp"
             android:background="@drawable/circleshape"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/menu_linear"
-                android:layout_width="@dimen/_23sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_13sdp"
                 android:layout_alignTop="@+id/header"
                 android:layout_centerHorizontal="true"

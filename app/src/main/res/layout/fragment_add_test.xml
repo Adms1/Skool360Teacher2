@@ -53,7 +53,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="@dimen/_3sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_13sdp"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_weight="0.70"
                     android:background="@drawable/calendar_line_black"
