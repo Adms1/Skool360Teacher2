@@ -275,8 +275,8 @@
 
             <ImageView
                 android:id="@+id/insert_attendance_img"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginLeft="@dimen/_140sdp"
                 android:visibility="visible" />

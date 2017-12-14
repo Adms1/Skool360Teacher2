@@ -390,6 +390,7 @@ public class StudentAbsentFragment extends Fragment implements DatePickerDialog.
 //            progressDialog.setCancelable(false);
 //            progressDialog.show();
 
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
