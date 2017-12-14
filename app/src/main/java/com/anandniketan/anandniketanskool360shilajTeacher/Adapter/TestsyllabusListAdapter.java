@@ -217,57 +217,6 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
                                         test_syllabusModels.get(position).getSubjectID() + "|" + test_syllabusModels.get(position).getSectionID() + "|" +
                                         test_syllabusModels.get(position).getTestDate());
                                 onEditTest.getEditTest();
-//                                if (Utility.isNetworkConnected(mContext)) {
-//                                    progressDialog = new ProgressDialog(mContext);
-//                                    progressDialog.setMessage("Please Wait...");
-//                                    progressDialog.setCancelable(false);
-//                                    progressDialog.show();
-//                                    final String finalTxtstr = txtstr;
-//                                    new Thread(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            try {
-//                                                HashMap<String, String> params = new HashMap<String, String>();
-//                                                params.put("StaffID", Utility.getPref(mContext, "StaffID"));
-//                                                params.put("TSMasterID", test_syllabusModels.get(position).getTSMasterID());
-//                                                params.put("TestID", test_syllabusModels.get(position).getTestID());
-//                                                params.put("TestDate", edit_test_date_txt.getText().toString());
-//                                                params.put("SubjectID", test_syllabusModels.get(position).getSubjectID());
-//                                                params.put("SectionID", test_syllabusModels.get(position).getSectionID());
-//                                                params.put("Arydetail", finalTxtstr);
-//
-//                                                updateTestDetailAsyncTask = new TeacherUpdateTestDetailAsyncTask(params);
-//                                                updateTestDetailModel = updateTestDetailAsyncTask.execute().get();
-//                                                TestsyllabusListAdapter.this.runOnUiThread(new Runnable() {
-//                                                    @Override
-//                                                    public void run() {
-//                                                        progressDialog.dismiss();
-////                                                        mCallBack.getTestSyllabusUpdateData();
-//
-//                                                        if (updateTestDetailModel.getSuccess().equalsIgnoreCase("True")) {
-//                                                            progressDialog.dismiss();
-//                                                            alertDialogAndroid.dismiss();
-////                                                            close_btn.performClick();
-//                                                            Utility.ping(mContext, "Update Test");
-//                                                            model = test_syllabusModels.get(position).getGetSyllabusData().get(position);
-//                                                            model.setSyllabus(String.valueOf(text));
-//                                                            test_syllabusModels.get(position).getGetSyllabusData().set(position, model);
-//
-//                                                        } else {
-//                                                            progressDialog.dismiss();
-//                                                            Utility.ping(mContext, "Something error");
-//                                                        }
-//                                                    }
-//                                                });
-//                                            } catch (Exception e) {
-//                                                e.printStackTrace();
-//                                            }
-//                                        }
-//                                    }).start();
-//                                } else {
-//                                    Utility.ping(mContext, "Network not available");
-//                                }
-//                            }
                             }
                         });
                         edit_test_date_txt.setOnClickListener(new View.OnClickListener() {

@@ -18,7 +18,7 @@
         <RelativeLayout
             android:id="@+id/headerRel"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_60sdp"
             android:background="@drawable/hedar_1"
             android:layout_marginTop="@dimen/_5sdp">
 
@@ -29,15 +29,14 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/logout_button" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/_37sdp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:text="TEST/SYLLABUS"
                 android:textColor="@android:color/white"
@@ -48,11 +47,11 @@
                 android:id="@+id/btnBacktest_main"
                 android:layout_width="@dimen/_13sdp"
                 android:layout_height="@dimen/_13sdp"
-                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/_38sdp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_4sdp"
-                android:background="@drawable/back_btn" />
+                android:background="@drawable/back_btn"/>
 
         </RelativeLayout>
 

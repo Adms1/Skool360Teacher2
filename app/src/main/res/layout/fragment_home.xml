@@ -17,7 +17,7 @@
             android:layout_height="@dimen/_150sdp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_55sdp"
             android:background="@color/linear_color"
             android:orientation="horizontal">
 
@@ -35,7 +35,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/_40sdp"
                     android:layout_marginStart="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
                     android:src="@drawable/profile_pic_holder"
                     app:border_color="@color/orange"
                     app:border_width="@dimen/_2sdp" />
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/center"
-            android:layout_marginTop="-65dp">
+            android:layout_marginTop="-57dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,7 +104,7 @@
         <RelativeLayout
             android:id="@+id/headerRel"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_60sdp"
             android:background="@drawable/hedar_orange_1"
             android:layout_marginTop="@dimen/_5sdp">
 
@@ -115,7 +115,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/logout_button" />
 
             <Button
@@ -135,7 +135,7 @@
                 android:layout_marginEnd="@dimen/_7sdp"
                 android:layout_marginRight="@dimen/_7sdp"
                 android:layout_weight="0.84"
-                android:paddingTop="@dimen/_7sdp"
+                android:paddingTop="@dimen/_1sdp"
                 android:text="Notice board"
                 android:textColor="@color/editTextcolor"
                 android:textSize="@dimen/_11sdp"
@@ -143,7 +143,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_toLeftOf="@+id/btnLogout"
                 android:layout_toStartOf="@+id/btnLogout"
-                android:layout_below="@+id/btnLogout" />
+                android:layout_alignTop="@+id/btn_notification" />
             <Button
                 android:id="@+id/btn_notification"
                 android:layout_width="@dimen/_20sdp"
@@ -153,7 +153,7 @@
                 android:layout_toLeftOf="@+id/btnLogout"
                 android:layout_toRightOf="@+id/textView2"
                 android:layout_toEndOf="@+id/textView2"
-                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:layout_marginBottom="@dimen/_2sdp"/>
         </RelativeLayout>
 

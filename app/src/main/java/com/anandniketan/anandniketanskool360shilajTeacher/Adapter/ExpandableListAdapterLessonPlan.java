@@ -2,6 +2,7 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,10 +102,10 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
             SetLanguageAssessmentQue(splitFont4);
 
 
-            homwork_name_txt.setText(homeworkname.trim());
-            chapter_name_txt.setText(chaptername.trim());
-            objective_txt.setText(object.trim());
-            assessment_txt.setText(assement.trim());
+            homwork_name_txt.setText(Html.fromHtml(homeworkname.trim()));
+            chapter_name_txt.setText(Html.fromHtml(chaptername.trim()));
+            objective_txt.setText(Html.fromHtml(object.trim()));
+            assessment_txt.setText(Html.fromHtml(assement.trim()));
 
         } else {
             typeface = Typeface.createFromAsset(_context.getAssets(), "Font/arial.ttf");
@@ -114,10 +115,10 @@ public class ExpandableListAdapterLessonPlan extends BaseExpandableListAdapter {
             objective_txt.setTypeface(typeface);
             assessment_txt.setTypeface(typeface);
 
-            homwork_name_txt.setText(homeworkname.trim());
-            chapter_name_txt.setText(chaptername.trim());
-            objective_txt.setText(object.trim());
-            assessment_txt.setText(assement.trim());
+            homwork_name_txt.setText(Html.fromHtml(homeworkname.trim()));
+            chapter_name_txt.setText(Html.fromHtml(chaptername.trim()));
+            objective_txt.setText(Html.fromHtml(object.trim()));
+            assessment_txt.setText(Html.fromHtml(assement.trim()));
         }
 
 

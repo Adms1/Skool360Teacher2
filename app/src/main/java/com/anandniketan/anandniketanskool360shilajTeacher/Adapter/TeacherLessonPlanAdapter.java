@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,11 +35,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 /**
  * Created by admsandroid on 10/13/2017.
  */
 
-public class TeacherLessonPlanAdapter extends BaseAdapter{
+public class TeacherLessonPlanAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<LessonDatum> arrayList = new ArrayList<>();
     private ProgressDialog progressDialog = null;
@@ -122,7 +126,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter{
 //                            Utility.ping(mContext, "notpresent");
 
                             File cDir = mContext.getExternalFilesDir(null);
-                            saveFilePath = String.valueOf(new File(cDir.getPath() + "/"+ currentTime + "Code.pdf"));
+                            saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + currentTime + "Code.pdf"));
                             Log.d("path", saveFilePath);
                         }
 //
@@ -158,8 +162,8 @@ public class TeacherLessonPlanAdapter extends BaseAdapter{
 
 
                                     });
-                        }else{
-                            Utility.ping(mContext,"Network not available");
+                        } else {
+                            Utility.ping(mContext, "Network not available");
                         }
                     }
                 });
@@ -184,6 +188,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter{
 //                            Utility.ping(mContext, "notpresent");
 
                             File cDir = mContext.getExternalFilesDir(null);
+                            Log.d("*********", cDir.getPath());
                             saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + currentTime + "Word.doc"));
                             Log.d("path", saveFilePath);
                         }
@@ -218,8 +223,8 @@ public class TeacherLessonPlanAdapter extends BaseAdapter{
                                             }
                                         }
                                     });
-                        }else{
-                            Utility.ping(mContext,"Network not available");
+                        } else {
+                            Utility.ping(mContext, "Network not available");
                         }
                     }
                 });
@@ -233,32 +238,102 @@ public class TeacherLessonPlanAdapter extends BaseAdapter{
     }
 
     private void showCustomNotification() {
-        final int NOTIFICATION_ID = 1;
-        String ns = Context.NOTIFICATION_SERVICE;
-        final NotificationManager mNotificationManager = (NotificationManager) mContext.getSystemService(ns);
+//        final int NOTIFICATION_ID = 1;
+//        String ns = Context.NOTIFICATION_SERVICE;
+////        final NotificationManager mNotificationManager = (NotificationManager) mContext.getSystemService(ns);
+//
+//        int icon = R.mipmap.ic_launcher;
+//        long when = System.currentTimeMillis();
+//        Notification notification = new Notification(icon, mContext.getString(R.string.app_name), when);
+//        Intent notificationIntent = new Intent();
+//        notificationIntent.setAction(Intent.ACTION_VIEW);
+//        File f1 = new File(file1);
+//        Log.d("filepath", "" + f1);
+//        notificationIntent.setDataAndType(Uri.fromFile(f1), "files/*");
+//
+////        notification.flags |= Notification.FLAG_NO_CLEAR; //Do not clear the notification
+////        notification.defaults |= Notification.DEFAULT_LIGHTS; // LED
+////        notification.defaults |= Notification.DEFAULT_VIBRATE; //Vibration
+////        notification.defaults |= Notification.DEFAULT_SOUND; // Sound
+//
+//
+//        PendingIntent pIntent = PendingIntent.getActivity(mContext, 0,
+//                notificationIntent, 0);
+//
+////        NotificationCompat.Builder mBuilder =
+////                (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
+////                        .setSmallIcon(R.drawable.downloading_updates)
+////                        .setContentTitle("Downloading file")
+////                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+////                        .setContentText(file1)
+////                        .setContentIntent(pIntent);
+//
+//        Notification noti = new NotificationCompat.Builder(mContext)
+//                .setSmallIcon(R.drawable.downloading_updates)
+//                .setContentTitle("Downloading Completed")
+//                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+//                .setContentText(file1)
+//                .setContentIntent(pIntent).build();
+//
+//        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(ns);
+//        notificationManager.notify(NOTIFICATION_ID, noti);
+//
+//=======================================
+////        Intent intent = new Intent();
+////        intent.setAction(android.content.Intent.ACTION_VIEW);
+//        File file = new File(file1); // set your audio path
+//        MimeTypeMap mime = MimeTypeMap.getSingleton();
+//        String ext=file.getName().substring(file.getName().indexOf(".")+1);
+//        String type = mime.getMimeTypeFromExtension(ext);
+//
+//
+//        Intent openFile = new Intent(Intent.ACTION_VIEW, Uri.fromFile(file));
+//
+//        openFile.setDataAndType(Uri.fromFile(file),type);
+//
+//        PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, openFile, 0);
+//
+//        Notification noti = new NotificationCompat.Builder(mContext)
+//                .setContentTitle("Download completed")
+//                .setContentText(file1)
+//                .setSmallIcon(R.drawable.ic_launcher)
+//                .setContentIntent(pIntent).build();
+//
+//        noti.flags |= Notification.FLAG_NO_CLEAR;
+//
+//        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
+//        notificationManager.notify(0, noti);
 
-        int icon = R.mipmap.ic_launcher;
-        long when = System.currentTimeMillis();
-        Notification notification = new Notification(icon, mContext.getString(R.string.app_name), when);
-        Intent notificationIntent = new Intent(mContext, DashBoardActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(mContext, 0,
-                notificationIntent, 0);
 
+        File file = new File(file1);
+        Log.d("DownloadfilePath", "File to download = " + String.valueOf(file));
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        String ext = file.getName().substring(file.getName().indexOf(".") + 1);
+        String type = mime.getMimeTypeFromExtension(ext);
+        Log.d("type", type);
 
-        notification.flags |= Notification.FLAG_NO_CLEAR; //Do not clear the notification
-        notification.defaults |= Notification.DEFAULT_LIGHTS; // LED
-        notification.defaults |= Notification.DEFAULT_VIBRATE; //Vibration
-        notification.defaults |= Notification.DEFAULT_SOUND; // Sound
+        Intent openFile = new Intent(Intent.ACTION_VIEW, Uri.fromFile(file));
+        openFile.setDataAndType(Uri.fromFile(file), type);
 
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
-                        .setSmallIcon(R.drawable.downloading_updates)
-                        .setContentTitle("Downloading file")
-                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                        .setContentText(file1);
-        // NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        Uri selectedUri = Uri.parse("/storage/emulated/0/downloads");
+//        Intent openFile = new Intent(mContext,DashBoardActivity.class);
+//        openFile.setDataAndType(selectedUri, "resource/folder");
 
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        openFile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent p = PendingIntent.getActivity(mContext, 0, openFile, 0);
+
+        Notification noti = new NotificationCompat.Builder(mContext)
+                .setContentTitle("Download completed")
+                .setContentText(file1)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentIntent(p).build();
+
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, noti);
+
 
     }
 
