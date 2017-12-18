@@ -32,6 +32,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -217,7 +218,8 @@ public class LessonPlanFragment extends Fragment {
         row.clear();
         row.addAll(hs);
         Log.d("row",""+row);
-
+        Collections.sort(row);
+        System.out.println("Sorted ArrayList in Java - Ascending order : " + row);
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");
             popup.setAccessible(true);

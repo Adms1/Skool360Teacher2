@@ -42,6 +42,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -470,6 +471,13 @@ public class TimeTableFragment extends Fragment {
         row.clear();
         row.addAll(hs1);
         Log.d("row",""+row);
+
+        Collections.sort(row);
+        System.out.println("Sorted ArrayList in Java - StandardAscending order : " + row);
+
+        Collections.sort(standardId);
+        System.out.println("Sorted ArrayList in Java - StandardIdAscending order : " + standardId);
+
         String[] spinnerstandardIdArray = new String[standardId.size()];
 
         standardIdMap = new HashMap<Integer, String>();
@@ -478,6 +486,7 @@ public class TimeTableFragment extends Fragment {
             spinnerstandardIdArray[i] = row.get(i).trim();
         }
         Log.d("spinnerstandardIdArray", Arrays.toString(spinnerstandardIdArray));
+
 
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");

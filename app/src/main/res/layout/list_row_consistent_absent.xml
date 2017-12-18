@@ -18,11 +18,11 @@
             android:id="@+id/student_name_txt"
             android:layout_width="@dimen/_61sdp"
             android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center|center_horizontal"
             android:padding="@dimen/_3sdp"
             android:paddingTop="@dimen/_1sdp"
             android:text="Student Name"
             android:textAlignment="center"
-            android:layout_gravity="center|center_horizontal"
             android:textColor="@color/black"
             android:textSize="@dimen/_9sdp" />
 
@@ -31,13 +31,13 @@
             android:layout_width="@dimen/_45sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center|center_horizontal"
+            android:layout_weight="0.87"
             android:padding="@dimen/_3sdp"
             android:paddingTop="@dimen/_5sdp"
             android:text="Standard"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/_9sdp"
-            android:layout_weight="0.87" />
+            android:textSize="@dimen/_9sdp" />
 
         <TextView
             android:id="@+id/sms_txt"
@@ -51,15 +51,16 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/_9sdp" />
+
         <TextView
             android:id="@+id/absent_from_txt"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center|center_horizontal"
             android:layout_weight="1"
             android:padding="@dimen/_3sdp"
             android:paddingTop="@dimen/_5sdp"
             android:text="absentfrom"
-            android:layout_gravity="center|center_horizontal"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/_9sdp" />
@@ -68,8 +69,10 @@
             android:id="@+id/edit_chk"
             android:layout_width="0dp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_weight="0.80"
             android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.80"
+            android:button="@drawable/check_uncheck"
+            android:padding="@dimen/_2sdp"
             android:textSize="@dimen/_9sdp" />
     </LinearLayout>
 </LinearLayout>
