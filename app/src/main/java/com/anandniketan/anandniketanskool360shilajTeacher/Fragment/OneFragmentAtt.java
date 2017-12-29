@@ -207,7 +207,7 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
         present_txt.setText(Html.fromHtml("Present : " + "<font color='#a4c639'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalPresent() + "</b>"));
         absent_txt.setText(Html.fromHtml("Absent : " + "<font color='#ff0000'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalAbsent() + "</b>"));
         leave_txt.setText(Html.fromHtml("Leave : " + "<font color='#ff9623'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalLeave() + "</b>"));
-        onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#FFD8B834'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty() + "</b>"));
+        onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#d8b834'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty() + "</b>"));
 
         if (!staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().get(0).getAttendenceStatus().equalsIgnoreCase("-2")) {
             insert_attendance_img.setBackgroundResource(R.drawable.update_1);
@@ -316,7 +316,7 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
             present_txt.setText(Html.fromHtml("Present : " + "<font color='#a4c639'>" + "<b>" + String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalPresent())));
             absent_txt.setText(Html.fromHtml("Absent : " + "<font color='#ff0000'>" + "<b>" + String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalAbsent())));
             leave_txt.setText(Html.fromHtml("Leave : " + "<font color='#ff9623'>" + "<b>" + String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalLeave())));
-            onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#FFD8B834'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty() + "</b>"));
+            onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#d8b834'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty() + "</b>"));
         }
     }
 }
