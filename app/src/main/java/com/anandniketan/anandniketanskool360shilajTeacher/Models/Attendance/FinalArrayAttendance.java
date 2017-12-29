@@ -31,6 +31,9 @@ public class FinalArrayAttendance {
     @SerializedName("StudentDetail")
     @Expose
     private List<StudentDetailAttedance> studentDetail = null;
+    @SerializedName("TotalOnDuty")
+    @Expose
+    private Integer totalOnDuty;
 
     public Integer getStandardID() {
         return standardID;
@@ -86,5 +89,13 @@ public class FinalArrayAttendance {
 
     public void setStudentDetail(List<StudentDetailAttedance> studentDetail) {
         this.studentDetail = studentDetail;
+    }
+
+    public Integer getTotalOnDuty() {
+        return totalOnDuty;
+    }
+
+    public void setTotalOnDuty(Integer totalOnDuty) {
+        this.totalOnDuty = totalOnDuty;
     }
 }

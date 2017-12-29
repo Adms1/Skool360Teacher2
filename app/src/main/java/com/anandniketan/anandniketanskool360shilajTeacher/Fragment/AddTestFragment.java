@@ -444,8 +444,8 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
     public void standardsubjectsectionspinner() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        ArrayList<String> arrayListclassID = new ArrayList<>();
+            ArrayList<String> arrayList = new ArrayList<>();
+            ArrayList<String> arrayListclassID = new ArrayList<>();
         String getsubjectstandardstr = teacherAssignedSubjectModels.get(0).getStandardsubject();
 
         if (!getsubjectstandardstr.equalsIgnoreCase("")) {

@@ -55,7 +55,7 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
     int mYear, mMonth, mDay;
     int Year, Month, Day;
     Calendar calendar;
-    private TextView total_student_txt, present_txt, absent_txt, leave_txt, txtNoRecords;
+    private TextView total_student_txt, present_txt, absent_txt, leave_txt, onduty_txt, txtNoRecords;
     private LinearLayout student_list_linear;
     private ListView student_list;
     private GetNewStaffAttendanceAsyncTask getNewStaffAttendanceAsyncTask = null;
@@ -96,6 +96,7 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
         present_txt = (TextView) rootView.findViewById(R.id.present_txt);
         absent_txt = (TextView) rootView.findViewById(R.id.absent_txt);
         leave_txt = (TextView) rootView.findViewById(R.id.leave_txt);
+        onduty_txt = (TextView) rootView.findViewById(R.id.onduty_txt);
         txtNoRecords = (TextView) rootView.findViewById(R.id.txtNoRecords);
 
         student_list_linear = (LinearLayout) rootView.findViewById(R.id.student_list_linear);
@@ -206,6 +207,7 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
         present_txt.setText(Html.fromHtml("Present : " + "<font color='#a4c639'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalPresent() + "</b>"));
         absent_txt.setText(Html.fromHtml("Absent : " + "<font color='#ff0000'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalAbsent() + "</b>"));
         leave_txt.setText(Html.fromHtml("Leave : " + "<font color='#ff9623'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalLeave() + "</b>"));
+        onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#FFD8B834'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty() + "</b>"));
 
         if (!staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().get(0).getAttendenceStatus().equalsIgnoreCase("-2")) {
             insert_attendance_img.setBackgroundResource(R.drawable.update_1);
@@ -218,7 +220,8 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
             }
         }
     }
-   public void InsertAttendance() {
+
+    public void InsertAttendance() {
         final ArrayList<String> Attendanceid = new ArrayList<>();
         final ArrayList<String> Attendacestatus = new ArrayList<>();
         final ArrayList<String> studid = new ArrayList<>();
@@ -309,11 +312,11 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
 
     public void updateAttendace() {
         for (int i = 0; i < staffInsertAttendenceModelResponse.getFinalArray().size(); i++) {
-            total_student_txt.setText(Html.fromHtml("Total Student : " + "<font color='#1B88C8'>" + "<b>" +String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotal())));
-            present_txt.setText(Html.fromHtml("Present : " + "<font color='#a4c639'>" + "<b>" +String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalPresent())));
+            total_student_txt.setText(Html.fromHtml("Total Student : " + "<font color='#1B88C8'>" + "<b>" + String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotal())));
+            present_txt.setText(Html.fromHtml("Present : " + "<font color='#a4c639'>" + "<b>" + String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalPresent())));
             absent_txt.setText(Html.fromHtml("Absent : " + "<font color='#ff0000'>" + "<b>" + String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalAbsent())));
-            leave_txt.setText(Html.fromHtml("Leave : " + "<font color='#ff9623'>" + "<b>" +String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalLeave())));
-
+            leave_txt.setText(Html.fromHtml("Leave : " + "<font color='#ff9623'>" + "<b>" + String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalLeave())));
+            onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#FFD8B834'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty() + "</b>"));
         }
     }
 }

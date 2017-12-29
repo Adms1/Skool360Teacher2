@@ -20,7 +20,6 @@ public class FinalArrayUpdateAttendace {
     @SerializedName("TotalLeave")
     @Expose
     private Integer totalLeave;
-
     @SerializedName("TotalOnDuty")
     @Expose
     private Integer totalOnDuty;

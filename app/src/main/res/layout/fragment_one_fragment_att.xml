@@ -57,7 +57,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_weight="0.04"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="4"
         android:padding="@dimen/_5sdp">
 
         <TextView
@@ -65,36 +65,47 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center|center_vertical"
-            android:layout_marginLeft="@dimen/_9sdp"
+            android:layout_marginLeft="@dimen/_2sdp"
             android:layout_weight="0.99"
             android:text="@string/present"
             android:padding="@dimen/_5sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_10sdp" />
 
         <TextView
             android:id="@+id/absent_txt"
             android:layout_width="0dp"
             android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center|center_vertical"
-            android:layout_marginLeft="@dimen/_7sdp"
+            android:layout_marginLeft="@dimen/_3sdp"
             android:layout_weight="1"
             android:text="@string/absent"
             android:padding="@dimen/_5sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_10sdp" />
 
         <TextView
             android:id="@+id/leave_txt"
             android:layout_width="0dp"
             android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center|center_vertical"
-            android:layout_marginLeft="@dimen/_7sdp"
+            android:layout_marginLeft="@dimen/_3sdp"
             android:layout_weight="1"
             android:text="@string/leave"
             android:padding="@dimen/_5sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_10sdp" />
+        <TextView
+            android:id="@+id/onduty_txt"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center|center_vertical"
+            android:layout_marginLeft="@dimen/_3sdp"
+            android:layout_weight="1"
+            android:text="@string/onduty"
+            android:padding="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10sdp" />
     </LinearLayout>
 
 

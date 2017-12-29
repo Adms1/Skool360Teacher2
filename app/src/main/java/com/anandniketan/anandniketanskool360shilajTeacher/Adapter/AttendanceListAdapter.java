@@ -45,7 +45,7 @@ public class AttendanceListAdapter extends BaseAdapter {
         TextView student_name_txt;
         RadioGroup attendance_group;
         //        CheckBox present_chk, absent_chk, leave_chk;
-        RadioButton present_chk, absent_chk, leave_chk;
+        RadioButton present_chk, absent_chk, leave_chk, onduty_chk;
 
     }
 
@@ -78,6 +78,7 @@ public class AttendanceListAdapter extends BaseAdapter {
             viewHolder.present_chk = (RadioButton) convertView.findViewById(R.id.present_chk);
             viewHolder.absent_chk = (RadioButton) convertView.findViewById(R.id.absent_chk);
             viewHolder.leave_chk = (RadioButton) convertView.findViewById(R.id.leave_chk);
+            viewHolder.onduty_chk = (RadioButton) convertView.findViewById(R.id.onduty_chk);
             viewHolder.attendance_group = (RadioGroup) convertView.findViewById(R.id.attendance_group);
 
             imageLoader = ImageLoader.getInstance();
@@ -123,6 +124,9 @@ public class AttendanceListAdapter extends BaseAdapter {
                                 case R.id.leave_chk:
                                     detail.setAttendenceStatus("-1");
                                     break;
+
+                                case R.id.onduty_chk:
+                                    detail.setAttendenceStatus("3");
                             }
 
                         }
@@ -143,6 +147,11 @@ public class AttendanceListAdapter extends BaseAdapter {
                     case -2:
                         viewHolder.present_chk.setChecked(true);
                         viewHolder.present_chk.setClickable(false);
+                        break;
+                    case 3:
+                        viewHolder.onduty_chk.setChecked(true);
+                        viewHolder.onduty_chk.setClickable(false);
+                        break;
                     default:
                 }
 

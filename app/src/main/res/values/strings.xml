@@ -35,11 +35,11 @@
     <string name="homeworkDate">Date</string>
     <string name="homeworkStandard">std</string>
     <string name="homeworkClass">class</string>
-    <string name="homeworkSubject">Subject :</string>
-    <string name="homework">HomeWork :</string>
-    <string name="chaptername">Chapter Name :</string>
-    <string name="objective">Objective :</string>
-    <string name="assessment">AssessmentQue :</string>
+    <string name="homeworkSubject">Subject</string>
+    <string name="homework">HomeWork</string>
+    <string name="chaptername">Chapter Name</string>
+    <string name="objective">Objective</string>
+    <string name="assessment">Assessment Que</string>
     <string name="plandate">Plan Date</string>
     <string name="chapterno"> Chapter No.</string>
     <string name="lessonchaptername">Chapter Name</string>

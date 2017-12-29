@@ -10,6 +10,7 @@
     <color name="bg_color">#FFFFFF</color>
     <color name="linear_color">#1B88C8</color>
     <color name="orange">#ff9623</color>
+    <color name="yellow">#FFD8B834</color>
     <color name="black">#000000</color>
     <color name="present_header">#a4c639</color>
     <color name="absent_header">#ff0000</color>

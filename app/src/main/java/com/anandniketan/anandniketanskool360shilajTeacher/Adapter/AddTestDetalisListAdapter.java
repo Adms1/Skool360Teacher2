@@ -58,7 +58,6 @@ public class AddTestDetalisListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.list_edittext, null);
             viewHolder.syllbus_edt = (EditText) convertView.findViewById(R.id.syllabus_txt);
 
-
             try {
 
             } catch (Exception e) {

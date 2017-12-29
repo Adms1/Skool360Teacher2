@@ -162,6 +162,7 @@ public class All_AttendaceListAdapter extends BaseAdapter {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         String value = parent.getSelectedItem().toString();
+                        Log.d("value",value);
                         if (value.equalsIgnoreCase("Present")) {
                             detail.setAttendenceStatus("1");
                             Log.d("selectedvalue", detail.getAttendenceStatus());
@@ -171,7 +172,7 @@ public class All_AttendaceListAdapter extends BaseAdapter {
                         } else if (value.equalsIgnoreCase("Leave")) {
                             detail.setAttendenceStatus("-1");
                             Log.d("selectedvalue", detail.getAttendenceStatus());
-                        } else if (value.equalsIgnoreCase("OnDuty")) {
+                        } else if (value.equalsIgnoreCase("On Duty")) {
                             detail.setAttendenceStatus("3");
                             Log.d("selectedvalue", detail.getAttendenceStatus());
                         }

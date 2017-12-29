@@ -2,6 +2,7 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,10 +90,6 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         splitFont3 = "";
         FontStyle = childData.get(childPosition).getFont();
 
-        String object = childData.get(childPosition).getObjective().replace("&nbsp;", "");
-        String homeworkname = childData.get(childPosition).getHomeWork().replace("&nbsp;", "");
-        String chaptername = childData.get(childPosition).getChapterName().replace("&nbsp;", "");
-        String assement = childData.get(childPosition).getChapterName().replace("&nbsp;", "");
 
         if (!FontStyle.equalsIgnoreCase("-|-|-|-")) {
             String[] splitFontStyle = FontStyle.split("\\|");
@@ -107,10 +104,10 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             SetLanguageObjective(splitFont3);
             SetLanguageAssessmentQue(splitFont4);
 
-            homwork_name_txt.setText((homeworkname.trim()));
-            chapter_name_txt.setText((chaptername.trim()));
-            objective_txt.setText((object.trim()));
-            assessment_txt.setText((assement.trim()));
+            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
+            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
+            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
+            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
 
         } else {
             typeface = Typeface.createFromAsset(_context.getAssets(), "Font/arial.ttf");
@@ -119,10 +116,11 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             objective_txt.setTypeface(typeface);
             assessment_txt.setTypeface(typeface);
 
-            homwork_name_txt.setText((homeworkname.trim()));
-            chapter_name_txt.setText((chaptername.trim()));
-            objective_txt.setText((object.trim()));
-            assessment_txt.setText((assement.trim()));
+            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
+            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
+            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
+            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
+
         }
         StudentHomeWorkStatus_btn.setOnClickListener(new View.OnClickListener() {
             @Override
