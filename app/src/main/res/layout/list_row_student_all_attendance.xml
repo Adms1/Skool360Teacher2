@@ -34,7 +34,7 @@
             android:text="@string/student_name"
             android:textAlignment="textStart"
             android:textColor="@color/black"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_9sdp" />
 
         <Spinner
             android:id="@+id/standard_attendace_spinner"
@@ -49,7 +49,8 @@
             android:forceHasOverlappingRendering="false"
             android:gravity="left|center_vertical"
             android:paddingBottom="1dp"
-            android:paddingLeft="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_1sdp"
+            android:overlapAnchor="false"
             android:paddingTop="@dimen/_1sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_11sdp" />

@@ -27,7 +27,7 @@
             android:padding="@dimen/_5sdp"
             android:text="Name"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_10sdp"
             android:textStyle="bold" />
         <TextView
             android:layout_width="0dp"
@@ -37,7 +37,7 @@
             android:padding="@dimen/_5sdp"
             android:text="Status"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_10sdp"
             android:textStyle="bold" />
         <TextView
             android:layout_width="0dp"
@@ -47,7 +47,7 @@
             android:padding="@dimen/_5sdp"
             android:text="Remark"
             android:textColor="@color/scheduleheadertextcolor"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_10sdp"
             android:textStyle="bold" />
 
     </LinearLayout>

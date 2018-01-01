@@ -46,7 +46,8 @@
                 android:spinnerMode="dropdown"
                 android:overlapAnchor="false"
                 android:background="@drawable/dropdown_button"
-                android:forceHasOverlappingRendering="false"/>
+                android:forceHasOverlappingRendering="false"
+                />
 
         </LinearLayout>
 

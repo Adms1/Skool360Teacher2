@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="windowNoTitle">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="windowActionBar">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="colorPrimary">@color/linear_color</item>
@@ -12,9 +12,7 @@
         <item name="android:textColorHint">@color/editTextcolor</item>
         <item name="android:textSize">20sp</item>
         <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
-
     </style>
-
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/editTextcolor</item>
     </style>

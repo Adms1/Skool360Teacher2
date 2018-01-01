@@ -199,7 +199,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/round_button"
                 android:text="Add"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textColor="@color/editTextcolor"
                 android:textSize="@dimen/_11sdp"   />
         </LinearLayout>
