@@ -352,7 +352,7 @@
                 android:layout_marginBottom="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/round_button"
-                android:text="ADD"
+                android:text="Add"
                 android:textAllCaps="false"
                 android:textColor="@color/editTextcolor"
                 android:textSize="@dimen/_11sdp"  />

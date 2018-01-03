@@ -22,7 +22,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 public class ScheduleFragment extends Fragment {
     private View rootView;
     private Button btnBackSchedule,btnLogout;
-
+    View view;
     private TabLayout tabLayout_schedule;
     private ViewPager viewPager;
     private Context mContext;
@@ -49,7 +49,7 @@ public class ScheduleFragment extends Fragment {
         btnBackSchedule = (Button) rootView.findViewById(R.id.btnBackSchedule);
         btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
-
+        view = (View) rootView.findViewById(R.id.view);
 
         tabLayout_schedule = (TabLayout) rootView.findViewById(R.id.tabLayout_schedule);
         tabLayout_schedule.addTab(tabLayout_schedule.newTab().setText("Today Schedule"),true);
@@ -62,6 +62,12 @@ public class ScheduleFragment extends Fragment {
 //Adding adapter to pager
         viewPager.setAdapter(adapter);
 //        tabLayout_schedule.setupWithViewPager(viewPager);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setListner() {

@@ -394,10 +394,10 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
         onduty_str = String.valueOf(getAttendenceData_allModelResponse.getFinalArray().get(0).getTotalOnDuty());
 
         all_total_student_txt.setText(Html.fromHtml("Total Student : " + "<font color='#1B88C8'>" + "<b>" + total_studentstr + "</b>"));
-        all_present_txt.setText(Html.fromHtml("P : " + "<font color='#a4c639'>" + "<b>" + prsent_str + "</b>"));
-        all_absent_txt.setText(Html.fromHtml("A : " + "<font color='#ff0000'>" + "<b>" + absent_str + "</b>"));
-        all_leave_txt.setText(Html.fromHtml("L : " + "<font color='#ff9623'>" + "<b>" + leave_str + "</b>"));
-        all_onduty_txt.setText(Html.fromHtml("O.D : " + "<font color='#1B88C8'>" + "<b>" + onduty_str + "</b>"));
+        all_present_txt.setText(Html.fromHtml("Present : " + "<font color='#a4c639'>" + "<b>" + prsent_str + "</b>"));
+        all_absent_txt.setText(Html.fromHtml("Absent : " + "<font color='#ff0000'>" + "<b>" + absent_str + "</b>"));
+        all_leave_txt.setText(Html.fromHtml("Leave : " + "<font color='#ff9623'>" + "<b>" + leave_str + "</b>"));
+        all_onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#d8b834'>" + "<b>" + onduty_str + "</b>"));
 
         if (!getAttendenceData_allModelResponse.getFinalArray().get(0).getStudentDetail().get(0).getAttendenceStatus().equalsIgnoreCase("-2")) {
             insert_attendance_img.setBackgroundResource(R.drawable.update_1);
@@ -543,9 +543,9 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
         onduty_str = String.valueOf(staffInsertAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty());
 
         all_total_student_txt.setText(Html.fromHtml("Total Student : " + "<font color='#1B88C8'>" + "<b>" + total_studentstr + "</b>"));
-        all_present_txt.setText(Html.fromHtml("P : " + "<font color='#a4c639'>" + "<b>" + prsent_str + "</b>"));
-        all_absent_txt.setText(Html.fromHtml("A : " + "<font color='#ff0000'>" + "<b>" + absent_str + "</b>"));
-        all_leave_txt.setText(Html.fromHtml("L : " + "<font color='#ff9623'>" + "<b>" + leave_str + "</b>"));
-        all_onduty_txt.setText(Html.fromHtml("O.D : " + "<font color='#1B88C8'>" + "<b>" + onduty_str + "</b>"));
+        all_present_txt.setText(Html.fromHtml("Present : " + "<font color='#a4c639'>" + "<b>" + prsent_str + "</b>"));
+        all_absent_txt.setText(Html.fromHtml("Absent : " + "<font color='#ff0000'>" + "<b>" + absent_str + "</b>"));
+        all_leave_txt.setText(Html.fromHtml("Leave : " + "<font color='#ff9623'>" + "<b>" + leave_str + "</b>"));
+        all_onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#d8b834'>" + "<b>" + onduty_str + "</b>"));
     }
 }

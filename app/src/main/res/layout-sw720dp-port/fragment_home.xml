@@ -14,7 +14,7 @@
         <LinearLayout
             android:id="@+id/center"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_145sdp"
+            android:layout_height="@dimen/_150sdp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="@dimen/_55sdp"
@@ -35,7 +35,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/_40sdp"
                     android:layout_marginStart="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_40sdp"
                     android:src="@drawable/profile_pic_holder"
                     app:border_color="@color/orange"
                     app:border_width="@dimen/_2sdp" />
@@ -74,14 +74,16 @@
             android:layout_below="@+id/center"
             android:layout_marginTop="-40dp">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginRight="@dimen/_15sdp"
-                android:background="@drawable/shadow"
-                android:orientation="horizontal">
+                android:background="@drawable/linear_dropshadow"
+                android:orientation="horizontal"
+                android:elevation="@dimen/_5sdp">
 
                 <GridView
                     android:id="@+id/grid_view"
@@ -96,6 +98,7 @@
                     android:scrollbars="none"
                     android:stretchMode="columnWidth"
                     android:verticalSpacing="@dimen/_10sdp" />
+
             </LinearLayout>
 
         </RelativeLayout>
@@ -140,21 +143,21 @@
                 android:textColor="@color/editTextcolor"
                 android:textSize="@dimen/_11sdp"
                 android:textStyle="bold"
-                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/_35sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_toLeftOf="@+id/btnLogout"
                 android:layout_toStartOf="@+id/btnLogout"
-                android:layout_alignTop="@+id/btn_notification" />
+                 />
             <Button
                 android:id="@+id/btn_notification"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/notification_image"
-                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/_35sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_toLeftOf="@+id/btnLogout"
                 android:layout_toRightOf="@+id/textView2"
-                android:layout_toEndOf="@+id/textView2"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginBottom="@dimen/_2sdp"/>
+                android:layout_toEndOf="@+id/textView2"/>
         </RelativeLayout>
 
         <LinearLayout

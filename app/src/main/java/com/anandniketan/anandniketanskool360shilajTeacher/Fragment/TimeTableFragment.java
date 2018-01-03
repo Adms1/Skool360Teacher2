@@ -516,7 +516,13 @@ public class TimeTableFragment extends Fragment {
                 Log.d("sectionArray", "" + sectionArray);
             }
         }
-
+        HashSet hs1 = new HashSet();
+        hs1.addAll(sectionArray);
+        sectionArray.clear();
+        sectionArray.addAll(hs1);
+        Log.d("sectionArray",""+sectionArray);
+        Collections.sort(sectionArray);
+        System.out.println("Sorted ArrayList in Java - StandardIdAscending order : " + sectionArray);
         if (edit_lecture_section_llListData.getChildCount() > 0) {
             edit_lecture_section_llListData.removeAllViews();
         }
@@ -580,6 +586,9 @@ public class TimeTableFragment extends Fragment {
                 subjectId.add(Integer.parseInt(teacherAssignedSubjectModels.get(z).getSubjectID()));
             }
         }
+        Log.d("rowsubjectbefore",""+rowsubject);
+        Log.d("subjectIdbefore",""+subjectId);
+
         HashSet hs1 = new HashSet();
         hs1.addAll(rowsubject);
         rowsubject.clear();
@@ -590,7 +599,13 @@ public class TimeTableFragment extends Fragment {
         subjectId.clear();
         subjectId.addAll(hs);
         Log.d("subjectId",""+subjectId);
-        Log.d("subjectId", "" + subjectId);
+
+        Collections.sort(rowsubject);
+        System.out.println("Sorted ArrayList in Java - StandardIdAscending order : " + rowsubject);
+
+        Collections.sort(subjectId);
+        System.out.println("Sorted ArrayList in Java - StandardIdAscending order : " + subjectId);
+
         String[] spinnersubjectIdArray = new String[subjectId.size()];
 
         subjectIdMap = new HashMap<Integer, String>();

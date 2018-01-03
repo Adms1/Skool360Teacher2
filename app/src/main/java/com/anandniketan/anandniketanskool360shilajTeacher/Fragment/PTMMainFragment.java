@@ -20,8 +20,8 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 
 public class PTMMainFragment extends Fragment {
     private View rootView;
-    private Button btnMenu, btnBackPtm_main,btnLogout;
-
+    private Button  btnBackPtm_main,btnLogout;
+    View view;
     private TabLayout tabLayout_ptm_main;
     private ViewPager viewPager;
     private Context mContext;
@@ -45,10 +45,10 @@ public class PTMMainFragment extends Fragment {
     public void init() {
 //Initializing the tablayout
 
-        btnBackPtm_main= (Button) rootView.findViewById(R.id.btnBackPtm_main);
+        btnBackPtm_main=(Button)rootView.findViewById(R.id.btnBackPtm_main);
         btnLogout=(Button)rootView.findViewById(R.id.btnLogout);
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
-
+        view = (View) rootView.findViewById(R.id.view);
 
         tabLayout_ptm_main = (TabLayout) rootView.findViewById(R.id.tabLayout_ptm_main);
         tabLayout_ptm_main.addTab(tabLayout_ptm_main.newTab().setText("Inbox"),true);
@@ -62,6 +62,12 @@ public class PTMMainFragment extends Fragment {
 //Adding adapter to pager
         viewPager.setAdapter(adapter);
 //        adapter.notifyDataSetChanged();
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setListner() {

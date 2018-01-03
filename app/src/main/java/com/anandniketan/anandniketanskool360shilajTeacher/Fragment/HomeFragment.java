@@ -95,6 +95,7 @@ public class HomeFragment extends Fragment {
             Utility.ping(mContext, "Network not available");
 
         }
+
         return rootView;
     }
 

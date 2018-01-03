@@ -70,11 +70,11 @@ private onDeleteButton listner;
         txtSubject = (TextView) convertView.findViewById(R.id.txtSubject);
         delete_btn = (Button) convertView.findViewById(R.id.delete_btn);
 
-        if (childData.get(childPosition).getReadStatus().equalsIgnoreCase("Pending")) {
-            txtSubject.setTypeface(null, Typeface.BOLD);
-        } else {
-            txtSubject.setTypeface(null, Typeface.NORMAL);
-        }
+//        if (childData.get(childPosition).getReadStatus().equalsIgnoreCase("Pending")) {
+//            txtSubject.setTypeface(null, Typeface.BOLD);
+//        } else {
+//            txtSubject.setTypeface(null, Typeface.NORMAL);
+//        }
         txtSubject.setText(childData.get(childPosition).getDescription());
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
