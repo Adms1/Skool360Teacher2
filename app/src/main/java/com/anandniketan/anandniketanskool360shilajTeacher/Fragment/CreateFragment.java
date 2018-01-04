@@ -207,7 +207,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                 insert_message_img.setVisibility(View.GONE);
             }
         }
-        for (int k=0;k<arrayList.size();k++){
+        for (int k = 0; k < arrayList.size(); k++) {
             arrayList.get(k).setCheck("0");
         }
         listAdapterCreate = new ListAdapterCreate(getActivity(), arrayList, getActivity().getFragmentManager(), new onCheckBoxChnage() {
@@ -216,7 +216,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                 insert_message_img.setVisibility(View.GONE);
                 ArrayList<StudentDatum> updatedData = listAdapterCreate.getDatas();
                 Boolean data = false;
-                for (int i = 0; i <updatedData.size(); i++) {
+                for (int i = 0; i < updatedData.size(); i++) {
                     if (updatedData.get(i).getCheck().equalsIgnoreCase("1")) {
                         data = true;
                         Log.d("Position , Checked or not", "" + i + " : " + updatedData.get(i).getCheck());
@@ -317,9 +317,11 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
             public void onClick(View v) {
                 ArrayList<String> id = new ArrayList<>();
                 final String messageDate, messageSubject, messageMessageLine;
-                ArrayList<String> array = listAdapterCreate.getData();
+                ArrayList<StudentDatum> array = listAdapterCreate.getDatas();
                 for (int j = 0; j < array.size(); j++) {
-                    id.add(array.get(j).toString());
+                    if (array.get(j).getCheck().equalsIgnoreCase("1")) {
+                        id.add(array.get(j).getStudentID().toString());
+                    }
                 }
                 finalStudentArray = String.valueOf(id);
                 finalStudentArray = finalStudentArray.substring(1, finalStudentArray.length() - 1);
@@ -350,7 +352,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
                                     params.put("MeetingDate", messageDate);
                                     params.put("SubjectLine", messageSubject);
                                     params.put("Description", messageMessageLine);
-                                    params.put("Flag","Staff");
+                                    params.put("Flag", "Staff");
 
                                     getPTMTeacherStudentInsertDetailAsyncTask = new PTMTeacherStudentInsertDetailAsyncTask(params);
                                     mainPtmSentMessageResponse = getPTMTeacherStudentInsertDetailAsyncTask.execute().get();
