@@ -39,7 +39,7 @@
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_37sdp"
-                android:text="SUBJECT"
+                android:text="SUBJECTS"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="normal" />

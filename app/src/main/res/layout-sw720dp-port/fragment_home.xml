@@ -14,7 +14,7 @@
         <LinearLayout
             android:id="@+id/center"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp"
+            android:layout_height="@dimen/_135sdp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="@dimen/_55sdp"
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/center"
-            android:layout_marginTop="-40dp">
+            android:layout_marginTop="-55dp">
 
 
             <LinearLayout
@@ -147,7 +147,7 @@
                 android:layout_marginBottom="@dimen/_3sdp"
                 android:layout_toLeftOf="@+id/btnLogout"
                 android:layout_toStartOf="@+id/btnLogout"
-                 />
+                />
             <Button
                 android:id="@+id/btn_notification"
                 android:layout_width="@dimen/_20sdp"
@@ -166,7 +166,7 @@
             android:layout_height="@dimen/_43sdp"
             android:layout_below="@+id/headerRel"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-30dp"
+            android:layout_marginTop="-55dp"
             android:background="@drawable/circleshape"
             android:orientation="horizontal">
 
