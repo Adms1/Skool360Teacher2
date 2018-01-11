@@ -202,7 +202,6 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
 
 
                         }
-//
                         Log.d("path", extStorageDirectory);
 
                         final String fileURL = "http://103.8.216.132/Backend/LessonPlanWord.aspx?ID=" + arrayList.get(position).getID();
@@ -248,71 +247,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
     }
 
     private void showCustomNotification() {
-//        final int NOTIFICATION_ID = 1;
-//        String ns = Context.NOTIFICATION_SERVICE;
-////        final NotificationManager mNotificationManager = (NotificationManager) mContext.getSystemService(ns);
-//
-//        int icon = R.mipmap.ic_launcher;
-//        long when = System.currentTimeMillis();
-//        Notification notification = new Notification(icon, mContext.getString(R.string.app_name), when);
-//        Intent notificationIntent = new Intent();
-//        notificationIntent.setAction(Intent.ACTION_VIEW);
-//        File f1 = new File(file1);
-//        Log.d("filepath", "" + f1);
-//        notificationIntent.setDataAndType(Uri.fromFile(f1), "files/*");
-//
-////        notification.flags |= Notification.FLAG_NO_CLEAR; //Do not clear the notification
-////        notification.defaults |= Notification.DEFAULT_LIGHTS; // LED
-////        notification.defaults |= Notification.DEFAULT_VIBRATE; //Vibration
-////        notification.defaults |= Notification.DEFAULT_SOUND; // Sound
-//
-//
-//        PendingIntent pIntent = PendingIntent.getActivity(mContext, 0,
-//                notificationIntent, 0);
-//
-////        NotificationCompat.Builder mBuilder =
-////                (NotificationCompat.Builder) new NotificationCompat.Builder(mContext)
-////                        .setSmallIcon(R.drawable.downloading_updates)
-////                        .setContentTitle("Downloading file")
-////                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-////                        .setContentText(file1)
-////                        .setContentIntent(pIntent);
-//
-//        Notification noti = new NotificationCompat.Builder(mContext)
-//                .setSmallIcon(R.drawable.downloading_updates)
-//                .setContentTitle("Downloading Completed")
-//                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-//                .setContentText(file1)
-//                .setContentIntent(pIntent).build();
-//
-//        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(ns);
-//        notificationManager.notify(NOTIFICATION_ID, noti);
-//
-//=======================================
-////        Intent intent = new Intent();
-////        intent.setAction(android.content.Intent.ACTION_VIEW);
-//        File file = new File(file1); // set your audio path
-//        MimeTypeMap mime = MimeTypeMap.getSingleton();
-//        String ext=file.getName().substring(file.getName().indexOf(".")+1);
-//        String type = mime.getMimeTypeFromExtension(ext);
-//
-//
-//        Intent openFile = new Intent(Intent.ACTION_VIEW, Uri.fromFile(file));
-//
-//        openFile.setDataAndType(Uri.fromFile(file),type);
-//
-//        PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, openFile, 0);
-//
-//        Notification noti = new NotificationCompat.Builder(mContext)
-//                .setContentTitle("Download completed")
-//                .setContentText(file1)
-//                .setSmallIcon(R.drawable.ic_launcher)
-//                .setContentIntent(pIntent).build();
-//
-//        noti.flags |= Notification.FLAG_NO_CLEAR;
-//
-//        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
-//        notificationManager.notify(0, noti);
+// 11/01/2018 change by megha
         Intent openFile;
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //            File apkfile = new File(FileProvider.getUriForFile(mContext,Environment.DIRECTORY_DOWNLOADS,file1),file1);
