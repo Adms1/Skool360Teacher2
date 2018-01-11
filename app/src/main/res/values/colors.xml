@@ -21,4 +21,5 @@
     <color name="sent">#ebebf1</color>
     <color name="notification">#33000000</color>
     <color name="editborder">#40000000</color>
+    <color name="textblack">#A6000000</color>
 </resources>

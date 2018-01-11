@@ -62,28 +62,36 @@
             android:layout_below="@+id/headerRel"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/standard_subject_txt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.6"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="@dimen/_14sdp"
                 android:text="@string/standardattendance"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
-                android:textStyle="bold" />
-
+                android:textStyle="normal" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_gravity="center"
+                android:text=":"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
             <Spinner
                 android:id="@+id/standard_attendace_spinner"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/_3sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:layout_weight="0.80"
+                android:layout_weight="0.9"
                 android:background="@drawable/dropdown_button"
                 android:overlapAnchor="false"
                 android:forceHasOverlappingRendering="false"
@@ -102,29 +110,36 @@
             android:layout_below="@+id/linearLayout1"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/standard_division_txt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_weight="0.07"
+                android:layout_weight="0.6"
                 android:text="@string/section"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
-                android:textStyle="bold" />
-
+                android:textStyle="normal" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_gravity="center"
+                android:text=":"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
             <Spinner
                 android:id="@+id/standard_division_spinner"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/_3sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:layout_weight="0.80"
+                android:layout_weight="0.9"
                 android:background="@drawable/dropdown_button"
                 android:overlapAnchor="false"
                 android:forceHasOverlappingRendering="false"
@@ -159,6 +174,7 @@
                 android:paddingBottom="@dimen/_1sdp"
                 android:paddingLeft="@dimen/_1sdp"
                 android:paddingTop="@dimen/_5sdp"
+                android:textColor="@color/textblack"
                 android:textSize="@dimen/_10sdp" />
 
             <TextView

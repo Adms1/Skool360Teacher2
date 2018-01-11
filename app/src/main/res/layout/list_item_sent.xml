@@ -50,7 +50,7 @@
                     android:textSize="@dimen/_11sdp"
                     android:textStyle="normal" />
 
-                
+
                 <TextView
                     android:id="@+id/txtSubject"
                     android:layout_width="0dp"

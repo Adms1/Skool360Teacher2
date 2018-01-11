@@ -45,7 +45,7 @@
     <string name="lessonchaptername">Chapter Name</string>
     <string name="lessonpdf">PDF</string>
     <string name="lessonword">WORD</string>
-    <string name="standardattendance">Standard :</string>
+    <string name="standardattendance">Standard</string>
 
 
     <string-array name="menuoption1">

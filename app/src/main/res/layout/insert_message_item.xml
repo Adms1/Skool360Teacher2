@@ -81,7 +81,7 @@
                 android:paddingTop="@dimen/_8sdp"
                 android:text="hello"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/textblack"
                 android:textSize="@dimen/_9sdp" />
         </LinearLayout>
 

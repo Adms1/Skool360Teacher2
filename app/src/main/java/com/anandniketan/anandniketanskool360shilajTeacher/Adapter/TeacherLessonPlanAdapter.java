@@ -9,8 +9,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 
 import android.text.Html;
@@ -23,8 +26,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Activities.DashBoardActivity;
+import com.anandniketan.anandniketanskool360shilajTeacher.BuildConfig;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanResponse.LessonDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
@@ -86,6 +91,8 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
         final ViewHolder viewHolder;
         View view = null;
         convertView = null;
@@ -117,17 +124,18 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
 
                         if (isSDSupportedDevice && isSDPresent) {
                             // yes SD-card is present
-//                            Utility.ping(mContext, "present");
+                            Utility.ping(mContext, "present");
                             extStorageDirectory = Environment.getExternalStorageDirectory().toString();
                             saveFilePath = String.valueOf(new File(extStorageDirectory, Utility.parentFolderName + "/" + Utility.childAnnouncementFolderName + "/" + currentTime).getPath());
 
                         } else {
                             // Sorry
 //                            Utility.ping(mContext, "notpresent");
-
+//
                             File cDir = mContext.getExternalFilesDir(null);
                             saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + currentTime + "Code.pdf"));
                             Log.d("path", saveFilePath);
+
                         }
 //
                         Log.d("path", extStorageDirectory);
@@ -189,8 +197,10 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
 
                             File cDir = mContext.getExternalFilesDir(null);
                             Log.d("*********", cDir.getPath());
-                            saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + currentTime + "Word.doc"));
+                            saveFilePath = String.valueOf(new File(cDir.getPath() + "/" + currentTime + "word.doc"));
                             Log.d("path", saveFilePath);
+
+
                         }
 //
                         Log.d("path", extStorageDirectory);
@@ -215,7 +225,7 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
                                                 file1 = file.getPath();
                                                 Log.d("file11", file1);
                                                 filepdf = file.getAbsoluteFile();
-
+                                                Log.d("file11", "" + filepdf);
                                                 showCustomNotification();
                                             } else {
                                                 progressDialog.dismiss();
@@ -303,23 +313,35 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
 //
 //        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
 //        notificationManager.notify(0, noti);
+        Intent openFile;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            File apkfile = new File(FileProvider.getUriForFile(mContext,Environment.DIRECTORY_DOWNLOADS,file1),file1);
+//            Uri apkUri = FileProvider.getUriForFile(mContext,BuildConfig.APPLICATION_ID+".provider",apkfile);
+//            String s = apkUri.toString();
+//            Log.d("HERE!!", s);
+//            openFile = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+//            openFile.setData(apkUri);
+//            openFile.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+////            mContext.startActivity(intent);
+//
+//        } else {
+            File file = new File(file1);
+            Log.d("DownloadfilePath", "File to download = " + String.valueOf(file));
+            MimeTypeMap mime = MimeTypeMap.getSingleton();
+            String ext = file.getName().substring(file.getName().indexOf(".") + 1);
+            String type = mime.getMimeTypeFromExtension(ext);
+            Log.d("type", type);
 
 
-        File file = new File(file1);
-        Log.d("DownloadfilePath", "File to download = " + String.valueOf(file));
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        String ext = file.getName().substring(file.getName().indexOf(".") + 1);
-        String type = mime.getMimeTypeFromExtension(ext);
-        Log.d("type", type);
+            openFile = new Intent(Intent.ACTION_VIEW, Uri.fromFile(file));
+            openFile.setDataAndType(Uri.fromFile(file), type);
+//            mContext.startActivity(openFile);
+//        }
 
-        Intent openFile = new Intent(Intent.ACTION_VIEW, Uri.fromFile(file));
-        openFile.setDataAndType(Uri.fromFile(file), type);
 
-//        Uri selectedUri = Uri.parse("/storage/emulated/0/downloads");
-//        Intent openFile = new Intent(mContext,DashBoardActivity.class);
-//        openFile.setDataAndType(selectedUri, "resource/folder");
+//        openFile.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//        mContext.startActivity(openFile);
 
-        openFile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
         PendingIntent p = PendingIntent.getActivity(mContext, 0, openFile, 0);
 

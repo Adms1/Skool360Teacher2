@@ -6,11 +6,11 @@
     android:background="@drawable/linear_dropshadow"
     android:layout_margin="@dimen/_5sdp">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+    <!--<ScrollView-->
+        <!--android:id="@+id/scrollView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scrollbars="none">-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +60,8 @@
             <ListView
                 android:id="@+id/student_homework_status_list"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_380sdp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:scrollbars="none"
                 android:visibility="gone"></ListView>
             <ImageView
@@ -72,5 +73,5 @@
                 android:layout_marginTop="-45dp"
                 android:visibility="visible" />
         </LinearLayout>
-    </ScrollView>
+    <!--</ScrollView>-->
 </LinearLayout>

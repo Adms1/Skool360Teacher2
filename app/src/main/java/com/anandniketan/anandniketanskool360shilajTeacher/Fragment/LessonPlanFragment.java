@@ -51,7 +51,7 @@ public class LessonPlanFragment extends Fragment {
     private ArrayList<TeacherLessonPlanModel> teacherLessonPlanModels = new ArrayList<>();
     TeacherLessonPlanAdapter teacherLessonPlanAdapter = null;
     private ListView lesson_list;
-    private LinearLayout header_linear;
+    private LinearLayout header_linear,class_linear;
     private TextView txtNoRecordslessonplan;
     private Spinner class_spinner;
     private Button btnBacktest_lessonplan,btnLogout;
@@ -74,6 +74,7 @@ public class LessonPlanFragment extends Fragment {
     }
 
     public void init() {
+        class_linear=(LinearLayout)rootView.findViewById(R.id.class_linear);
         header_linear = (LinearLayout) rootView.findViewById(R.id.header_linear);
         txtNoRecordslessonplan = (TextView) rootView.findViewById(R.id.txtNoRecordslessonplan);
         lesson_list = (ListView) rootView.findViewById(R.id.lesson_list);
@@ -171,11 +172,13 @@ public class LessonPlanFragment extends Fragment {
                                 Log.d("response", "" + responseLesson.getFinalArrayLesson().size());
                                 if (responseLesson.getFinalArrayLesson().size() > 0) {
                                     txtNoRecordslessonplan.setVisibility(View.GONE);
+                                    class_linear.setVisibility(View.VISIBLE);
                                     fillspinner();
 
                                 } else {
                                     progressDialog.dismiss();
                                     txtNoRecordslessonplan.setVisibility(View.VISIBLE);
+                                    class_linear.setVisibility(View.GONE);
                                     header_linear.setVisibility(View.GONE);
                                 }
                             }
@@ -200,6 +203,7 @@ public class LessonPlanFragment extends Fragment {
             }
         }
         Log.d("arrayList", "" + arrayList.toString());
+        header_linear.setVisibility(View.VISIBLE);
         teacherLessonPlanAdapter = new TeacherLessonPlanAdapter(getActivity(), arrayList,getActivity().getFragmentManager());
         lesson_list.setAdapter(teacherLessonPlanAdapter);
         lesson_list.deferNotifyDataSetChanged();

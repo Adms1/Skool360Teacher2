@@ -76,7 +76,7 @@
             android:layout_below="@+id/headerRel"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal"
-            android:visibility="visible"
+            android:visibility="gone"
             android:weightSum="1">
 
             <Spinner
@@ -96,7 +96,8 @@
             android:id="@+id/header_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/class_linear">
+            android:layout_below="@+id/class_linear"
+            android:visibility="gone">
 
             <include layout="@layout/lessonplan_header" />
         </LinearLayout>

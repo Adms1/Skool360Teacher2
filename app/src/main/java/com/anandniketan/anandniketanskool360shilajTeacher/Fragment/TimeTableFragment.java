@@ -28,16 +28,21 @@ import android.widget.TextView;
 import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivity;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.ExpandableListAdapterTimeTable;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.DeleteTimetableAsyncTask;
+import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetStandardSectionAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherAssignedSubjectAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherGetTimetableAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.InsertTimetableAsyncTask;
+import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TimeTableSubjectDetailAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onDeleteLecture;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetStandardSectionModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.DeleteLectureModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.InsertLectureModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherAssignedSubjectModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherGetTimetableModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TimeTable.GetTimeTableSubjectModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
+import com.koushikdutta.ion.builder.Builders;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -74,18 +79,22 @@ public class TimeTableFragment extends Fragment {
     private CheckBox checkBox;
     HashMap<Integer, String> standardIdMap;
     HashMap<Integer, String> subjectIdMap;
-    String Standardid, Subejctid, checknamestr, checkidstr, starttimehour, starttimeminit, endtimehour, endtimeminit, Day, Lecture, selectedStandard;
+    String Standardid, Subejctid, checknamestr, checkidstr, starttimehour, starttimeminit, endtimehour, endtimeminit, Day, Lecture, selectedStandard, SelectedStandardname;
     private ArrayList<String> classnamearray = new ArrayList<String>();
     private ArrayList<String> classidarray = new ArrayList<String>();
     private int selectedPosition = -1;
 
     //use for fill dialogView
-    private GetTeacherAssignedSubjectAsyncTask getTeacherAssignedSubjectAsyncTask = null;
-    private ArrayList<TeacherAssignedSubjectModel> teacherAssignedSubjectModels = new ArrayList<>();
+    private TimeTableSubjectDetailAsyncTask timeTableSubjectDetailAsyncTask = null;
+    GetTimeTableSubjectModel timeTableSubjectResponse;
 
     //use for insertLecture
     private InsertTimetableAsyncTask insertTimetableAsyncTask = null;
     InsertLectureModel insertLectureModel;
+
+    //use for fill standard
+    private GetStandardSectionAsyncTask getStandardSectionAsyncTask = null;
+    private GetStandardSectionModel getStandardSectionModelResponse;
 
     public TimeTableFragment() {
     }
@@ -307,7 +316,9 @@ public class TimeTableFragment extends Fragment {
         edit_day_lecture_txt = (TextView) layout.findViewById(R.id.edit_day_lecture_txt);
         edit_lecture_section_llListData = (LinearLayout) layout.findViewById(R.id.edit_lecture_section_llListData);
 
+        getSpinnerData();
         setTodayschedule();
+
         fillStartEndTimeHourspinner();
         edit_day_txt.setText(listAdapterTimeTable.getDay());
         edit_day_lecture_txt.setText(listAdapterTimeTable.getLecture());
@@ -321,18 +332,18 @@ public class TimeTableFragment extends Fragment {
         edit_grade_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String SelectedStandardname = edit_grade_spinner.getSelectedItem().toString();
+                SelectedStandardname = edit_grade_spinner.getSelectedItem().toString();
                 String getSelectedStandardid = standardIdMap.get(edit_grade_spinner.getSelectedItemPosition());
 
                 Log.d("value", SelectedStandardname + " " + getSelectedStandardid);
                 Standardid = getSelectedStandardid.toString();
                 Log.d("requestfor", Standardid);
-                classnamearray.clear();
-                classidarray.clear();
-                if (teacherAssignedSubjectModels.size() > 0) {
-                    selectedStandard = parent.getSelectedItem().toString();
+
+
+                if (!SelectedStandardname.equalsIgnoreCase("")) {
+                    classnamearray.clear();
+                    classidarray.clear();
                     fillsection();
-                    fillsubjectspinner();
                 }
             }
 
@@ -418,7 +429,7 @@ public class TimeTableFragment extends Fragment {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
-            progressDialog.show();
+//            progressDialog.show();
 
             new Thread(new Runnable() {
                 @Override
@@ -427,14 +438,14 @@ public class TimeTableFragment extends Fragment {
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
 
-                        getTeacherAssignedSubjectAsyncTask = new GetTeacherAssignedSubjectAsyncTask(params);
-                        teacherAssignedSubjectModels = getTeacherAssignedSubjectAsyncTask.execute().get();
+                        timeTableSubjectDetailAsyncTask = new TimeTableSubjectDetailAsyncTask(params);
+                        timeTableSubjectResponse = timeTableSubjectDetailAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (teacherAssignedSubjectModels.size() > 0) {
-                                    fillstandardspinner();
+                                if (timeTableSubjectResponse.getFinalArray().size() > 0) {
+                                    fillsubjectspinner();
                                 } else {
                                     progressDialog.dismiss();
                                 }
@@ -451,42 +462,71 @@ public class TimeTableFragment extends Fragment {
         }
     }
 
-    public void fillstandardspinner() {
-        ArrayList<Integer> standardId = new ArrayList<Integer>();
-        ArrayList<String> row = new ArrayList<String>();
+    public void getSpinnerData() {
+        if (Utility.isNetworkConnected(mContext)) {
+            progressDialog = new ProgressDialog(mContext);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCancelable(false);
+//            progressDialog.show();
 
-        for (int z = 0; z < teacherAssignedSubjectModels.size(); z++) {
-            standardId.add(Integer.parseInt(teacherAssignedSubjectModels.get(z).getStandardID()));
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HashMap<String, String> params = new HashMap<String, String>();
+
+                        getStandardSectionAsyncTask = new GetStandardSectionAsyncTask(params);
+                        getStandardSectionModelResponse = getStandardSectionAsyncTask.execute().get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                                if (getStandardSectionModelResponse.getFinalArray().size() > 0) {
+                                    fillstandanrdspinner();
+                                } else {
+                                    progressDialog.dismiss();
+
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        } else {
+            Utility.ping(mContext, "Network not available");
         }
-        HashSet hs = new HashSet();
-        hs.addAll(standardId);
-        standardId.clear();
-        standardId.addAll(hs);
-        Log.d("standardId",""+standardId);
-        for (int z = 0; z < teacherAssignedSubjectModels.size(); z++) {
-            row.add(teacherAssignedSubjectModels.get(z).getStandard());
+    }
+
+    public void fillstandanrdspinner() {
+        ArrayList<String> firstValue = new ArrayList<>();
+        firstValue.add("--Select--");
+
+        ArrayList<String> standardname = new ArrayList<>();
+        for (int z = 0; z < firstValue.size(); z++) {
+            standardname.add(firstValue.get(z));
+            for (int i = 0; i < getStandardSectionModelResponse.getFinalArray().size(); i++) {
+                standardname.add(getStandardSectionModelResponse.getFinalArray().get(i).getStandard());
+            }
         }
-        HashSet hs1 = new HashSet();
-        hs1.addAll(row);
-        row.clear();
-        row.addAll(hs1);
-        Log.d("row",""+row);
-
-        Collections.sort(row);
-        System.out.println("Sorted ArrayList in Java - StandardAscending order : " + row);
-
-        Collections.sort(standardId);
-        System.out.println("Sorted ArrayList in Java - StandardIdAscending order : " + standardId);
-
+        ArrayList<Integer> firstValueId = new ArrayList<>();
+        firstValueId.add(0);
+        ArrayList<Integer> standardId = new ArrayList<>();
+        for (int m = 0; m < firstValueId.size(); m++) {
+            standardId.add(firstValueId.get(m));
+            for (int j = 0; j < getStandardSectionModelResponse.getFinalArray().size(); j++) {
+                standardId.add(getStandardSectionModelResponse.getFinalArray().get(j).getStandardID());
+            }
+        }
         String[] spinnerstandardIdArray = new String[standardId.size()];
 
         standardIdMap = new HashMap<Integer, String>();
         for (int i = 0; i < standardId.size(); i++) {
             standardIdMap.put(i, String.valueOf(standardId.get(i)));
-            spinnerstandardIdArray[i] = row.get(i).trim();
+            spinnerstandardIdArray[i] = standardname.get(i).trim();
         }
-        Log.d("spinnerstandardIdArray", Arrays.toString(spinnerstandardIdArray));
-
 
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");
@@ -496,33 +536,28 @@ public class TimeTableFragment extends Fragment {
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_grade_spinner);
 
             popupWindow.setHeight(spinnerstandardIdArray.length > 5 ? 500 : spinnerstandardIdArray.length * 100);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
 
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnerstandardIdArray);
         edit_grade_spinner.setAdapter(adapterYear);
-
+        Standardid = "0";
     }
 
     public void fillsection() {
         ArrayList<String> sectionArray = new ArrayList<String>();
-        String standardTxt = teacherAssignedSubjectModels.get(0).getStandard();
         sectionArray.clear();
-        for (int m = 0; m < teacherAssignedSubjectModels.size(); m++) {
-            if (selectedStandard.equalsIgnoreCase(teacherAssignedSubjectModels.get(m).getStandard())) {
-                sectionArray.add(teacherAssignedSubjectModels.get(m).getClassname() + "|" + teacherAssignedSubjectModels.get(m).getClassID());
-                Log.d("sectionArray", "" + sectionArray);
+        for (int m = 0; m < getStandardSectionModelResponse.getFinalArray().size(); m++) {
+            if (SelectedStandardname.equalsIgnoreCase(getStandardSectionModelResponse.getFinalArray().get(m).getStandard())) {
+                for (int k = 0; k < getStandardSectionModelResponse.getFinalArray().get(m).getSectionDetail().size(); k++) {
+                    sectionArray.add(getStandardSectionModelResponse.getFinalArray().get(m).getSectionDetail().get(k).getSection()
+                            + "|" + getStandardSectionModelResponse.getFinalArray().get(m).getSectionDetail().get(k).getSectionID());
+                    Log.d("sectionArray", "" + sectionArray);
+                }
             }
         }
-        HashSet hs1 = new HashSet();
-        hs1.addAll(sectionArray);
-        sectionArray.clear();
-        sectionArray.addAll(hs1);
-        Log.d("sectionArray",""+sectionArray);
-        Collections.sort(sectionArray);
-        System.out.println("Sorted ArrayList in Java - StandardIdAscending order : " + sectionArray);
+
         if (edit_lecture_section_llListData.getChildCount() > 0) {
             edit_lecture_section_llListData.removeAllViews();
         }
@@ -576,35 +611,32 @@ public class TimeTableFragment extends Fragment {
     }
 
     public void fillsubjectspinner() {
+        ArrayList<String> firstValue = new ArrayList<>();
+        firstValue.add("--Select--");
+
         ArrayList<Integer> subjectId = new ArrayList<Integer>();
         ArrayList<String> rowsubject = new ArrayList<String>();
-        String standardTxt = teacherAssignedSubjectModels.get(0).getStandard();
 
-        for (int z = 0; z < teacherAssignedSubjectModels.size(); z++) {
-            if (standardTxt.equalsIgnoreCase(teacherAssignedSubjectModels.get(z).getStandard())) {
-                rowsubject.add(teacherAssignedSubjectModels.get(z).getSubject());
-                subjectId.add(Integer.parseInt(teacherAssignedSubjectModels.get(z).getSubjectID()));
+        for (int i = 0; i < firstValue.size(); i++) {
+            rowsubject.add(firstValue.get(i));
+            for (int z = 0; z < timeTableSubjectResponse.getFinalArray().size(); z++) {
+                rowsubject.add(timeTableSubjectResponse.getFinalArray().get(z).getSubject());
+//                subjectId.add(timeTableSubjectResponse.getFinalArray().get(z).getSubjectID());
             }
         }
-        Log.d("rowsubjectbefore",""+rowsubject);
-        Log.d("subjectIdbefore",""+subjectId);
 
-        HashSet hs1 = new HashSet();
-        hs1.addAll(rowsubject);
-        rowsubject.clear();
-        rowsubject.addAll(hs1);
-        Log.d("rowsubject",""+rowsubject);
-        HashSet hs = new HashSet();
-        hs.addAll(subjectId);
-        subjectId.clear();
-        subjectId.addAll(hs);
-        Log.d("subjectId",""+subjectId);
+        ArrayList<Integer> firstValueId = new ArrayList<>();
+        firstValueId.add(0);
+        for (int m = 0; m < firstValueId.size(); m++) {
+            subjectId.add(firstValueId.get(m));
+            for (int j = 0; j < timeTableSubjectResponse.getFinalArray().size(); j++) {
+                subjectId.add(timeTableSubjectResponse.getFinalArray().get(j).getSubjectID());
+            }
+        }
 
-        Collections.sort(rowsubject);
-        System.out.println("Sorted ArrayList in Java - StandardIdAscending order : " + rowsubject);
+        Log.d("rowsubjectbefore", "" + rowsubject);
+        Log.d("subjectIdbefore", "" + subjectId);
 
-        Collections.sort(subjectId);
-        System.out.println("Sorted ArrayList in Java - StandardIdAscending order : " + subjectId);
 
         String[] spinnersubjectIdArray = new String[subjectId.size()];
 
@@ -613,7 +645,6 @@ public class TimeTableFragment extends Fragment {
             subjectIdMap.put(i, String.valueOf(subjectId.get(i)));
             spinnersubjectIdArray[i] = rowsubject.get(i).trim();
         }
-
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");
             popup.setAccessible(true);
@@ -622,8 +653,7 @@ public class TimeTableFragment extends Fragment {
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_subject_spinner);
 
             popupWindow.setHeight(spinnersubjectIdArray.length > 5 ? 500 : spinnersubjectIdArray.length * 100);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, spinnersubjectIdArray);
@@ -648,8 +678,7 @@ public class TimeTableFragment extends Fragment {
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_Starttime_spinner);
 
             popupWindow.setHeight(starthours.size() > 5 ? 500 : starthours.size() * 100);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, starthours);
@@ -674,8 +703,7 @@ public class TimeTableFragment extends Fragment {
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_Starttime1_spinner);
 
             popupWindow.setHeight(start1hours.size() > 5 ? 500 : start1hours.size() * 100);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
         ArrayAdapter<String> adapterstarthour = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, start1hours);
@@ -699,8 +727,7 @@ public class TimeTableFragment extends Fragment {
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_Endtime_spinner);
 
             popupWindow.setHeight(endhours.size() > 5 ? 500 : endhours.size() * 100);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
         ArrayAdapter<String> adapterendhour = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, endhours);
@@ -723,8 +750,7 @@ public class TimeTableFragment extends Fragment {
             android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(edit_Endtime1_spinner);
 
             popupWindow.setHeight(end1hours.size() > 5 ? 500 : end1hours.size() * 100);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
             // silently fail...
         }
         ArrayAdapter<String> adapterend1hour = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, end1hours);
@@ -740,55 +766,60 @@ public class TimeTableFragment extends Fragment {
         }
         final String finalclassIdStr = classIdStr.substring(1, classIdStr.length());
         Log.d("finalclassIdStr", finalclassIdStr);
-        if (!finalclassIdStr.equalsIgnoreCase("") && !Standardid.equalsIgnoreCase("") && !Subejctid.equalsIgnoreCase("") && !Day.equalsIgnoreCase("")
-                && !Lecture.equalsIgnoreCase("") && !starttimehour.equalsIgnoreCase("") && !starttimeminit.equalsIgnoreCase("")
-                && !endtimehour.equalsIgnoreCase("") && !endtimeminit.equalsIgnoreCase("")) {
-            progressDialog = new ProgressDialog(mContext);
-            progressDialog.setMessage("Please Wait...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-            if (Utility.isNetworkConnected(mContext)) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            params.put("StaffID", Utility.getPref(mContext, "StaffID"));
-                            params.put("ClassID", finalclassIdStr);
-                            params.put("StandardID", Standardid);
-                            params.put("SubjectID", Subejctid);
-                            params.put("DayName", Day);
-                            params.put("LectureName", Lecture);
-                            params.put("Strttimehour", starttimehour);
-                            params.put("StrttimeMin", starttimeminit);
-                            params.put("Endtimehour", endtimehour);
-                            params.put("EndtimeMin", endtimeminit);
+        if (!Subejctid.equalsIgnoreCase("0")) {
+            if (!finalclassIdStr.equalsIgnoreCase("") && !Standardid.equalsIgnoreCase("") && !Subejctid.equalsIgnoreCase("") && !Day.equalsIgnoreCase("")
+                    && !Lecture.equalsIgnoreCase("") && !starttimehour.equalsIgnoreCase("") && !starttimeminit.equalsIgnoreCase("")
+                    && !endtimehour.equalsIgnoreCase("") && !endtimeminit.equalsIgnoreCase("")) {
+                progressDialog = new ProgressDialog(mContext);
+                progressDialog.setMessage("Please Wait...");
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+                if (Utility.isNetworkConnected(mContext)) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                HashMap<String, String> params = new HashMap<String, String>();
+                                params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+                                params.put("ClassID", finalclassIdStr);
+                                params.put("StandardID", Standardid);
+                                params.put("SubjectID", Subejctid);
+                                params.put("DayName", Day);
+                                params.put("LectureName", Lecture);
+                                params.put("Strttimehour", starttimehour);
+                                params.put("StrttimeMin", starttimeminit);
+                                params.put("Endtimehour", endtimehour);
+                                params.put("EndtimeMin", endtimeminit);
 
-                            insertTimetableAsyncTask = new InsertTimetableAsyncTask(params);
-                            insertLectureModel = insertTimetableAsyncTask.execute().get();
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressDialog.dismiss();
-                                    if (insertLectureModel.getFinalArray().size() >= 0) {
-                                        Utility.ping(mContext, "Add Lecture.");
-                                        alertDialogAndroid.dismiss();
-                                        getTimeTableData();
-                                    } else {
+                                insertTimetableAsyncTask = new InsertTimetableAsyncTask(params);
+                                insertLectureModel = insertTimetableAsyncTask.execute().get();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
                                         progressDialog.dismiss();
+                                        if (insertLectureModel.getFinalArray().size() >= 0) {
+                                            Utility.ping(mContext, "Add Lecture.");
+                                            alertDialogAndroid.dismiss();
+                                            getTimeTableData();
+
+                                        } else {
+                                            progressDialog.dismiss();
+                                        }
                                     }
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                } else {
+                    Utility.ping(mContext, "Network not available");
+                }
             } else {
-                Utility.ping(mContext, "Network not available");
+                Utility.ping(mContext, "Blank field not available");
             }
-        } else {
-            Utility.ping(mContext, "Blank field not available");
+        }else{
+        Utility.ping(mContext,"Please Select Subject");
         }
     }
-}
+    }

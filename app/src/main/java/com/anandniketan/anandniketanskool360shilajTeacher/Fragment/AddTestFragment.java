@@ -260,10 +260,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                 final String finalclassIdStr = classIdStr.substring(1, classIdStr.length());
                 Log.d("finalclassIdStr", finalclassIdStr);
                 if (Utility.isNetworkConnected(mContext)) {
-//                                    progressDialog = new ProgressDialog(mContext);
-//                                    progressDialog.setMessage("Please Wait...");
-//                                    progressDialog.setCancelable(false);
-//                                    progressDialog.show();
                     final String finalTxtstr = txtstr;
                     new Thread(new Runnable() {
                         @Override
@@ -369,10 +365,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
 
     public void getTestName() {
         if (Utility.isNetworkConnected(mContext)) {
-//            progressDialog = new ProgressDialog(mContext);
-//            progressDialog.setMessage("Please Wait...");
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
 
             new Thread(new Runnable() {
                 @Override
@@ -386,12 +378,10 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-//                                progressDialog.dismiss();
                                 if (teacherGetTestNameModels.size() > 0) {
                                     txtNoRecords.setVisibility(View.GONE);
                                     fillTestSpinner();
                                 } else {
-//                                    progressDialog.dismiss();
                                     ArrayList<String> str = new ArrayList<String>();
                                     str.add("-Please Select-");
                                     ArrayAdapter<String> adaptertest = new ArrayAdapter<String>(mContext, R.layout.spinner_layout, str);
@@ -524,10 +514,6 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
             spinnertestnameIdArray[i] = testname.get(i).trim();
         }
         Log.d("TestArray", "" + testname);
-//        HashSet hs = new HashSet();
-//        hs.addAll(testname);
-//        testname.clear();
-//        testname.addAll(hs);
 
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");

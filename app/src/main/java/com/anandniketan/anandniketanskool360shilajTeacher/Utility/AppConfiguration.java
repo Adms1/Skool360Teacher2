@@ -67,6 +67,7 @@ public class AppConfiguration {
     public static String InsertConsistentAbSMS = "InsertConsistentAbSMS";
     public static String GetDateWiseAbsentStudent = "GetDateWiseAbsentStudent";
     public static String SendAbsentStudentSMS = "SendAbsentStudentSMS";
+    public static String GetAssignedSubjectForTimeTable = "GetAssignedSubject";
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();
     public static String stdid;

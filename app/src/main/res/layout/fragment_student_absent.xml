@@ -19,8 +19,8 @@
             android:id="@+id/headerRel"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60sdp"
-            android:background="@drawable/hedar_1"
-            android:layout_marginTop="@dimen/_5sdp">
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/hedar_1">
 
             <Button
                 android:id="@+id/btnLogout"
@@ -35,9 +35,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_37sdp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_37sdp"
                 android:text="STUDENT ABSENT"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_12sdp"
@@ -47,11 +47,11 @@
                 android:id="@+id/btnBacktest_student_absent"
                 android:layout_width="@dimen/_13sdp"
                 android:layout_height="@dimen/_13sdp"
-                android:layout_marginTop="@dimen/_38sdp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_4sdp"
-                android:background="@drawable/back_btn"/>
+                android:layout_marginTop="@dimen/_38sdp"
+                android:background="@drawable/back_btn" />
 
         </RelativeLayout>
 
@@ -75,32 +75,43 @@
             android:layout_below="@+id/headerRel"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/date_txt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_weight="0.28"
-                android:text="Date :"
+                android:layout_weight="0.6"
+                android:text="Date"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"
+                android:text=":"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
 
             <Button
                 android:id="@+id/start_date"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/_3sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
-                android:layout_weight="0.37"
+                android:layout_weight="0.9"
                 android:background="@drawable/calendar_line"
                 android:gravity="center"
                 android:paddingBottom="@dimen/_1sdp"
+                android:textColor="@color/textblack"
                 android:paddingLeft="@dimen/_1sdp"
                 android:paddingTop="@dimen/_5sdp"
                 android:textSize="@dimen/_10sdp" />
@@ -114,32 +125,41 @@
             android:layout_below="@+id/linear_date"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/standard_subject_txt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.6"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="@dimen/_14sdp"
                 android:text="@string/standardattendance"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
-                android:textStyle="bold" />
-
+                android:textStyle="normal" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"
+                android:text=":"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
             <Spinner
                 android:id="@+id/standard_attendace_spinner"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/_3sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:layout_weight="0.83"
+                android:layout_weight="0.9"
                 android:background="@drawable/dropdown_button"
-                android:overlapAnchor="false"
                 android:forceHasOverlappingRendering="false"
                 android:gravity="left|center_vertical"
+                android:overlapAnchor="false"
                 android:paddingBottom="1dp"
                 android:paddingTop="@dimen/_5sdp"
                 android:textColor="@color/black"
@@ -154,33 +174,41 @@
             android:layout_below="@+id/linearLayout1"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/standard_division_txt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_weight="0.07"
+                android:layout_weight="0.6"
                 android:text="@string/section"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
-                android:textStyle="bold" />
-
+                android:textStyle="normal" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"
+                android:text=":"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="normal" />
             <Spinner
                 android:id="@+id/standard_division_spinner"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="@dimen/_3sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_2sdp"
-                android:layout_weight="0.83"
+                android:layout_weight="0.9"
                 android:background="@drawable/dropdown_button"
                 android:forceHasOverlappingRendering="false"
-                android:overlapAnchor="false"
                 android:gravity="left|center_vertical"
+                android:overlapAnchor="false"
                 android:paddingBottom="1dp"
                 android:paddingTop="@dimen/_5sdp"
                 android:textColor="@color/black"
