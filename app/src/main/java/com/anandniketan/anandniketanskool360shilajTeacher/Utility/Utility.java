@@ -156,9 +156,6 @@ public class Utility {
     }
 
 
-    public static final int REQUEST_PERMISSIONS_Internet = 1;
-    public static final int REQUEST_PERMISSIONS_ACCESS_NETWORK_STATE = 2;
-    public static final int REQUEST_PERMISSIONS_ACCESS_WIFI_STATE = 3;
     public static final int REQUEST_PERMISSIONS_READ_EXTERNAL_STORAGE = 4;
     public static final int REQUEST_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 5;
 
@@ -167,16 +164,10 @@ public class Utility {
     public static boolean checkPermission(final Context context) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
         if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.INTERNET) &&
-                        ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.ACCESS_NETWORK_STATE) &&
-                        ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.ACCESS_WIFI_STATE) &&
-                        ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.READ_EXTERNAL_STORAGE) &&
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.READ_EXTERNAL_STORAGE) &&
                         ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
@@ -186,12 +177,6 @@ public class Utility {
                     alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions((Activity) context,
-                                    new String[]{Manifest.permission.INTERNET}, REQUEST_PERMISSIONS_Internet);
-                            ActivityCompat.requestPermissions((Activity) context,
-                                    new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, REQUEST_PERMISSIONS_ACCESS_NETWORK_STATE);
-                            ActivityCompat.requestPermissions((Activity) context,
-                                    new String[]{Manifest.permission.ACCESS_WIFI_STATE}, REQUEST_PERMISSIONS_ACCESS_WIFI_STATE);
                             ActivityCompat.requestPermissions((Activity) context,
                                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSIONS_READ_EXTERNAL_STORAGE);
                             ActivityCompat.requestPermissions((Activity) context,
@@ -203,12 +188,6 @@ public class Utility {
                     alert.show();
 
                 } else {
-                    ActivityCompat.requestPermissions((Activity) context,
-                            new String[]{Manifest.permission.INTERNET}, REQUEST_PERMISSIONS_Internet);
-                    ActivityCompat.requestPermissions((Activity) context,
-                            new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, REQUEST_PERMISSIONS_ACCESS_NETWORK_STATE);
-                    ActivityCompat.requestPermissions((Activity) context,
-                            new String[]{Manifest.permission.ACCESS_WIFI_STATE}, REQUEST_PERMISSIONS_ACCESS_WIFI_STATE);
                     ActivityCompat.requestPermissions((Activity) context,
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSIONS_READ_EXTERNAL_STORAGE);
                     ActivityCompat.requestPermissions((Activity) context,

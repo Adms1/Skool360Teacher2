@@ -2,8 +2,6 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -16,23 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.MenuoptionItemAdapter;
-import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.AttendanceFragment;
 import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.HomeFragment;
-import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.HomeworkFragment;
 import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.OtherLoginHomeFragment;
-import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.SubjectFragment;
-import com.anandniketan.anandniketanskool360shilajTeacher.Fragment.TimeTableFragment;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.MenuoptionItemModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
-import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
-
-import java.util.ArrayList;
 
 public class DashBoardActivity extends FragmentActivity {
     static DrawerLayout mDrawerLayout;
@@ -40,15 +28,8 @@ public class DashBoardActivity extends FragmentActivity {
     Context mContext;
     ActionBarDrawerToggle mDrawerToggle;
     static RelativeLayout leftRl;
-    private ArrayList<MenuoptionItemModel> navDrawerItems_main;
-    private MenuoptionItemAdapter adapter_menu_item;
-    String MenuName[];
-    String token;
-    int dispPOS = 0;
-    SharedPreferences SP;
-    public static String filename = "Valustoringfile";
-    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
-    private String putData = "0";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,70 +60,22 @@ public class DashBoardActivity extends FragmentActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-//        Log.d("Dashboard : fromNotification", fromWhere);
-//        onNewIntent(getIntent());
-//        if (getIntent().getStringExtra("message") != null) {
-//            putData = getIntent().getStringExtra("message").toString();
-//            Log.d("notificationData",putData);
-//        }
-//        if (getIntent().getStringExtra("fromNotification") != null) {
-//            String key = getIntent().getStringExtra("fromNotification").toString();
-//            Log.d("key", key);
-//            if (key.equalsIgnoreCase("HW")) {
-//                displayView(3);
-//            } else if (key.equalsIgnoreCase("CW")) {
-//                displayView(4);
-//            } else if (key.equalsIgnoreCase("Attendance")) {
-//                displayView(2);
-//            } else if (key.equalsIgnoreCase("Announcement")) {
-//                Intent is = new Intent(DashBoardActivity.this, NotificationFragment.class);
-//                is.putExtra("message", putData);
-//                startActivity(is);
-//            }
-//        } else {
-//            displayView(0);
-//        }
-//        System.out.println("Dashboard Message :" + getIntent().getStringExtra("message"));
-//        System.out.println("Dashboard Extra : " + getIntent().getStringExtra("fromNotification"));
 
     }
 
     private void Initialize() {
         // TODO Auto-generated method stub
-        MenuName = getResources().getStringArray(R.array.menuoption1);
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         leftRl = (RelativeLayout) findViewById(R.id.whatYouWantInLeftDrawer);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-        navDrawerItems_main = new ArrayList<MenuoptionItemModel>();
-        adapter_menu_item = new MenuoptionItemAdapter(DashBoardActivity.this, navDrawerItems_main);
-        for (int i = 0; i < MenuName.length; i++) {
-            navDrawerItems_main.add(new MenuoptionItemModel(MenuName[i]));
-        }
-        mDrawerList.setAdapter(adapter_menu_item);
-        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.dash_board, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // toggle nav drawer on selecting action bar app icon/title
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle action bar actions click
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return true;
     }
 
     /* *
@@ -171,18 +104,7 @@ public class DashBoardActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * Slide menu item click listener
-     */
-    private class SlideMenuClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            // display view for selected nav drawer item
-            displayView(position);
-        }
-    }
+
 
     Fragment fragment = null;
     int myid;
@@ -218,10 +140,7 @@ public class DashBoardActivity extends FragmentActivity {
                         .replace(R.id.frame_container, fragment).commit();
             }
 
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            mDrawerLayout.closeDrawers();
+
         } else {
             // error in creating fragment
             Log.e("Dashboard", "Error in creating fragment");
@@ -258,10 +177,7 @@ public class DashBoardActivity extends FragmentActivity {
                         .replace(R.id.frame_container, fragment).commit();
             }
 
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            mDrawerLayout.closeDrawers();
+
         } else {
             // error in creating fragment
             Log.e("Dashboard", "Error in creating fragment");

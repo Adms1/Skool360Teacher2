@@ -339,10 +339,10 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
         alertDialogAndroid.setCancelable(false);
         alertDialogAndroid.show();
         Window window = alertDialogAndroid.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         WindowManager.LayoutParams wlp = window.getAttributes();
 
-        wlp.gravity = Gravity.CENTER_HORIZONTAL;
+        wlp.gravity = Gravity.CENTER;
         wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         window.setAttributes(wlp);
         alertDialogAndroid.show();

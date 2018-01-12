@@ -126,7 +126,6 @@ public class ParseJSON {
         return result;
     }
 
-
     public static ArrayList<TeacherTodayScheduleModel> parseTeacherTodayscheduleJson(String responseString) {
         ArrayList<TeacherTodayScheduleModel> result = new ArrayList<>();
 
@@ -197,51 +196,6 @@ public class ParseJSON {
 
         return result;
 
-    }
-
-    public static ArrayList<TeacherGetAssignStudentSubjectmModel> parseStudentAssignedSubjectJson(String responseString) {
-        ArrayList<TeacherGetAssignStudentSubjectmModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            TeacherGetAssignStudentSubjectmModel teacherGetAssignStudentSubjectmModel = null;
-
-            if (data_load_basket.toString().equals("True")) {
-
-
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                for (int a = 0; a < jsonMainNode.length(); a++) {
-                    teacherGetAssignStudentSubjectmModel = new TeacherGetAssignStudentSubjectmModel();
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
-                    teacherGetAssignStudentSubjectmModel.setStudentID(jsonChildNode.getString("StudentID"));
-                    teacherGetAssignStudentSubjectmModel.setStudentName(jsonChildNode.getString("StudentName"));
-
-                    TeacherGetAssignStudentSubjectmModel.StudentSubject data = null;
-                    ArrayList<TeacherGetAssignStudentSubjectmModel.StudentSubject> dataArrayList = new ArrayList<>();
-                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("StudentSubject");
-                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
-                        data = teacherGetAssignStudentSubjectmModel.new StudentSubject();
-                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
-                        data.setSubject(jsonChildNode1.getString("Subject"));
-                        data.setSubjectID(jsonChildNode1.getString("SubjectID"));
-                        data.setCheckedStatus(jsonChildNode1.getString("CheckedStatus"));
-                        dataArrayList.add(data);
-                    }
-                    teacherGetAssignStudentSubjectmModel.setDataStudentSubjectArray(dataArrayList);
-
-                    result.add(teacherGetAssignStudentSubjectmModel);
-                }
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
     }
 
     public static ArrayList<TeacherGetTimetableModel> parseTeachertTimetableJson(String responseString) {
@@ -331,66 +285,6 @@ public class ParseJSON {
                 }
             } else {
                 //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-    public static ArrayList<TeacherGetTestMarksModel> parseTeacherGetTestMarksJson(String responseString) {
-        ArrayList<TeacherGetTestMarksModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            TeacherGetTestMarksModel teacherGetTestMarksModel = new TeacherGetTestMarksModel();
-
-            if (data_load_basket.toString().equals("True")) {
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                TeacherGetTestMarksModel.studentDetail studentDetail = null;
-                ArrayList<TeacherGetTestMarksModel.studentDetail> studentDetails = new ArrayList<>();
-                for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    studentDetail = teacherGetTestMarksModel.new studentDetail();
-                    studentDetail.setTestName(jsonChildNode.getString("TestName"));
-                    studentDetail.setStandardClass(jsonChildNode.getString("StandardClass"));
-
-                    JSONArray jsonMainchildArray = jsonChildNode.optJSONArray("StudentData");
-                    TeacherGetTestMarksModel.studentDetail.TestDetail testDetail = null;
-                    ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail> testDetails = new ArrayList<>();
-                    for (int j = 0; j < jsonMainchildArray.length(); j++) {
-                        JSONObject jsonMainchildObject = jsonMainchildArray.getJSONObject(j);
-                        testDetail = studentDetail.new TestDetail();
-                        testDetail.setStudentName(jsonMainchildObject.getString("StudentName"));
-                        testDetail.setStudentID(jsonMainchildObject.getString("StudentID"));
-                        testDetail.setGRNO(jsonMainchildObject.getString("GRNO"));
-                        testDetail.setTotalMarks(jsonMainchildObject.getString("TotalMarks"));
-                        testDetail.setTotalGainedMarks(jsonMainchildObject.getString("TotalGainedMarks"));
-                        testDetail.setPercentage(jsonMainchildObject.getString("Percentage"));
-
-                        JSONArray jsonchildArray = jsonMainchildObject.optJSONArray("SubjectMarks");
-                        TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks subjectMarks = null;
-                        ArrayList<TeacherGetTestMarksModel.studentDetail.TestDetail.subjectMarks> subjectMarkses = new ArrayList<>();
-                        for (int k = 0; k < jsonchildArray.length(); k++) {
-                            JSONObject jsonchildObject = jsonchildArray.getJSONObject(k);
-                            subjectMarks = testDetail.new subjectMarks();
-                            subjectMarks.setSubject(jsonchildObject.getString("Subject"));
-                            subjectMarks.setMarks(jsonchildObject.getString("Marks"));
-
-                            subjectMarkses.add(subjectMarks);
-                        }
-                        testDetail.setGetsubjectMarks(subjectMarkses);
-                        testDetails.add(testDetail);
-                    }
-                    studentDetail.setGettestDetail(testDetails);
-                    studentDetails.add(studentDetail);
-                }
-                teacherGetTestMarksModel.setGetstudentDetail(studentDetails);
-                result.add(teacherGetTestMarksModel);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -539,54 +433,6 @@ public class ParseJSON {
                 result.add(lessonPlanModel);
 
 
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-    public static ArrayList<TeacherLessonPlanModel> parseTeacherLessonPlanJson(String responseString) {
-        ArrayList<TeacherLessonPlanModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            TeacherLessonPlanModel teacherLessonPlanModel = new TeacherLessonPlanModel();
-
-            if (data_load_basket.toString().equals("True")) {
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                TeacherLessonPlanModel.LessonPlan lessonPlan = null;
-                ArrayList<TeacherLessonPlanModel.LessonPlan> lessonPlanArrayList = new ArrayList<>();
-                for (int i = 0; i < jsonMainNode.length(); i++) {
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    lessonPlan = teacherLessonPlanModel.new LessonPlan();
-                    lessonPlan.setSubject(jsonChildNode.getString("Subject"));
-                    lessonPlan.setStandard(jsonChildNode.getString("Standard"));
-
-                    JSONArray jsonMainNode1 = jsonChildNode.optJSONArray("Data");
-                    TeacherLessonPlanModel.LessonPlan.LessonPlanData lessonPlanData = null;
-                    ArrayList<TeacherLessonPlanModel.LessonPlan.LessonPlanData> lessonPlanDatas = new ArrayList<>();
-                    for (int j = 0; j < jsonMainNode1.length(); j++) {
-                        JSONObject jsonChildNode1 = jsonMainNode1.getJSONObject(j);
-                        lessonPlanData = lessonPlan.new LessonPlanData();
-                        lessonPlanData.setID(jsonChildNode1.getString("ID"));
-                        lessonPlanData.setChapterNo(jsonChildNode1.getString("ChapterNo"));
-                        lessonPlanData.setChapterName(jsonChildNode1.getString("ChapterName"));
-
-
-                        lessonPlanDatas.add(lessonPlanData);
-                    }
-                    lessonPlan.setGetLessonPlanData(lessonPlanDatas);
-                    lessonPlanArrayList.add(lessonPlan);
-                }
-                teacherLessonPlanModel.setGetLessonPlan(lessonPlanArrayList);
-                result.add(teacherLessonPlanModel);
             } else {
                 //invalid login
             }

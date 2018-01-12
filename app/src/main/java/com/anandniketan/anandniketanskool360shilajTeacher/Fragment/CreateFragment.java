@@ -279,7 +279,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         WindowManager.LayoutParams wlp = window.getAttributes();
 
-        wlp.gravity = Gravity.CENTER_HORIZONTAL;
+        wlp.gravity = Gravity.CENTER;
         wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         window.setAttributes(wlp);
         alertDialogAndroid.show();

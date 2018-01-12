@@ -416,22 +416,6 @@ public class StudentAbsentFragment extends Fragment implements DatePickerDialog.
                                             getDateWiseAbsentStudentModelResponse, new getStudentAbCheck() {
                                         @Override
                                         public void getStudentAbCheck() {
-//                                            for (int i = 0; i <= student_absent_list.getChildCount(); i++) {
-//                                                View v = student_absent_list.getChildAt(i);
-//                                                if (v != null) {
-//                                                    CheckBox ch = (CheckBox) v.findViewById(R.id.edit_chk);
-//                                                    if (ch.isChecked()) {
-//                                                        insert_message_img.setVisibility(View.VISIBLE);
-//                                                        return;
-//                                                    } else {
-//                                                        insert_message_img.setVisibility(View.GONE);
-//                                                    }
-//                                                }
-//                                            }
-//                                            GetDateWiseAbsentStudentModel updatedData = studentAbsentListAdapter.getData();
-//                                            for(int i =0;i<=updateData.getFinalArray();i++){
-//                                                Log.d("Position , Checked or not",""+i+" : "+updateData.getFinalArray().get(i).getCheckStatus());
-//                                            }
                                             GetDateWiseAbsentStudentModel updatedData = studentAbsentListAdapter.getData();
                                             Boolean data = false;
                                             for (int i = 0; i <updatedData.getFinalArray().size(); i++) {
@@ -484,7 +468,7 @@ public class StudentAbsentFragment extends Fragment implements DatePickerDialog.
         window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         WindowManager.LayoutParams wlp = window.getAttributes();
 
-        wlp.gravity = Gravity.CENTER_HORIZONTAL;
+        wlp.gravity = Gravity.CENTER;
         wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         window.setAttributes(wlp);
         alertDialogAndroid.show();

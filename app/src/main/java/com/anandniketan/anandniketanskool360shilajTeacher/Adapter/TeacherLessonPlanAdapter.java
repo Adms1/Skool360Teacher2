@@ -267,16 +267,8 @@ public class TeacherLessonPlanAdapter extends BaseAdapter {
             String type = mime.getMimeTypeFromExtension(ext);
             Log.d("type", type);
 
-
             openFile = new Intent(Intent.ACTION_VIEW, Uri.fromFile(file));
             openFile.setDataAndType(Uri.fromFile(file), type);
-//            mContext.startActivity(openFile);
-//        }
-
-
-//        openFile.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        mContext.startActivity(openFile);
-
 
         PendingIntent p = PendingIntent.getActivity(mContext, 0, openFile, 0);
 

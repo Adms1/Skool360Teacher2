@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/_30sdp"
     android:background="@drawable/linear_dropshadow"
-    android:layout_margin="@dimen/_5sdp">
+    android:orientation="vertical">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/_5sdp"
-        android:weightSum="1">
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="@dimen/_27sdp"
+        android:layout_height="@dimen/_27sdp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_2sdp"
+        android:layout_marginLeft="@dimen/_231sdp">
 
-        <RelativeLayout
-            android:layout_width="@dimen/_310sdp"
+        <Button
+            android:id="@+id/close_btn"
+            android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_5sdp">
+            android:background="@drawable/close_cancel"
+            android:padding="@dimen/_2sdp"
+            android:text="X"
+            android:textColor="@color/editTextcolor"
+            android:textSize="@dimen/_14sdp" />
 
-            <Button
-                android:id="@+id/close_btn"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_1sdp"
-                android:layout_marginLeft="@dimen/_220sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:background="@drawable/close_cancel"
-                android:text="X"
-                android:textColor="@color/editTextcolor"
-                android:textSize="@dimen/_11sdp"  />
-        </RelativeLayout>
+    </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -251,5 +247,5 @@
             android:text="Add"
             android:textColor="@color/editTextcolor"
             android:textSize="@dimen/_11sdp"   />
-    </LinearLayout>
+
 </LinearLayout>

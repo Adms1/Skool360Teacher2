@@ -70,8 +70,6 @@ public class AppConfiguration {
     public static String GetAssignedSubjectForTimeTable = "GetAssignedSubject";
 
     public static ArrayList<UserProfileModel.ClassDetail> rows = new ArrayList<UserProfileModel.ClassDetail>();
-    public static String stdid;
-    public static String clsid;
     public static String Logintype;
 
 }

@@ -190,7 +190,6 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
                             @Override
                             public void onClick(View view) {
                                 alertDialogAndroid.dismiss();
-//                                getTestSyllabusData();
                             }
                         });
 
@@ -273,44 +272,6 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
         }
         return convertView;
     }
-
-    private void runOnUiThread(Runnable runnable) {
-    }
-
-
-    public void getTestSyllabusData() {
-        if (Utility.isNetworkConnected(mContext)) {
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        params.put("StaffID", Utility.getPref(mContext, "StaffID"));
-                        teacherGetTestSyllabusAsyncTask = new TeacherGetTestSyllabusAsyncTask(params);
-                        test_syllabusModels = teacherGetTestSyllabusAsyncTask.execute().get();
-                        TestsyllabusListAdapter.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-//                                progressDialog.dismiss();
-                                if (test_syllabusModels.size() > 0) {
-//                                    alertDialogAndroid.dismiss();
-                                } else {
-//                                    progressDialog.dismiss();
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        } else {
-            Utility.ping(mContext, "Network not available");
-        }
-
-    }
-
     public ArrayList<String> getDataforEditTest() {
         return editTestData;
     }
