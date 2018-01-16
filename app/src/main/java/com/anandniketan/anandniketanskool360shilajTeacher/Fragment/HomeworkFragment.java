@@ -32,8 +32,10 @@ import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherL
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherStudentHomeworkStatusAsynctask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherStudentHomeworkStatusInsertUpdateAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onStudentHomeWorkStatus;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeworkModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.FinalArrayHomeWorkDataModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.HomeWorkModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeworkStatusInsertUpdateModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMInboxResponse.FinalArrayInbox;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherStudentHomeworkStatusModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
@@ -62,9 +64,9 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
     ExpandableListView lvExpHomework;
     ExpandableListAdapterHomeWork listAdapter;
     List<String> listDataHeader;
-    HashMap<String, ArrayList<HomeworkModel.HomeworkData>> listDataChild;
+    HashMap<String, List<FinalArrayHomeWorkDataModel>> listDataChild = new HashMap<>();
     private GetTeacherLessonPlanScheduledHomeworkAsyncTask getTecherHomeworkAsyncTask = null;
-    private ArrayList<HomeworkModel> homeWorkModels = new ArrayList<>();
+    HomeWorkModel homeWorkModelResponse;
     private RelativeLayout date_rel;
     private LinearLayout homework_header;
 
@@ -80,7 +82,7 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
     private TeacherStudentHomeworkStatusAsynctask teacherStudentHomeworkStatusAsynctask = null;
     TeacherStudentHomeworkStatusModel teacherStudentHomeworkStatusResponse;
     HomeWorkStatusListAdapter homeWorkStatusListAdapter = null;
-    String DateStr, TermIdStr, StandardIdStr, ClassIdStr, SubjectIdStr, spiltStr;
+    String DateStr, TermIdStr, StandardIdStr, ClassIdStr, SubjectIdStr, spiltStr, StatusStr;
 
     //use for inserthomeworkstatus
     private TeacherStudentHomeworkStatusInsertUpdateAsyncTask teacherStudentHomeworkStatusInsertUpdateAsyncTask = null;
@@ -169,7 +171,6 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                 datePickerDialog.setOkText("Done");
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-                datePickerDialog.setTitle("Select Date From DatePickerDialog");
                 datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
@@ -183,7 +184,6 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                 datePickerDialog.setOkText("Done");
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-                datePickerDialog.setTitle("Select Date From DatePickerDialog");
                 datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             }
         });
@@ -243,14 +243,13 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));//
                         params.put("FromDate", fromDate);
                         params.put("ToDate", toDate);
-                        homeWorkModels.clear();
                         getTecherHomeworkAsyncTask = new GetTeacherLessonPlanScheduledHomeworkAsyncTask(params);
-                        homeWorkModels = getTecherHomeworkAsyncTask.execute().get();
+                        homeWorkModelResponse = getTecherHomeworkAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (homeWorkModels.size() > 0) {
+                                if (homeWorkModelResponse.getFinalArray().size() > 0) {
                                     txtNoRecordshomework.setVisibility(View.GONE);
                                     date_rel.setVisibility(View.VISIBLE);
                                     homework_header.setVisibility(View.VISIBLE);
@@ -284,21 +283,24 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
 
     public void prepaareList() {
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, ArrayList<HomeworkModel.HomeworkData>>();
+        listDataChild = new HashMap<String, List<FinalArrayHomeWorkDataModel>>();
 
-        for (int j = 0; j < homeWorkModels.get(0).getGethomeworkdata().size(); j++) {
-            listDataHeader.add(homeWorkModels.get(0).getGethomeworkdata().get(j).getDate() + "|"
-                    + homeWorkModels.get(0).getGethomeworkdata().get(j).getStandard() + "|"
-                    + homeWorkModels.get(0).getGethomeworkdata().get(j).getClassName() + "|"
-                    + homeWorkModels.get(0).getGethomeworkdata().get(j).getSubject());
+        for (int j = 0; j < homeWorkModelResponse.getFinalArray().size(); j++) {
+            listDataHeader.add(homeWorkModelResponse.getFinalArray().get(j).getDate() + "|" +
+                    homeWorkModelResponse.getFinalArray().get(j).getStandard() + "|" +
+                    homeWorkModelResponse.getFinalArray().get(j).getClassName() + "|" +
+                    homeWorkModelResponse.getFinalArray().get(j).getSubject());
 
-            ArrayList<HomeworkModel.HomeworkData> rows = new ArrayList<HomeworkModel.HomeworkData>();
+            ArrayList<FinalArrayHomeWorkDataModel> rows = new ArrayList<FinalArrayHomeWorkDataModel>();
 
-            rows.add(homeWorkModels.get(0).getGethomeworkdata().get(j));
+            rows.add(homeWorkModelResponse.getFinalArray().get(j));
+//            Log.d("data",""+rows.get(2));
+//            Log.d("data",""+rows.get(3));
 
             listDataChild.put(listDataHeader.get(j), rows);
-        }
+            Log.d("data",""+listDataChild.toString());
 
+        }
 
     }
 
@@ -474,6 +476,7 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                         teacherStudentHomeworkStatusResponse.getFinalArray().get(j).getHomeWorkStatus();
             }
         }
+        StatusStr = teacherStudentHomeworkStatusResponse.getFinalArray().get(0).getHomeWorkDetailID();
         newArray.add(studentString);
         homeworkdetailidstr = "";
         for (String s : newArray) {
@@ -508,8 +511,13 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                             public void run() {
                                 progressDialog.dismiss();
                                 if (homeworkStatusInsertUpdateModelResponse.getFinalArray().size() >= 0) {
-                                    Utility.ping(mContext, "Save Succesfully");
-                                    alertDialogAndroid.dismiss();
+                                    if (StatusStr.equalsIgnoreCase("0")) {
+                                        Utility.ping(mContext, "Homework Status Added Successfully.");
+                                        alertDialogAndroid.dismiss();
+                                    } else {
+                                        Utility.ping(mContext, "Homework Status Updated Successfully.");
+                                        alertDialogAndroid.dismiss();
+                                    }
 //                                    getHomeworkData(fromDate.getText().toString(), toDate.getText().toString());
                                 } else {
                                     progressDialog.dismiss();

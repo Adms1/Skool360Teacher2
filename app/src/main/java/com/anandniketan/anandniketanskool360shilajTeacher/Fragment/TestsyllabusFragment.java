@@ -2,16 +2,22 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +28,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.TestsyllabusLi
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherUpdateTestDetailAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onEditTest;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.SyllbusDataModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.Test_SyllabusModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.UpdateTestDetailModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
@@ -36,7 +43,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-public class TestsyllabusFragment extends Fragment {
+public class TestsyllabusFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
     private View rootView;
     private TextView txtNoRecordstest;
     private Context mContext;
@@ -44,7 +51,6 @@ public class TestsyllabusFragment extends Fragment {
     private TeacherGetTestSyllabusAsyncTask teacherGetTestSyllabusAsyncTask = null;
     private ArrayList<Test_SyllabusModel> test_syllabusModels = new ArrayList<>();
     private ListView test_syllabus_list;
-    Test_syllabusAdapter test_syllabusAdapter = null;
     TestsyllabusListAdapter testsyllabusListAdapter = null;
     private LinearLayout test_header;
     FragmentManager fragmentManager;
@@ -52,13 +58,14 @@ public class TestsyllabusFragment extends Fragment {
     private AlertDialog alertDialogAndroid = null;
     private Button close_btn, Edit_btn;
     private TextView edit_test_txt, edit_test_date_txt, edit_test_grade_txt, edit_test_subject_txt;
-    //    private ListView listData;
+    private ListView listData;
     int Year, Month, Day;
     int mYear, mMonth, mDay;
     Calendar calendar;
     private DatePickerDialog datePickerDialog;
     ArrayList<String> syllbusarray = new ArrayList<>();
-    String spiltStr, splitarray;
+    String finalStr, editString;
+
     //use for fill Listdata
     EditTestDetailsListAdapter editTestDetailsListAdapter;
     ArrayList<String> text;
@@ -66,6 +73,9 @@ public class TestsyllabusFragment extends Fragment {
     private TeacherUpdateTestDetailAsyncTask updateTestDetailAsyncTask = null;
     UpdateTestDetailModel updateTestDetailModel;
     String TSMasterIDstr, TestIDstr, TestDatestr, SubjectIDstr, SectionIDstr, finalTxtstr;
+
+    //
+    ArrayList<SyllbusDataModel> syllbusDataResponse;
 
     public TestsyllabusFragment() {
     }
@@ -124,7 +134,7 @@ public class TestsyllabusFragment extends Fragment {
                                     testsyllabusListAdapter = new TestsyllabusListAdapter(getActivity(), getActivity().getFragmentManager(), test_syllabusModels, new onEditTest() {
                                         @Override
                                         public void getEditTest() {
-                                            EditTestSubmit();
+                                            Dialog();
                                         }
                                     });
                                     test_syllabus_list.setAdapter(testsyllabusListAdapter);
@@ -146,6 +156,147 @@ public class TestsyllabusFragment extends Fragment {
         }
     }
 
+    public void Dialog() {
+        LayoutInflater lInflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View layout = lInflater.inflate(R.layout.list_edit_row, null);
+
+        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(mContext);
+        alertDialogBuilderUserInput.setView(layout);
+
+        alertDialogAndroid = alertDialogBuilderUserInput.create();
+        alertDialogAndroid.setCancelable(false);
+        alertDialogAndroid.show();
+        Window window = alertDialogAndroid.getWindow();
+        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        WindowManager.LayoutParams wlp = window.getAttributes();
+
+        wlp.gravity = Gravity.CENTER;
+        wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        window.setAttributes(wlp);
+        alertDialogAndroid.show();
+
+
+        close_btn = (Button) layout.findViewById(R.id.close_btn);
+        Edit_btn = (Button) layout.findViewById(R.id.Edit_btn);
+        edit_test_txt = (TextView) layout.findViewById(R.id.edit_test_txt);
+        edit_test_date_txt = (TextView) layout.findViewById(R.id.edit_test_date_txt);
+        edit_test_grade_txt = (TextView) layout.findViewById(R.id.edit_test_grade_txt);
+        edit_test_subject_txt = (TextView) layout.findViewById(R.id.edit_test_subject_txt);
+        listData = (ListView) layout.findViewById(R.id.listData);
+
+        calendar = Calendar.getInstance();
+        Year = calendar.get(Calendar.YEAR);
+        Month = calendar.get(Calendar.MONTH);
+        Day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        String SetValue = testsyllabusListAdapter.getSetData().toString();
+        Log.d("setValue", SetValue);
+        String[] setValueArray = SetValue.split("\\|");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        try {
+            d = sdf.parse(setValueArray[3]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String formattedTime = output.format(d);
+        finalStr = "";
+        finalStr = setValueArray[0].substring(1, setValueArray[0].length() - 0);
+        edit_test_txt.setText(finalStr);
+        edit_test_date_txt.setText(formattedTime);
+        edit_test_grade_txt.setText(setValueArray[1]);
+        edit_test_subject_txt.setText(setValueArray[2]);
+
+        ArrayList<String> number = new ArrayList<String>();
+        syllbusarray.clear();
+        String value;
+        for (int i = 0; i < 10; i++) {
+            number.add(String.valueOf(i));
+            if (i < testsyllabusListAdapter.syllbusArray().size()) {
+                value = testsyllabusListAdapter.syllbusArray().get(i);
+                value = value.replaceFirst("\\[", "");
+                Log.d("value", value);
+                syllbusarray.add(value);
+            } else {
+                syllbusarray.add("");
+            }
+        }
+//        syllbusDataResponse = new ArrayList<SyllbusDataModel>();
+//        for (int j = 0; j < syllbusarray.size(); j++) {
+//            syllbusDataResponse.set(j,syllbusarray.get(j))
+//        }
+        Log.d("number", "" + number);
+        Log.d("syllbusarray", "" + syllbusarray);
+
+        editTestDetailsListAdapter = new EditTestDetailsListAdapter(mContext, syllbusarray, number);
+        listData.setAdapter(editTestDetailsListAdapter);
+
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialogAndroid.dismiss();
+            }
+        });
+        edit_test_date_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog = DatePickerDialog.newInstance(TestsyllabusFragment.this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.setOkText("Done");
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
+                datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
+            }
+        });
+        Edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String txtstr = "";
+                text = new ArrayList<String>();
+//                for (int i = 0; i < listData.getChildCount(); i++) {
+//                    View mView = listData.getChildAt(i);
+//                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
+//                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
+//                        txtstr = txtstr + myEditText.getText().toString() + "|&";
+//                    }
+//                }
+//                text.add(txtstr);
+//                Log.d("EditValue",text.toString());
+//                EditTestSubmit();
+
+
+                text.add(txtstr);
+                Log.d("EditValue", text.toString());
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        mDay = dayOfMonth;
+        mMonth = monthOfYear + 1;
+        mYear = year;
+        String d, m, y;
+        d = Integer.toString(mDay);
+        m = Integer.toString(mMonth);
+        y = Integer.toString(mYear);
+
+        if (mDay < 10) {
+            d = "0" + d;
+        }
+        if (mMonth < 10) {
+            m = "0" + m;
+        }
+
+        edit_test_date_txt.setText(d + "/" + m + "/" + y);
+    }
+
+
     public void EditTestSubmit() {
         String arrayvalue = String.valueOf(testsyllabusListAdapter.getDataforEditTest());
         Log.d(" arrayvalue", arrayvalue);
@@ -165,11 +316,11 @@ public class TestsyllabusFragment extends Fragment {
         SubjectIDstr = splitarrayvalue[2];
         SectionIDstr = splitarrayvalue[3];
 
-        String valueString=testsyllabusListAdapter.getEditStr();
-        Log.d("valueString",valueString);
-        valueString=valueString.substring(1,valueString.length()-1);
-        Log.d("aftervalueString",valueString);
-        finalTxtstr =valueString;
+        String valueString = text.toString();
+        Log.d("valueString", valueString);
+        valueString = valueString.substring(1, valueString.length() - 1);
+        Log.d("aftervalueString", valueString);
+        finalTxtstr = valueString;
 
         if (Utility.isNetworkConnected(mContext)) {
             progressDialog = new ProgressDialog(mContext);
@@ -196,6 +347,7 @@ public class TestsyllabusFragment extends Fragment {
                             public void run() {
                                 if (updateTestDetailModel.getSuccess().equalsIgnoreCase("True")) {
                                     progressDialog.dismiss();
+                                    alertDialogAndroid.dismiss();
                                     getTestSyllabusData();
                                 } else {
                                     progressDialog.dismiss();

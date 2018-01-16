@@ -68,7 +68,7 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
     //use for insert Attendance
     private GetInsertAttendanceAsyncTask getInsertAttendanceAsyncTask = null;
     StaffInsertAttendenceModel staffInsertAttendenceModelResponse;
-    String Attendanceidstr, Attendacestatusstr, studentidstr;
+    String Attendanceidstr, Attendacestatusstr, studentidstr, AttStautsStr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -214,11 +214,13 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
         } else {
             insert_attendance_img.setBackgroundResource(R.drawable.submit);
         }
+        AttStautsStr = staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().get(0).getAttendenceStatus();
         for (int j = 0; j < staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().size(); j++) {
             if (staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().get(j).getAttendenceStatus().equalsIgnoreCase("-2")) {
                 staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().get(j).setAttendenceStatus("1");
             }
         }
+
     }
 
     public void InsertAttendance() {
@@ -291,7 +293,11 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
                             public void run() {
                                 progressDialog.dismiss();
                                 if (staffInsertAttendenceModelResponse.getFinalArray().size() > 0) {
-                                    Utility.ping(mContext, "Save Sucessfully");
+                                    if (AttStautsStr.equalsIgnoreCase("-2")) {
+                                        Utility.ping(mContext, "Attendace Added Successfully");
+                                    } else {
+                                        Utility.ping(mContext, "Attendace Updated Successfully");
+                                    }
                                     updateAttendace();
                                     setGetstaffAttendanceDetail();
                                 } else {

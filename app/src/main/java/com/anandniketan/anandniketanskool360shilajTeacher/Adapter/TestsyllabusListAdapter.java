@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,36 +44,13 @@ import java.util.HashMap;
  * Created by admsandroid on 11/8/2017.
  */
 
-public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDialog.OnDateSetListener {
+public class TestsyllabusListAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Test_SyllabusModel> test_syllabusModels = new ArrayList<>();
-    AlertDialog alertDialogAndroid = null;
-    private DatePickerDialog datePickerDialog;
-    int Year, Month, Day;
-    Calendar calendar;
-    int mYear, mMonth, mDay;
-    Button close_btn, Edit_btn;
-    private static TextView edit_test_txt, edit_test_date_txt, edit_test_grade_txt, edit_test_subject_txt;
-    ListView listData;
     FragmentManager activity;
-    private ProgressDialog progressDialog = null;
-    private TeacherUpdateTestDetailAsyncTask updateTestDetailAsyncTask = null;
-    UpdateTestDetailModel updateTestDetailModel;
-    private ArrayList<String> text = new ArrayList<>();
-    private TeacherGetTestSyllabusAsyncTask teacherGetTestSyllabusAsyncTask = null;
-    EditText syllbus_edt;
-    private CallBack mCallBack;
-    Test_SyllabusModel.TestSyllabus model;
-    Test_syllabusAdapter test_syllabusAdapter;
-    private static String dateFinal;
-    EditTestDetailsListAdapter editTestDetailsListAdapter;
-    ArrayList<String> syllbusarray = new ArrayList<>();
-    int startmonth, startyear, startday, endmonth, endyear, endday;
-    int mYEAR;
-    int mMONTH;
-    int mDAY;
     private ArrayList<String> editTestData = new ArrayList<String>();
-    private String editString = new String();
+    private ArrayList<String> setData = new ArrayList<String>();
+    private ArrayList<String> syllbusarray = new ArrayList<String>();
     private onEditTest onEditTest;
 
     // Constructor
@@ -80,33 +58,8 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
         mContext = c;
         this.test_syllabusModels = test_syllabusModels;
         this.activity = activity;
-        this.onEditTest=onEditTest;
+        this.onEditTest = onEditTest;
     }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "Selected Date : " + Day + "/" + Month + "/" + Year;
-        String datestr = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-
-        mDay = dayOfMonth;
-        mMonth = monthOfYear + 1;
-        mYear = year;
-        String d, m, y;
-        d = Integer.toString(mDay);
-        m = Integer.toString(mMonth);
-        y = Integer.toString(mYear);
-
-        if (mDay < 10) {
-            d = "0" + d;
-        }
-        if (mMonth < 10) {
-            m = "0" + m;
-        }
-
-        edit_test_date_txt.setText(d + "/" + m + "/" + y);
-    }
-
-
     private class ViewHolder {
         TextView srno_txt, test_name_txt, grade_txt, subject_txt;
         ImageView edit_txt;
@@ -153,117 +106,19 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
                 viewHolder.edit_txt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        LayoutInflater lInflater = (LayoutInflater) mContext
-                                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        final View layout = lInflater.inflate(R.layout.list_edit_row, null);
-
-                        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(mContext);
-                        alertDialogBuilderUserInput.setView(layout);
-
-                        alertDialogAndroid = alertDialogBuilderUserInput.create();
-                        alertDialogAndroid.setCancelable(false);
-                        alertDialogAndroid.show();
-                        Window window = alertDialogAndroid.getWindow();
-                        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        WindowManager.LayoutParams wlp = window.getAttributes();
-
-                        wlp.gravity = Gravity.CENTER;
-                        wlp.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-                        window.setAttributes(wlp);
-                        alertDialogAndroid.show();
-
-
-                        close_btn = (Button) layout.findViewById(R.id.close_btn);
-                        Edit_btn = (Button) layout.findViewById(R.id.Edit_btn);
-                        edit_test_txt = (TextView) layout.findViewById(R.id.edit_test_txt);
-                        edit_test_date_txt = (TextView) layout.findViewById(R.id.edit_test_date_txt);
-                        edit_test_grade_txt = (TextView) layout.findViewById(R.id.edit_test_grade_txt);
-                        edit_test_subject_txt = (TextView) layout.findViewById(R.id.edit_test_subject_txt);
-                        listData = (ListView) layout.findViewById(R.id.listData);
-
-                        calendar = Calendar.getInstance();
-                        Year = calendar.get(Calendar.YEAR);
-                        Month = calendar.get(Calendar.MONTH);
-                        Day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                        close_btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                alertDialogAndroid.dismiss();
-                            }
-                        });
-
-                        Edit_btn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                                String txtstr = "";
-                                text = new ArrayList<String>();
-                                for (int i = 0; i < listData.getChildCount(); i++) {
-
-                                    View mView = listData.getChildAt(i);
-                                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
-                                        if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
-                                            txtstr = txtstr + myEditText.getText().toString() + "|&";
-                                        }
-                                }
-                                text.add(txtstr);
-                                Log.d("join", "" + text.toString());
-                                String textstr = text.toString();
-                                Log.d("join", "" + textstr.toString());
-                                editString = textstr.toString();
-                                editTestData.add(test_syllabusModels.get(position).getTSMasterID() + "|" + test_syllabusModels.get(position).getTestID() + "|" +
-                                        test_syllabusModels.get(position).getSubjectID() + "|" + test_syllabusModels.get(position).getSectionID() + "|" +
-                                        test_syllabusModels.get(position).getTestDate());
-                                onEditTest.getEditTest();
-                            }
-                        });
-                        edit_test_date_txt.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                datePickerDialog = DatePickerDialog.newInstance(TestsyllabusListAdapter.this, Year, Month, Day);
-                                datePickerDialog.setThemeDark(false);
-                                datePickerDialog.setOkText("Done");
-                                datePickerDialog.showYearPickerFirst(false);
-                                datePickerDialog.setAccentColor(Color.parseColor("#1B88C8"));
-                                datePickerDialog.setTitle("Select Date From DatePickerDialog");
-                                datePickerDialog.show(activity, "DatePickerDialog");
-                            }
-                        });
-
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                        SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
-                        Date d = null;
-                        try {
-                            d = sdf.parse(test_syllabusModels.get(position).getTestDate());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String formattedTime = output.format(d);
-
-                        edit_test_txt.setText(Html.fromHtml(test_syllabusModels.get(position).getTestName()));
-                        edit_test_date_txt.setText(formattedTime);
-                        edit_test_grade_txt.setText(Html.fromHtml(test_syllabusModels.get(position).getStandardClass()));
-                        edit_test_subject_txt.setText(Html.fromHtml(test_syllabusModels.get(position).getSubject()));
-                        ArrayList<String> number = new ArrayList<String>();
+                        setData.clear();
                         syllbusarray.clear();
-                        String value;
-                        for (int i = 0; i < 10; i++) {
-                            number.add(String.valueOf(i));
-                            if (i < test_syllabusModels.get(position).getGetSyllabusData().size()) {
-                                value=test_syllabusModels.get(position).getGetSyllabusData().get(i).getSyllabus();
-                                value=value.replaceFirst("\\[","");
-                                Log.d("value",value);
-                                syllbusarray.add(value);
-                            } else {
-                                syllbusarray.add("");
-                            }
+                        setData.add(test_syllabusModels.get(position).getTestName() + "|" +
+                                test_syllabusModels.get(position).getStandardClass() + "|" +
+                                test_syllabusModels.get(position).getSubject() + "|" +
+                                test_syllabusModels.get(position).getTestDate());
+                        editTestData.add(test_syllabusModels.get(position).getTSMasterID() + "|" + test_syllabusModels.get(position).getTestID() + "|" +
+                                test_syllabusModels.get(position).getSubjectID() + "|" + test_syllabusModels.get(position).getSectionID() + "|" +
+                                test_syllabusModels.get(position).getTestDate());
+                        for (int i = 0; i < test_syllabusModels.get(position).getGetSyllabusData().size(); i++) {
+                            syllbusarray.add(test_syllabusModels.get(position).getGetSyllabusData().get(i).getSyllabus());
                         }
-                        Log.d("number", "" + number);
-                        Log.d("syllbusarray", "" + syllbusarray);
-
-                        editTestDetailsListAdapter = new EditTestDetailsListAdapter(mContext, syllbusarray, number);
-                        listData.setAdapter(editTestDetailsListAdapter);
+                        onEditTest.getEditTest();
                     }
                 });
             } catch (Exception e) {
@@ -272,12 +127,17 @@ public class TestsyllabusListAdapter extends BaseAdapter implements DatePickerDi
         }
         return convertView;
     }
+
     public ArrayList<String> getDataforEditTest() {
         return editTestData;
     }
 
-    public String getEditStr() {
-        return editString;
+    public ArrayList<String> getSetData() {
+        return setData;
+    }
+
+    public ArrayList<String> syllbusArray() {
+        return syllbusarray;
     }
 }
 

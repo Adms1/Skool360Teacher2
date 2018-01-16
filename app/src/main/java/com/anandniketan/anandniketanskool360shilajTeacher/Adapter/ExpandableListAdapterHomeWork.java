@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onStudentHomeWorkStatus;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeworkModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.FinalArrayHomeWorkDataModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 import java.text.ParseException;
@@ -34,7 +34,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     boolean visible = true;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, ArrayList<HomeworkModel.HomeworkData>> _listDataChild;
+    private HashMap<String,  List<FinalArrayHomeWorkDataModel>>_listDataChild;
     String FontStyle, splitFont1, splitFont2, splitFont3, splitFont4;
     TextView subject_title_txt, homwork_name_txt, chapter_name_txt, objective_txt, assessment_txt;
     Button StudentHomeWorkStatus_btn;
@@ -46,7 +46,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     private String date = new String();
 
     public ExpandableListAdapterHomeWork(Context context, List<String> listDataHeader,
-                                         HashMap<String, ArrayList<HomeworkModel.HomeworkData>> listChildData,
+                                         HashMap<String, List<FinalArrayHomeWorkDataModel>> listChildData,
                                          onStudentHomeWorkStatus onStudentHomeWorkStatus) {
         this._context = context;
         this._listDataHeader = listDataHeader;
@@ -55,7 +55,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     }
 
     @Override
-    public ArrayList<HomeworkModel.HomeworkData> getChild(int groupPosition, int childPosititon) {
+    public List<FinalArrayHomeWorkDataModel> getChild(int groupPosition, int childPosititon) {
         return this._listDataChild.get(this._listDataHeader.get(groupPosition));
     }
 
@@ -69,7 +69,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              final boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final ArrayList<HomeworkModel.HomeworkData> childData = getChild(groupPosition, 0);
+        final List<FinalArrayHomeWorkDataModel> childData = getChild(groupPosition, 0);
 
 
         if (convertView == null) {

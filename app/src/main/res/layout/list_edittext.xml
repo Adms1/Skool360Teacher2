@@ -17,7 +17,7 @@
             android:layout_margin="@dimen/_5sdp"
             android:background="@drawable/edit_text"
             android:gravity="left|center"
-            android:maxLines="1"
+            android:maxLines="6"
             android:padding="@dimen/_5sdp"
             android:textSize="@dimen/_9sdp" />
     </LinearLayout>
