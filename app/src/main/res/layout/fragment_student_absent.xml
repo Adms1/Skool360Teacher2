@@ -264,7 +264,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/_130sdp"
                 android:alpha="0.8"
-                android:src="@drawable/wright"
                 android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>

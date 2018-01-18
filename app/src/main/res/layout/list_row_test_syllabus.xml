@@ -68,7 +68,6 @@
             android:layout_gravity="left"
             android:layout_weight="0.80"
             android:padding="@dimen/_3sdp"
-            android:src="@drawable/edit_pen"
             android:textSize="@dimen/_9sdp" />
 
     </LinearLayout>

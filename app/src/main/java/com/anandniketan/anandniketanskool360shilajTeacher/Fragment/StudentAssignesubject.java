@@ -26,6 +26,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherInsertAs
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +87,10 @@ public class StudentAssignesubject extends Fragment {
         class_checkbox_linear = (LinearLayout) rootView.findViewById(R.id.class_checkbox_linear);
         standard_checkbox_linear = (LinearLayout) rootView.findViewById(R.id.standard_checkbox_linear);
         insert_subject_img = (ImageView) rootView.findViewById(R.id.insert_subject_img);
-
+        Picasso.with(mContext)
+                .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Done.png")
+                .fit()
+                .into(insert_subject_img);
         setUserVisibleHint(true);
 
     }

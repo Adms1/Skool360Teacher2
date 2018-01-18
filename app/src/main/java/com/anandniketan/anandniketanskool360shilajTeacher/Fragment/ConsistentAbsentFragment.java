@@ -31,7 +31,9 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.getCheckco
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetConsistentAbModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.InsertConsistentAbSMSModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
+import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -92,6 +94,10 @@ public class ConsistentAbsentFragment extends Fragment implements DatePickerDial
         consistent_absent_header = (LinearLayout) rootView.findViewById(R.id.consistent_absent_header);
         consistent_absent_list = (ListView) rootView.findViewById(R.id.consistent_absent_list);
         insert_message_img = (ImageView) rootView.findViewById(R.id.insert_message_img);
+        Picasso.with(mContext)
+                .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Done.png")
+                .fit()
+                .into(insert_message_img);
     }
 
     public void setListner() {

@@ -14,6 +14,8 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onEditTest
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.FinalArrayTestDataModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.GetEditTestModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -75,6 +77,10 @@ public class TestsyllabusListAdapter extends BaseAdapter {
             viewHolder.edit_txt = (ImageView) convertView.findViewById(R.id.edit_txt);
             viewHolder.subject_txt = (TextView) convertView.findViewById(R.id.subject_txt);
 
+            Picasso.with(mContext)
+                    .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Edit.png")
+                    .fit().centerCrop()
+                    .into(viewHolder.edit_txt);
             try {
                 String sr = String.valueOf(position + 1);
                 viewHolder.srno_txt.setText(sr);

@@ -70,7 +70,7 @@ public class ImageAdapter extends BaseAdapter {
 
 //        imgGridOptions.setImageResource(mThumbIds[position]);
         String url = mThumbIds[position];
-//        Log.d("url", url);
+        Log.d("url", url);
         Picasso.with(mContext)
                 .load(url)
                 .fit()

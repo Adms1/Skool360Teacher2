@@ -23,7 +23,9 @@ import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetNewStaff
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.Attendance.StaffInsertAttendenceModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.Attendance.StaffNewAttendenceModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
+import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -210,9 +212,17 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
         onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#d8b834'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty() + "</b>"));
 
         if (!staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().get(0).getAttendenceStatus().equalsIgnoreCase("-2")) {
-            insert_attendance_img.setBackgroundResource(R.drawable.update_1);
+            Picasso.with(mContext)
+                    .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Update.png")
+                    .fit()
+                    .into(insert_attendance_img);
+//            insert_attendance_img.setBackgroundResource(R.drawable.update_1);
         } else {
-            insert_attendance_img.setBackgroundResource(R.drawable.submit);
+            Picasso.with(mContext)
+                    .load(AppConfiguration.DOMAIN_LIVE_ICONS + "Submit.png")
+                    .fit()
+                    .into(insert_attendance_img);
+//            insert_attendance_img.setBackgroundResource(R.drawable.submit);
         }
         AttStautsStr = staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().get(0).getAttendenceStatus();
         for (int j = 0; j < staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().size(); j++) {

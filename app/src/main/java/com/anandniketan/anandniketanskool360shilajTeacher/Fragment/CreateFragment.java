@@ -32,8 +32,10 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.Fin
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.MainResponseDisplayStudent;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.StudentDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onCheckBoxChnage;
+import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.lang.reflect.Field;
@@ -102,7 +104,10 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
         Create_class_spinner = (Spinner) rootView.findViewById(R.id.Create_class_spinner);
         lvCreate = (ListView) rootView.findViewById(R.id.lvCreate);
         insert_message_img = (ImageView) rootView.findViewById(R.id.insert_message_img);
-
+        Picasso.with(mContext)
+                .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Done.png")
+                .fit()
+                .into(insert_message_img);
         setUserVisibleHint(true);
     }
 

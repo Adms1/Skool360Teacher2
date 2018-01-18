@@ -41,7 +41,9 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.G
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.InsertConsistentAbSMSModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.SectionDetailModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
+import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.lang.reflect.Field;
@@ -125,6 +127,10 @@ public class StudentAbsentFragment extends Fragment implements DatePickerDialog.
         standard_attendace_spinner = (Spinner) rootView.findViewById(R.id.standard_attendace_spinner);
         standard_division_spinner = (Spinner) rootView.findViewById(R.id.standard_division_spinner);
         start_date.setText(Utility.getTodaysDate());
+        Picasso.with(mContext)
+                .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Done.png")
+                .fit()
+                .into(insert_message_img);
     }
 
     public void setListner() {

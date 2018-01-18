@@ -122,9 +122,10 @@
             android:layout_height="@dimen/_38sdp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/_130sdp"
-            android:src="@drawable/wright"
+
             android:visibility="gone"
             android:alpha="0.8"/>
+        <!--android:src="@drawable/wright"-->
     </LinearLayout>
     <TextView
         android:id="@+id/txtNoRecords"

@@ -34,8 +34,10 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.G
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetStandardSectionModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.Attendance.StaffInsertAttendenceModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.google.android.gms.maps.model.UrlTileProvider;
+import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.lang.reflect.Field;
@@ -400,9 +402,16 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
         all_onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#d8b834'>" + "<b>" + onduty_str + "</b>"));
 
         if (!getAttendenceData_allModelResponse.getFinalArray().get(0).getStudentDetail().get(0).getAttendenceStatus().equalsIgnoreCase("-2")) {
-            insert_attendance_img.setBackgroundResource(R.drawable.update_1);
+            Picasso.with(mContext)
+                    .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Update.png")
+                    .fit()
+                    .into(insert_attendance_img);
+//            insert_attendance_img.setBackgroundResource(R.drawable.update_1);
         } else {
-            insert_attendance_img.setBackgroundResource(R.drawable.submit);
+            Picasso.with(mContext)
+                    .load(AppConfiguration.DOMAIN_LIVE_ICONS + "Submit.png")
+                    .fit()
+                    .into(insert_attendance_img);
         }
         for (int j = 0; j < getAttendenceData_allModelResponse.getFinalArray().get(0).getStudentDetail().size(); j++) {
             if (getAttendenceData_allModelResponse.getFinalArray().get(0).getStudentDetail().get(j).getAttendenceStatus().equalsIgnoreCase("-2")) {

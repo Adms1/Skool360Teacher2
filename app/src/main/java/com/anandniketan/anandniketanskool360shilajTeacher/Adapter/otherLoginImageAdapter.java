@@ -23,8 +23,8 @@ public class otherLoginImageAdapter extends BaseAdapter {
     private Context mContext;
 
     public String[] mThumbIds = {
-            AppConfiguration.DOMAIN_LIVE_IMAGES + "Attendance.png",//consistent_absent.png
-            AppConfiguration.DOMAIN_LIVE_IMAGES +"Attendance.png",//student_absent.png
+            AppConfiguration.DOMAIN_LIVE_IMAGES + "consistent_absent.png",//consistent_absent.png
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"student_absent.png",//student_absent.png
             AppConfiguration.DOMAIN_LIVE_IMAGES +"Attendance.png",
     };
     public String[] mThumbNames = {"Consistent Absent","Student Absent","Attendance",};
