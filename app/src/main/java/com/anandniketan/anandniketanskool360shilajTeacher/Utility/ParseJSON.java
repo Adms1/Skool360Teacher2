@@ -1,13 +1,12 @@
 package com.anandniketan.anandniketanskool360shilajTeacher.Utility;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanResponse.LessonPlanModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.LoginModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherAssignedSubjectModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherGetTestNameModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherGetTimetableModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherInsertTestDetailModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.StudentAssignSubjectResponse.TeacherAssignedSubjectModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.TeacherGetTestNameModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TimeTable.TeacherGetTimetableModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.TeacherInsertTestDetailModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherTodayScheduleModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.Test_SyllabusModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.UserProfileModel;
 
 import org.json.JSONArray;
@@ -242,55 +241,6 @@ public class ParseJSON {
         return result;
     }
 
-    public static ArrayList<Test_SyllabusModel> parseTestSyllabusJson(String responseString) {
-        ArrayList<Test_SyllabusModel> result = new ArrayList<>();
-
-        try {
-            JSONObject reader = new JSONObject(responseString);
-            String data_load_basket = reader.getString("Success");
-            Test_SyllabusModel test_syllabusModel = null;
-
-            if (data_load_basket.toString().equals("True")) {
-
-                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-                for (int a = 0; a < jsonMainNode.length(); a++) {
-                    test_syllabusModel = new Test_SyllabusModel();
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(a);
-                    test_syllabusModel.setTestID(jsonChildNode.getString("TestID"));
-                    test_syllabusModel.setTestName(jsonChildNode.getString("TestName"));
-                    test_syllabusModel.setTestDate(jsonChildNode.getString("TestDate"));
-                    test_syllabusModel.setSubject(jsonChildNode.getString("Subject"));
-                    test_syllabusModel.setStandardClass(jsonChildNode.getString("StandardClass"));
-                    test_syllabusModel.setTestID(jsonChildNode.getString("TestID"));
-                    test_syllabusModel.setTSMasterID(jsonChildNode.getString("TSMasterID"));
-                    test_syllabusModel.setSectionID(jsonChildNode.getString("SectionID"));
-                    test_syllabusModel.setSubjectID(jsonChildNode.getString("SubjectID"));
-
-                    Test_SyllabusModel.TestSyllabus data = null;
-                    ArrayList<Test_SyllabusModel.TestSyllabus> dataArrayList = new ArrayList<>();
-                    JSONArray jsonChildMainNode = jsonChildNode.optJSONArray("TestSyllabus");
-                    for (int i = 0; i < jsonChildMainNode.length(); i++) {
-                        data = test_syllabusModel.new TestSyllabus();
-                        JSONObject jsonChildNode1 = jsonChildMainNode.getJSONObject(i);
-                        data.setSyllabus(jsonChildNode1.getString("Syllabus"));
-                        dataArrayList.add(data);
-                    }
-                    test_syllabusModel.setGetSyllabusData(dataArrayList);
-
-                    result.add(test_syllabusModel);
-                }
-            } else {
-                //invalid login
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
     public static ArrayList<TeacherInsertTestDetailModel> parseTeacherInsertTestDetailJson(String responseString) {
         ArrayList<TeacherInsertTestDetailModel> result = new ArrayList<>();
 
@@ -342,58 +292,6 @@ public class ParseJSON {
 
         return result;
     }
-
-//    public static ArrayList<HomeworkModel> parseTeacherHomeworkJson(String responseString) {
-//        ArrayList<HomeworkModel> result = new ArrayList<>();
-//
-//        try {
-//            JSONObject reader = new JSONObject(responseString);
-//            String data_load_basket = reader.getString("Success");
-//            HomeworkModel homeworkModel = new HomeworkModel();
-//            if (data_load_basket.toString().equals("True")) {
-//                homeworkModel.setFromDate(reader.getString("FromDate"));
-//                homeworkModel.setToDate(reader.getString("ToDate"));
-//
-//                JSONArray jsonMainNode = reader.optJSONArray("FinalArray");
-//
-//                HomeworkModel.HomeworkData homeWorkData = null;
-//                ArrayList<HomeworkModel.HomeworkData> homeWorkDatas = new ArrayList<>();
-//
-//                for (int j = 0; j < jsonMainNode.length(); j++) {
-//                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(j);
-//                    homeWorkData = homeworkModel.new HomeworkData();
-//                    homeWorkData.setDate(jsonChildNode.getString("Date"));
-//                    homeWorkData.setStandard(jsonChildNode.getString("Standard"));
-//                    homeWorkData.setClassName(jsonChildNode.getString("ClassName"));
-//                    homeWorkData.setSubject(jsonChildNode.getString("Subject"));
-//                    homeWorkData.setHomeWork(jsonChildNode.getString("HomeWork"));
-//                    homeWorkData.setChapterName(jsonChildNode.getString("ChapterName"));
-//                    homeWorkData.setObjective(jsonChildNode.getString("Objective"));
-//                    homeWorkData.setAssessmentQue(jsonChildNode.getString("AssessmentQue"));
-//                    homeWorkData.setStandardID(jsonChildNode.getString("StandardID"));
-//                    homeWorkData.setClassID(jsonChildNode.getString("ClassID"));
-//                    homeWorkData.setTermID(jsonChildNode.getString("TermID"));
-//                    homeWorkData.setSubjectID(jsonChildNode.getString("SubjectID"));
-//                    homeWorkData.setFont(jsonChildNode.getString("Font"));
-//
-//                    homeWorkDatas.add(homeWorkData);
-//                }
-//                homeworkModel.setGethomeworkdata(homeWorkDatas);
-//                result.add(homeworkModel);
-//
-//
-//            } else {
-//                //invalid login
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
-
     public static ArrayList<LessonPlanModel> parseTeacherLessonPlanScheduleJson(String responseString) {
         ArrayList<LessonPlanModel> result = new ArrayList<>();
 

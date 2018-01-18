@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.MysubjectAdapetr;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherAssignedSubjectAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherAssignedSubjectModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.StudentAssignSubjectResponse.TeacherAssignedSubjectModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 

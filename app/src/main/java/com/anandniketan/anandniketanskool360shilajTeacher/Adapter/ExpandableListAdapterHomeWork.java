@@ -2,7 +2,11 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admsandroid on 10/13/2017.
@@ -31,22 +36,21 @@ import java.util.List;
 public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
 
     private Context _context;
-    boolean visible = true;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String,  List<FinalArrayHomeWorkDataModel>>_listDataChild;
+    private Map<String, List<FinalArrayHomeWorkDataModel>> _listDataChild;
     String FontStyle, splitFont1, splitFont2, splitFont3, splitFont4;
     TextView subject_title_txt, homwork_name_txt, chapter_name_txt, objective_txt, assessment_txt;
     Button StudentHomeWorkStatus_btn;
-    ImageView imgRightSign;
-    LinearLayout chapter_linear, objective_linear, que_linear;
     Typeface typeface;
     onStudentHomeWorkStatus _onStudentHomeWorkStatus;
     ArrayList<String> getId = new ArrayList<>();
     private String date = new String();
+    SpannableStringBuilder chapterSpanned, homeworkSpanned, objectiveSpanned, assessmentSpanned;
+    String chapterStr, homeworkStr, objectiveStr, assessmentStr;
 
     public ExpandableListAdapterHomeWork(Context context, List<String> listDataHeader,
-                                         HashMap<String, List<FinalArrayHomeWorkDataModel>> listChildData,
+                                         Map<String, List<FinalArrayHomeWorkDataModel>> listChildData,
                                          onStudentHomeWorkStatus onStudentHomeWorkStatus) {
         this._context = context;
         this._listDataHeader = listDataHeader;
@@ -90,7 +94,12 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         splitFont3 = "";
         FontStyle = childData.get(childPosition).getFont();
 
+        chapterStr = childData.get(childPosition).getChapterName().replaceAll("\\n", "").trim();
+        homeworkStr = childData.get(childPosition).getHomeWork().replaceAll("\\n", "").trim();
+        objectiveStr = childData.get(childPosition).getObjective().replaceAll("\\n", "").trim();
+        assessmentStr = childData.get(childPosition).getAssessmentQue().replaceAll("\\n", "").trim();
 
+        Log.d("Chapter Name:", chapterStr + "HomeWork :" + homeworkStr);
         if (!FontStyle.equalsIgnoreCase("-|-|-|-")) {
             String[] splitFontStyle = FontStyle.split("\\|");
             Log.d("SplitFOnt", splitFontStyle[0]);
@@ -104,11 +113,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             SetLanguageObjective(splitFont3);
             SetLanguageAssessmentQue(splitFont4);
 
-            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
-            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
-            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
-            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
-
+            setText(chapterStr, homeworkStr, objectiveStr, assessmentStr);
         } else {
             typeface = Typeface.createFromAsset(_context.getAssets(), "Font/arial.ttf");
             homwork_name_txt.setTypeface(typeface);
@@ -116,11 +121,7 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
             objective_txt.setTypeface(typeface);
             assessment_txt.setTypeface(typeface);
 
-            homwork_name_txt.setText(Html.fromHtml(childData.get(childPosition).getHomeWork().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
-            chapter_name_txt.setText(Html.fromHtml(childData.get(childPosition).getChapterName().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
-            objective_txt.setText(Html.fromHtml(childData.get(childPosition).getObjective().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
-            assessment_txt.setText(Html.fromHtml(childData.get(childPosition).getAssessmentQue().replaceAll("\\<.*?\\>", "").replaceAll("\\n", "").trim()));
-
+            setText(chapterStr, homeworkStr, objectiveStr, assessmentStr);
         }
         StudentHomeWorkStatus_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -414,6 +415,39 @@ public class ExpandableListAdapterHomeWork extends BaseExpandableListAdapter {
         }
     }
 
+    private void setText(String html, String html1, String html2, String html3) {
+
+        chapterSpanned = (SpannableStringBuilder) Html.fromHtml(html);
+        homeworkSpanned = (SpannableStringBuilder) Html.fromHtml(html1);
+        objectiveSpanned = (SpannableStringBuilder) Html.fromHtml(html2);
+        assessmentSpanned = (SpannableStringBuilder) Html.fromHtml(html3);
+
+        chapterSpanned = trimSpannable(chapterSpanned);
+        homeworkSpanned = trimSpannable(homeworkSpanned);
+        objectiveSpanned = trimSpannable(objectiveSpanned);
+        assessmentSpanned = trimSpannable(assessmentSpanned);
+
+        homwork_name_txt.setText(homeworkSpanned, TextView.BufferType.SPANNABLE);
+        chapter_name_txt.setText(chapterSpanned, TextView.BufferType.SPANNABLE);
+        objective_txt.setText(objectiveSpanned, TextView.BufferType.SPANNABLE);
+        assessment_txt.setText(assessmentSpanned, TextView.BufferType.SPANNABLE);
+    }
+
+    private SpannableStringBuilder trimSpannable(SpannableStringBuilder spannable) {
+        int trimStart = 0;
+        int trimEnd = 0;
+        String text = spannable.toString();
+
+        while (text.length() > 0 && text.startsWith("\n")) {
+            text = text.substring(1);
+            trimStart += 1;
+        }
+        while (text.length() > 0 && text.endsWith("\n")) {
+            text = text.substring(0, text.length() - 1);
+            trimEnd += 1;
+        }
+        return spannable.delete(0, trimStart).delete(spannable.length() - trimEnd, spannable.length());
+    }
 
     public ArrayList<String> getAllId() {
         return getId;

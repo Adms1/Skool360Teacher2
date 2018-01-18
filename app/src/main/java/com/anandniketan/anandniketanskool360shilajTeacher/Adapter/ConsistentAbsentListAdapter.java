@@ -1,8 +1,6 @@
 package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,12 +11,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.CallBack;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.getCheckconsistentAb;
-import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onCheckBoxChnage;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.FinalArray_ConsistentAb;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetConsistentAbModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMCreateResponse.StudentDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 import java.util.ArrayList;

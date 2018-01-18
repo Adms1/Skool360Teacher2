@@ -29,27 +29,21 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivi
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.ExpandableListAdapterTimeTable;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.DeleteTimetableAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetStandardSectionAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherAssignedSubjectAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherGetTimetableAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.InsertTimetableAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TimeTableSubjectDetailAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onDeleteLecture;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetStandardSectionModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.DeleteLectureModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.InsertLectureModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherAssignedSubjectModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherGetTimetableModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TimeTable.DeleteLectureModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TimeTable.InsertLectureModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TimeTable.TeacherGetTimetableModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.TimeTable.GetTimeTableSubjectModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
-import com.koushikdutta.ion.builder.Builders;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class TimeTableFragment extends Fragment {
@@ -91,6 +85,7 @@ public class TimeTableFragment extends Fragment {
     //use for insertLecture
     private InsertTimetableAsyncTask insertTimetableAsyncTask = null;
     InsertLectureModel insertLectureModel;
+    String finalclassIdStr="";
 
     //use for fill standard
     private GetStandardSectionAsyncTask getStandardSectionAsyncTask = null;
@@ -663,11 +658,17 @@ public class TimeTableFragment extends Fragment {
     public void fillStartEndTimeHourspinner() {
         ArrayList<String> starthours = new ArrayList<String>();
 
-        for (int j = 0; j < 24; j++) {
-            if (j < 10) {
-                starthours.add(String.valueOf("0" + j));
-            } else {
-                starthours.add(String.valueOf(j));
+        ArrayList<String> starthoursselect = new ArrayList<>();
+        starthoursselect.add("--Select--");
+
+        for (int k = 0; k < starthoursselect.size(); k++) {
+            starthours.add(starthoursselect.get(k));
+            for (int j = 0; j < 24; j++) {
+                if (j < 10) {
+                    starthours.add(String.valueOf("0" + j));
+                } else {
+                    starthours.add(String.valueOf(j));
+                }
             }
         }
         try {
@@ -686,15 +687,19 @@ public class TimeTableFragment extends Fragment {
 
 
         ArrayList<String> start1hours = new ArrayList<String>();
+        ArrayList<String> start1hoursselect = new ArrayList<>();
+        start1hoursselect.add("--Select--");
 
-        for (int j = 0; j < 59; j++) {
-            if (j < 10) {
-                start1hours.add(String.valueOf("0" + j));
-            } else {
-                start1hours.add(String.valueOf(j));
+        for (int k = 0; k < start1hoursselect.size(); k++) {
+            start1hours.add(start1hoursselect.get(k));
+            for (int j = 0; j < 59; j++) {
+                if (j < 10) {
+                    start1hours.add(String.valueOf("0" + j));
+                } else {
+                    start1hours.add(String.valueOf(j));
+                }
             }
         }
-
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");
             popup.setAccessible(true);
@@ -710,15 +715,19 @@ public class TimeTableFragment extends Fragment {
         edit_Starttime1_spinner.setAdapter(adapterstarthour);
 
         ArrayList<String> endhours = new ArrayList<String>();
+        ArrayList<String> endhoursselect = new ArrayList<>();
+        endhoursselect.add("--Select--");
 
-        for (int j = 0; j < 23; j++) {
-            if (j < 10) {
-                endhours.add(String.valueOf("0" + j));
-            } else {
-                endhours.add(String.valueOf(j));
+        for (int k = 0; k < endhoursselect.size(); k++) {
+            endhours.add(endhoursselect.get(k));
+            for (int j = 0; j < 23; j++) {
+                if (j < 10) {
+                    endhours.add(String.valueOf("0" + j));
+                } else {
+                    endhours.add(String.valueOf(j));
+                }
             }
         }
-
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");
             popup.setAccessible(true);
@@ -734,12 +743,17 @@ public class TimeTableFragment extends Fragment {
         edit_Endtime_spinner.setAdapter(adapterendhour);
 
         ArrayList<String> end1hours = new ArrayList<String>();
+        ArrayList<String> end1hoursselect = new ArrayList<>();
+        end1hoursselect.add("--Select--");
 
-        for (int j = 0; j < 59; j++) {
-            if (j < 10) {
-                end1hours.add(String.valueOf("0" + j));
-            } else {
-                end1hours.add(String.valueOf(j));
+        for (int k = 0; k < end1hoursselect.size(); k++) {
+            end1hours.add(end1hoursselect.get(k));
+            for (int j = 0; j < 59; j++) {
+                if (j < 10) {
+                    end1hours.add(String.valueOf("0" + j));
+                } else {
+                    end1hours.add(String.valueOf(j));
+                }
             }
         }
         try {
@@ -764,9 +778,17 @@ public class TimeTableFragment extends Fragment {
         for (String s : classidarray) {
             classIdStr = classIdStr + "," + s;
         }
-        final String finalclassIdStr = classIdStr.substring(1, classIdStr.length());
-        Log.d("finalclassIdStr", finalclassIdStr);
-        if (!Subejctid.equalsIgnoreCase("0")) {
+
+        if(!classIdStr.equalsIgnoreCase("")) {
+            finalclassIdStr = classIdStr.substring(1, classIdStr.length());
+            Log.d("finalclassIdStr", finalclassIdStr);
+        }else{
+            Utility.ping(mContext,"Please Select Standard");
+        }
+
+        if (!Subejctid.equalsIgnoreCase("0")&&!starttimehour.equalsIgnoreCase("--Select--")
+                &&!starttimeminit.equalsIgnoreCase("--Select--")&&!endtimehour.equalsIgnoreCase("--Select--")
+                &&!endtimeminit.equalsIgnoreCase("--Select--")) {
             if (!finalclassIdStr.equalsIgnoreCase("") && !Standardid.equalsIgnoreCase("") && !Subejctid.equalsIgnoreCase("") && !Day.equalsIgnoreCase("")
                     && !Lecture.equalsIgnoreCase("") && !starttimehour.equalsIgnoreCase("") && !starttimeminit.equalsIgnoreCase("")
                     && !endtimehour.equalsIgnoreCase("") && !endtimeminit.equalsIgnoreCase("")) {
@@ -818,8 +840,8 @@ public class TimeTableFragment extends Fragment {
             } else {
                 Utility.ping(mContext, "Blank field not available");
             }
-        }else{
-        Utility.ping(mContext,"Please Select Subject");
+        } else {
+            Utility.ping(mContext, "Please Select Value");
         }
     }
-    }
+}

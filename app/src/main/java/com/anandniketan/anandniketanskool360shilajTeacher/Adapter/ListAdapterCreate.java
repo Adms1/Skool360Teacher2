@@ -14,7 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.CallBack;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMCreateResponse.StudentDatum;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.StudentDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onCheckBoxChnage;
 

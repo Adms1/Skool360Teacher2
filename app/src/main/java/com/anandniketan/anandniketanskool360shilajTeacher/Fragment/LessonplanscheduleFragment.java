@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.ExpandableListAdapterLessonPlan;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherLessonPlanScheduleAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanResponse.LessonPlanModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;

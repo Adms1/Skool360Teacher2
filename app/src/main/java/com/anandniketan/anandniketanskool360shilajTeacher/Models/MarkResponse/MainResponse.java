@@ -1,21 +1,18 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.MarkResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by admsandroid on 11/7/2017.
- */
+public class MainResponse {
 
-public class InsertLectureModel {
     @SerializedName("Success")
     @Expose
     private String success;
     @SerializedName("FinalArray")
     @Expose
-    private List<Object> finalArray = null;
+    private List<FinalArray> finalArray = null;
 
     public String getSuccess() {
         return success;
@@ -25,11 +22,12 @@ public class InsertLectureModel {
         this.success = success;
     }
 
-    public List<Object> getFinalArray() {
+    public List<FinalArray> getFinalArray() {
         return finalArray;
     }
 
-    public void setFinalArray(List<Object> finalArray) {
+    public void setFinalArray(List<FinalArray> finalArray) {
         this.finalArray = finalArray;
     }
+
 }

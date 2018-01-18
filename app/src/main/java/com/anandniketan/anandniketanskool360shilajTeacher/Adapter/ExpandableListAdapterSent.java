@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onDeleteButton;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMInboxResponse.FinalArrayInbox;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.FinalArrayInbox;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 import java.util.ArrayList;

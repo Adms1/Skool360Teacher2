@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.HomeWorkModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMInboxResponse.MainPtmInboxResponse;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.WebServicesCall.WebServicesCall;
 import com.google.gson.Gson;
@@ -47,3 +46,26 @@ public class GetTeacherLessonPlanScheduledHomeworkAsyncTask extends AsyncTask<Vo
         super.onPostExecute(result);
     }
 }
+//Response
+//{
+//        "Success": "True",
+//        "FromDate": "17/01/2018",
+//        "ToDate": "17/01/2018",
+//        "FinalArray": [
+//        {
+//        "Date": "2018-01-17T00:00:00",
+//        "Standard": "V",
+//        "ClassName": "A",
+//        "Subject": "Skatting",
+//        "HomeWork": "<p>trtrrytytrry</p>",
+//        "ChapterName": "<h1>TYPE</h1>\n<ol>\n    <li><span style=\"font-family: Arial;\"><u><strong><span style=\"background-color: yellow;\">feeeeasddddddddaaaaaaaaaaa</span></strong></u></span></li>\n</ol>",
+//        "Objective": "<p>  sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>",
+//        "AssessmentQue": "<p>sddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>",
+//        "StandardID": 8,
+//        "ClassID": 28,
+//        "SubjectID": 8,
+//        "TermID": 5,
+//        "Font": "-|-|-|-"
+//        }
+//        ]
+//        }

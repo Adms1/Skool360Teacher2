@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherAssignedSubjectModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.StudentAssignSubjectResponse.TeacherAssignedSubjectModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 import java.util.ArrayList;

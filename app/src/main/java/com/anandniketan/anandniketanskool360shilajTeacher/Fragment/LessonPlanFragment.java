@@ -25,7 +25,6 @@ import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherL
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanResponse.FinalArrayLesson;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanResponse.LessonDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.LessonPlanResponse.MainResponseLesson;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherLessonPlanModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 
@@ -48,7 +47,6 @@ public class LessonPlanFragment extends Fragment {
     private View rootView;
     private ProgressDialog progressDialog = null;
     private GetTeacherLessonPlanAsyncTask getTeacherLessonPlanAsyncTask = null;
-    private ArrayList<TeacherLessonPlanModel> teacherLessonPlanModels = new ArrayList<>();
     TeacherLessonPlanAdapter teacherLessonPlanAdapter = null;
     private ListView lesson_list;
     private LinearLayout header_linear,class_linear;

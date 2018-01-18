@@ -127,7 +127,8 @@
             android:layout_below="@+id/date_rel"
             android:layout_margin="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <include layout="@layout/list_homework_header" />
         </LinearLayout>

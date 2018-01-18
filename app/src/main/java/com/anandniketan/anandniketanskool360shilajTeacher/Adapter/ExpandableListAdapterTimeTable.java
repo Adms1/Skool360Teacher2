@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onDeleteLecture;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherGetTimetableModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TimeTable.TeacherGetTimetableModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 import java.util.ArrayList;

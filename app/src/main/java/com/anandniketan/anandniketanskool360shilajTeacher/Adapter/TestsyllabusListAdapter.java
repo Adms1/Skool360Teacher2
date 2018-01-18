@@ -1,44 +1,21 @@
 package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.text.Html;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherUpdateTestDetailAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.CallBack;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onEditTest;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.Test_SyllabusModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.UpdateTestDetailModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.FinalArrayTestDataModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.GetEditTestModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
-import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 
 /**
  * Created by admsandroid on 11/8/2017.
@@ -46,20 +23,22 @@ import java.util.HashMap;
 
 public class TestsyllabusListAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<Test_SyllabusModel> test_syllabusModels = new ArrayList<>();
+    private ArrayList<FinalArrayTestDataModel> test_syllabusModels = new ArrayList<>();
     FragmentManager activity;
     private ArrayList<String> editTestData = new ArrayList<String>();
     private ArrayList<String> setData = new ArrayList<String>();
     private ArrayList<String> syllbusarray = new ArrayList<String>();
     private onEditTest onEditTest;
 
+
     // Constructor
-    public TestsyllabusListAdapter(Context c, FragmentManager activity, ArrayList<Test_SyllabusModel> test_syllabusModels, onEditTest onEditTest) {
+    public TestsyllabusListAdapter(Context c, ArrayList<FinalArrayTestDataModel> test_syllabusModels, GetEditTestModel editTestResponse, onEditTest onEditTest) {
         mContext = c;
         this.test_syllabusModels = test_syllabusModels;
         this.activity = activity;
         this.onEditTest = onEditTest;
     }
+
     private class ViewHolder {
         TextView srno_txt, test_name_txt, grade_txt, subject_txt;
         ImageView edit_txt;
@@ -115,8 +94,8 @@ public class TestsyllabusListAdapter extends BaseAdapter {
                         editTestData.add(test_syllabusModels.get(position).getTSMasterID() + "|" + test_syllabusModels.get(position).getTestID() + "|" +
                                 test_syllabusModels.get(position).getSubjectID() + "|" + test_syllabusModels.get(position).getSectionID() + "|" +
                                 test_syllabusModels.get(position).getTestDate());
-                        for (int i = 0; i < test_syllabusModels.get(position).getGetSyllabusData().size(); i++) {
-                            syllbusarray.add(test_syllabusModels.get(position).getGetSyllabusData().get(i).getSyllabus());
+                        for (int i = 0; i < test_syllabusModels.get(position).getTestSyllabus().size(); i++) {
+                            syllbusarray.add(test_syllabusModels.get(position).getTestSyllabus().get(i).getSyllabus());
                         }
                         onEditTest.getEditTest();
                     }

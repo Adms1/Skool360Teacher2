@@ -2,7 +2,7 @@ package com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.MainPtmSentMessageResponse;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.MainPtmSentMessageResponse;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.WebServicesCall.WebServicesCall;
 import com.google.gson.Gson;

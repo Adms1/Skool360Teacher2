@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,9 +29,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetConsiste
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.InsertConsistentAbSMSAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.getCheckconsistentAb;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetConsistentAbModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetDateWiseAbsentStudentModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.InsertConsistentAbSMSModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMCreateResponse.StudentDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;

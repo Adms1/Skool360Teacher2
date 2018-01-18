@@ -1,4 +1,4 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,10 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by admsandroid on 10/26/2017.
+ * Created by admsandroid on 10/25/2017.
  */
 
-public class MainPtmSentMessageResponse {
+public class MainPtmSentDeleteResponse {
     @SerializedName("Success")
     @Expose
     private String success;
@@ -32,5 +32,4 @@ public class MainPtmSentMessageResponse {
     public void setFinalArray(List<Object> finalArray) {
         this.finalArray = finalArray;
     }
-
 }

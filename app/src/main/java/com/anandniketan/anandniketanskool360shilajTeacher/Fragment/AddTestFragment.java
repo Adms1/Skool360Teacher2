@@ -1,11 +1,9 @@
 package com.anandniketan.anandniketanskool360shilajTeacher.Fragment;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -19,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,9 +27,9 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.AddTestDetalis
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetTeacherAssignedSubjectAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherGetTestNameGradeWiseAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherInsertTestDetailAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherAssignedSubjectModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherGetTestNameModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherInsertTestDetailModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.StudentAssignSubjectResponse.TeacherAssignedSubjectModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.TeacherGetTestNameModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.TeacherInsertTestDetailModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;

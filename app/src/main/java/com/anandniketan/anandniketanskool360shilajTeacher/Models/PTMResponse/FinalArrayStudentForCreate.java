@@ -1,5 +1,6 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMCreateResponse;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse;
 
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.StudentDatum;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

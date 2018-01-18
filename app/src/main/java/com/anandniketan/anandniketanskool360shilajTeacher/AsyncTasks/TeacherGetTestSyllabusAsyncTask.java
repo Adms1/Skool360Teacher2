@@ -2,19 +2,18 @@ package com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.Test_SyllabusModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.GetEditTestModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
-import com.anandniketan.anandniketanskool360shilajTeacher.Utility.ParseJSON;
 import com.anandniketan.anandniketanskool360shilajTeacher.WebServicesCall.WebServicesCall;
+import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by admsandroid on 9/26/2017.
  */
 
-public class TeacherGetTestSyllabusAsyncTask extends AsyncTask<Void, Void, ArrayList<Test_SyllabusModel>> {
+public class TeacherGetTestSyllabusAsyncTask  extends AsyncTask<Void, Void,GetEditTestModel> {
     HashMap<String, String> param = new HashMap<String, String>();
 
     public TeacherGetTestSyllabusAsyncTask(HashMap<String, String> param) {
@@ -27,21 +26,22 @@ public class TeacherGetTestSyllabusAsyncTask extends AsyncTask<Void, Void, Array
     }
 
     @Override
-    protected ArrayList<Test_SyllabusModel> doInBackground(Void... params) {
+    protected GetEditTestModel doInBackground(Void... params) {
         String responseString = null;
-        ArrayList<Test_SyllabusModel> result = null;
+        GetEditTestModel editTestModel=null;
         try {
             responseString = WebServicesCall.RunScript(AppConfiguration.getUrl(AppConfiguration.GetTeacherGetTestSyllabus), param);
-            result = ParseJSON.parseTestSyllabusJson(responseString);
+            Gson gson = new Gson();
+            editTestModel = gson.fromJson(responseString, GetEditTestModel.class);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
-        return result;
+        return editTestModel;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Test_SyllabusModel> result) {
+    protected void onPostExecute(GetEditTestModel result) {
         super.onPostExecute(result);
     }
 }

@@ -27,13 +27,12 @@ import android.widget.TextView;
 import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivity;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.ExpandableListAdapterMarks;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherGetTestMarksAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse.FinalArray;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse.MainResponse;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse.StudentDatum;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.MarkResponse.FinalArray;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.MarkResponse.MainResponse;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.MarkResponse.StudentDatum;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +59,7 @@ public class MarksFragment extends Fragment {
     ExpandableListAdapterMarks listAdapterMarks;
     ExpandableListView lvExpMarks;
     List<String> listDataHeader = new ArrayList<>();
-    HashMap<String, List<com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse.SubjectMark>> listDataChild = new HashMap<>();
+    HashMap<String, List<com.anandniketan.anandniketanskool360shilajTeacher.Models.MarkResponse.SubjectMark>> listDataChild = new HashMap<>();
     HashMap<String, String> listDatafooter = new HashMap<>();
     String spinnerSelectedValue, value;
     MainResponse response;

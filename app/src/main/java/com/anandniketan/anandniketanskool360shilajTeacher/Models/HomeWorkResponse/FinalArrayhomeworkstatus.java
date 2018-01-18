@@ -1,4 +1,4 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

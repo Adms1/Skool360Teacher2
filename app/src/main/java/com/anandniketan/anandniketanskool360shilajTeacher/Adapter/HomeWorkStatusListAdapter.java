@@ -11,8 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.FinalArrayhomeworkstatus;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherStudentHomeworkStatusModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.FinalArrayhomeworkstatus;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.TeacherStudentHomeworkStatusModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 /**

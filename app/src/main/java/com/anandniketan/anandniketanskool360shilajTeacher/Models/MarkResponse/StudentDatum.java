@@ -1,4 +1,4 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.MarkResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

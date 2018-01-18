@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.PTMTeacherStudentInsertDetailAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onInboxRead;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.MainPtmSentMessageResponse;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMInboxResponse.FinalArrayInbox;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.MainPtmSentMessageResponse;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse.FinalArrayInbox;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 import java.util.ArrayList;

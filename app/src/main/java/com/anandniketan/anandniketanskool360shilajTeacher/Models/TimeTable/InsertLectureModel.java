@@ -1,18 +1,21 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.TimeTable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MainResponse {
+/**
+ * Created by admsandroid on 11/7/2017.
+ */
 
+public class InsertLectureModel {
     @SerializedName("Success")
     @Expose
     private String success;
     @SerializedName("FinalArray")
     @Expose
-    private List<FinalArray> finalArray = null;
+    private List<Object> finalArray = null;
 
     public String getSuccess() {
         return success;
@@ -22,12 +25,11 @@ public class MainResponse {
         this.success = success;
     }
 
-    public List<FinalArray> getFinalArray() {
+    public List<Object> getFinalArray() {
         return finalArray;
     }
 
-    public void setFinalArray(List<FinalArray> finalArray) {
+    public void setFinalArray(List<Object> finalArray) {
         this.finalArray = finalArray;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,16 +6,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by admsandroid on 11/7/2017.
+ * Created by admsandroid on 10/26/2017.
  */
 
-public class TeacherStudentHomeworkStatusModel {
+public class MainPtmSentMessageResponse {
     @SerializedName("Success")
     @Expose
     private String success;
     @SerializedName("FinalArray")
     @Expose
-    private List<FinalArrayhomeworkstatus> finalArray = null;
+    private List<Object> finalArray = null;
 
     public String getSuccess() {
         return success;
@@ -25,11 +25,11 @@ public class TeacherStudentHomeworkStatusModel {
         this.success = success;
     }
 
-    public List<FinalArrayhomeworkstatus> getFinalArray() {
+    public List<Object> getFinalArray() {
         return finalArray;
     }
 
-    public void setFinalArray(List<FinalArrayhomeworkstatus> finalArray) {
+    public void setFinalArray(List<Object> finalArray) {
         this.finalArray = finalArray;
     }
 

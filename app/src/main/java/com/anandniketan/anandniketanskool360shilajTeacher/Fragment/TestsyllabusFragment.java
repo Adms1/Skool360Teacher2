@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,14 +22,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.EditTestDetailsListAdapter;
-import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.Test_syllabusAdapter;
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.TestsyllabusListAdapter;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherGetTestSyllabusAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherUpdateTestDetailAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onEditTest;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.SyllbusDataModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.Test_SyllabusModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.UpdateTestDetailModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.FinalArrayTestDataModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.GetEditTestModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.TestModel.UpdateTestDetailModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -49,7 +47,7 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
     private Context mContext;
     private ProgressDialog progressDialog = null;
     private TeacherGetTestSyllabusAsyncTask teacherGetTestSyllabusAsyncTask = null;
-    private ArrayList<Test_SyllabusModel> test_syllabusModels = new ArrayList<>();
+    GetEditTestModel editTestResponse;
     private ListView test_syllabus_list;
     TestsyllabusListAdapter testsyllabusListAdapter = null;
     private LinearLayout test_header;
@@ -63,7 +61,7 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
     int mYear, mMonth, mDay;
     Calendar calendar;
     private DatePickerDialog datePickerDialog;
-    ArrayList<String> syllbusarray = new ArrayList<>();
+    ArrayList<String> syllbusarray = new ArrayList<String>();
     String finalStr, editString;
 
     //use for fill Listdata
@@ -74,8 +72,8 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
     UpdateTestDetailModel updateTestDetailModel;
     String TSMasterIDstr, TestIDstr, TestDatestr, SubjectIDstr, SectionIDstr, finalTxtstr;
 
-    //
-    ArrayList<SyllbusDataModel> syllbusDataResponse;
+    //fill listview
+    private ArrayList<FinalArrayTestDataModel> listEditTestData;
 
     public TestsyllabusFragment() {
     }
@@ -124,14 +122,18 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
                         HashMap<String, String> params = new HashMap<String, String>();
                         params.put("StaffID", Utility.getPref(mContext, "StaffID"));
                         teacherGetTestSyllabusAsyncTask = new TeacherGetTestSyllabusAsyncTask(params);
-                        test_syllabusModels = teacherGetTestSyllabusAsyncTask.execute().get();
+                        editTestResponse = teacherGetTestSyllabusAsyncTask.execute().get();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 progressDialog.dismiss();
-                                if (test_syllabusModels.size() > 0) {
+                                if (editTestResponse.getFinalArray().size() > 0) {
                                     txtNoRecordstest.setVisibility(View.GONE);
-                                    testsyllabusListAdapter = new TestsyllabusListAdapter(getActivity(), getActivity().getFragmentManager(), test_syllabusModels, new onEditTest() {
+                                    listEditTestData = new ArrayList<FinalArrayTestDataModel>();
+                                    for (int i = 0; i < editTestResponse.getFinalArray().size(); i++) {
+                                        listEditTestData.add(editTestResponse.getFinalArray().get(i));
+                                    }
+                                    testsyllabusListAdapter = new TestsyllabusListAdapter(getActivity(), listEditTestData, editTestResponse, new onEditTest() {
                                         @Override
                                         public void getEditTest() {
                                             Dialog();
@@ -218,13 +220,13 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
             if (i < testsyllabusListAdapter.syllbusArray().size()) {
                 value = testsyllabusListAdapter.syllbusArray().get(i);
                 value = value.replaceFirst("\\[", "");
-                Log.d("value", value);
                 syllbusarray.add(value);
+                Log.d("value", value);
+//                syllbusarray.add(testsyllabusListAdapter.syllbusArray().get(i));
             } else {
                 syllbusarray.add("");
             }
         }
-//        syllbusDataResponse = new ArrayList<SyllbusDataModel>();
 //        for (int j = 0; j < syllbusarray.size(); j++) {
 //            syllbusDataResponse.set(j,syllbusarray.get(j))
 //        }
@@ -256,20 +258,28 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
             public void onClick(View view) {
                 String txtstr = "";
                 text = new ArrayList<String>();
-//                for (int i = 0; i < listData.getChildCount(); i++) {
-//                    View mView = listData.getChildAt(i);
-//                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
-//                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
-//                        txtstr = txtstr + myEditText.getText().toString() + "|&";
-//                    }
-//                }
-//                text.add(txtstr);
-//                Log.d("EditValue",text.toString());
-//                EditTestSubmit();
-
-
+                for (int i = 0; i < listData.getChildCount(); i++) {
+                    View mView = listData.getChildAt(i);
+                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
+                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
+                        txtstr = txtstr + myEditText.getText().toString() + "|&";
+                    }
+                }
                 text.add(txtstr);
                 Log.d("EditValue", text.toString());
+
+//                for (int i = 0; i < editTestDetailsListAdapter.getCount(); i++) {
+//                    FinalArrayTestDataModel testObj = (FinalArrayTestDataModel) editTestDetailsListAdapter.getItem(i);
+//                    int test=testObj.getTestSyllabus().size();
+//                   for(int j=0;j<test;j++){
+//                       TestSyllabusModel testtype=testObj.getTestSyllabus().get(j);
+//                       txtstr=txtstr+testtype.getSyllabus()+"|&";
+//                   }
+//                    text.add(txtstr);
+//                }
+//
+//                Log.d("EditValue", text.toString());
+////                EditTestSubmit();
 
             }
         });

@@ -12,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.SyllbusDataModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 import java.util.ArrayList;
@@ -83,13 +82,10 @@ public class EditTestDetailsListAdapter extends BaseAdapter {
 
                     @Override
                     public void afterTextChanged(Editable editable) {
-                        syllbusDataList.add(String.valueOf(editable));
-                        Log.d("syllbusData", syllbusDataList.toString());
-
+//                        syllbusarrayList.get(position).setSyllabus(viewHolder.syllbus_edt.getText().toString());
                     }
                 });
-
-
+//                Log.d("syllbusArray", syllbusarrayList.toString());
 
             } catch (Exception e) {
                 e.printStackTrace();

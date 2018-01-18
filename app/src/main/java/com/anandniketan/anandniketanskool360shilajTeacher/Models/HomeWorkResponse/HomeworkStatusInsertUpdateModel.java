@@ -1,4 +1,4 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,11 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by admsandroid on 11/6/2017.
+ * Created by admsandroid on 11/8/2017.
  */
 
-public class UpdateTestDetailModel {
-
+public class HomeworkStatusInsertUpdateModel {
     @SerializedName("Success")
     @Expose
     private String success;

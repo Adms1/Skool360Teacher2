@@ -2,7 +2,7 @@ package com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherAssignedSubjectModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.StudentAssignSubjectResponse.TeacherAssignedSubjectModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.ParseJSON;
 import com.anandniketan.anandniketanskool360shilajTeacher.WebServicesCall.WebServicesCall;

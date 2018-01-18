@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse.SubjectMark;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.MarkResponse.SubjectMark;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class ExpandableListAdapterMarks  extends BaseExpandableListAdapter {
     }
 
     @Override
-    public com.anandniketan.anandniketanskool360shilajTeacher.Models.NewResponse.SubjectMark getChild(int groupPosition, int childPosititon) {
+    public com.anandniketan.anandniketanskool360shilajTeacher.Models.MarkResponse.SubjectMark getChild(int groupPosition, int childPosititon) {
         return this.listChildData.get(this._listDataHeader.get(groupPosition))
                 .get(childPosititon);
     }

@@ -34,9 +34,8 @@ import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.TeacherStud
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.onStudentHomeWorkStatus;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.FinalArrayHomeWorkDataModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.HomeWorkModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeworkStatusInsertUpdateModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.PTMInboxResponse.FinalArrayInbox;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.TeacherStudentHomeworkStatusModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.HomeworkStatusInsertUpdateModel;
+import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkResponse.TeacherStudentHomeworkStatusModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -45,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -64,7 +64,7 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
     ExpandableListView lvExpHomework;
     ExpandableListAdapterHomeWork listAdapter;
     List<String> listDataHeader;
-    HashMap<String, List<FinalArrayHomeWorkDataModel>> listDataChild = new HashMap<>();
+    Map<String, List<FinalArrayHomeWorkDataModel>> listDataChild = new HashMap<String,List<FinalArrayHomeWorkDataModel>>();
     private GetTeacherLessonPlanScheduledHomeworkAsyncTask getTecherHomeworkAsyncTask = null;
     HomeWorkModel homeWorkModelResponse;
     private RelativeLayout date_rel;
@@ -292,14 +292,8 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                     homeWorkModelResponse.getFinalArray().get(j).getSubject());
 
             ArrayList<FinalArrayHomeWorkDataModel> rows = new ArrayList<FinalArrayHomeWorkDataModel>();
-
             rows.add(homeWorkModelResponse.getFinalArray().get(j));
-//            Log.d("data",""+rows.get(2));
-//            Log.d("data",""+rows.get(3));
-
             listDataChild.put(listDataHeader.get(j), rows);
-            Log.d("data",""+listDataChild.toString());
-
         }
 
     }

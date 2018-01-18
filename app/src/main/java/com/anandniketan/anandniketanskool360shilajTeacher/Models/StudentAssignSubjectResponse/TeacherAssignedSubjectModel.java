@@ -1,4 +1,4 @@
-package com.anandniketan.anandniketanskool360shilajTeacher.Models;
+package com.anandniketan.anandniketanskool360shilajTeacher.Models.StudentAssignSubjectResponse;
 
 /**
  * Created by admsandroid on 9/25/2017.
