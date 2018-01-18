@@ -258,15 +258,15 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
             public void onClick(View view) {
                 String txtstr = "";
                 text = new ArrayList<String>();
-                for (int i = 0; i < listData.getChildCount(); i++) {
-                    View mView = listData.getChildAt(i);
-                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
-                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
-                        txtstr = txtstr + myEditText.getText().toString() + "|&";
-                    }
-                }
-                text.add(txtstr);
-                Log.d("EditValue", text.toString());
+//                for (int i = 0; i < listData.getChildCount(); i++) {
+//                    View mView = listData.getChildAt(i);
+//                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
+//                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
+//                        txtstr = txtstr + myEditText.getText().toString() + "|&";
+//                    }
+//                }
+//                text.add(txtstr);
+//                Log.d("EditValue", text.toString());
 
 //                for (int i = 0; i < editTestDetailsListAdapter.getCount(); i++) {
 //                    FinalArrayTestDataModel testObj = (FinalArrayTestDataModel) editTestDetailsListAdapter.getItem(i);
@@ -280,6 +280,13 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
 //
 //                Log.d("EditValue", text.toString());
 ////                EditTestSubmit();
+
+                for (int i = 0; i < editTestDetailsListAdapter.syllbusarrayList().size(); i++) {
+                    String data = editTestDetailsListAdapter.syllbusarrayList().get(i);
+                    text.add(data);
+                }
+
+                Log.d("EditValue", text.toString());
 
             }
         });

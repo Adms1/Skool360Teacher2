@@ -36,6 +36,14 @@ public class AppConfiguration {
     public static String DOMAIN_LIVE = "http://192.168.1.13:8085/MobileApp_Service.asmx/"; //use for only office
 //    public static String DOMAIN_LIVE = "http://103.8.216.132/MobileApp_Service.asmx/"; //use for client
 
+
+    //Image Url
+    //Local
+    public static String DOMAIN_LIVE_IMAGES = "http://192.168.1.13:8085/skool360-Category-Images/Teacher/";
+    //Live
+//    public static String DOMAIN_LIVE_IMAGES = "http://103.8.216.132/skool360-Category-Images/Teacher/";
+
+
     public static String GetStaffLogin = "StaffLogin";
     public static String GetStaffAttendence = "StaffAttendence";
     public static String GetInsertAttendance = "InsertAttendance";

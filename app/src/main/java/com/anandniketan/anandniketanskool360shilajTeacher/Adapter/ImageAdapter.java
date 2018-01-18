@@ -2,6 +2,7 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -19,14 +22,19 @@ import com.anandniketan.anandniketanskool360shilajTeacher.R;
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
-    public Integer[] mThumbIds = {
-            R.drawable.myschedule, R.drawable.mysubjects, R.drawable.timetable,
-            R.drawable.attendance, R.drawable.lessonplan, R.drawable.studenthomework,
-            R.drawable.test, R.drawable.marks,
-            R.drawable.ptm
+    public String[] mThumbIds = {
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Schedule.png",
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Subjects.png",
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Time%20Table.png",
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Attendance.png",
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Lesson%20Plan.png",
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Home%20Work.png",
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Test_Syllabus.png",
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Marks.png",
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"PTM.png"
     };
 
-    public String[] mThumbNames = {"Schedule", "Subjects", "Timetable", "Attendence", "LessonPlan", "HomeWork",
+    public String[] mThumbNames = {"Schedule", "Subjects", "Time Table", "Attendence", "Lesson Plan", "Home Work",
             "Test/Syllabus", "Marks", "PTM"};
 
     // Constructor
@@ -60,7 +68,13 @@ public class ImageAdapter extends BaseAdapter {
         imgGridOptions = (ImageView) convertView.findViewById(R.id.imgGridOptions);
         txtGridOptionsName = (TextView) convertView.findViewById(R.id.txtGridOptionsName);
 
-        imgGridOptions.setImageResource(mThumbIds[position]);
+//        imgGridOptions.setImageResource(mThumbIds[position]);
+        String url = mThumbIds[position];
+//        Log.d("url", url);
+        Picasso.with(mContext)
+                .load(url)
+                .fit()
+                .into(imgGridOptions);
         txtGridOptionsName.setText(mThumbNames[position]);
         return convertView;
     }

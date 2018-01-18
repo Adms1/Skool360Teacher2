@@ -9,9 +9,8 @@
         android:id="@+id/imgGridOptions"
         android:layout_width="@dimen/_70sdp"
         android:layout_height="@dimen/_70sdp"
-        android:src="@drawable/attendance"
         android:layout_gravity="center" />
-
+    <!--android:src="@drawable/attendance"-->
     <TextView
         android:id="@+id/txtGridOptionsName"
         android:layout_width="wrap_content"

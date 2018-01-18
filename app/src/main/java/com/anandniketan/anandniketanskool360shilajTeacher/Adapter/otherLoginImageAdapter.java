@@ -3,6 +3,7 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
+import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by admsandroid on 11/15/2017.
@@ -19,8 +22,10 @@ import com.anandniketan.anandniketanskool360shilajTeacher.R;
 public class otherLoginImageAdapter extends BaseAdapter {
     private Context mContext;
 
-    public Integer[] mThumbIds = {
-           R.drawable.consistent_absent,R.drawable.student_absent, R.drawable.attendance
+    public String[] mThumbIds = {
+            AppConfiguration.DOMAIN_LIVE_IMAGES + "Attendance.png",//consistent_absent.png
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Attendance.png",//student_absent.png
+            AppConfiguration.DOMAIN_LIVE_IMAGES +"Attendance.png",
     };
     public String[] mThumbNames = {"Consistent Absent","Student Absent","Attendance",};
 
@@ -55,7 +60,12 @@ public class otherLoginImageAdapter extends BaseAdapter {
         imgGridOptions = (ImageView) convertView.findViewById(R.id.imgGridOptions);
         txtGridOptionsName = (TextView) convertView.findViewById(R.id.txtGridOptionsName);
 
-        imgGridOptions.setImageResource(mThumbIds[position]);
+        String url = mThumbIds[position];
+        Log.d("url", url);
+        Picasso.with(mContext)
+                .load(url)
+                .fit()
+                .into(imgGridOptions);
         txtGridOptionsName.setText(mThumbNames[position]);
         return convertView;
     }

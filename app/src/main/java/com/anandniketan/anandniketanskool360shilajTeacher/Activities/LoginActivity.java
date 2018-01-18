@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +24,14 @@ import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.anandniketan.anandniketanskool360shilajTeacher.databinding.ActivityLoginBinding;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,33 +42,16 @@ public class LoginActivity extends AppCompatActivity {
     private Context mContext;
     private ProgressDialog progressDialog;
     private ArrayList<LoginModel> logindetailModels = new ArrayList<>();
-    boolean isBoolean_permission_access_network = false,
-            isBoolean_permission_internet = false,
-            isBoolean_permission_wifi = false,
-            isBoolean_permission_read_external = false,
-            isBoolean_permission_wirte_external = false;
-    public static final int REQUEST_PERMISSIONS_ACCESS_NETWORK_STATE = 1;
-    public static final int REQUEST_PERMISSIONS_Internet = 2;
-    public static final int REQUEST_PERMISSIONS_ACCESS_WIFI_STATE = 3;
-    public static final int REQUEST_PERMISSIONS_READ_EXTERNAL_STORAGE = 4;
-    public static final int REQUEST_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mContext = this;
-        fn_permission_ACCESS_ACCESS_NETWORK_STATE();
         binding.UserNameEdt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.user, 0, 0, 0);
         checkUnmPwd();
     }
-
     public void login(View view) {
-//        if (isBoolean_permission_internet &&
-//                isBoolean_permission_access_network &&
-//                isBoolean_permission_wifi &&
-//                isBoolean_permission_read_external &&
-//                isBoolean_permission_wirte_external) {
         if (Utility.isNetworkConnected(mContext)) {
 
             if (!binding.UserNameEdt.getText().toString().equalsIgnoreCase("")) {
@@ -145,137 +138,6 @@ public class LoginActivity extends AppCompatActivity {
     public void saveUserNamePwd(String unm, String pwd) {
         Utility.setPref(mContext, "unm", unm);
         Utility.setPref(mContext, "pwd", pwd);
-    }
-
-    private void fn_permission_ACCESS_ACCESS_NETWORK_STATE() {
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED)) {
-
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this, Manifest.permission.ACCESS_NETWORK_STATE))) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, REQUEST_PERMISSIONS_ACCESS_NETWORK_STATE);
-
-            }
-        } else {
-            isBoolean_permission_internet = true;
-        }
-    }
-
-    private void fn_permission_Internet() {
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)) {
-
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this, Manifest.permission.INTERNET))) {
-
-            } else {
-                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.INTERNET}, REQUEST_PERMISSIONS_Internet);
-
-            }
-        } else {
-            isBoolean_permission_access_network = true;
-        }
-    }
-
-    private void fn_permission_ACCESS_WIFI_STATE() {
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED)) {
-
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this, Manifest.permission.ACCESS_WIFI_STATE))) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.ACCESS_WIFI_STATE}, REQUEST_PERMISSIONS_ACCESS_WIFI_STATE);
-
-            }
-        } else {
-            isBoolean_permission_wifi = true;
-        }
-    }
-
-    private void fn_permission_READ_EXTERNAL_STORAGE() {
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE))) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSIONS_READ_EXTERNAL_STORAGE);
-
-            }
-        } else {
-            isBoolean_permission_read_external = true;
-        }
-    }
-
-    private void fn_permission_ACCESS_WRITE_EXTERNAL_STORAGE() {
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
-
-            }
-        } else {
-            isBoolean_permission_wirte_external = true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode) {
-            case REQUEST_PERMISSIONS_ACCESS_NETWORK_STATE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_access_network = true;
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
-
-                }
-            }
-            case REQUEST_PERMISSIONS_Internet: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_internet = true;
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
-
-                }
-                fn_permission_Internet();
-            }
-            case REQUEST_PERMISSIONS_ACCESS_WIFI_STATE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_wifi = true;
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
-
-                }
-                fn_permission_ACCESS_WIFI_STATE();
-            }
-            case REQUEST_PERMISSIONS_READ_EXTERNAL_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_read_external = true;
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
-
-                }
-                fn_permission_READ_EXTERNAL_STORAGE();
-            }
-            case REQUEST_PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    isBoolean_permission_wirte_external = true;
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
-
-                }
-                fn_permission_ACCESS_WRITE_EXTERNAL_STORAGE();
-            }
-        }
     }
 
 

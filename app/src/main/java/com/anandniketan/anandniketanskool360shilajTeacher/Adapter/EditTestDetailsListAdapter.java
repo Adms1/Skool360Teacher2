@@ -82,10 +82,12 @@ public class EditTestDetailsListAdapter extends BaseAdapter {
 
                     @Override
                     public void afterTextChanged(Editable editable) {
-//                        syllbusarrayList.get(position).setSyllabus(viewHolder.syllbus_edt.getText().toString());
+                        if (viewHolder.syllbus_edt.getText().hashCode() == editable.hashCode()) {
+                            syllbusarrayList.add(position, viewHolder.syllbus_edt.getText().toString());
+                        }
                     }
                 });
-//                Log.d("syllbusArray", syllbusarrayList.toString());
+                Log.d("syllbusArray", syllbusarrayList.toString());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -97,8 +99,8 @@ public class EditTestDetailsListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public ArrayList<String> syllbusDataList() {
-        return syllbusDataList;
+    public ArrayList<String> syllbusarrayList() {
+        return syllbusarrayList;
     }
 
 }
