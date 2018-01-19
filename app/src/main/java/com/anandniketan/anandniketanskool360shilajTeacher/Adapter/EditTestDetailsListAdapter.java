@@ -65,6 +65,7 @@ public class EditTestDetailsListAdapter extends BaseAdapter {
 
             String value = syllbusarrayList.get(position).toString();
 
+            Log.d("vlaue", value);
             try {
                 viewHolder.syllbus_edt.setText(value);
 //                syllbusDataList.add(viewHolder.syllbus_edt.getText().toString());
@@ -82,12 +83,12 @@ public class EditTestDetailsListAdapter extends BaseAdapter {
 
                     @Override
                     public void afterTextChanged(Editable editable) {
-                        if (viewHolder.syllbus_edt.getText().hashCode() == editable.hashCode()) {
-                            syllbusarrayList.add(position, viewHolder.syllbus_edt.getText().toString());
-                        }
+//                        if (viewHolder.syllbus_edt.getText().hashCode() == editable.hashCode()) {
+//                            syllbusarrayList.set(position, viewHolder.syllbus_edt.getText().toString());
+//                        }
                     }
                 });
-                Log.d("syllbusArray", syllbusarrayList.toString());
+//                Log.d("syllbusArray", syllbusarrayList.toString());
 
             } catch (Exception e) {
                 e.printStackTrace();

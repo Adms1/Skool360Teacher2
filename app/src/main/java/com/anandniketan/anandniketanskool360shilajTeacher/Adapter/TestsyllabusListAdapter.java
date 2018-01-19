@@ -3,6 +3,7 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +103,7 @@ public class TestsyllabusListAdapter extends BaseAdapter {
                                 test_syllabusModels.get(position).getTestDate());
                         for (int i = 0; i < test_syllabusModels.get(position).getTestSyllabus().size(); i++) {
                             syllbusarray.add(test_syllabusModels.get(position).getTestSyllabus().get(i).getSyllabus());
+                            Log.d("firsttimesyllbusarray",syllbusarray.toString());
                         }
                         onEditTest.getEditTest();
                     }
