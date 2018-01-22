@@ -39,7 +39,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.HomeWorkRespons
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -409,14 +409,14 @@ public class HomeworkFragment extends Fragment implements DatePickerDialog.OnDat
                                 if (teacherStudentHomeworkStatusResponse.getSuccess().equalsIgnoreCase("True")) {
                                     if (teacherStudentHomeworkStatusResponse.getFinalArray().size() > 0) {
                                         if (teacherStudentHomeworkStatusResponse.getFinalArray().get(0).getHomeWorkStatus().equalsIgnoreCase("-1")) {
-                                            Picasso.with(mContext)
-                                                    .load(AppConfiguration.DOMAIN_LIVE_ICONS + "Submit.png")
-                                                    .fit()
+                                            Glide.with(mContext)
+                                                    .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Submit.png")
+                                                    .fitCenter()
                                                     .into(insert_homework_status_img);
                                         } else {
-                                            Picasso.with(mContext)
+                                            Glide.with(mContext)
                                                     .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Update.png")
-                                                    .fit()
+                                                    .fitCenter()
                                                     .into(insert_homework_status_img);
 //                                            insert_homework_status_img.setImageResource(R.drawable.update_1);
                                         }

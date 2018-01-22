@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+
 
 /**
  * Created by admsandroid on 11/15/2017.
@@ -62,9 +63,9 @@ public class otherLoginImageAdapter extends BaseAdapter {
 
         String url = mThumbIds[position];
         Log.d("url", url);
-        Picasso.with(mContext)
+        Glide.with(mContext)
                 .load(url)
-                .fit()
+                .fitCenter()
                 .into(imgGridOptions);
         txtGridOptionsName.setText(mThumbNames[position]);
         return convertView;

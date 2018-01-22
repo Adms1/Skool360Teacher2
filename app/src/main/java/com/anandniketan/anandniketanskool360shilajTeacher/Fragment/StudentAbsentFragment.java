@@ -31,27 +31,21 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Activities.LoginActivi
 import com.anandniketan.anandniketanskool360shilajTeacher.Adapter.StudentAbsentListAdapter;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetDateWiseAbsentStudentAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.GetStandardSectionAsyncTask;
-import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.InsertConsistentAbSMSAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.AsyncTasks.SendAbsentStudentSMSAsyncTask;
 import com.anandniketan.anandniketanskool360shilajTeacher.Interfacess.getStudentAbCheck;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.FinalArrayAbsentStudentModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetAbsentStudentSMSStatusModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetDateWiseAbsentStudentModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.GetStandardSectionModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.InsertConsistentAbSMSModel;
-import com.anandniketan.anandniketanskool360shilajTeacher.Models.AllAttendance.SectionDetailModel;
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class StudentAbsentFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
@@ -127,9 +121,9 @@ public class StudentAbsentFragment extends Fragment implements DatePickerDialog.
         standard_attendace_spinner = (Spinner) rootView.findViewById(R.id.standard_attendace_spinner);
         standard_division_spinner = (Spinner) rootView.findViewById(R.id.standard_division_spinner);
         start_date.setText(Utility.getTodaysDate());
-        Picasso.with(mContext)
+        Glide.with(mContext)
                 .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Done.png")
-                .fit()
+                .fitCenter()
                 .into(insert_message_img);
     }
 

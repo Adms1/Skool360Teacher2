@@ -24,8 +24,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
 import com.anandniketan.anandniketanskool360shilajTeacher.databinding.ActivityLoginBinding;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+
 
 
 import java.io.IOException;

@@ -25,7 +25,7 @@ import com.anandniketan.anandniketanskool360shilajTeacher.Models.Attendance.Staf
 import com.anandniketan.anandniketanskool360shilajTeacher.R;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.AppConfiguration;
 import com.anandniketan.anandniketanskool360shilajTeacher.Utility.Utility;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -212,15 +212,15 @@ public class OneFragmentAtt extends Fragment implements DatePickerDialog.OnDateS
         onduty_txt.setText(Html.fromHtml("OnDuty : " + "<font color='#d8b834'>" + "<b>" + staffNewAttendenceModelResponse.getFinalArray().get(0).getTotalOnDuty() + "</b>"));
 
         if (!staffNewAttendenceModelResponse.getFinalArray().get(0).getStudentDetail().get(0).getAttendenceStatus().equalsIgnoreCase("-2")) {
-            Picasso.with(mContext)
+            Glide.with(mContext)
                     .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Update.png")
-                    .fit()
+                    .fitCenter()
                     .into(insert_attendance_img);
 //            insert_attendance_img.setBackgroundResource(R.drawable.update_1);
         } else {
-            Picasso.with(mContext)
-                    .load(AppConfiguration.DOMAIN_LIVE_ICONS + "Submit.png")
-                    .fit()
+            Glide.with(mContext)
+                    .load(AppConfiguration.DOMAIN_LIVE_ICONS+"Submit.png")
+                    .fitCenter()
                     .into(insert_attendance_img);
 //            insert_attendance_img.setBackgroundResource(R.drawable.submit);
         }
