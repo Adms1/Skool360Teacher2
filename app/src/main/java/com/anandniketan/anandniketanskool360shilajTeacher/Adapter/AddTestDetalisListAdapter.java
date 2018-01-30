@@ -2,6 +2,8 @@ package com.anandniketan.anandniketanskool360shilajTeacher.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +22,16 @@ import java.util.ArrayList;
 public class AddTestDetalisListAdapter extends BaseAdapter {
     private Context mContext;
     ArrayList<String> number;
+    ArrayList<String> data=new ArrayList<String>();
     // Constructor
     public AddTestDetalisListAdapter(Context c, ArrayList<String> number) {
         mContext = c;
         this.number = number;
 
     }
-
+    public ArrayList<String> getUpdatedValues() {
+        return data;
+    }
     private class ViewHolder {
         TextView syllbus_edt;
 
@@ -59,7 +64,22 @@ public class AddTestDetalisListAdapter extends BaseAdapter {
             viewHolder.syllbus_edt = (EditText) convertView.findViewById(R.id.syllabus_txt);
 
             try {
+                viewHolder.syllbus_edt.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        data.add(position,editable.toString());
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

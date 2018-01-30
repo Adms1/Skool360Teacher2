@@ -32,7 +32,9 @@ public class EditTestDetailsListAdapter extends BaseAdapter {
         this.syllbusarrayList = syllbusarrayList;
         this.number = number;
     }
-
+    public ArrayList<String> getUpdatedValues() {
+        return syllbusarrayList;
+    }
     private class ViewHolder {
         TextView syllbus_edt;
 
@@ -65,11 +67,8 @@ public class EditTestDetailsListAdapter extends BaseAdapter {
 
             String value = syllbusarrayList.get(position).toString();
 
-            Log.d("vlaue", value);
             try {
                 viewHolder.syllbus_edt.setText(value);
-//                syllbusDataList.add(viewHolder.syllbus_edt.getText().toString());
-//                Log.d("syllbusData", syllbusDataList.toString());
                 viewHolder.syllbus_edt.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -83,13 +82,9 @@ public class EditTestDetailsListAdapter extends BaseAdapter {
 
                     @Override
                     public void afterTextChanged(Editable editable) {
-//                        if (viewHolder.syllbus_edt.getText().hashCode() == editable.hashCode()) {
-//                            syllbusarrayList.set(position, viewHolder.syllbus_edt.getText().toString());
-//                        }
+                        syllbusarrayList.set(position, editable.toString());
                     }
                 });
-//                Log.d("syllbusArray", syllbusarrayList.toString());
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

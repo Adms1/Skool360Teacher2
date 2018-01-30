@@ -222,14 +222,10 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
                 value = value.replaceFirst("\\[", "");
                 syllbusarray.add(value);
                 Log.d("ADDsyllbusarray", value);
-//                syllbusarray.add(testsyllabusListAdapter.syllbusArray().get(i));
             } else {
                 syllbusarray.add("");
             }
         }
-//        for (int j = 0; j < syllbusarray.size(); j++) {
-//            syllbusDataResponse.set(j,syllbusarray.get(j))
-//        }
         Log.d("number", "" + number);
         Log.d("syllbusarray", "" + syllbusarray);
 
@@ -256,37 +252,13 @@ public class TestsyllabusFragment extends Fragment implements DatePickerDialog.O
         Edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txtstr = "";
                 text = new ArrayList<String>();
-                for (int i = 0; i < listData.getChildCount(); i++) {
-                    View mView = listData.getChildAt(i);
-                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
-                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
-                        txtstr = txtstr + myEditText.getText().toString() + "|&";
-                    }
+                StringBuilder sb = new StringBuilder();
+                for (String value : editTestDetailsListAdapter.getUpdatedValues()) {
+                    sb.append(value).append("|&");
                 }
-                text.add(txtstr);
-                Log.d("EditValue", text.toString());
-
-//                for (int i = 0; i < editTestDetailsListAdapter.getCount(); i++) {
-//                    FinalArrayTestDataModel testObj = (FinalArrayTestDataModel) editTestDetailsListAdapter.getItem(i);
-//                    int test=testObj.getTestSyllabus().size();
-//                   for(int j=0;j<test;j++){
-//                       TestSyllabusModel testtype=testObj.getTestSyllabus().get(j);
-//                       txtstr=txtstr+testtype.getSyllabus()+"|&";
-//                   }
-//                    text.add(txtstr);
-//                }
-//
-//                Log.d("EditValue", text.toString());
-////                EditTestSubmit();
-
-//                for (int i = 0; i < editTestDetailsListAdapter.syllbusarrayList().size(); i++) {
-//                    String data = editTestDetailsListAdapter.syllbusarrayList().get(i);
-//                    text.add(data);
-//                }
-//
-//                Log.d("EditValue", text.toString());
+                text.add(sb.toString());
+                Log.d("textValue", "" + text);
                 EditTestSubmit();
             }
         });

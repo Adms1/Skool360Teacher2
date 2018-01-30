@@ -292,6 +292,7 @@ public class ParseJSON {
 
         return result;
     }
+
     public static ArrayList<LessonPlanModel> parseTeacherLessonPlanScheduleJson(String responseString) {
         ArrayList<LessonPlanModel> result = new ArrayList<>();
 

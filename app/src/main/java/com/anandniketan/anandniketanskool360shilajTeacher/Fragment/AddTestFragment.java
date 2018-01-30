@@ -75,7 +75,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
     private int selectedPosition = -1;
     private ArrayList<String> text = new ArrayList<>();
     private static String dateFinal;
-    String checknamestr, checkidstr;
+    String checknamestr, checkidstr,finalTxtstr;
     AddTestDetalisListAdapter addTestDetalisListAdapter;
     HashMap<Integer, String> spinnerTestIdNameMap;
     String []spinnertestnameIdArray;
@@ -215,6 +215,7 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         Log.d("last", finalStr);
         ArrayList<String> number = new ArrayList<String>();
 
+
         for (int i = 0; i < 10; i++) {
             number.add(String.valueOf(i));
         }
@@ -238,56 +239,56 @@ public class AddTestFragment extends Fragment implements DatePickerDialog.OnDate
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txtstr = "";
                 text = new ArrayList<String>();
-                for (int i = 0; i < listData.getChildCount(); i++) {
-
-                    View mView = listData.getChildAt(i);
-                    EditText myEditText = (EditText) mView.findViewById(R.id.syllabus_txt);
-                    if (!myEditText.getText().toString().trim().equalsIgnoreCase("")) {
-                        txtstr = txtstr + myEditText.getText().toString() + "|&";
-                    }
+                StringBuilder sb = new StringBuilder();
+                for (String value : addTestDetalisListAdapter.getUpdatedValues()) {
+                    sb.append(value).append("|&");
                 }
-                text.add(txtstr);
-                Log.d("join", "" + text.toString());
+                text.add(sb.toString());
+                Log.d("textValue", "" + text);
                 String classIdStr = "";
                 for (String s : addTest.classidarray) {
                     classIdStr = classIdStr + "|" + s;
                 }
                 final String finalclassIdStr = classIdStr.substring(1, classIdStr.length());
                 Log.d("finalclassIdStr", finalclassIdStr);
-                if (Utility.isNetworkConnected(mContext)) {
-                    final String finalTxtstr = txtstr;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                HashMap<String, String> params = new HashMap<String, String>();
-                                params.put("StaffID", Utility.getPref(mContext, "StaffID"));
-                                params.put("TSMasterID", "0");
-                                params.put("TestID", addTest.AddTestID);
-                                params.put("TestDate", add_test_date_txt.getText().toString());
-                                params.put("SubjectID", addTest.SubjectID);
-                                params.put("SectionID", finalclassIdStr);
-                                params.put("Arydetail", finalTxtstr);
+                String valueString = text.toString();
+                Log.d("valueString", valueString);
+                valueString = valueString.substring(1, valueString.length() - 1);
+                Log.d("aftervalueString", valueString);
+                finalTxtstr = valueString;
 
-                                teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
-                                insertTest = teacherInsertTestDetailAsyncTask.execute().get();
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Utility.ping(mContext, "Add Test");
-                                        alertDialogAndroid.dismiss();
-                                    }
-                                });
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }).start();
-                } else {
-                    Utility.ping(mContext, "Network not available");
-                }
+//                if (Utility.isNetworkConnected(mContext)) {
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                HashMap<String, String> params = new HashMap<String, String>();
+//                                params.put("StaffID", Utility.getPref(mContext, "StaffID"));
+//                                params.put("TSMasterID", "0");
+//                                params.put("TestID", addTest.AddTestID);
+//                                params.put("TestDate", add_test_date_txt.getText().toString());
+//                                params.put("SubjectID", addTest.SubjectID);
+//                                params.put("SectionID", finalclassIdStr);
+//                                params.put("Arydetail", finalTxtstr);
+//
+//                                teacherInsertTestDetailAsyncTask = new TeacherInsertTestDetailAsyncTask(params);
+//                                insertTest = teacherInsertTestDetailAsyncTask.execute().get();
+//                                getActivity().runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        Utility.ping(mContext, "Add Test");
+//                                        alertDialogAndroid.dismiss();
+//                                    }
+//                                });
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }).start();
+//                } else {
+//                    Utility.ping(mContext, "Network not available");
+//                }
             }
         });
 
