@@ -146,7 +146,7 @@ public class AttendanceListAdapter extends BaseAdapter {
                         break;
                     case -2:
                         viewHolder.present_chk.setChecked(true);
-                        viewHolder.present_chk.setClickable(false);
+//                        viewHolder.present_chk.setClickable(false);
                         break;
                     case 3:
                         viewHolder.onduty_chk.setChecked(true);
