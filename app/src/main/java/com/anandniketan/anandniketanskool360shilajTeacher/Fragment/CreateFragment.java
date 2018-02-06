@@ -113,6 +113,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        
         if (isVisibleToUser && rootView != null) {
             getStudentData();
         }
