@@ -46,7 +46,7 @@
     <string name="lessonpdf">PDF</string>
     <string name="lessonword">WORD</string>
     <string name="standardattendance">Standard</string>
-
+    <string name="arrow">\u2192</string>
 
     <string-array name="menuoption1">
         <item>Home</item>

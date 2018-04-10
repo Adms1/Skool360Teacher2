@@ -70,7 +70,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
     private ArrayList<StudentDatum> arrayList;
     String spinnerSelectedValue, value;
     MainResponseDisplayStudent response;
-
+    String textIcon;
     private PTMTeacherStudentInsertDetailAsyncTask getPTMTeacherStudentInsertDetailAsyncTask = null;
     MainPtmSentMessageResponse mainPtmSentMessageResponse;
     String finalStudentArray;
@@ -113,7 +113,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        
+
         if (isVisibleToUser && rootView != null) {
             getStudentData();
         }
@@ -126,7 +126,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
             public void onItemSelected(AdapterView<?> adapterView, View view, int j, long l) {
                 spinnerSelectedValue = adapterView.getItemAtPosition(j).toString();
                 Log.d("spinner", spinnerSelectedValue);
-                String[] array = spinnerSelectedValue.split("-");
+                String[] array = spinnerSelectedValue.split("\\-");
                 String value = array[2].replaceFirst(">", "");
                 Log.d("Array", Arrays.toString(array));
                 Log.d("Array1", value);
@@ -240,7 +240,7 @@ public class CreateFragment extends Fragment implements DatePickerDialog.OnDateS
 
     public void fillspinner() {
         ArrayList<String> row = new ArrayList<String>();
-
+        textIcon =getResources().getString(R.string.arrow);
         for (int z = 0; z < response.getFinalArraycreate().size(); z++) {
             row.add(response.getFinalArraycreate().get(z).getStandard() + "-" +
                     response.getFinalArraycreate().get(z).getClassname() + "->" +

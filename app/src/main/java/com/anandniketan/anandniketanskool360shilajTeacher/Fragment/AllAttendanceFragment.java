@@ -360,6 +360,7 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
                                 if (getAttendenceData_allModelResponse.getSuccess().equalsIgnoreCase("True")) {
                                     if (getAttendenceData_allModelResponse.getFinalArray().size() > 0) {
                                         txtNoRecords.setVisibility(View.GONE);
+                                        student_list_linear.setVisibility(View.VISIBLE);
                                         prepareList();
                                         all_attendaceListAdapter = new All_AttendaceListAdapter(getActivity(), getAttendenceData_allModelResponse);
                                         student_list.setAdapter(all_attendaceListAdapter);
@@ -372,7 +373,11 @@ public class AllAttendanceFragment extends Fragment implements DatePickerDialog.
                                         header_linear.setVisibility(View.GONE);
                                     }
                                 }else{
-                                    Utility.ping(mContext,"No Record found");
+                                    txtNoRecords.setVisibility(View.VISIBLE);
+                                    student_list_linear.setVisibility(View.GONE);
+                                    insert_attendance_img.setVisibility(View.GONE);
+                                    header_linear.setVisibility(View.GONE);
+//                                    Utility.ping(mContext,"No Record found");
                                 }
                             }
                         });
